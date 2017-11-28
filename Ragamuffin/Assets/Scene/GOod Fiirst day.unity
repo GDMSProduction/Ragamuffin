@@ -507,6 +507,14 @@ MonoBehaviour:
   grappleStartingControl: 0.2
   grappledControl: 0.05
   ground: 0
+  groundlayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  jumpForce: 1000
+  maxSpeed: 7
+  sprintMult: 3
+  speedDamp: 0.01
+  backwardMod: 0.9
 --- !u!1 &387255016
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +638,7 @@ GameObject:
   - component: {fileID: 454595655}
   - component: {fileID: 454595653}
   - component: {fileID: 454595654}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: ground
   m_Icon: {fileID: 0}
