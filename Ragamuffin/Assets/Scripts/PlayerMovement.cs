@@ -56,11 +56,11 @@ public class PlayerMovement : MonoBehaviour
         {
             ground = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space)&&(jumpCount==0||grappleScript.curHook!=null&& grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone()))
+        if (Input.GetKeyDown(KeyCode.Space)&&(jumpCount==0||grappleScript.GetCurHook()!=null&& grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone()))
         {
             rb2d.AddForce(new Vector2(0, jumpForce));
             jumpCount++;
-            if (grappleScript.curHook != null && grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone())
+            if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone())
             {
                 grappleScript.EndGrapple();
             }
@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
                  
                 }
                 // if the players swinging on the grapple hook
-           else if (grappleScript.curHook != null && grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.curHook.GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
+           else if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.GetCurHook().GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
                 {
              
                 if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
