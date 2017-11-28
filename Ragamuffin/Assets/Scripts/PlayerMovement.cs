@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     bool ground = true;
     bool jump = false;
+    [SerializeField]
     int jumpCount = 0;
     [SerializeField]
     LayerMask groundlayer;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     bool sprinting;
     [SerializeField]
     float backwardMod = 0.9f;
+    float inAirSpeedMult = 0.5f;
     // Use this dfor initialization
     void Start()
     {
@@ -42,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+   
         RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
         if (hit.collider != null)
         {
@@ -53,14 +56,16 @@ public class PlayerMovement : MonoBehaviour
         {
             ground = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)&&(jumpCount==0||grappleScript.curHook!=null&& grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone()))
         {
             rb2d.AddForce(new Vector2(0, jumpForce));
-            if (grappleScript != null)
+            jumpCount++;
+            if (grappleScript.curHook != null && grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone())
             {
-
+                grappleScript.EndGrapple();
             }
         }
+        // if we want sprinting
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             sprinting = !sprinting;
@@ -68,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
-            Debug.Break();
+            
         }
     
         else { 
@@ -84,8 +89,8 @@ public class PlayerMovement : MonoBehaviour
                         {
                             //   GetComponent<Animator>().SetBool("back", false);
                             rb2d.velocity = new Vector2(input.x * maxSpeed * (sprinting ? sprintMult : 1), rb2d.velocity.y);
-                        Debug.Log("Fast");
-                    }
+                      
+                        }
                         // This is when the player is going backwards
                       //  else
                         {
@@ -94,14 +99,13 @@ public class PlayerMovement : MonoBehaviour
                        //     rb2d.velocity = new Vector2(input.x * maxSpeed * backwardMod, rb2d.velocity.y);
                         }
                     }
-                    else
-                    {
-                    }
+                 
                 }
                 // if the players swinging on the grapple hook
-           else if (grappleScript.curHook != null && grappleScript.curHook.GetComponent<GrappleHook>().done && !grappleScript.curHook.GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
+           else if (grappleScript.curHook != null && grappleScript.curHook.GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.curHook.GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
                 {
-                    if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
+             
+                if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
                     {
                         if (rb2d.velocity.sqrMagnitude < grappleControlMax)
                         {
@@ -109,19 +113,32 @@ public class PlayerMovement : MonoBehaviour
                             if (rb2d.velocity.sqrMagnitude < grappleStartingControl)
                             {
                                 rb2d.velocity *= Mathf.Abs(input.x) * grappledControl + 1;
+                       
                             }
                             // then just add it so that its not to much
                             else
                             {
                                 rb2d.velocity += new Vector2(input.x * grappledControl, 0);
-                            }
+                          
+                        }
                         }
                     }
                     // The player is moving opposite the swinging direction
                     else
                         rb2d.velocity /= 1.025f;
+       
+            }
+            else if(input.x!=0)
+            {
+                RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
+                Debug.DrawRay(transform.position, (Vector2.right * input.x).normalized, Color.white, Time.deltaTime);
+                if (wallHit.collider == null && (Mathf.Sign(input.x) != Mathf.Sign(rb2d.velocity.x) || Mathf.Abs(rb2d.velocity.x) < maxSpeed))
+                {
+                    rb2d.velocity += Vector2.right * input.x * inAirSpeedMult;
+                    Debug.Log("Swing");
                 }
-            
+            }
+
         }
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");

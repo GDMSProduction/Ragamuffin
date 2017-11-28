@@ -18,11 +18,10 @@ public class FollowPLayer : MonoBehaviour {
     GameObject topclamp;
     [SerializeField]
     Transform playerTrans;
-    LineRenderer lr;
+   
 	// Use this for initialization
 	void Start () {
-        lr = GetComponent<LineRenderer>();
-        lr.positionCount = 2;
+     
 
 	}
 	
@@ -51,5 +50,6 @@ public class FollowPLayer : MonoBehaviour {
         {
             grappleScript.EndZoom();
         }
+     //   transform.position = new Vector3(playerTrans.position.x,transform.position.y, transform.position.z);
 	}
 }

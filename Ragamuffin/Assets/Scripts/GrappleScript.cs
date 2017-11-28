@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class GrappleScript : MonoBehaviour
 {
-    public GameObject hookPrefab;
+    [SerializeField]
+     GameObject hookPrefab;
     GameObject grappleStart;
-    public GameObject grappleTarget;
+    [SerializeField]
+     GameObject grappleTarget;
 
     [SerializeField]
     GameObject eyes;
 
 
 
-    public bool reelingIn;
-    public bool realout;
+    private bool reelingIn;
+    [SerializeField]
+    private bool realout;
     // hard codes for the grapple hook
-    public float maxDistance = 2f;
-    public float speed = 0.8f;
+    [SerializeField]
+    private float maxDistance = 2f;
+    [SerializeField]
+    private float speed = 0.8f;
     // how close you want them2 be while reeing in
-    public float shortDist = 1.2f;
-    public float noadMax;
+    private float shortDist = 1.2f;
+    [SerializeField]
+    private float noadMax;
 
 
     [SerializeField]
@@ -44,18 +50,18 @@ public class GrappleScript : MonoBehaviour
         {
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
 
-            if (hook.secondNode != null)
+            if (hook.GetSecondNode() != null)
             {
                 // this code here reels the player in dont make the stupid high unles you wanan break the rope
-                hook.secondNode.GetComponent<HingeJoint2D>().connectedAnchor *= speed;
+                hook.GetSecondNode().GetComponent<HingeJoint2D>().connectedAnchor *= speed;
             }
-            if (hook.Nodes.Count > 3 && (hook.secondNode.transform.position - eyes.transform.position).sqrMagnitude < 0.25f)
+            if (hook.GetNodesCount() > 3 && (hook.GetSecondNode().transform.position - eyes.transform.position).sqrMagnitude < 0.25f)
             {
                 hook.DeleteSecond();
             }
 
         }
-        if (realout&&curHook.GetComponent<GrappleHook>().Nodes.Count<noadMax)
+        if (realout&&curHook.GetComponent<GrappleHook>().GetNodesCount()<noadMax)
         {
             
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
@@ -63,7 +69,7 @@ public class GrappleScript : MonoBehaviour
             {
                 return;
             }
-            hook.secondNode.GetComponent<HingeJoint2D>().connectedAnchor *= speed;
+            hook.GetSecondNode().GetComponent<HingeJoint2D>().connectedAnchor *= speed;
             if (realout == false)
             {
                 return;
@@ -77,7 +83,7 @@ public class GrappleScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B)&& curHook != null && curHook.GetComponent<GrappleHook>().Nodes.Count < noadMax )
+        if (Input.GetKeyDown(KeyCode.B)&& curHook != null && curHook.GetComponent<GrappleHook>().GetNodesCount() < noadMax )
         {
             realout = true;
         }
@@ -103,9 +109,9 @@ public class GrappleScript : MonoBehaviour
         Debug.Log(hookComp);
         // TODO: Set up the hook to use the proper tag when needed
       
-        hookComp.destiny = destiny;
-        hookComp.grappleTarget = grappleTarget;
-        hookComp.maxDistance = maxDistance;
+        hookComp.SetDestination(destiny);
+        hookComp.SetTarget(grappleTarget);
+        hookComp.SetMaxDistance(maxDistance);
         hookComp.player = gameObject;
         hookComp.SetEye(eyes);
 
@@ -150,9 +156,9 @@ public class GrappleScript : MonoBehaviour
         if (curHook == null) return;
         // TODO: End the player zooming towards the hook head, and add in a new rope and end the old line renderer
         //curHook.GetComponent<GrappleHook>().MakeRope();
-        if (curHook.GetComponent<GrappleHook>().secondNode != null &&
-            curHook.GetComponent<GrappleHook>().lastNode != null)
-            curHook.GetComponent<GrappleHook>().secondNode.GetComponent<HingeJoint2D>().connectedBody =
-                curHook.GetComponent<GrappleHook>().lastNode.GetComponent<Rigidbody2D>();
+        if (curHook.GetComponent<GrappleHook>().GetSecondNode() != null &&
+            curHook.GetComponent<GrappleHook>().GetLastNode() != null)
+            curHook.GetComponent<GrappleHook>().GetSecondNode().GetComponent<HingeJoint2D>().connectedBody =
+                curHook.GetComponent<GrappleHook>().GetLastNode().GetComponent<Rigidbody2D>();
     }
 }

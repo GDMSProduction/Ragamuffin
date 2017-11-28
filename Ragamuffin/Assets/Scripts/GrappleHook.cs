@@ -5,29 +5,34 @@ using UnityEngine;
 
 public class GrappleHook : MonoBehaviour {
 
-    [HideInInspector]
+   
     // the destination of the hookC:\Users\panda12\Desktop\fixedone\Codebase\WorkingTitle\Assets\Scripts\Managers\CoilManger.cs
-    public Vector2 destiny;
+   private  Vector2 destiny;
     // the speed
-    public float speed = 1f;
-    public float zoominSpeed = 0.1f;
-    public float distance = 0.5f;
-    public float maxDistance = 10f;
-    public GameObject nodePrefab;
+    [SerializeField]
+    private float speed = 1f;
+    [SerializeField]
+    private float zoominSpeed = 0.1f;
+    [SerializeField]
+    private float distance = 0.5f;
+    [SerializeField]
+    private float maxDistance = 10f;
+    [SerializeField]
+     GameObject nodePrefab;
     [HideInInspector]
     public GameObject player;
 
-    public GameObject secondNode;
+   private GameObject secondNode;
     // last node is the cloest rope 2 the player
-    public GameObject lastNode;
+    private GameObject lastNode;
 
-    public GameObject grappleTarget;
+    private GameObject grappleTarget;
 
 
     // particles
    
 
-    public LineRenderer lr;
+    private LineRenderer lr;
     [SerializeField]
     Rigidbody2D rb2d;
     [SerializeField]
@@ -38,12 +43,12 @@ public class GrappleHook : MonoBehaviour {
     // this changes based on the rope length 
     public int vertexCount = 2;
     [HideInInspector]
-    public List<GameObject> Nodes = new List<GameObject>();
-    private List<GameObject> Display = new List<GameObject>();
+    private List<GameObject> Nodes = new List<GameObject>();
+  
 
     // is true and it never turns false
-    public bool done = false;
-    public bool cooldown = false;
+    private bool done = false;
+    private bool cooldown = false;
     [HideInInspector]
     public bool reelingIn = false;
     bool collision;
@@ -308,9 +313,43 @@ public class GrappleHook : MonoBehaviour {
         secondNode = Nodes[i];
         secondNode.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
     }
+   
+    // accessors
+    #region 
+    public bool GetGrappleHookDone()
+    {
+        return done;
+    }
+    public float GetNodesCount()
+    {
+        return Nodes.Count;
+    }
+    public GameObject GetSecondNode()
+    {
+        return secondNode;
+    }
+    public GameObject GetLastNode()
+    {
+        return lastNode;
+    }
+    #endregion
+    // Setters
+    #region
+    public void SetTarget(GameObject _target)
+    {
+        grappleTarget = _target;
+    }
     public void SetEye(GameObject _eye)
     {
         eye = _eye;
     }
-
+    public void SetDestination(Vector2 _destination)
+    {
+        destiny = _destination;
+    }
+    public void SetMaxDistance(float _maxDistance)
+    {
+        maxDistance = _maxDistance;
+    }
+    #endregion
 }
