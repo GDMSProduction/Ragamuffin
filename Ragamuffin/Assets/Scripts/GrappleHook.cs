@@ -61,6 +61,7 @@ public class GrappleHook : MonoBehaviour {
     FixedJoint2D connectedJoint = null;
     Rigidbody2D connectedRigidbody = null;
     GameObject eye;
+    bool swing;
     // Use this for initialization
     void Start()
     {
@@ -80,9 +81,17 @@ public class GrappleHook : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (done&&swing==false)
+        {
+
+            player.GetComponent<Rigidbody2D>().velocity += 1.3f* player.GetComponent<Rigidbody2D>().velocity;
+            swing = true;
+        }
         if (reelingIn)
         {
+
             done = true;
+           
             rb2d.isKinematic = true;
 
             Destroy(connectedJoint);
@@ -230,6 +239,8 @@ public class GrappleHook : MonoBehaviour {
         Nodes.Add(lastNode);
         // incracment the vertex counter
         vertexCount++;
+       
+        
 
     }
     public void CreateNode1()

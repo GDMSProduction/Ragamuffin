@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    float speed = 0.4f;
+
+   
+    [SerializeField]
+    float climbMuply;
+    [SerializeField]
+    float maxClimbSpeed;
+
     [SerializeField]
     GrappleScript grappleScript;
     Rigidbody2D rb2d;
@@ -35,15 +41,21 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float backwardMod = 0.9f;
     float inAirSpeedMult = 0.5f;
+    float gravity;
+    [SerializeField]
+    bool climbing;
+    bool canWeClimb;
     // Use this dfor initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        gravity = rb2d.gravityScale;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+      
    
         RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
         if (hit.collider != null)
@@ -64,13 +76,36 @@ public class PlayerMovement : MonoBehaviour
             {
                 grappleScript.EndGrapple();
             }
+            climbing = false;
+            rb2d.gravityScale = gravity;
         }
         // if we want sprinting
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             sprinting = !sprinting;
         }
-        if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
+        if (Input.GetKeyDown(KeyCode.T)&&canWeClimb)
+        {
+            if (climbing)
+            rb2d.gravityScale = gravity;
+            climbing = !climbing;
+        }
+        if (canWeClimb&&climbing)
+        {
+            rb2d.gravityScale = 0;
+            RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
+            if (wallHit.collider == null)
+            {
+                rb2d.velocity = new Vector2(input.x * maxClimbSpeed * (sprinting ? climbMuply : 1), input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
+            }
+            else
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x, input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
+            }
+      
+
+        }
+    else    if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
         {
             rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
             
@@ -105,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
            else if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.GetCurHook().GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
                 {
              
+
                 if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
                     {
                         if (rb2d.velocity.sqrMagnitude < grappleControlMax)
@@ -120,7 +156,7 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 rb2d.velocity += new Vector2(input.x * grappledControl, 0);
                           
-                        }
+                            }
                         }
                     }
                     // The player is moving opposite the swinging direction
@@ -152,6 +188,26 @@ public class PlayerMovement : MonoBehaviour
             ground = true;
         }
     }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        
+
+        if (other.tag == "ClimableObject")
+        {
+            canWeClimb = true;
+            
+       
+        }
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "ClimableObject")
+        {
+            canWeClimb = false;
+            climbing = false;
+            rb2d.gravityScale = gravity;
+        }
+    }
      void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag == "ground")
@@ -159,4 +215,5 @@ public class PlayerMovement : MonoBehaviour
             ground = false;
         }
     }
+
 }

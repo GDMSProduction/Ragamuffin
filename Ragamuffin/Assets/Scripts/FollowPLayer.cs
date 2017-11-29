@@ -50,6 +50,6 @@ public class FollowPLayer : MonoBehaviour {
         {
             grappleScript.EndZoom();
         }
-     //   transform.position = new Vector3(playerTrans.position.x,transform.position.y, transform.position.z);
+       transform.position = new Vector3(playerTrans.position.x,transform.position.y, transform.position.z);
 	}
 }
