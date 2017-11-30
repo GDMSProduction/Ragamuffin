@@ -75,11 +75,11 @@ public class GrappleScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B)&& curHook != null && curHook.GetComponent<GrappleHook>().GetNodesCount() < noadMax )
+        if (Input.GetKeyDown(KeyCode.S)&& curHook != null && curHook.GetComponent<GrappleHook>().GetNodesCount() < noadMax )
         {
             realout = true;
         }
-        if (Input.GetKeyUp(KeyCode.B) && curHook != null)
+        if (Input.GetKeyUp(KeyCode.S) && curHook != null)
         {
             realout = false;
             

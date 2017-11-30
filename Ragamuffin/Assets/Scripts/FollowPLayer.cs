@@ -28,7 +28,7 @@ public class FollowPLayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 9.75f; 
+        mousePos.z = 17;
         cursorPos.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 
         if (Input.GetMouseButtonDown(0))
@@ -41,12 +41,12 @@ public class FollowPLayer : MonoBehaviour {
        
           
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.W))
         {
 
             grappleScript.ZoomIn(0);
         }
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        if (Input.GetKeyUp(KeyCode.W))
         {
             grappleScript.EndZoom();
         }

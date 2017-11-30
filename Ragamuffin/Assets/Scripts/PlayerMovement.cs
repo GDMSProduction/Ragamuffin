@@ -82,13 +82,15 @@ public class PlayerMovement : MonoBehaviour
         // if we want sprinting
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            sprinting = !sprinting;
+          //  sprinting = !sprinting;
         }
-        if (Input.GetKeyDown(KeyCode.T)&&canWeClimb)
+        if (Input.GetKeyDown(KeyCode.F)&&canWeClimb)
         {
             if (climbing)
             rb2d.gravityScale = gravity;
             climbing = !climbing;
+            if(grappleScript.GetCurHook()!=null)
+            grappleScript.DestroyGrapple();
         }
         if (canWeClimb&&climbing)
         {

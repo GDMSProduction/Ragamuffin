@@ -62,6 +62,7 @@ public class GrappleHook : MonoBehaviour {
     Rigidbody2D connectedRigidbody = null;
     GameObject eye;
     bool swing;
+    
     bool hit;
     // Use this for initialization
     void Start()
@@ -82,11 +83,12 @@ public class GrappleHook : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (done&&swing==false&&hit)
+        if (done&&swing==false&&hit&&reelingIn==false)
         {
 
             player.GetComponent<Rigidbody2D>().velocity += 1.6f* player.GetComponent<Rigidbody2D>().velocity;
             swing = true;
+          
         }
         if (reelingIn)
         {
