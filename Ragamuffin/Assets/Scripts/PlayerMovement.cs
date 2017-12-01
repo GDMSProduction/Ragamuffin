@@ -10,7 +10,15 @@ public class PlayerMovement : MonoBehaviour
     float climbMuply;
     [SerializeField]
     float maxClimbSpeed;
-
+    [SerializeField]
+    BoxCollider2D crouch;
+    [SerializeField]
+    BoxCollider2D Standing;
+    [SerializeField]
+    MeshRenderer standingPicture;
+    [SerializeField]
+    MeshRenderer crouchingPicture;
+    bool crouching;
     [SerializeField]
     GrappleScript grappleScript;
     Rigidbody2D rb2d;
@@ -24,7 +32,8 @@ public class PlayerMovement : MonoBehaviour
     float grappledControl = 0.5f;
     [SerializeField]
     bool ground = true;
-    bool jump = false;
+    [SerializeField]
+    bool jump = true;
     [SerializeField]
     int jumpCount = 0;
     [SerializeField]
@@ -45,11 +54,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     bool climbing;
     bool canWeClimb;
+   
     // Use this dfor initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         gravity = rb2d.gravityScale;
+        jump = true;
     }
 
     // Update is called once per frame
@@ -61,15 +72,17 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null)
         {
             ground = true;
-            jump = false;
+            
             jumpCount = 0;
         }
         else
         {
             ground = false;
         }
-        if (Input.GetKeyDown(KeyCode.Space)&&(jumpCount==0||grappleScript.GetCurHook()!=null&& grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone()))
+        if (jump&&Input.GetAxis("Jump")!=0&&(grappleScript.GetCurHook()!=null&& grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone()||jumpCount == 0 ||climbing))
         {
+            jump = false;
+          
             rb2d.AddForce(new Vector2(0, jumpForce));
             jumpCount++;
             if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone())
@@ -78,13 +91,34 @@ public class PlayerMovement : MonoBehaviour
             }
             climbing = false;
             rb2d.gravityScale = gravity;
+            StartCoroutine("JumpCoolDown");
+
         }
         // if we want sprinting
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
           //  sprinting = !sprinting;
         }
-        if (Input.GetKeyDown(KeyCode.F)&&canWeClimb)
+        if (Input.GetButtonDown("Crouch"))
+        {
+            crouching = !crouching;
+        }
+        if (crouching)
+        {
+            crouchingPicture.enabled = true;
+            crouch.enabled = true;
+            Standing.enabled = false;
+            standingPicture.enabled = false;
+        }
+        else
+        {
+            crouch.enabled = false;
+            Standing.enabled = true;
+            crouchingPicture.enabled = false;
+            standingPicture.enabled = true;
+          
+        }
+        if (Input.GetAxis("Climb")!=0&&canWeClimb)
         {
             if (climbing)
             rb2d.gravityScale = gravity;
@@ -216,6 +250,12 @@ public class PlayerMovement : MonoBehaviour
         {
             ground = false;
         }
+    }
+    IEnumerator JumpCoolDown()
+    {
+        yield return new WaitForSeconds(0.2f);
+        jump = true;
+    
     }
 
 }

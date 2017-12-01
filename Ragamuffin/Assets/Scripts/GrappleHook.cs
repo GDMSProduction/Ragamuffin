@@ -165,7 +165,8 @@ public class GrappleHook : MonoBehaviour {
           }*/
 
         Debug.Log("HIT!");
-        hit = true; 
+        hit = true;
+        collision = true;
          //   if (mask != (1 << coll.gameObject.layer | mask))
          //     reelingIn = true;
 
