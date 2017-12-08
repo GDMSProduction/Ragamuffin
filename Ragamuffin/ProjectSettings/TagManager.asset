@@ -7,6 +7,7 @@ TagManager:
   - ground
   - ClimableObject
   - PushAbleObject
+  - Slime
   layers:
   - Default
   - TransparentFX

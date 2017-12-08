@@ -54,6 +54,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     bool climbing;
     bool canWeClimb;
+    [SerializeField]
+    bool SlideMode;
    
     // Use this dfor initialization
     void Start()
@@ -126,7 +128,11 @@ public class PlayerMovement : MonoBehaviour
             if(grappleScript.GetCurHook()!=null)
             grappleScript.DestroyGrapple();
         }
-        if (canWeClimb&&climbing)
+        if (SlideMode)
+        {
+          
+        }
+       else if (canWeClimb&&climbing)
         {
             rb2d.gravityScale = 0;
             RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
@@ -219,10 +225,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "ground")
-        {
-            ground = true;
-        }
+    
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -235,6 +238,16 @@ public class PlayerMovement : MonoBehaviour
        
         }
     }
+    void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Slime")
+        {
+            SlideMode = true;
+          //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
+        }
+
+        
+    }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "ClimableObject")
@@ -246,10 +259,7 @@ public class PlayerMovement : MonoBehaviour
     }
      void OnCollisionExit2D(Collision2D other)
     {
-        if (other.gameObject.tag == "ground")
-        {
-            ground = false;
-        }
+      
     }
     IEnumerator JumpCoolDown()
     {
