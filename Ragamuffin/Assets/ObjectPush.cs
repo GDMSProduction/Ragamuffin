@@ -13,21 +13,23 @@ public class ObjectPush : MonoBehaviour {
         {
 
             //   other.gameObject.GetComponent<Sliide>().SetSwap(true);
-            if (transform.position.x < other.gameObject.transform.position.x)
+            if (transform.position.x > other.gameObject.transform.position.x)
             {
-                other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(force, 0));
-                if (other.gameObject.GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
-                {
-                    other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.5f, 0);
-                }
-            }
-            else
-            {
+            
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-force, 0));
                 if (other.gameObject.GetComponent<Rigidbody2D>().velocity.x < maxSpeed)
                 {
                     other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(-0.5f, 0);
                     //Debug.Break();
+                }
+            }
+            else
+            {
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(force, 0));
+                if (other.gameObject.GetComponent<Rigidbody2D>().velocity.x > maxSpeed)
+                {
+                    other.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0.5f, 0);
+                   // Debug.Break();
                 }
 
             }

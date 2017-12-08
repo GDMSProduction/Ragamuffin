@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
+  slowspeed: 0.01
   zoominSpeed: 0
   distance: 0.5
   maxDistance: 30
@@ -157,6 +158,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   mainCollider: {fileID: 0}
+  slowrealin: 0
 --- !u!120 &120711752727312976
 LineRenderer:
   m_ObjectHideFlags: 1

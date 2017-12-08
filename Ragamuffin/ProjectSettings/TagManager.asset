@@ -8,6 +8,7 @@ TagManager:
   - ClimableObject
   - PushAbleObject
   - Slime
+  - WayPoint
   layers:
   - Default
   - TransparentFX

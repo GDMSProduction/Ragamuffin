@@ -1,4 +1,4 @@
 sceneSetups:
-- path: C:/Users/panda12/Desktop/BearGame/Bear2d/Assets/Scene/Test.unity
+- path: Assets/Scene/GOod Fiirst day.unity
   isLoaded: 1
   isActive: 1
