@@ -9,6 +9,7 @@ TagManager:
   - PushAbleObject
   - Slime
   - WayPoint
+  - pullAbleObject
   layers:
   - Default
   - TransparentFX

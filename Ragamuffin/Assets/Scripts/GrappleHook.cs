@@ -30,7 +30,7 @@ public class GrappleHook : MonoBehaviour {
     private GameObject lastNode;
 
     private GameObject grappleTarget;
-    [SerializeField]
+  
     GameObject Poolme;
 
     // particles
@@ -194,11 +194,13 @@ public class GrappleHook : MonoBehaviour {
     
     void OnCollisionEnter2D(Collision2D coll)
     {
+
         /*if (tag == "Shocker")
           {
               reelingIn = true;
               return;
           }*/
+    
 
         Debug.Log("HIT!");
         hit = true;
@@ -411,6 +413,14 @@ public class GrappleHook : MonoBehaviour {
     public void SetMaxDistance(float _maxDistance)
     {
         maxDistance = _maxDistance;
+    }
+    public void Setslowrealin(bool _slowrealin)
+    {
+        slowrealin = _slowrealin;
+    }
+    public GameObject GetObjecGrappled()
+    {
+        return Poolme;
     }
     #endregion
 }
