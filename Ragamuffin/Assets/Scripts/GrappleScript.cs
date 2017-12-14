@@ -54,8 +54,9 @@ public class GrappleScript : MonoBehaviour
             }
             if (hook.GetNodesCount() > 3 && (hook.GetSecondNode().transform.position - eyes.transform.position).sqrMagnitude < 0.25f)
             {
+                
                 hook.DeleteSecond();
-            }
+            }   
         }
         // if the player noads are not larger then the max for reeling out
         if (realout&&curHook.GetComponent<GrappleHook>().GetNodesCount()<noadMax)

@@ -23,12 +23,14 @@ public class GrappleHook : MonoBehaviour {
      GameObject nodePrefab;
     [HideInInspector]
     public GameObject player;
-
+    [SerializeField]
    private GameObject secondNode;
+    [SerializeField]
     // last node is the cloest rope 2 the player
     private GameObject lastNode;
 
     private GameObject grappleTarget;
+    [SerializeField]
     GameObject Poolme;
 
     // particles
@@ -43,8 +45,8 @@ public class GrappleHook : MonoBehaviour {
  
 
     // this changes based on the rope length 
-    public int vertexCount = 2;
-    [HideInInspector]
+    public int vertexCount = 1;
+    [SerializeField]
     private List<GameObject> Nodes = new List<GameObject>();
   
 
@@ -68,6 +70,7 @@ public class GrappleHook : MonoBehaviour {
     bool slowrealin;
     bool hit;
     bool delete = true;
+    float gravity;
     // Use this for initialization
     void Start()
     {
@@ -80,14 +83,18 @@ public class GrappleHook : MonoBehaviour {
         transform.LookAt(grappleTarget.transform.position);
         transform.Rotate(Vector2.up * -90);
         done = false;
+        gravity = player.GetComponent<Rigidbody2D>().gravityScale;
 
-      
+
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (done&&swing==false&&hit&&reelingIn==false)
+ 
+     
+        if (done&&swing==false&&hit&&reelingIn==false&&player.GetComponent <PlayerMovement>().Getinput().x!=0|| player.GetComponent<PlayerMovement>().Getinput().y!=0)
         {
 
             player.GetComponent<Rigidbody2D>().velocity += 1.6f* player.GetComponent<Rigidbody2D>().velocity;
@@ -96,51 +103,27 @@ public class GrappleHook : MonoBehaviour {
         }
         if (slowrealin)
         {
-        //  rb2d.isKinematic = true;
-        //
-        //  Destroy(connectedJoint);
-        //  Destroy(connectedRigidbody);
-        Poolme.transform.position = Vector2.MoveTowards(Poolme.transform.position, eye.transform.position, slowspeed * 2f);
-            transform.position = Vector2.MoveTowards(transform.position, eye.transform.position, slowspeed * 2f);
-
-           
-
-           
+            Poolme.transform.position = Vector2.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
 
         
+            
+                for (int i = 0; i < Nodes.Count; ++i)
+                {
+                    if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 1)
+                    {
+                        --vertexCount;
+                        Destroy(Nodes[i]);
+                        Nodes.Remove(Nodes[i]);
+                    }
+                    else
+                        Nodes[i].transform.position = Vector2.MoveTowards(Nodes[i].transform.position, eye.transform.position, 0.1f);
+                }
+            
 
-            /*          if (mainCollider.enabled)
-                        {
-                            mainCollider.enabled = false;
-                            return;
-                        }*/
-
-        
-
-            /*            if (secondNode != null)
-                        {
-                            secondNode.GetComponent<HingeJoint2D>().connectedAnchor = Vector2.zero;
-                        }
-                        else
-                        {
-                            GetComponent<HingeJoint2D>().connectedAnchor = Vector2.zero;
-                        }
-
-                        if ((secondNode.transform.position - lastNode.transform.position).sqrMagnitude < 0.025f)
-                        {
-                            DeleteSecond();
-                        }*/
-
-            if (Vector2.Distance(eye.transform.position, transform.position) < 1f)
-            {
-                player.GetComponent<GrappleScript>().DestroyGrapple();
-            }
-
-            if (Nodes.Count != 1)
-            {
-                StartCoroutine("DeleteNode12");
-            }
-
+        }
+        else
+        {
+            player.GetComponent<Rigidbody2D>().gravityScale = gravity;
         }
         if (reelingIn)
         {
@@ -176,6 +159,7 @@ public class GrappleHook : MonoBehaviour {
 
             if (Vector2.Distance(eye.transform.position, transform.position) < 1f)
             {
+             
                 player.GetComponent<GrappleScript>().DestroyGrapple();
             }
 
@@ -261,19 +245,7 @@ public class GrappleHook : MonoBehaviour {
     }
     // Funct
     #region
-    IEnumerator DeleteNode12()
-    {
-        if (delete)
-        {
-            DeleteSecond();
-          //  Debug.Break();
-            delete = false;
 
-
-            yield return new WaitForSeconds(1);
-            delete = true;
-        }
-    }
     //  dsplays the lines
     void RenderLine()
     {
@@ -384,18 +356,24 @@ public class GrappleHook : MonoBehaviour {
         Nodes = tempNodes;
         Destroy(connectedJoint);
         Destroy(connectedRigidbody);
+        Destroy(this);
+        Destroy(gameObject);
+      
     }
     // deletes ropes
     public void DeleteSecond()
     {
-        int i = Nodes.IndexOf(secondNode);
-        --i;
-        Destroy(secondNode);
-        Nodes.Remove(secondNode);
-        --vertexCount;
-        secondNode = Nodes[i];
-        secondNode.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
+        
+            int i = Nodes.IndexOf(secondNode);
+            --i;
+            Destroy(secondNode);
+            Nodes.Remove(secondNode);
+            --vertexCount;
+            secondNode = Nodes[i];
+            secondNode.GetComponent<HingeJoint2D>().connectedBody = lastNode.GetComponent<Rigidbody2D>();
+        
     }
+
     #endregion
     // accessors
     #region 

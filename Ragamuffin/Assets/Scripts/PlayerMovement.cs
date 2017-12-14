@@ -261,6 +261,10 @@ public class PlayerMovement : MonoBehaviour
     {
       
     }
+    public Vector2 Getinput()
+    {
+        return input;
+    }
     IEnumerator JumpCoolDown()
     {
         yield return new WaitForSeconds(0.2f);
