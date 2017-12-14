@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-   
+    
+  [SerializeField]
+    PlayerHeath heath;
     [SerializeField]
     float climbMuply;
     [SerializeField]
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     bool ground = true;
     [SerializeField]
     bool jump = true;
+    bool slowed;
     [SerializeField]
     int jumpCount = 0;
     [SerializeField]
@@ -149,6 +151,11 @@ public class PlayerMovement : MonoBehaviour
         }
     else    if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
         {
+            if (slowed)
+            {
+                rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp/2, rb2d.velocity.y);
+            }
+            else
             rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
             
         }
@@ -161,13 +168,18 @@ public class PlayerMovement : MonoBehaviour
                     Debug.DrawRay(transform.position, (Vector2.right * input.x).normalized, Color.white, Time.deltaTime);
                     if (wallHit.collider == null)
                     {
-                        // This is when the player is going forwards
-                     //   if (input.x < 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x || input.x > 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
-                        {
-                            //   GetComponent<Animator>().SetBool("back", false);
+                    // This is when the player is going forwards
+                    //   if (input.x < 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x || input.x > 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
+
+                    //   GetComponent<Animator>().SetBool("back", false);
+                    if (slowed)
+                    {
+                        rb2d.velocity = new Vector2(input.x *( maxSpeed/2) * (sprinting ? sprintMult : 1), rb2d.velocity.y);
+                    }
+                    else
                             rb2d.velocity = new Vector2(input.x * maxSpeed * (sprinting ? sprintMult : 1), rb2d.velocity.y);
                       
-                        }
+                        
                         // This is when the player is going backwards
                       //  else
                         {
@@ -241,6 +253,11 @@ public class PlayerMovement : MonoBehaviour
             
        
         }
+        if (other.tag == "puddle")
+        {
+            slowed = true;
+        }
+
     }
     void OnCollisionStay2D(Collision2D other)
     {
@@ -260,6 +277,10 @@ public class PlayerMovement : MonoBehaviour
             climbing = false;
             rb2d.gravityScale = gravity;
         }
+        if (other.gameObject.tag == "puddle")
+        {
+            slowed = false;
+        }
     }
      void OnCollisionExit2D(Collision2D other)
     {
@@ -274,6 +295,10 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         jump = true;
     
+    }
+    public void takeDamage(float _damage)
+    {
+        heath.takeDamage(_damage);
     }
 
 }

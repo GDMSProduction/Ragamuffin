@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GrappleHook : MonoBehaviour {
-
-   
+    [SerializeField]
+    BoxCollider2D destoryhook;
     // the destination of the hookC:\Users\panda12\Desktop\fixedone\Codebase\WorkingTitle\Assets\Scripts\Managers\CoilManger.cs
    private  Vector2 destiny;
     // the speed
@@ -92,9 +92,12 @@ public class GrappleHook : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate()
     {
- 
-     
-        if (done&&swing==false&&hit&&reelingIn==false&&player.GetComponent <PlayerMovement>().Getinput().x!=0|| player.GetComponent<PlayerMovement>().Getinput().y!=0)
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            slowrealin = !slowrealin;
+        }
+          if (done&&swing==false&&hit&&reelingIn==false&&player.GetComponent <PlayerMovement>().Getinput().x!=0|| player.GetComponent<PlayerMovement>().Getinput().y!=0)
         {
 
             player.GetComponent<Rigidbody2D>().velocity += 1.6f* player.GetComponent<Rigidbody2D>().velocity;
@@ -394,6 +397,10 @@ public class GrappleHook : MonoBehaviour {
     public GameObject GetLastNode()
     {
         return lastNode;
+    }
+    public bool Getslowrealin()
+    {
+        return slowrealin;
     }
     #endregion
     // Setters

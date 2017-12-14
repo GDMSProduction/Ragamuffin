@@ -10,6 +10,7 @@ TagManager:
   - Slime
   - WayPoint
   - pullAbleObject
+  - puddle
   layers:
   - Default
   - TransparentFX
