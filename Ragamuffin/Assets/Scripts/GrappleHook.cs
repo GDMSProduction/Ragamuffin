@@ -97,14 +97,14 @@ public class GrappleHook : MonoBehaviour {
         {
             slowrealin = !slowrealin;
         }
-          if (done&&swing==false&&hit&&reelingIn==false&&player.GetComponent <PlayerMovement>().Getinput().x!=0|| player.GetComponent<PlayerMovement>().Getinput().y!=0)
+          if (done&&swing==false&&hit&&reelingIn==false)
         {
-
-            player.GetComponent<Rigidbody2D>().velocity += 1.6f* player.GetComponent<Rigidbody2D>().velocity;
-            swing = true;
-          
+           
+                player.GetComponent<Rigidbody2D>().velocity += 1.6f * player.GetComponent<Rigidbody2D>().velocity;
+                swing = true;
+            
         }
-        if (slowrealin)
+        if (slowrealin&&Poolme.tag=="pullAbleObject")
         {
             Poolme.transform.position = Vector2.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
 

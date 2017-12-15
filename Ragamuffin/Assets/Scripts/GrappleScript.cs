@@ -49,7 +49,7 @@ public class GrappleScript : MonoBehaviour
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
             if (hook.GetSecondNode() != null)
             {
-                // this code here reels the player in dont make the stupid high unles you wanan break the rope
+                // this code here reels the player in  make the stupid high unles you wanan break the rope
                 hook.GetSecondNode().GetComponent<HingeJoint2D>().connectedAnchor *= speed;
             }
             if (hook.GetNodesCount() > 3 && (hook.GetSecondNode().transform.position - eyes.transform.position).sqrMagnitude < 0.25f)
@@ -59,7 +59,7 @@ public class GrappleScript : MonoBehaviour
             }   
         }
         // if the player noads are not larger then the max for reeling out
-        if (realout&&curHook.GetComponent<GrappleHook>().GetNodesCount()<noadMax)
+        if (realout&&Vector2.Distance( curHook.transform.position,transform.position) <noadMax)
         {
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
             if (realout == false)
