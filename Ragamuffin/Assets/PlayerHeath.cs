@@ -48,5 +48,9 @@ public class PlayerHeath : MonoBehaviour {
     {
         heath -= _damage;
     }
+    public void ResetHeath()
+    {
+        heath = maxHeath;
+    }
     #endregion
 }
