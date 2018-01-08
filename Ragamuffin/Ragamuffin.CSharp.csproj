@@ -231,7 +231,7 @@
     <Compile Include="Assets\Scripts\GrappleScript.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\ropeScript.cs" />
-    <Compile Include="Assets\Sliide.cs" />
+    <Compile Include="Assets\slideOzz.cs" />
     <Compile Include="Assets\star.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

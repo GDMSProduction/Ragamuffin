@@ -58,7 +58,8 @@ public class PlayerMovement : MonoBehaviour
     bool canWeClimb;
     [SerializeField]
     bool SlideMode;
-   
+  
+    bool block;
     // Use this dfor initialization
     void Start()
     {
@@ -280,6 +281,10 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "puddle")
         {
             slowed = false;
+        }
+        if(other.gameObject.tag== "Slim")
+        {
+            
         }
     }
      void OnCollisionExit2D(Collision2D other)
