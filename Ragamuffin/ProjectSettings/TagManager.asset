@@ -11,6 +11,7 @@ TagManager:
   - WayPoint
   - pullAbleObject
   - puddle
+  - hide
   layers:
   - Default
   - TransparentFX
@@ -23,8 +24,8 @@ TagManager:
   - GrappleHoo
   - Player
   - Ground
-  - 
-  - 
+  - hidenplayer
+  - cat
   - 
   - 
   - 

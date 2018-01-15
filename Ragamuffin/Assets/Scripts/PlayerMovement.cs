@@ -58,8 +58,13 @@ public class PlayerMovement : MonoBehaviour
     bool canWeClimb;
     [SerializeField]
     bool SlideMode;
-  
+    [SerializeField]
+    int axisbloc = 0;
     bool block;
+    [SerializeField]
+    catSearch cat;
+    [SerializeField]
+    LayerMask mask;
     // Use this dfor initialization
     void Start()
     {
@@ -71,9 +76,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-      
-   
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
+
+        if (SlideMode)
+        {
+            if (axisbloc == -1)
+            {
+                if (input.x >= 0)
+                {
+                    input.x = -0.5f;
+                }
+            }
+            else
+            {
+                if (input.x <= 0)
+                {
+                    input.x = 0.5f;
+                }
+            }
+        }
+             RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
         if (hit.collider != null)
         {
             ground = true;
@@ -131,10 +152,7 @@ public class PlayerMovement : MonoBehaviour
             if(grappleScript.GetCurHook()!=null)
             grappleScript.DestroyGrapple();
         }
-        if (SlideMode)
-        {
-          
-        }
+     
        else if (canWeClimb&&climbing)
         {
             rb2d.gravityScale = 0;
@@ -258,6 +276,13 @@ public class PlayerMovement : MonoBehaviour
         {
             slowed = true;
         }
+        if (other.gameObject.tag == "hide")
+        {
+            cat.Sethide(true);
+            this.gameObject.layer = 11;
+
+
+        }
 
     }
     void OnCollisionStay2D(Collision2D other)
@@ -265,6 +290,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Slime")
         {
             SlideMode = true;
+            axisbloc = other.gameObject.GetComponent<slideOzz>().WhatAxistoStop;
           //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
         }
 
@@ -286,10 +312,20 @@ public class PlayerMovement : MonoBehaviour
         {
             
         }
+        if(other.gameObject.tag== "hide")
+        {
+            cat.Sethide(false);
+            this.gameObject.layer = 9;
+        }
     }
      void OnCollisionExit2D(Collision2D other)
     {
-      
+        if (other.gameObject.tag == "Slime")
+        {
+            SlideMode = false;
+            axisbloc = 0;
+            //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
+        }
     }
     public Vector2 Getinput()
     {
@@ -304,6 +340,10 @@ public class PlayerMovement : MonoBehaviour
     public void takeDamage(float _damage)
     {
         heath.takeDamage(_damage);
+    }
+    public float GetHeath()
+    {
+        return heath.GetHeath();
     }
 
 }

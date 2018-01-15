@@ -24,7 +24,9 @@ public class catSearch : MonoBehaviour {
     bool searchforPlayer;
     [SerializeField]
     bool hide;
-
+    [SerializeField]
+    bool attac;
+    bool inacourtine;
     // Use this for initialization
     void Start () {
 		
@@ -100,7 +102,7 @@ public class catSearch : MonoBehaviour {
                         Debug.Log("left");
                     
                     }
-                        if (Vector3.Distance(lastSpoted, transform.position) < 2)
+                        if (Vector3.Distance(lastSpoted, transform.position) < 0.1f)
                         {
                             searchpath = 3;
                     
@@ -122,27 +124,68 @@ public class catSearch : MonoBehaviour {
                         Debug.Log("left");
                      
                     }
-                        if (Vector3.Distance(spotlocation, transform.position) < 2)
+                        if (Vector3.Distance(spotlocation, transform.position) < 0.1f)
                         {
-                            searchpath = -1;
+                            searchpath = 4;
                         }
                     }
+                else if (searchpath == 4)
+                {
+                    if (lastSpoted.x > transform.position.x)
+                    {
+                        direction = 1;
+                        Debug.Log("rght");
 
+                        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    }
+                    else
+                    {
+                        direction = -1;
+                        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+                        Debug.Log("left");
 
+                    }
+                    if (Vector3.Distance(lastSpoted, transform.position) < 0.1f)
+                    {
+                        searchpath = -1;
 
+                    }
                 }
+
+
+
+            }
                 searchforPlayer = true;
                 chasing = false;
 
             }
-        
+
         //   Vector2 location = new Vector2(startPoint.position.x, lookDirection.position.x);
         //    EnemyVision.SetPosition(0, startPoint.position);
         //    EnemyVision.SetPosition(1, lookDirection.position);
 
         //   Debug.DrawLine(startPoint.position, lookDirection.position);
-
+        if(attac==false)
             rb2d.velocity = new Vector2(direction * maxSpeed * (chasing ? chaseMutiply : 1), rb2d.velocity.y);
+        else
+        {
+            if (inacourtine == false)
+            {
+                StartCoroutine(catAnmaton());
+                inacourtine = true;
+            }
+        }
+    }
+    IEnumerator catAnmaton()
+    {
+      
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(new Vector2(-direction * 10, rb2d.velocity.y));
+            yield return new WaitForSeconds(0.2f);
+            attac = false;
+            inacourtine = false;
+        
+        
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -159,5 +202,16 @@ public class catSearch : MonoBehaviour {
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }
         }
+        
+
     }
+    public void SetAttac(bool _attac)
+    {
+        attac = _attac;
+    }
+    public void Sethide(bool _hide)
+    {
+        hide = _hide;
+    }
+
 }

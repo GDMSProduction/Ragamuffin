@@ -14,7 +14,7 @@ public class death : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.position.y < -5||heath.GetHeath() <=0)
+        if(transform.position.y < -50||heath.GetHeath() <=0)
         {
             transform.position = respawn.transform.position;
             heath.ResetHeath();

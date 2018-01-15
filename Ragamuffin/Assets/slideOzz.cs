@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class slideOzz : MonoBehaviour {
   
-  public  bool WhatAxistoStop;
+  public int WhatAxistoStop;
   
     
 }
