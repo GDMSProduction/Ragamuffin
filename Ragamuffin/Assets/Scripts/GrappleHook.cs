@@ -319,7 +319,7 @@ public class GrappleHook : MonoBehaviour {
     public void MakeRope()
     {
         if (player == null) return;
-        while (Vector2.Distance(eye.transform.position, lastNode.transform.position) > 0.01)//distance)
+        while (Vector2.Distance(eye.transform.position, lastNode.transform.position) > 0.1)//distance)
         {
             Debug.Log(Vector2.Distance(eye.transform.position, lastNode.transform.position));
             CreateNode();

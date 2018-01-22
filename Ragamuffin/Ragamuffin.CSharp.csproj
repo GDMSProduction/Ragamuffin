@@ -221,9 +221,11 @@
   <ItemGroup>
     <Compile Include="Assets\CatClaw.cs" />
     <Compile Include="Assets\catSearch.cs" />
+    <Compile Include="Assets\catSuperCharge.cs" />
     <Compile Include="Assets\death.cs" />
     <Compile Include="Assets\destoryhook.cs" />
     <Compile Include="Assets\ExposiveLego.cs" />
+    <Compile Include="Assets\Heal.cs" />
     <Compile Include="Assets\ObjectPush.cs" />
     <Compile Include="Assets\PlayerHeath.cs" />
     <Compile Include="Assets\puddle.cs" />

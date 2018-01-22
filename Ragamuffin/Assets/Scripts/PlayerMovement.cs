@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
-  [SerializeField]
+
+    [SerializeField]
     PlayerHeath heath;
     [SerializeField]
     float climbMuply;
@@ -43,11 +43,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     float jumpForce = 1f;
     [SerializeField]
-     float maxSpeed = 7f;
+    float maxSpeed = 7f;
     [SerializeField]
-     float sprintMult = 3f;
+    float sprintMult = 3f;
     [SerializeField]
-     float speedDamp = 0.01f;
+    float speedDamp = 0.01f;
     bool sprinting;
     [SerializeField]
     float backwardMod = 0.9f;
@@ -81,34 +81,43 @@ public class PlayerMovement : MonoBehaviour
         {
             if (axisbloc == -1)
             {
-                if (input.x >= 0)
+                if (input.x >= 0&& input.x!=0)
                 {
-                    input.x = -0.5f;
+                    input.x *= -0.5f;
+
+                }
+                else
+                {
+                    input.x = -1;
                 }
             }
             else
             {
-                if (input.x <= 0)
+                if (input.x < 0)
                 {
                     input.x = 0.5f;
                 }
+                else
+                {
+                    input.x = 1;
+                }
             }
         }
-             RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
         if (hit.collider != null)
         {
             ground = true;
-            
+
             jumpCount = 0;
         }
         else
         {
             ground = false;
         }
-        if (jump&&Input.GetAxis("Jump")!=0&&(grappleScript.GetCurHook()!=null&& grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone()||jumpCount == 0 ||climbing))
+        if (jump && Input.GetAxis("Jump") != 0 && (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() || jumpCount == 0 || climbing))
         {
             jump = false;
-          
+
             rb2d.AddForce(new Vector2(0, jumpForce));
             jumpCount++;
             if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone())
@@ -123,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         // if we want sprinting
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-          //  sprinting = !sprinting;
+            //  sprinting = !sprinting;
         }
         if (Input.GetButtonDown("Crouch"))
         {
@@ -142,18 +151,18 @@ public class PlayerMovement : MonoBehaviour
             Standing.enabled = true;
             crouchingPicture.enabled = false;
             standingPicture.enabled = true;
-          
+
         }
-        if (Input.GetAxis("Climb")!=0&&canWeClimb)
+        if (Input.GetAxis("Climb") != 0 && canWeClimb)
         {
             if (climbing)
-            rb2d.gravityScale = gravity;
+                rb2d.gravityScale = gravity;
             climbing = !climbing;
-            if(grappleScript.GetCurHook()!=null)
-            grappleScript.DestroyGrapple();
+            if (grappleScript.GetCurHook() != null)
+                grappleScript.DestroyGrapple();
         }
-     
-       else if (canWeClimb&&climbing)
+
+        else if (canWeClimb && climbing)
         {
             rb2d.gravityScale = 0;
             RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
@@ -165,79 +174,80 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x, input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
             }
-      
+
 
         }
-    else    if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
+        else if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
         {
             if (slowed)
             {
-                rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp/2, rb2d.velocity.y);
+                rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp / 2, rb2d.velocity.y);
             }
             else
-            rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
-            
+                rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
+
         }
-    
-        else { 
-                if (ground)
+
+        else
+        {
+            if (ground)
+            {
+                //   GetComponent<Animator>().SetBool("back", false);
+                RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
+                Debug.DrawRay(transform.position, (Vector2.right * input.x).normalized, Color.white, Time.deltaTime);
+                if (wallHit.collider == null)
                 {
-                    //   GetComponent<Animator>().SetBool("back", false);
-                    RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
-                    Debug.DrawRay(transform.position, (Vector2.right * input.x).normalized, Color.white, Time.deltaTime);
-                    if (wallHit.collider == null)
-                    {
                     // This is when the player is going forwards
                     //   if (input.x < 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x || input.x > 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
 
                     //   GetComponent<Animator>().SetBool("back", false);
                     if (slowed)
                     {
-                        rb2d.velocity = new Vector2(input.x *( maxSpeed/2) * (sprinting ? sprintMult : 1), rb2d.velocity.y);
+                        rb2d.velocity = new Vector2(input.x * (maxSpeed / 2) * (sprinting ? sprintMult : 1), rb2d.velocity.y);
                     }
                     else
-                            rb2d.velocity = new Vector2(input.x * maxSpeed * (sprinting ? sprintMult : 1), rb2d.velocity.y);
-                      
-                        
-                        // This is when the player is going backwards
-                      //  else
-                        {
-                          
+                        rb2d.velocity = new Vector2(input.x * maxSpeed * (sprinting ? sprintMult : 1), rb2d.velocity.y);
 
-                       //     rb2d.velocity = new Vector2(input.x * maxSpeed * backwardMod, rb2d.velocity.y);
-                        }
+
+                    // This is when the player is going backwards
+                    //  else
+                    {
+
+
+                        //     rb2d.velocity = new Vector2(input.x * maxSpeed * backwardMod, rb2d.velocity.y);
                     }
-                 
                 }
-                // if the players swinging on the grapple hook
-           else if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.GetCurHook().GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
-                {
-             
+
+            }
+            // if the players swinging on the grapple hook
+            else if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.GetCurHook().GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
+            {
+
 
                 if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
+                {
+                    if (rb2d.velocity.sqrMagnitude < grappleControlMax)
                     {
-                        if (rb2d.velocity.sqrMagnitude < grappleControlMax)
+                        // if the rb2d.velocity is smaller than the small grapple control value then mutply the velocity
+                        if (rb2d.velocity.sqrMagnitude < grappleStartingControl)
                         {
-                            // if the rb2d.velocity is smaller than the small grapple control value then mutply the velocity
-                            if (rb2d.velocity.sqrMagnitude < grappleStartingControl)
-                            {
-                                rb2d.velocity *= Mathf.Abs(input.x) * grappledControl + 1;
-                       
-                            }
-                            // then just add it so that its not to much
-                            else
-                            {
-                                rb2d.velocity += new Vector2(input.x * grappledControl, 0);
-                          
-                            }
+                            rb2d.velocity *= Mathf.Abs(input.x) * grappledControl + 1;
+
+                        }
+                        // then just add it so that its not to much
+                        else
+                        {
+                            rb2d.velocity += new Vector2(input.x * grappledControl, 0);
+
                         }
                     }
-                    // The player is moving opposite the swinging direction
-                    else
-                        rb2d.velocity /= 1.025f;
-       
+                }
+                // The player is moving opposite the swinging direction
+                else
+                    rb2d.velocity /= 1.025f;
+
             }
-            else if(input.x!=0)
+            else if (input.x != 0)
             {
                 RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
                 Debug.DrawRay(transform.position, (Vector2.right * input.x).normalized, Color.white, Time.deltaTime);
@@ -258,19 +268,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.gameObject.tag == "pullAbleObject")
         {
-            if(grappleScript.GetCurHook()!=null&&grappleScript.GetCurHook().GetComponent <GrappleHook>().GetObjecGrappled()==other.gameObject)
-            grappleScript.DestroyGrapple();
+            if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetObjecGrappled() == other.gameObject)
+                grappleScript.DestroyGrapple();
         }
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        
+
 
         if (other.tag == "ClimableObject")
         {
             canWeClimb = true;
-            
-       
+
+
         }
         if (other.tag == "puddle")
         {
@@ -291,10 +301,10 @@ public class PlayerMovement : MonoBehaviour
         {
             SlideMode = true;
             axisbloc = other.gameObject.GetComponent<slideOzz>().WhatAxistoStop;
-          //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
+            //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
         }
 
-        
+
     }
     void OnTriggerExit2D(Collider2D other)
     {
@@ -308,17 +318,17 @@ public class PlayerMovement : MonoBehaviour
         {
             slowed = false;
         }
-        if(other.gameObject.tag== "Slim")
+        if (other.gameObject.tag == "Slim")
         {
-            
+
         }
-        if(other.gameObject.tag== "hide")
+        if (other.gameObject.tag == "hide")
         {
             cat.Sethide(false);
             this.gameObject.layer = 9;
         }
     }
-     void OnCollisionExit2D(Collision2D other)
+    void OnCollisionExit2D(Collision2D other)
     {
         if (other.gameObject.tag == "Slime")
         {
@@ -335,7 +345,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
         jump = true;
-    
+
     }
     public void takeDamage(float _damage)
     {
@@ -345,5 +355,12 @@ public class PlayerMovement : MonoBehaviour
     {
         return heath.GetHeath();
     }
-
+    public void CatFalty()
+    {
+        heath.CatFataly();
+    }
+    public void HealPlayer()
+    {
+        heath.HealPlayer(35);
+    }
 }

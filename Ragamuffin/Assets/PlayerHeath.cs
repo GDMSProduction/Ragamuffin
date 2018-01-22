@@ -13,6 +13,8 @@ public class PlayerHeath : MonoBehaviour {
     float heath;
     [SerializeField]
     float maxHeath;
+    [SerializeField]
+    Rigidbody2D rb2d;
 
     // Use this for initialization
     void Start()
@@ -52,5 +54,19 @@ public class PlayerHeath : MonoBehaviour {
     {
         heath = maxHeath;
     }
+    public void HealPlayer(float heal)
+    {
+        if(heath+heal <=maxHeath)
+        heath += heal;
+        else
+        {
+            heath = maxHeath;
+        }
+    }
     #endregion
+
+    public void CatFataly()
+    {
+        rb2d.AddForce(Vector2.up * 3);
+    }
 }

@@ -10,6 +10,8 @@ public class CatClaw : MonoBehaviour {
     [SerializeField]
     catSearch catmovement;
     bool firstattc;
+    [SerializeField]
+    float charge;
     // Use this for initialization
     void Start () {
 		
@@ -25,7 +27,24 @@ public class CatClaw : MonoBehaviour {
         {
             catmovement.SetAttac(true);
             other.gameObject.GetComponent<PlayerMovement>().takeDamage(damage);
-            other.gameObject.GetComponent<PlayerMovement>().GetHeath(); 
+            charge += 10;
+            if (charge >= 100)
+            {
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
+                if (other.gameObject.transform.position.x > transform.position.x)
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+                else
+                {
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100);
+                }
+                charge = 0;
+            }
+            if (other.gameObject.GetComponent<PlayerMovement>().GetHeath() <= 0)
+            {
+                other.gameObject.GetComponent<PlayerMovement>().CatFalty();
+            }
+          
         }
     }
+
 }
