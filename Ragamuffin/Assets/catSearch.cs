@@ -59,6 +59,10 @@ public class catSearch : MonoBehaviour {
     bool dontlsten2wayponts;
     [SerializeField]
     bool correctway;
+    [SerializeField]
+    GameObject waypont1;
+    [SerializeField]
+    GameObject waypont2;
     // Use this for initialization
     void Start () {
 		
@@ -68,7 +72,7 @@ public class catSearch : MonoBehaviour {
 	void Update () {
         if (direction == 0)
         {
-            StartCoroutine(pause());
+            StartCoroutine(unpause());
         }
 
 
@@ -214,7 +218,7 @@ public class catSearch : MonoBehaviour {
 
         
         rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(new Vector2(-direction * 200, rb2d.velocity.y));
+            rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
         yield return new WaitForSeconds(.2f);
         rb2d.velocity = Vector2.zero;
             yield return new WaitForSeconds(1f);
@@ -222,6 +226,21 @@ public class catSearch : MonoBehaviour {
             inacourtine = false;
         
         
+    }
+    IEnumerator unpause()
+    {
+        yield return new WaitForSeconds(5);
+        if (Vector3.Distance(transform.position, waypont1.transform.position) > Vector3.Distance(transform.position, waypont2.transform.position))
+        {
+            direction = -1;
+        }
+        else
+        {
+            direction = 1;
+        }
+        StopCoroutine(unpause());
+
+
     }
     IEnumerator pause()
     {
