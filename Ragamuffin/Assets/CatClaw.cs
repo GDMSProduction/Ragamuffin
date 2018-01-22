@@ -26,7 +26,7 @@ public class CatClaw : MonoBehaviour {
         if (other.tag == "Player")
         {
             catmovement.SetAttac(true);
-            other.gameObject.GetComponent<PlayerMovement>().takeDamage(damage);
+          
             charge += 10;
             if (charge >= 100)
             {
@@ -39,9 +39,13 @@ public class CatClaw : MonoBehaviour {
                 }
                 charge = 0;
             }
-            if (other.gameObject.GetComponent<PlayerMovement>().GetHeath() <= 0)
+            if (other.gameObject.GetComponent<PlayerMovement>().GetHeath() <= 0+damage)
             {
                 other.gameObject.GetComponent<PlayerMovement>().CatFalty();
+            }
+            else
+            {
+                other.gameObject.GetComponent<PlayerMovement>().takeDamage(damage);
             }
           
         }

@@ -135,6 +135,7 @@ public class catSearch : MonoBehaviour {
                 direction = -1;
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
             }
+
             searchpath = 1;
             searchforPlayer = false;
             dontlsten2wayponts = true;
@@ -233,12 +234,23 @@ public class catSearch : MonoBehaviour {
         if (Vector3.Distance(transform.position, waypont1.transform.position) > Vector3.Distance(transform.position, waypont2.transform.position))
         {
             direction = -1;
+          
+
         }
         else
         {
             direction = 1;
         }
-        StopCoroutine(unpause());
+        if (transform.localScale.x <=-1 && direction==1)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        else if(transform.localScale.x>=1&& direction == -1)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        dontlsten2wayponts = false;
+        StopAllCoroutines();
 
 
     }
@@ -248,7 +260,8 @@ public class catSearch : MonoBehaviour {
         searchpath = 2;
         direction = oldway * -1;
         transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-     //   oldway = 0;
+        //   oldway = 0;
+        dontlsten2wayponts = false;
         StopAllCoroutines();
     }
     IEnumerator turn12()

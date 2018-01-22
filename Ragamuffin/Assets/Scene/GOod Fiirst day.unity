@@ -3382,6 +3382,11 @@ Prefab:
       propertyPath: cat
       value: 
       objectReference: {fileID: 1843392877}
+    - target: {fileID: 114485731076654426, guid: 51619df7d62a4aa4e94dc306aad0fe7e,
+        type: 2}
+      propertyPath: dead
+      value: 
+      objectReference: {fileID: 1643088141}
     m_RemovedComponents:
     - {fileID: 61705495003858574, guid: 51619df7d62a4aa4e94dc306aad0fe7e, type: 2}
     - {fileID: 58208207120745886, guid: 51619df7d62a4aa4e94dc306aad0fe7e, type: 2}
@@ -4791,6 +4796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawn: {fileID: 1028121725}
   heath: {fileID: 2015069565}
+  delaydeath: 0
 --- !u!4 &1675224489 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4955429696123182, guid: 735c3352d3d15a045ae3172ea2e9fabe,
@@ -5589,8 +5595,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1949663931}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 364, y: 227.5, z: 0}
-  m_LocalScale: {x: 0.91, y: 0.91, z: 0.91}
+  m_LocalPosition: {x: 356, y: 222.5, z: 0}
+  m_LocalScale: {x: 0.89, y: 0.89, z: 0.89}
   m_Children:
   - {fileID: 2015069564}
   m_Father: {fileID: 0}

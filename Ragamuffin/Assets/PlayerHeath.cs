@@ -65,8 +65,5 @@ public class PlayerHeath : MonoBehaviour {
     }
     #endregion
 
-    public void CatFataly()
-    {
-        rb2d.AddForce(Vector2.up * 3);
-    }
+   
 }

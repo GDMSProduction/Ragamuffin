@@ -7,6 +7,7 @@ public class death : MonoBehaviour {
     GameObject respawn;
     [SerializeField]
     PlayerHeath heath;
+  public  bool delaydeath;
 	// Use this for initialization
 	void Start () {
 		
@@ -14,11 +15,22 @@ public class death : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.position.y < -50||heath.GetHeath() <=0)
+        if(transform.position.y < -50||heath.GetHeath() <=0&&delaydeath==false)
         {
             transform.position = respawn.transform.position;
             heath.ResetHeath();
         }
+        else if(delaydeath)
+        {
+            StartCoroutine(catdeath());
+        }
 
+    }
+    IEnumerator catdeath()
+    {
+        yield return new WaitForSeconds(2);
+        transform.position = respawn.transform.position;
+        heath.ResetHeath();
+        StopAllCoroutines();
     }
 }

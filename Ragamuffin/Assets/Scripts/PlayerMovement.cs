@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     PlayerHeath heath;
     [SerializeField]
+    death dead;
+    [SerializeField]
     float climbMuply;
     [SerializeField]
     float maxClimbSpeed;
@@ -357,7 +359,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void CatFalty()
     {
-        heath.CatFataly();
+        rb2d.AddForce(Vector2.up * 1000);
+        dead.delaydeath = true;
     }
     public void HealPlayer()
     {
