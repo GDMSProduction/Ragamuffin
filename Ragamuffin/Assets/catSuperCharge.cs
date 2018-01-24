@@ -6,13 +6,14 @@ public class catSuperCharge : MonoBehaviour
 {
 
     [SerializeField]
-
+    catSearch cat;
     void OnCollisionEnter2D(Collision2D other)
     {
        
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<PlayerMovement>().takeDamage(10);
+            cat.SetDirection(true);
+            other.gameObject.GetComponent<PlayerMovement>().takeDamage(40);
             other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
             if (other.gameObject.transform.position.x > transform.position.x)
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);

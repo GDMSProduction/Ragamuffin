@@ -63,6 +63,7 @@ public class catSearch : MonoBehaviour {
     GameObject waypont1;
     [SerializeField]
     GameObject waypont2;
+    bool stuned;
     // Use this for initialization
     void Start () {
 		
@@ -73,6 +74,13 @@ public class catSearch : MonoBehaviour {
         if (direction == 0)
         {
             StartCoroutine(unpause());
+        }
+        if (stuned)
+        {
+            StartCoroutine(Stuned());
+            rb2d.velocity = Vector2.zero;
+            dontlsten2wayponts = false;
+            return;
         }
 
 
@@ -120,7 +128,7 @@ public class catSearch : MonoBehaviour {
 
         if ((hit.collider != null && hit.collider.tag == "Player" && hide == false) || (hit2.collider != null && hit2.collider.tag == "Player" && hide == false) || (hit3.collider != null && hit3.collider.tag == "Player" && hide == false) || (hit4.collider != null && hit4.collider.tag == "Player" && hide == false) || (hit5.collider != null && hit5.collider.tag == "Player" && hide == false) || (hit6.collider != null && hit6.collider.tag == "Player" && hide == false) || (hit7.collider != null && hit7.collider.tag == "Player" && hide == false) || (hit8.collider != null && hit8.collider.tag == "Player" && hide == false) || (hit9.collider != null && hit9.collider.tag == "Player" && hide == false) || (hit10.collider != null && hit10.collider.tag == "Player" && hide == false) || (hit11.collider != null && hit11.collider.tag == "Player" && hide == false) || (hit12.collider != null && hit12.collider.tag == "Player" && hide == false))
         {
-            Debug.Log("see");
+           
 
             chasing = true;
             if (player.transform.position.x > transform.position.x)
@@ -254,6 +262,12 @@ public class catSearch : MonoBehaviour {
 
 
     }
+    IEnumerator Stuned()
+    {
+        yield return new WaitForSeconds(3);
+        stuned = false;
+        StopCoroutine(Stuned());
+    }
     IEnumerator pause()
     {
         yield return new WaitForSeconds(2);
@@ -298,6 +312,10 @@ public class catSearch : MonoBehaviour {
     public void Sethide(bool _hide)
     {
         hide = _hide;
+    }
+    public void SetDirection(bool _stuned)
+    {
+        stuned = _stuned;
     }
 
 }
