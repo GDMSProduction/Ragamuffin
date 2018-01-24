@@ -63,6 +63,7 @@ public class catSearch : MonoBehaviour {
     [SerializeField]
     GameObject player;
     Vector3 spotlocation;
+    [SerializeField]
     Vector3 lastSpoted;
     int searchpath;
     bool searchforPlayer = true;
@@ -75,7 +76,7 @@ public class catSearch : MonoBehaviour {
     [SerializeField]
     float angle;
     int oldway;
-    bool turn = false;
+    bool turn = true;
     float dstancee;
     [SerializeField]
     bool dontlsten2wayponts;
@@ -194,8 +195,9 @@ public class catSearch : MonoBehaviour {
                 {
                     StartCoroutine(poschec());
                 }
-                if (Vector3.Distance(lastSpoted, transform.position) < 3)
+                if (Vector3.Distance(lastSpoted, transform.position) < 4)
                 {
+                  //  Debug.Break();
                     searchpath = 2;
                     direction = 0;
                     StartCoroutine("pause");
@@ -238,8 +240,9 @@ public class catSearch : MonoBehaviour {
         {
             direction = direction * -1;
            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            correctway = true;
         }
-        correctway = true;
+      
         oldway = direction;
       //  correctway = true;
         StopCoroutine(poschec());
@@ -305,22 +308,31 @@ public class catSearch : MonoBehaviour {
         yield return new WaitForSeconds(0.3f);
         turn = false;
     }
+    IEnumerator turnaround()
+    {
+        yield return new WaitForSeconds(1);
+        turn = true;
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag== "WayPoint"&&chasing==false&&dontlsten2wayponts==false)
+        if(other.tag== "WayPoint"&&chasing==false&&dontlsten2wayponts==false&&turn==true)
         {
-
+            turn = false;
+            StartCoroutine(turnaround());
+            rb2d.velocity = Vector2.zero;
             if (direction == -1)
             {
                 searchpath = 2;
-                   turn = false;
+
                 direction = 1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+               
             }
             else
             {
+              
                 searchpath = 2;
-                   turn = false;
+                  
                 direction = -1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }

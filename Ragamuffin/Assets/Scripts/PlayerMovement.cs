@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    GameObject startray;
+    [SerializeField]
+    GameObject endray;
 
     [SerializeField]
     PlayerHeath heath;
@@ -105,8 +109,8 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
-        Debug.DrawLine(transform.position + Vector3.down, Vector3.down);
+        RaycastHit2D hit = Physics2D.Linecast(startray.transform.position, endray.transform.position, 1 << LayerMask.NameToLayer("Ground"));
+        Debug.DrawLine(startray.transform.position, endray.transform.position);
         if (hit.collider != null)
         {
             ground = true;
@@ -119,6 +123,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (jump && Input.GetAxis("Jump") != 0 && (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() || jumpCount == 0 || climbing))
         {
+
             jump = false;
 
             rb2d.AddForce(new Vector2(0, jumpForce));
