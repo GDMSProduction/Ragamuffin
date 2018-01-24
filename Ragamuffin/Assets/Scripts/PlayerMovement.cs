@@ -106,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + Vector2.down, Vector2.down, 0.1f, groundlayer);
+        Debug.DrawLine(transform.position + Vector3.down, Vector3.down);
         if (hit.collider != null)
         {
             ground = true;
@@ -140,9 +141,10 @@ public class PlayerMovement : MonoBehaviour
         {
             crouching = !crouching;
         }
+        // change these for crouchen u have to set the bool to the correct values pls that why your crouch not correct
         if (crouching)
         {
-            crouchingPicture.enabled = true;
+            crouchingPicture.enabled = false;
             crouch.enabled = true;
             Standing.enabled = false;
             standingPicture.enabled = false;
@@ -152,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
             crouch.enabled = false;
             Standing.enabled = true;
             crouchingPicture.enabled = false;
-            standingPicture.enabled = true;
+            standingPicture.enabled = false;
 
         }
         if (Input.GetAxis("Climb") != 0 && canWeClimb)
