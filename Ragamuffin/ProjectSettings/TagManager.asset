@@ -12,6 +12,7 @@ TagManager:
   - pullAbleObject
   - puddle
   - hide
+  - clamp
   layers:
   - Default
   - TransparentFX

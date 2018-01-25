@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class catSearch : MonoBehaviour {
+public class catSearch : MonoBehaviour
+{
     [SerializeField]
     int direction = 0;
     [SerializeField]
     Rigidbody2D rb2d;
     [SerializeField]
     float maxSpeed;
-    bool chasing;
+    [SerializeField]
+    bool chasing = true;
     [SerializeField]
     float chaseMutiply;
     [SerializeField]
@@ -87,13 +89,17 @@ public class catSearch : MonoBehaviour {
     [SerializeField]
     GameObject waypont2;
     bool stuned;
+    [SerializeField]
+    float tme;
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         if (direction == 0)
         {
             StartCoroutine(unpause());
@@ -108,20 +114,20 @@ public class catSearch : MonoBehaviour {
 
 
 
-            if (angle < 5.0f)
-                print("close");
-            RaycastHit2D hit = Physics2D.Linecast(startPoint.position, lookDirection.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit2 = Physics2D.Linecast(startPoint1.position, lookDirection1.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit3 = Physics2D.Linecast(startPoint2.position, lookDirection2.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit4 = Physics2D.Linecast(startPoint3.position, lookDirection3.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit5 = Physics2D.Linecast(startPoint4.position, lookDirection4.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit6 = Physics2D.Linecast(startPoint5.position, lookDirection5.position, 1 << LayerMask.NameToLayer("Player"));
-            RaycastHit2D hit7 = Physics2D.Linecast(startPoint6.position, lookDirection6.position, 1 << LayerMask.NameToLayer("Player"));
-            //RaycastHit2D hit8 = Physics2D.Linecast(startPoint7.position, lookDirection7.position, 1 << LayerMask.NameToLayer("Player"));
-            //RaycastHit2D hit9 = Physics2D.Linecast(startPoint8.position, lookDirection8.position, 1 << LayerMask.NameToLayer("Player"));
-            //RaycastHit2D hit10 = Physics2D.Linecast(startPoint9.position, lookDirection9.position, 1 << LayerMask.NameToLayer("Player"));
-            //RaycastHit2D hit11 = Physics2D.Linecast(startPoint10.position, lookDirection10.position, 1 << LayerMask.NameToLayer("Player"));
-            //RaycastHit2D hit12 = Physics2D.Linecast(startPoint11.position, lookDirection11.position, 1 << LayerMask.NameToLayer("Player"));
+        if (angle < 5.0f)
+            print("close");
+        RaycastHit2D hit = Physics2D.Linecast(startPoint.position, lookDirection.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit2 = Physics2D.Linecast(startPoint1.position, lookDirection1.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit3 = Physics2D.Linecast(startPoint2.position, lookDirection2.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit4 = Physics2D.Linecast(startPoint3.position, lookDirection3.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit5 = Physics2D.Linecast(startPoint4.position, lookDirection4.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit6 = Physics2D.Linecast(startPoint5.position, lookDirection5.position, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hit7 = Physics2D.Linecast(startPoint6.position, lookDirection6.position, 1 << LayerMask.NameToLayer("Player"));
+        //RaycastHit2D hit8 = Physics2D.Linecast(startPoint7.position, lookDirection7.position, 1 << LayerMask.NameToLayer("Player"));
+        //RaycastHit2D hit9 = Physics2D.Linecast(startPoint8.position, lookDirection8.position, 1 << LayerMask.NameToLayer("Player"));
+        //RaycastHit2D hit10 = Physics2D.Linecast(startPoint9.position, lookDirection9.position, 1 << LayerMask.NameToLayer("Player"));
+        //RaycastHit2D hit11 = Physics2D.Linecast(startPoint10.position, lookDirection10.position, 1 << LayerMask.NameToLayer("Player"));
+        //RaycastHit2D hit12 = Physics2D.Linecast(startPoint11.position, lookDirection11.position, 1 << LayerMask.NameToLayer("Player"));
         Debug.DrawLine(startPoint.position, lookDirection.position);
         Debug.DrawLine(startPoint1.position, lookDirection1.position);
         Debug.DrawLine(startPoint2.position, lookDirection2.position);
@@ -129,11 +135,11 @@ public class catSearch : MonoBehaviour {
         Debug.DrawLine(startPoint4.position, lookDirection4.position);
         Debug.DrawLine(startPoint5.position, lookDirection5.position);
         Debug.DrawLine(startPoint6.position, lookDirection6.position);
-     //   Debug.DrawLine(startPoint7.position, lookDirection7.position);
-   // Debug.DrawLine(startPoint.position, lookDirection8.position);
-   // Debug.DrawLine(startPoint.position, lookDirection9.position);
-   // Debug.DrawLine(startPoint.position, lookDirection10.position);
-   // Debug.DrawLine(startPoint.position, lookDirection11.position);
+        //   Debug.DrawLine(startPoint7.position, lookDirection7.position);
+        // Debug.DrawLine(startPoint.position, lookDirection8.position);
+        // Debug.DrawLine(startPoint.position, lookDirection9.position);
+        // Debug.DrawLine(startPoint.position, lookDirection10.position);
+        // Debug.DrawLine(startPoint.position, lookDirection11.position);
 
 
 
@@ -151,8 +157,10 @@ public class catSearch : MonoBehaviour {
 
         if ((hit.collider != null && hit.collider.tag == "Player" && hide == false) || (hit2.collider != null && hit2.collider.tag == "Player" && hide == false) || (hit3.collider != null && hit3.collider.tag == "Player" && hide == false) || (hit4.collider != null && hit4.collider.tag == "Player" && hide == false) || (hit5.collider != null && hit5.collider.tag == "Player" && hide == false) || (hit6.collider != null && hit6.collider.tag == "Player" && hide == false) || (hit7.collider != null && hit7.collider.tag == "Player" && hide == false))
         {
-           
-
+            // Debug.Break();
+            StopCoroutine(pause());
+            StopCoroutine(poschec());
+            StopCoroutine(unpause());
             chasing = true;
             if (player.transform.position.x > transform.position.x)
             {
@@ -171,11 +179,11 @@ public class catSearch : MonoBehaviour {
             searchforPlayer = false;
             dontlsten2wayponts = true;
             correctway = false;
-            StopCoroutine(poschec());
+
         }
-        else if(dontlsten2wayponts==true)
+        else if (dontlsten2wayponts == true)
         {
-           
+
 
             if (searchforPlayer == false)
             {
@@ -197,32 +205,34 @@ public class catSearch : MonoBehaviour {
                 }
                 if (Vector3.Distance(lastSpoted, transform.position) < 4)
                 {
-                  //  Debug.Break();
+                    //  Debug.Break();
                     searchpath = 2;
                     direction = 0;
+
                     StartCoroutine("pause");
                     dontlsten2wayponts = false;
                     correctway = true;
                 }
-              
-               
+
+
 
 
 
 
             }
+            chasing = false;
         }
-                
-                chasing = false;
-            
-        
+
+
+
+
 
         //   Vector2 location = new Vector2(startPoint.position.x, lookDirection.position.x);
         //    EnemyVision.SetPosition(0, startPoint.position);
         //    EnemyVision.SetPosition(1, lookDirection.position);
 
         //   Debug.DrawLine(startPoint.position, lookDirection.position);
-        if(attac==false)
+        if (attac == false)
             rb2d.velocity = new Vector2(direction * maxSpeed * (chasing ? chaseMutiply : 1), rb2d.velocity.y);
         else
         {
@@ -236,54 +246,61 @@ public class catSearch : MonoBehaviour {
     IEnumerator poschec()
     {
         yield return new WaitForSeconds(0.2f);
-        if (dstancee < Vector3.Distance(lastSpoted, transform.position)&&correctway==false)
+        if (chasing == false)
         {
-            direction = direction * -1;
-           transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-            correctway = true;
+            if (dstancee < Vector3.Distance(lastSpoted, transform.position) && correctway == false && chasing == false)
+            {
+                direction = direction * -1;
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                correctway = true;
+            }
+
+            oldway = direction;
+            //  correctway = true;
+            StopCoroutine(poschec());
         }
-      
-        oldway = direction;
-      //  correctway = true;
-        StopCoroutine(poschec());
     }
     IEnumerator catAnmaton()
     {
 
-        
+
         rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
+        rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
         yield return new WaitForSeconds(.2f);
         rb2d.velocity = Vector2.zero;
-            yield return new WaitForSeconds(1f);
-            attac = false;
-            inacourtine = false;
-        
-        
+        yield return new WaitForSeconds(1f);
+        attac = false;
+        inacourtine = false;
+        StopCoroutine(catAnmaton());
+
+
     }
     IEnumerator unpause()
     {
         yield return new WaitForSeconds(3);
-        if (Vector3.Distance(transform.position, waypont1.transform.position) > Vector3.Distance(transform.position, waypont2.transform.position))
+        if (chasing == false)
         {
-            direction = -1;
-          
+            if (Vector3.Distance(transform.position, waypont1.transform.position) > Vector3.Distance(transform.position, waypont2.transform.position))
+            {
+                direction = -1;
 
+
+            }
+            else
+            {
+                direction = 1;
+            }
+            if (transform.localScale.x <= -1 && direction == 1)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            }
+            else if (transform.localScale.x >= 1 && direction == -1)
+            {
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            }
+            dontlsten2wayponts = false;
+            StopAllCoroutines();
         }
-        else
-        {
-            direction = 1;
-        }
-        if (transform.localScale.x <=-1 && direction==1)
-        {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        }
-        else if(transform.localScale.x>=1&& direction == -1)
-        {
-            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        }
-        dontlsten2wayponts = false;
-        StopAllCoroutines();
 
 
     }
@@ -295,30 +312,63 @@ public class catSearch : MonoBehaviour {
     }
     IEnumerator pause()
     {
-        yield return new WaitForSeconds(2);
-        searchpath = 2;
-        direction = oldway * -1;
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-        //   oldway = 0;
-        dontlsten2wayponts = false;
-        StopAllCoroutines();
+        if (chasing == false)
+        {
+            yield return new WaitForSeconds(2);
+            if (chasing == false)
+            {
+
+                searchpath = 2;
+                direction = oldway * -1;
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                //   oldway = 0;
+                dontlsten2wayponts = false;
+                StopAllCoroutines();
+            }
+        }
     }
     IEnumerator turn12()
     {
-        yield return new WaitForSeconds(0.3f);
-        turn = false;
+        yield return new WaitForSeconds(1f);
+        turn = true;
     }
     IEnumerator turnaround()
     {
-        yield return new WaitForSeconds(1);
-        turn = true;
+        yield return new WaitForSeconds(tme);
+        dontlsten2wayponts = false;
+
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag== "WayPoint"&&chasing==false&&dontlsten2wayponts==false&&turn==true)
+        if (other.tag == "WayPoint" && chasing == false && dontlsten2wayponts == false && turn == true)
         {
             turn = false;
+            StartCoroutine(turn12());
+            rb2d.velocity = Vector2.zero;
+
+            if (direction == -1)
+            {
+                searchpath = 2;
+
+                direction = 1;
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+
+            }
+            else
+            {
+
+                searchpath = 2;
+
+                direction = -1;
+                transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            }
+        }
+        if (other.tag == "clamp" && turn)
+        {
+            dontlsten2wayponts = true;
             StartCoroutine(turnaround());
+            StartCoroutine(turn12());
+            turn = false;
             rb2d.velocity = Vector2.zero;
             if (direction == -1)
             {
@@ -326,18 +376,19 @@ public class catSearch : MonoBehaviour {
 
                 direction = 1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-               
+
             }
             else
             {
-              
+
                 searchpath = 2;
-                  
+
                 direction = -1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }
         }
-        
+
+
 
     }
     public void SetAttac(bool _attac)

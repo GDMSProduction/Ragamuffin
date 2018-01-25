@@ -8,6 +8,10 @@ public class PlayerMovement : MonoBehaviour
     GameObject startray;
     [SerializeField]
     GameObject endray;
+    [SerializeField]
+    GameObject sldemodeendarray;
+    [SerializeField]
+    GameObject oldendpont;
 
     [SerializeField]
     PlayerHeath heath;
@@ -109,6 +113,15 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+        if (SlideMode == true)
+        {
+
+            endray = sldemodeendarray;
+        }
+        else
+        {
+            endray = oldendpont;
+        }
         RaycastHit2D hit = Physics2D.Linecast(startray.transform.position, endray.transform.position, 1 << LayerMask.NameToLayer("Ground"));
         Debug.DrawLine(startray.transform.position, endray.transform.position);
         if (hit.collider != null)
@@ -125,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             jump = false;
+
 
             rb2d.AddForce(new Vector2(0, jumpForce));
             jumpCount++;
