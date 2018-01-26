@@ -61,8 +61,9 @@ public class GrappleHook : MonoBehaviour {
 
     [SerializeField]
     Collider mainCollider;
-
+    [SerializeField]
     FixedJoint2D connectedJoint = null;
+    [SerializeField]
     Rigidbody2D connectedRigidbody = null;
     GameObject eye;
     bool swing;
@@ -197,13 +198,16 @@ public class GrappleHook : MonoBehaviour {
     
     void OnCollisionEnter2D(Collision2D coll)
     {
-
+        if (coll.gameObject.tag == "Player")
+        {
+            return;
+        }
         /*if (tag == "Shocker")
           {
               reelingIn = true;
               return;
           }*/
-    
+
 
         Debug.Log("HIT!");
         hit = true;

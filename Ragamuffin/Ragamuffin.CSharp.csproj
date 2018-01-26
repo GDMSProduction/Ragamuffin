@@ -229,6 +229,7 @@
     <Compile Include="Assets\ObjectPush.cs" />
     <Compile Include="Assets\PlayerHeath.cs" />
     <Compile Include="Assets\puddle.cs" />
+    <Compile Include="Assets\restart.cs" />
     <Compile Include="Assets\Scripts\FollowPLayer.cs" />
     <Compile Include="Assets\Scripts\GrappleHook.cs" />
     <Compile Include="Assets\Scripts\GrappleScript.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Assets\Scripts\ropeScript.cs" />
     <Compile Include="Assets\slideOzz.cs" />
     <Compile Include="Assets\star.cs" />
+    <Compile Include="Assets\vectory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

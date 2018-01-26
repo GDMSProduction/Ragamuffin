@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/GOod Fiirst day.unity
+- path: Assets/youwon.unity
   isLoaded: 1
   isActive: 1
