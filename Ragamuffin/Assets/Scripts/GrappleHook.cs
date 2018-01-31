@@ -113,7 +113,7 @@ public class GrappleHook : MonoBehaviour {
             
                 for (int i = 0; i < Nodes.Count; ++i)
                 {
-                    if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 1)
+                    if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 2)
                     {
                         --vertexCount;
                         Destroy(Nodes[i]);
@@ -195,7 +195,7 @@ public class GrappleHook : MonoBehaviour {
         RenderLine();
         
     }
-    
+
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.gameObject.tag == "Player")

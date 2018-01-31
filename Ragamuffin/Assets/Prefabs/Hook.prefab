@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e783a229ebe38f74a821514c50ccbc77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destoryhook: {fileID: 0}
   speed: 0.5
   slowspeed: 0.01
   zoominSpeed: 0
@@ -150,14 +151,19 @@ MonoBehaviour:
   maxDistance: 30
   nodePrefab: {fileID: 1453998869691638, guid: 352b2d6411f711c41adbbbe42ba41a65, type: 2}
   player: {fileID: 1617873690138450, guid: 8c5d8d71091a63444ae3e9244acf1860, type: 2}
+  secondNode: {fileID: 0}
+  lastNode: {fileID: 0}
   rb2d: {fileID: 50007621776984890}
   hitSound: {fileID: 0}
   vertexCount: 2
+  Nodes: []
   reelingIn: 0
   mask:
     serializedVersion: 2
     m_Bits: 0
   mainCollider: {fileID: 0}
+  connectedJoint: {fileID: 0}
+  connectedRigidbody: {fileID: 0}
   slowrealin: 0
 --- !u!120 &120711752727312976
 LineRenderer:
