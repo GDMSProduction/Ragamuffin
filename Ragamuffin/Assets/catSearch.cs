@@ -329,7 +329,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator turn12()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         turn = true;
     }
     IEnumerator turnaround()

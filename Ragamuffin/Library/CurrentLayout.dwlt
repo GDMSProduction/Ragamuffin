@@ -111,7 +111,7 @@ MonoBehaviour:
   m_MinSize: {x: 915, y: 442}
   m_MaxSize: {x: 22010, y: 10021}
   vertical: 0
-  controlID: 107
+  controlID: 11
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 108
+  controlID: 133
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -367,14 +367,14 @@ MonoBehaviour:
     height: 432
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 930.5748539850698
+  lastFramingTime: 179.37290419587492
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 206.6, y: 4.33, z: -0.35500002}
+    m_Target: {x: 187.38, y: 2.661, z: 0}
     speed: 2
-    m_Value: {x: 206.6, y: 4.33, z: -0.35500002}
+    m_Value: {x: 187.38, y: 2.661, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -400,11 +400,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.2154564, y: -0.054473277, z: 0.012038197, w: -0.9749186}
     speed: 2
-    m_Value: {x: -0.2154564, y: -0.054473277, z: 0.012038197, w: -0.9749186}
+    m_Value: {x: -0.2154564, y: -0.05447328, z: 0.012038198, w: -0.9749186}
   m_Size:
-    m_Target: 12.210266
+    m_Target: 22
     speed: 2
-    m_Value: 12.210266
+    m_Value: 22
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -488,23 +488,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: da2a0000
-    m_LastClickedID: 10970
-    m_ExpandedIDs: 4a39feff9efbffff00000000
+    m_SelectedIDs: 6e010000
+    m_LastClickedID: 0
+    m_ExpandedIDs: 9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: WayPoint (1)
+      m_OriginalName: WayPoint (1)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 11028
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
@@ -552,18 +552,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\panda12\Desktop\bearGitHub\Ragamuffin\Ragamuffin
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b0270000
-    m_LastClickedID: 10160
+    m_SelectedIDs: 88270000
+    m_LastClickedID: 10120
     m_ExpandedIDs: 000000008827000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
