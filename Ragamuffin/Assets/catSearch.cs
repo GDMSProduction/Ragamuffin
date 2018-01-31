@@ -94,7 +94,7 @@ public class catSearch : MonoBehaviour
     float tme;
     [SerializeField]
     GameObject priority;
-    int priortydirection;
+    int priortydirection = 1;
     // Use this for initialization
     void Start()
     {
@@ -297,6 +297,7 @@ public class catSearch : MonoBehaviour
         yield return new WaitForSeconds(3);
         if (chasing == false)
         {
+            
             if (priority.transform.position.x>transform.position.x)
             {
                 direction = 1;
