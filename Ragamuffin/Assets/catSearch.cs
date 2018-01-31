@@ -73,6 +73,7 @@ public class catSearch : MonoBehaviour
     bool hide;
     [SerializeField]
     bool attac;
+    [SerializeField]
     bool inacourtine;
     bool bpause;
     [SerializeField]
@@ -91,6 +92,9 @@ public class catSearch : MonoBehaviour
     bool stuned;
     [SerializeField]
     float tme;
+    [SerializeField]
+    GameObject priority;
+    int priortydirection;
     // Use this for initialization
     void Start()
     {
@@ -103,6 +107,11 @@ public class catSearch : MonoBehaviour
         if (direction == 0)
         {
             StartCoroutine(unpause());
+            attac = false;
+        }
+        if (inacourtine == true)
+        {
+            StartCoroutine(help());
         }
         if (stuned)
         {
@@ -148,7 +157,14 @@ public class catSearch : MonoBehaviour
 
 
 
-
+        if (transform.localScale.x <= -1 && direction == 1)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
+        else if (transform.localScale.x >= 1 && direction == -1)
+        {
+            transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+        }
 
 
 
@@ -241,6 +257,7 @@ public class catSearch : MonoBehaviour
                 StartCoroutine(catAnmaton());
                 inacourtine = true;
             }
+
         }
     }
     IEnumerator poschec()
@@ -280,15 +297,13 @@ public class catSearch : MonoBehaviour
         yield return new WaitForSeconds(3);
         if (chasing == false)
         {
-            if (Vector3.Distance(transform.position, waypont1.transform.position) > Vector3.Distance(transform.position, waypont2.transform.position))
+            if (priority.transform.position.x>transform.position.x)
             {
-                direction = -1;
-
-
+                direction = 1;
             }
             else
             {
-                direction = 1;
+                direction = -1;
             }
             if (transform.localScale.x <= -1 && direction == 1)
             {
@@ -301,7 +316,7 @@ public class catSearch : MonoBehaviour
             dontlsten2wayponts = false;
             StopAllCoroutines();
         }
-
+     
 
     }
     IEnumerator Stuned()
@@ -319,7 +334,7 @@ public class catSearch : MonoBehaviour
             {
 
                 searchpath = 2;
-                direction = oldway * -1;
+            //    direction = oldway * -1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
                 //   oldway = 0;
                 dontlsten2wayponts = false;
@@ -337,6 +352,17 @@ public class catSearch : MonoBehaviour
         yield return new WaitForSeconds(tme);
         dontlsten2wayponts = false;
 
+    }
+    IEnumerator help()
+    {
+        yield return new WaitForSeconds(4);
+        if (inacourtine == true)
+        {
+            inacourtine = false;
+            attac = false;
+            
+        }
+        StopCoroutine(help());
     }
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -394,6 +420,10 @@ public class catSearch : MonoBehaviour
     public void SetAttac(bool _attac)
     {
         attac = _attac;
+    }
+    public bool getattac()
+    {
+        return attac;
     }
     public void Sethide(bool _hide)
     {

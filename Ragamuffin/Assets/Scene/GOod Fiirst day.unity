@@ -4150,7 +4150,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4789317213948926, guid: 51619df7d62a4aa4e94dc306aad0fe7e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 92.04
+      value: 189.8
       objectReference: {fileID: 0}
     - target: {fileID: 4789317213948926, guid: 51619df7d62a4aa4e94dc306aad0fe7e, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6561,12 +6561,14 @@ MonoBehaviour:
   lastSpoted: {x: 0, y: 0, z: 0}
   hide: 0
   attac: 0
+  inacourtine: 0
   angle: 0
   dontlsten2wayponts: 0
   correctway: 0
   waypont1: {fileID: 2008563679}
   waypont2: {fileID: 627415897}
   tme: 3
+  priority: {fileID: 215954535}
 --- !u!23 &1843392878
 MeshRenderer:
   m_ObjectHideFlags: 0
