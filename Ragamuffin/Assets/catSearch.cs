@@ -222,13 +222,14 @@ public class catSearch : MonoBehaviour
                 }
                 if (Vector3.Distance(lastSpoted, transform.position) < 4)
                 {
-                    //  Debug.Break();
+                     Debug.Break();
                     searchpath = 2;
                     direction = 0;
-
+                    chasing = false;
                     StartCoroutine("pause");
                     dontlsten2wayponts = false;
                     correctway = true;
+                 
                 }
 
 
