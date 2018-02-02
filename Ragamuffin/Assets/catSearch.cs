@@ -222,7 +222,7 @@ public class catSearch : MonoBehaviour
                 }
                 if (Vector3.Distance(lastSpoted, transform.position) < 4)
                 {
-                     Debug.Break();
+                     //Debug.Break();
                     searchpath = 2;
                     direction = 0;
                     chasing = false;
@@ -342,7 +342,7 @@ public class catSearch : MonoBehaviour
     {
         if (chasing == false)
         {
-            Debug.Break();
+         
             yield return new WaitForSeconds(2);
             if (chasing == false)
             {
