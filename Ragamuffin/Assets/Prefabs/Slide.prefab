@@ -9,46 +9,46 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1622681445567564}
+  m_RootGameObject: {fileID: 1581418143966710}
   m_IsPrefabParent: 1
---- !u!1 &1622681445567564
+--- !u!1 &1581418143966710
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4937871802360984}
-  - component: {fileID: 33629567880013496}
-  - component: {fileID: 23173086797274090}
-  - component: {fileID: 61082190061189288}
-  - component: {fileID: 114348038317768492}
-  m_Layer: 0
-  m_Name: Star
-  m_TagString: Untagged
+  - component: {fileID: 4017580759589048}
+  - component: {fileID: 33498823311675900}
+  - component: {fileID: 23449366735003386}
+  - component: {fileID: 114697547200907240}
+  - component: {fileID: 61360248706939482}
+  m_Layer: 10
+  m_Name: Slide
+  m_TagString: Slime
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4937871802360984
+--- !u!4 &4017580759589048
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622681445567564}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 112.36, y: 0.04, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1581418143966710}
+  m_LocalRotation: {x: 0.26034442, y: 0.96551585, z: 0, w: 0}
+  m_LocalPosition: {x: 312.42, y: -3.53, z: -0}
+  m_LocalScale: {x: 1.9577585, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23173086797274090
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 30.181002}
+--- !u!23 &23449366735003386
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622681445567564}
+  m_GameObject: {fileID: 1581418143966710}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1f9ecd209946ddb45913939bbde5f1f4, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,26 +77,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33629567880013496
+--- !u!33 &33498823311675900
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622681445567564}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!61 &61082190061189288
+  m_GameObject: {fileID: 1581418143966710}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!61 &61360248706939482
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622681445567564}
+  m_GameObject: {fileID: 1581418143966710}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.5336211}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -107,17 +107,17 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 10, y: 1.0673423}
   m_EdgeRadius: 0
---- !u!114 &114348038317768492
+--- !u!114 &114697547200907240
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622681445567564}
+  m_GameObject: {fileID: 1581418143966710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6f7964e5b577a438ac15d97eb9e4ee, type: 3}
+  m_Script: {fileID: 11500000, guid: ac90e610f729d864ebab66f7cfb028d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  WhatAxistoStop: 1

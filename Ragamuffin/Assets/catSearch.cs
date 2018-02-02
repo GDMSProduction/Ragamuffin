@@ -15,6 +15,8 @@ public class catSearch : MonoBehaviour
     [SerializeField]
     float chaseMutiply;
     [SerializeField]
+    float QchaseMutply;
+    [SerializeField]
     Transform startPoint;
     [SerializeField]
     Transform startPoint1;
@@ -106,7 +108,7 @@ public class catSearch : MonoBehaviour
     {
         if (direction == 0)
         {
-            StartCoroutine(unpause());
+            StartCoroutine(unpause(3));
             attac = false;
         }
         if (inacourtine == true)
@@ -123,8 +125,7 @@ public class catSearch : MonoBehaviour
 
 
 
-        if (angle < 5.0f)
-            print("close");
+        
         RaycastHit2D hit = Physics2D.Linecast(startPoint.position, lookDirection.position, 1 << LayerMask.NameToLayer("Player"));
         RaycastHit2D hit2 = Physics2D.Linecast(startPoint1.position, lookDirection1.position, 1 << LayerMask.NameToLayer("Player"));
         RaycastHit2D hit3 = Physics2D.Linecast(startPoint2.position, lookDirection2.position, 1 << LayerMask.NameToLayer("Player"));
@@ -176,7 +177,7 @@ public class catSearch : MonoBehaviour
             // Debug.Break();
             StopCoroutine(pause());
             StopCoroutine(poschec());
-            StopCoroutine(unpause());
+            StopCoroutine(unpause(3));
             chasing = true;
             if (player.transform.position.x > transform.position.x)
             {
@@ -249,7 +250,14 @@ public class catSearch : MonoBehaviour
 
         //   Debug.DrawLine(startPoint.position, lookDirection.position);
         if (attac == false)
+        {
+            if(priortydirection!= direction)
             rb2d.velocity = new Vector2(direction * maxSpeed * (chasing ? chaseMutiply : 1), rb2d.velocity.y);
+            else
+            {
+                rb2d.velocity = new Vector2(direction * maxSpeed * (chasing ? chaseMutiply : 1.3f   ), rb2d.velocity.y);
+            }
+        }
         else
         {
             if (inacourtine == false)
@@ -269,12 +277,14 @@ public class catSearch : MonoBehaviour
             {
                 direction = direction * -1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+               
                 correctway = true;
             }
 
             oldway = direction;
             //  correctway = true;
             StopCoroutine(poschec());
+   yield return null;
         }
     }
     IEnumerator catAnmaton()
@@ -292,9 +302,9 @@ public class catSearch : MonoBehaviour
 
 
     }
-    IEnumerator unpause()
+    IEnumerator unpause(float wait)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(wait);
         if (chasing == false)
         {
             
@@ -309,6 +319,7 @@ public class catSearch : MonoBehaviour
             if (transform.localScale.x <= -1 && direction == 1)
             {
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+                
             }
             else if (transform.localScale.x >= 1 && direction == -1)
             {
@@ -330,6 +341,7 @@ public class catSearch : MonoBehaviour
     {
         if (chasing == false)
         {
+            Debug.Break();
             yield return new WaitForSeconds(2);
             if (chasing == false)
             {
@@ -337,6 +349,7 @@ public class catSearch : MonoBehaviour
                 searchpath = 2;
             //    direction = oldway * -1;
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            
                 //   oldway = 0;
                 dontlsten2wayponts = false;
                 StopAllCoroutines();
