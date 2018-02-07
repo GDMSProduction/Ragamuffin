@@ -145,6 +145,7 @@ public class PlayerMovement : MonoBehaviour
             if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone())
             {
                 grappleScript.EndGrapple();
+
             }
             climbing = false;
             rb2d.gravityScale = gravity;
@@ -183,6 +184,7 @@ public class PlayerMovement : MonoBehaviour
             climbing = !climbing;
             if (grappleScript.GetCurHook() != null)
                 grappleScript.DestroyGrapple();
+           
         }
 
         else if (canWeClimb && climbing)
@@ -289,11 +291,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "pullAbleObject")
-        {
-            if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetObjecGrappled() == other.gameObject)
-                grappleScript.DestroyGrapple();
-        }
+   
     }
     void OnTriggerEnter2D(Collider2D other)
     {

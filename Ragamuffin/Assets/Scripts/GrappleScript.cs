@@ -118,6 +118,7 @@ public class GrappleScript : MonoBehaviour
     {
         //delete rope
         curHook.GetComponent<GrappleHook>().DeleteNodes();
+       
         Destroy(curHook);
         curHook = null;
 

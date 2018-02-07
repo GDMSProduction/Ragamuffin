@@ -112,10 +112,10 @@ public class GrappleHook : MonoBehaviour {
         if (slowrealin&&Poolme.tag=="pullAbleObject")
         {
             Poolme.transform.position = Vector3.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
 
-        
-            
-                for (int i = 0; i < Nodes.Count; ++i)
+
+            for (int i = 0; i < Nodes.Count; ++i)
                 {
                     if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 2)
                     {
@@ -150,6 +150,7 @@ public class GrappleHook : MonoBehaviour {
                         }*/
 
             transform.position = Vector3.MoveTowards(transform.position, eye.transform.position, speed * 2f);
+            transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
 
             /*            if (secondNode != null)
                         {
@@ -165,14 +166,16 @@ public class GrappleHook : MonoBehaviour {
                             DeleteSecond();
                         }*/
 
-            if (Vector2.Distance(eye.transform.position, transform.position) < 1f)
+            if (Vector2.Distance(eye.transform.position, transform.position) < 1)
             {
              
                 player.GetComponent<GrappleScript>().DestroyGrapple();
+
             }
 
             if (Nodes.Count != 1)
             {
+
                 DeleteNodes();
             }
         }
@@ -192,12 +195,14 @@ public class GrappleHook : MonoBehaviour {
         {
             reelingIn = true;
         }
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
     }
 
     void Update()
     {
         RenderLine();
-        
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
+
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -305,12 +310,13 @@ public class GrappleHook : MonoBehaviour {
     }
     public void CreateNode1()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
         // puting the rope in last node in front of the players
         Vector2 pos2Create = eye.transform.position - lastNode.transform.position;
         pos2Create.Normalize();
         pos2Create *= ((eye.transform.position - lastNode.transform.position).magnitude < distance ? (eye.transform.position - lastNode.transform.position).magnitude : distance);
         pos2Create += (Vector2)lastNode.transform.position;
-        pos2Create.y -= 0.1f;
+     //   pos2Create.y -= 0.1f;
         Debug.Log(pos2Create);
         GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
         // sets the node 2 the transform of the parent
@@ -329,6 +335,7 @@ public class GrappleHook : MonoBehaviour {
     // bug fix = first guess
     public void MakeRope()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
         if (player == null) return;
         while (Vector2.Distance(eye.transform.position, lastNode.transform.position) > 0.1)//distance)
         {
@@ -340,6 +347,7 @@ public class GrappleHook : MonoBehaviour {
     }
     public void MakeRope1()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
         if (cooldown == false)
         {
             cooldown = true;
@@ -357,6 +365,7 @@ public class GrappleHook : MonoBehaviour {
     // deltes nodes
     public void DeleteNodes()
     {
+
         vertexCount = 2;
         foreach (GameObject obj in Nodes)
         {
