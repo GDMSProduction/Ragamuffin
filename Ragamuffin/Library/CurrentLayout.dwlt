@@ -111,7 +111,7 @@ MonoBehaviour:
   m_MinSize: {x: 913, y: 442}
   m_MaxSize: {x: 22008, y: 10021}
   vertical: 0
-  controlID: 66
+  controlID: 76
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 67
+  controlID: 12
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -367,14 +367,14 @@ MonoBehaviour:
     height: 472
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 957.0779344633394
+  lastFramingTime: 1445.0112067071948
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -11.095877, y: -15.163634, z: 14.075409}
+    m_Target: {x: -20.687891, y: -7.824446, z: 9.816911}
     speed: 2
-    m_Value: {x: -11.095877, y: -15.163634, z: 14.075409}
+    m_Value: {x: -20.687891, y: -7.824446, z: 9.816911}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -398,13 +398,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.15124011, y: 0.8293414, z: -0.4655395, w: -0.26942962}
+    m_Target: {x: -0.2719846, y: 0.29115903, z: -0.08672903, w: -0.91308755}
     speed: 2
-    m_Value: {x: -0.15124011, y: 0.8293414, z: -0.46553952, w: -0.26942962}
+    m_Value: {x: -0.2719846, y: 0.29115903, z: -0.08672903, w: -0.91308755}
   m_Size:
-    m_Target: 21.28834
+    m_Target: 34.223976
     speed: 2
-    m_Value: 21.28834
+    m_Value: 34.223976
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -488,23 +488,23 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 9efbffff00000000
+    m_SelectedIDs: 22f7ffff
+    m_LastClickedID: -2270
+    m_ExpandedIDs: fcd1fdff22f7ffff70f7ffff7afbffff9efbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Rope(Clone)
+      m_OriginalName: Rope(Clone)
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -142922
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
@@ -552,18 +552,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets
+    - Assets/Scripts
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\panda12\Desktop\bearGitHub\Ragamuffin\Ragamuffin
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 88270000
-    m_LastClickedID: 10120
+    m_SelectedIDs: ce280000
+    m_LastClickedID: 10446
     m_ExpandedIDs: 00000000882700009827000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -619,7 +619,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: be2cffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

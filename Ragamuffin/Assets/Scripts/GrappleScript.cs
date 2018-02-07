@@ -89,9 +89,10 @@ public class GrappleScript : MonoBehaviour
     // SHOTS THE GRAPPLE HOOK
     public void StartGrapple()
     {
+     
         if (curHook != null)
             DestroyGrapple();
-        Vector2 destiny = grappleTarget.transform.position;
+        Vector3 destiny = grappleTarget.transform.position;
         curHook = (GameObject)Instantiate(hookPrefab,eyes.transform.position, Quaternion.identity);    
         curHook.transform.LookAt(grappleTarget.transform);
         Debug.Log(curHook);
@@ -103,6 +104,8 @@ public class GrappleScript : MonoBehaviour
         hookComp.SetMaxDistance(maxDistance);
         hookComp.player = gameObject;
         hookComp.SetEye(eyes);
+       
+     
     }
     
     public void EndGrapple()

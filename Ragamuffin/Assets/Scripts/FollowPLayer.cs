@@ -18,6 +18,8 @@ public class FollowPLayer : MonoBehaviour {
     GameObject topclamp;
     [SerializeField]
     Transform playerTrans;
+    [SerializeField]
+    float hardcodedz;
    
 	// Use this for initialization
 	void Start () {
@@ -28,14 +30,13 @@ public class FollowPLayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Vector3 mousePos = Input.mousePosition;
-        mousePos.z = 17;
+        mousePos.z = hardcodedz;
         cursorPos.transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 
         if (Input.GetMouseButtonDown(0))
         {
            
              Vector3 zeropo= cursorPos.transform.position;
-            zeropo.z = 0;
             GrappleTarget.transform.position = zeropo;
             grappleScript.StartGrapple();
        

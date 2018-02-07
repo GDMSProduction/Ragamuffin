@@ -72,6 +72,8 @@ public class GrappleHook : MonoBehaviour {
     bool hit;
     bool delete = true;
     float gravity;
+    [SerializeField]
+    float hardcodesz;
     // Use this for initialization
     void Start()
     {
@@ -90,9 +92,11 @@ public class GrappleHook : MonoBehaviour {
 
     }
 
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 20);
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
@@ -107,7 +111,7 @@ public class GrappleHook : MonoBehaviour {
         }
         if (slowrealin&&Poolme.tag=="pullAbleObject")
         {
-            Poolme.transform.position = Vector2.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
+            Poolme.transform.position = Vector3.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
 
         
             
@@ -120,7 +124,7 @@ public class GrappleHook : MonoBehaviour {
                         Nodes.Remove(Nodes[i]);
                     }
                     else
-                        Nodes[i].transform.position = Vector2.MoveTowards(Nodes[i].transform.position, eye.transform.position, 0.1f);
+                        Nodes[i].transform.position = Vector3.MoveTowards(Nodes[i].transform.position, eye.transform.position, 0.1f);
                 }
             
 
@@ -145,7 +149,7 @@ public class GrappleHook : MonoBehaviour {
                             return;
                         }*/
 
-            transform.position = Vector2.MoveTowards(transform.position, eye.transform.position, speed * 2f);
+            transform.position = Vector3.MoveTowards(transform.position, eye.transform.position, speed * 2f);
 
             /*            if (secondNode != null)
                         {
@@ -273,12 +277,15 @@ public class GrappleHook : MonoBehaviour {
     // it replaces the last node with the newest node
     public void CreateNode()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, 20);
+        Debug.Break();
         // puting the rope in last node in front of the players
-        Vector2 pos2Create = eye.transform.position - lastNode.transform.position;
+        Vector3 pos2Create = eye.transform.position - lastNode.transform.position;
         pos2Create.Normalize();
         pos2Create *= ((eye.transform.position - lastNode.transform.position).magnitude < distance ? (eye.transform.position - lastNode.transform.position).magnitude : distance);
-        pos2Create += (Vector2)lastNode.transform.position;
+        pos2Create += lastNode.transform.position;
         Debug.Log(pos2Create);
+        pos2Create.z = 20;
         GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
         // sets the node 2 the transform of the parent
         go.transform.SetParent(transform);
