@@ -165,6 +165,7 @@ MonoBehaviour:
   connectedJoint: {fileID: 0}
   connectedRigidbody: {fileID: 0}
   slowrealin: 0
+  hardcodesz: 20
 --- !u!120 &120711752727312976
 LineRenderer:
   m_ObjectHideFlags: 1

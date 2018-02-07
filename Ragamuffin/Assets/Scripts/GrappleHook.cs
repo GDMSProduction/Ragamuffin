@@ -277,8 +277,8 @@ public class GrappleHook : MonoBehaviour {
     // it replaces the last node with the newest node
     public void CreateNode()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, 20);
-        Debug.Break();
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
+      
         // puting the rope in last node in front of the players
         Vector3 pos2Create = eye.transform.position - lastNode.transform.position;
         pos2Create.Normalize();
