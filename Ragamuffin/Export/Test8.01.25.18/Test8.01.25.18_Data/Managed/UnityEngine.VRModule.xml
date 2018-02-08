@@ -438,6 +438,11 @@ and false if the node is not presently being tracked by the underlying XR system
         <para>Returns a list of supported XR devices that were included at build time.</para>
       </summary>
     </member>
+    <member name="P:UnityEngine.XR.XRSettings.useOcclusionMesh">
+      <summary>
+        <para>Specifies whether or not the occlusion mesh should be used when rendering. Enabled by default.</para>
+      </summary>
+    </member>
     <member name="M:UnityEngine.XR.XRSettings.LoadDeviceByName(System.String)">
       <summary>
         <para>Loads the requested device at the beginning of the next frame.</para>

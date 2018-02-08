@@ -5,12 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/GOod Fiirst day.unity
     guid: 2c734b715b51a6243ba1a41f88e45a0c
   - enabled: 1
-    path: Assets/youwon.unity
-    guid: 3554cce85c23506469262a972b15ccc4
-  - enabled: 1
     path: Assets/Scene/kitchen.unity
     guid: 8ca1b4957b54b1a4388c1e8b5c289871
+  - enabled: 1
+    path: Assets/youwon.unity
+    guid: 3554cce85c23506469262a972b15ccc4

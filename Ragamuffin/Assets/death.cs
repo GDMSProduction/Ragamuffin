@@ -15,7 +15,7 @@ public class death : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(transform.position.y < -50||heath.GetHeath() <=0&&delaydeath==false)
+        if(transform.position.y < -20||heath.GetHeath() <=0&&delaydeath==false)
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             transform.position = respawn.transform.position;
