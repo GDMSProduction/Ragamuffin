@@ -312,10 +312,10 @@ public class GrappleHook : MonoBehaviour {
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
         // puting the rope in last node in front of the players
-        Vector2 pos2Create = eye.transform.position - lastNode.transform.position;
+        Vector3 pos2Create = eye.transform.position - lastNode.transform.position;
         pos2Create.Normalize();
         pos2Create *= ((eye.transform.position - lastNode.transform.position).magnitude < distance ? (eye.transform.position - lastNode.transform.position).magnitude : distance);
-        pos2Create += (Vector2)lastNode.transform.position;
+        pos2Create += lastNode.transform.position;
      //   pos2Create.y -= 0.1f;
         Debug.Log(pos2Create);
         GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
@@ -331,6 +331,8 @@ public class GrappleHook : MonoBehaviour {
         Nodes.Add(lastNode);
         // incracment the vertex counter
         vertexCount++;
+        transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
+
     }
     // bug fix = first guess
     public void MakeRope()
