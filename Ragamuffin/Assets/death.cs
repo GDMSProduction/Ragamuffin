@@ -17,6 +17,7 @@ public class death : MonoBehaviour {
 	void Update () {
         if(transform.position.y < -50||heath.GetHeath() <=0&&delaydeath==false)
         {
+            GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             transform.position = respawn.transform.position;
             heath.ResetHeath();
         }
