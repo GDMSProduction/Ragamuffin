@@ -75,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
     catSearch cat;
     [SerializeField]
     LayerMask mask;
+    [SerializeField]
+    soundAffect sounds;
     // Use this dfor initialization
     void Start()
     {
@@ -181,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (climbing)
                 rb2d.gravityScale = gravity;
-            climbing = !climbing;
+            climbing = true;
             if (grappleScript.GetCurHook() != null)
                 grappleScript.DestroyGrapple();
            
@@ -210,6 +212,16 @@ public class PlayerMovement : MonoBehaviour
             }
             else
                 rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp, rb2d.velocity.y);
+            if (SlideMode == false && input.x != 0)
+            {
+                if(sounds!=null)
+                sounds.PlaySound("steps");
+            }
+            else
+            {
+                if (sounds!=null)
+                sounds.StopFootSteps();
+            }
 
         }
 
@@ -232,6 +244,16 @@ public class PlayerMovement : MonoBehaviour
                     }
                     else
                         rb2d.velocity = new Vector2(input.x * maxSpeed * (sprinting ? sprintMult : 1), rb2d.velocity.y);
+                    if (SlideMode == false && input.x != 0)
+                    {
+                        if(sounds!=null)
+                        sounds.PlaySound("steps");
+                    }
+                    else
+                    {
+                        if(sounds!=null)
+                        sounds.StopFootSteps();
+                    }
 
 
                     // This is when the player is going backwards

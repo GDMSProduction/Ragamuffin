@@ -20,6 +20,8 @@ public class FollowPLayer : MonoBehaviour {
     Transform playerTrans;
     [SerializeField]
     float hardcodedz;
+    [SerializeField]
+    soundAffect sounds;
    
 	// Use this for initialization
 	void Start () {
@@ -35,6 +37,8 @@ public class FollowPLayer : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            if(sounds!=null)
+            sounds.PlaySound("laso");
            
              Vector3 zeropo= cursorPos.transform.position;
             GrappleTarget.transform.position = zeropo;

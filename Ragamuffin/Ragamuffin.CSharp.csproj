@@ -299,6 +299,7 @@
     <Compile Include="Assets\Scripts\ropeScript.cs" />
     <Compile Include="Assets\shader.cs" />
     <Compile Include="Assets\slideOzz.cs" />
+    <Compile Include="Assets\soundAffect.cs" />
     <Compile Include="Assets\star.cs" />
     <Compile Include="Assets\vectory.cs" />
   </ItemGroup>
