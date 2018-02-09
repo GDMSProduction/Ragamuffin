@@ -9501,19 +9501,6 @@ Prefab:
       propertyPath: playerTrans
       value: 
       objectReference: {fileID: 1231091017}
-    - target: {fileID: 4036284276871952, guid: d6038bba596ec7946b8e8387abe53517, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 4036284276871952, guid: d6038bba596ec7946b8e8387abe53517, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 8.99
-      objectReference: {fileID: 0}
-    - target: {fileID: 114088185733462532, guid: d6038bba596ec7946b8e8387abe53517,
-        type: 2}
-      propertyPath: hardcodedz
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 114088185733462532, guid: d6038bba596ec7946b8e8387abe53517,
         type: 2}
       propertyPath: sounds
