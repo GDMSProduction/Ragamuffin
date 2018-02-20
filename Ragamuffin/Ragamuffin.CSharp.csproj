@@ -282,27 +282,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CatClaw.cs" />
-    <Compile Include="Assets\catSearch.cs" />
-    <Compile Include="Assets\catSuperCharge.cs" />
-    <Compile Include="Assets\death.cs" />
-    <Compile Include="Assets\ExposiveLego.cs" />
-    <Compile Include="Assets\Heal.cs" />
-    <Compile Include="Assets\ObjectPush.cs" />
-    <Compile Include="Assets\PlayerHeath.cs" />
-    <Compile Include="Assets\puddle.cs" />
-    <Compile Include="Assets\restart.cs" />
+    <Compile Include="Assets\Scripts\CatClaw.cs" />
+    <Compile Include="Assets\Scripts\catSearch.cs" />
+    <Compile Include="Assets\Scripts\catSuperCharge.cs" />
+    <Compile Include="Assets\Scripts\death.cs" />
+    <Compile Include="Assets\Scripts\ExposiveLego.cs" />
     <Compile Include="Assets\Scripts\FollowPLayer.cs" />
+    <Compile Include="Assets\Scripts\FrogTung.cs" />
+    <Compile Include="Assets\Scripts\FrogTungExtend.cs" />
     <Compile Include="Assets\Scripts\GrappleHook.cs" />
     <Compile Include="Assets\Scripts\GrappleScript.cs" />
+    <Compile Include="Assets\Scripts\Heal.cs" />
+    <Compile Include="Assets\Scripts\ObjectPush.cs" />
+    <Compile Include="Assets\Scripts\PlayerHeath.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\puddle.cs" />
+    <Compile Include="Assets\Scripts\restart.cs" />
     <Compile Include="Assets\Scripts\ropeScript.cs" />
-    <Compile Include="Assets\shader.cs" />
-    <Compile Include="Assets\slideOzz.cs" />
-    <Compile Include="Assets\soundAffect.cs" />
-    <Compile Include="Assets\spider.cs" />
-    <Compile Include="Assets\star.cs" />
-    <Compile Include="Assets\vectory.cs" />
+    <Compile Include="Assets\Scripts\shader.cs" />
+    <Compile Include="Assets\Scripts\slideOzz.cs" />
+    <Compile Include="Assets\Scripts\soundAffect.cs" />
+    <Compile Include="Assets\Scripts\spider.cs" />
+    <Compile Include="Assets\Scripts\star.cs" />
+    <Compile Include="Assets\Scripts\Toad.cs" />
+    <Compile Include="Assets\Scripts\vectory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

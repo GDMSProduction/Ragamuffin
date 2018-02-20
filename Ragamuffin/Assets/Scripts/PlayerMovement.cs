@@ -77,6 +77,8 @@ public class PlayerMovement : MonoBehaviour
     LayerMask mask;
     [SerializeField]
     soundAffect sounds;
+    [SerializeField]
+    bool spider;
     // Use this dfor initialization
     void Start()
     {
@@ -88,6 +90,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (spider == true)
+        {
+            transform.position = transform.parent.transform.position;
+            input.x = 0;
+            input.y = 0;
+        }
 
         if (SlideMode)
         {
@@ -136,7 +144,7 @@ public class PlayerMovement : MonoBehaviour
         {
             ground = false;
         }
-        if (jump && Input.GetAxis("Jump") != 0 && (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() || jumpCount == 0 || climbing))
+        if (spider == false&&jump && Input.GetAxis("Jump") != 0 && (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() || jumpCount == 0 || climbing))
         {
 
             jump = false;
@@ -336,6 +344,14 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
+        if(other.gameObject.tag== "spider")
+        {
+            spider = true;
+            transform.parent = other.gameObject.transform;
+           
+            rb2d.gravityScale = 0;
+            other.gameObject.GetComponent<spider>().realup = true;
+        }
 
     }
     void OnCollisionStay2D(Collision2D other)
@@ -346,7 +362,10 @@ public class PlayerMovement : MonoBehaviour
             axisbloc = other.gameObject.GetComponent<slideOzz>().WhatAxistoStop;
             //  rb2d.gravityScale += other.gameObject.GetComponent<Sliide>().slideAMount;
         }
-
+        if (other.gameObject.tag == "spider")
+        {
+    
+        }
 
     }
     void OnTriggerExit2D(Collider2D other)

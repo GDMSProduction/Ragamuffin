@@ -211,14 +211,21 @@ public class GrappleHook : MonoBehaviour {
         {
             return;
         }
-        /*if (tag == "Shocker")
-          {
-              reelingIn = true;
-              return;
-          }*/
+        if (coll.gameObject.tag == "frogTung")
+        {
+            done = true;
+            reelingIn = true;
+            Debug.Break();
+            return;
+        }
+            /*if (tag == "Shocker")
+              {
+                  reelingIn = true;
+                  return;
+              }*/
 
 
-        Debug.Log("HIT!");
+            Debug.Log("HIT!");
         hit = true;
         collision = true;
          //   if (mask != (1 << coll.gameObject.layer | mask))
