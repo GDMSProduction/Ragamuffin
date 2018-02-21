@@ -937,7 +937,7 @@ MonoBehaviour:
   realdown: 0
   groundheght: 1
   toad: {fileID: 884363284}
-  howlong2awt: 15
+  howlong2awt: 1
   heath: {fileID: 1336059526}
 --- !u!23 &1198461250
 MeshRenderer:
@@ -1047,7 +1047,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4666811859331620, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.869
+      value: 11.647
       objectReference: {fileID: 0}
     - target: {fileID: 4666811859331620, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1077,19 +1077,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 1991636739537316, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
-      propertyPath: m_Name
-      value: Toad (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 114351989210252838, guid: b613e1bc7ef65bb42b3dedcff4607087,
         type: 2}
       propertyPath: grappleTarget
       value: 
       objectReference: {fileID: 1198461248}
-    - target: {fileID: 114351989210252838, guid: b613e1bc7ef65bb42b3dedcff4607087,
-        type: 2}
-      propertyPath: maxDistance
-      value: 10
+    - target: {fileID: 1991636739537316, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
+      propertyPath: m_Name
+      value: Toad (1)
       objectReference: {fileID: 0}
     - target: {fileID: 114664095217000514, guid: b613e1bc7ef65bb42b3dedcff4607087,
         type: 2}
@@ -1271,7 +1266,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4666811859331620, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.65
+      value: -5.63
       objectReference: {fileID: 0}
     - target: {fileID: 4666811859331620, guid: b613e1bc7ef65bb42b3dedcff4607087, type: 2}
       propertyPath: m_LocalPosition.y

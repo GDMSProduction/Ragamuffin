@@ -92,11 +92,8 @@ public class FrogTungExtend : MonoBehaviour {
         {
 
             done = true;
-
-            rb2d.isKinematic = true;
-
-            Destroy(connectedJoint);
-            Destroy(connectedRigidbody);
+            
+       
 
             /*          if (mainCollider.enabled)
                         {
@@ -126,13 +123,20 @@ public class FrogTungExtend : MonoBehaviour {
                         {
                             DeleteSecond();
                         }*/
+         
 
 
-
-            if (Nodes.Count == 1)
+        for (int i =0; i < vertexCount; ++i)
             {
+                if(Vector2.Distance(Nodes[i].transform.position,eye.transform.position) < 2)
+                {
+                  
 
-                //    DeleteNodes();
+                    DeleteSecond();
+                    i--;
+
+
+                }
             }
         }
         else if (!done)

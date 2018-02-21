@@ -39,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1991636739537316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3, y: 0.72, z: 20}
+  m_LocalPosition: {x: 8.331, y: 0.72, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,7 +97,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 200
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -146,7 +146,7 @@ MonoBehaviour:
   grappleTarget: {fileID: 0}
   eyes: {fileID: 1991636739537316}
   realout: 0
-  maxDistance: 20
+  maxDistance: 10
   speed: 0.8
   noadMax: 0
   damage: 10
@@ -163,12 +163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpPower:
-  - 500
-  - 500
-  - 600
-  - 700
-  - 1000
-  - 0
+  - 100000
+  - 100000
+  - 100000
+  - 100000
+  - 100000
+  - 100000
   - 0
   - 0
   - 0
@@ -178,10 +178,10 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  - 0
-  - 0
-  - 0
-  - 0
+  - 1
+  - 1
+  - 1
+  - 1
   - 0
   - 0
   rb2d: {fileID: 50036889942085836}

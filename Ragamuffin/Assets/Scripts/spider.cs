@@ -12,7 +12,7 @@ public class spider : MonoBehaviour {
     [SerializeField]
     float heght;
     [SerializeField]
-    bool stop;
+    bool stop = true;
     [SerializeField]
     bool realdown;
     [SerializeField]
@@ -26,13 +26,18 @@ public class spider : MonoBehaviour {
     PlayerHeath heath;
 	// Use this for initialization
 	void Start () {
-		
+        stop = true;	
 	}
-	
+    bool boost;
 	// Update is called once per frame
 	void Update () {
         if (realup == true&&stop==false)
         {
+            if (boost == false)
+            {
+                rb2d.AddForce(Vector2.up *31);
+                boost = true;
+            }
             rb2d.AddForce(Vector2.up * speed);
             if (jumpToad == false)
             {
@@ -54,6 +59,7 @@ public class spider : MonoBehaviour {
         }
         if(transform.position.y < groundheght)
         {
+            stop = false;
             realdown = false;
             rb2d.velocity = Vector2.zero;
         }

@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destoryhook: {fileID: 0}
-  speed: 1
+  speed: 0.8
   slowspeed: 0
   zoominSpeed: 0.1
   distance: 0.5
