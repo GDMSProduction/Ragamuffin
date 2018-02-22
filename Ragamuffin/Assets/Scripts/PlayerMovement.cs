@@ -189,7 +189,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetAxis("Climb") != 0 && canWeClimb)
         {
-            if (climbing)
+            
                 rb2d.gravityScale = gravity;
             climbing = true;
             if (grappleScript.GetCurHook() != null)
@@ -201,14 +201,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb2d.gravityScale = 0;
             RaycastHit2D wallHit = Physics2D.Raycast(transform.position, (Vector2.right * input.x).normalized, 0.5f, groundlayer);
-            if (wallHit.collider == null)
+           
             {
                 rb2d.velocity = new Vector2(input.x * maxClimbSpeed * (sprinting ? climbMuply : 1), input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
             }
-            else
-            {
-                rb2d.velocity = new Vector2(rb2d.velocity.x, input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
-            }
+            //else
+            //{
+            //    rb2d.velocity = new Vector2(rb2d.velocity.x, input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
+            //}
 
 
         }
