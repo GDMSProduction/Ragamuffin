@@ -57,7 +57,7 @@ public class spider : MonoBehaviour {
             stop = true;
             rb2d.velocity = Vector2.zero;
         }
-        if(transform.position.y < groundheght)
+        if(transform.position.y < groundheght&&stop==true)
         {
             stop = false;
             realdown = false;

@@ -31,7 +31,7 @@ public class HoptoSpot : MonoBehaviour {
             rb2d.AddForce(Vector2.right * JumpPower[Counter]);
 
             StartCoroutine(JumpCOoldown());
-            Debug.Break();
+          
         }
       
     }

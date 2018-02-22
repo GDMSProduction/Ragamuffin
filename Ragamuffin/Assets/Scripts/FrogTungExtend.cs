@@ -101,7 +101,7 @@ public class FrogTungExtend : MonoBehaviour {
                             return;
                         }*/
 
-            transform.position = Vector3.MoveTowards(transform.position, eye.transform.position, speed * 0.4f);
+            transform.position = Vector3.MoveTowards(transform.position, eye.transform.position, speed *1.3f);
             transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
             if (Vector2.Distance(eye.transform.position, transform.position) < 1)
             {
