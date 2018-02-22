@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 471}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -108,10 +108,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 917, y: 442}
-  m_MaxSize: {x: 22012, y: 10021}
+  m_MinSize: {x: 913, y: 421}
+  m_MaxSize: {x: 22008, y: 10021}
   vertical: 0
-  controlID: 117
+  controlID: 90
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -132,10 +132,10 @@ MonoBehaviour:
     y: 0
     width: 839
     height: 947
-  m_MinSize: {x: 202, y: 442}
-  m_MaxSize: {x: 4002, y: 8042}
+  m_MinSize: {x: 202, y: 421}
+  m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 118
+  controlID: 54
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -180,8 +180,8 @@ MonoBehaviour:
     y: 428
     width: 839
     height: 519
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 12}
@@ -205,8 +205,8 @@ MonoBehaviour:
     y: 0
     width: 235
     height: 947
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -368,14 +368,14 @@ MonoBehaviour:
     height: 407
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneLighting: 1
-  lastFramingTime: 1389.8565306812598
+  lastFramingTime: 634.6853683473634
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 153.01936, y: -14.919782, z: 37.826515}
+    m_Target: {x: 15.039016, y: 2.3847203, z: 18.75942}
     speed: 2
-    m_Value: {x: 153.01936, y: -14.919782, z: 37.826515}
+    m_Value: {x: 15.039016, y: 2.3847203, z: 18.75942}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -399,13 +399,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: -0.24694206, y: -0.08505443, z: 0.021764876, w: -0.965045}
+    m_Target: {x: -0.13084853, y: -0.27226824, z: 0.03740118, w: -0.95254916}
     speed: 2
-    m_Value: {x: -0.24694206, y: -0.08505443, z: 0.021764876, w: -0.965045}
+    m_Value: {x: -0.13084853, y: -0.27226824, z: 0.03740118, w: -0.95254916}
   m_Size:
-    m_Target: 39.479584
+    m_Target: 4.4123573
     speed: 2
-    m_Value: 39.479584
+    m_Value: 4.4123573
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -488,21 +488,21 @@ MonoBehaviour:
     height: 926
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
-    scrollPos: {x: 0, y: 195}
-    m_SelectedIDs: 9af7ffff
-    m_LastClickedID: -2150
-    m_ExpandedIDs: 56f7ffff9cf7ffff9cfbffff9efbffff00000000102a00002e2c0000
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: 2a5c0000
+    m_LastClickedID: 23594
+    m_ExpandedIDs: 4a8bfeff10cdfeff54cdfeffccd1feff8ed2feff34d4feff46d4feff4ed4feff38dbffffd4e1ffffe0e2ffff08e4ffff1ae4ffffa4e8ffff9efbffff000000002a5c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: clableground
-      m_OriginalName: clableground
+      m_Name: cadnav-160629113939_00000
+      m_OriginalName: cadnav-160629113939_00000
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: -2150
+      m_UserData: -129342
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -510,7 +510,7 @@ MonoBehaviour:
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
   m_ExpandedScenes:
-  - kitchen
+  - toad
   m_CurrenRootInstanceID: 0
   m_Locked: 0
   m_CurrentSortingName: TransformSorting
@@ -553,18 +553,18 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Scripts
+    - Assets/temptdevasst
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts
+  - Assets/temptdevasst
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\panda12\Desktop\bearGitHub\Ragamuffin\Ragamuffin
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: e6280000
-    m_LastClickedID: 10470
+    m_SelectedIDs: f0280000
+    m_LastClickedID: 10480
     m_ExpandedIDs: 0000000098270000ac270000802900008e2900009a29000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -621,7 +621,7 @@ MonoBehaviour:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: be2cffff00000000f62b0000
+    m_ExpandedInstanceIDs: be2cffff00000000f62b0000565c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
