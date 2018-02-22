@@ -13,8 +13,8 @@ public class spider : MonoBehaviour {
     float heght;
     [SerializeField]
     bool stop = true;
-    [SerializeField]
-    bool realdown;
+   
+  public  bool realdown;
     [SerializeField]
     float groundheght;
     [SerializeField]

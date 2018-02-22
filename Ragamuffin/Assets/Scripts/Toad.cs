@@ -16,7 +16,10 @@ public class Toad : MonoBehaviour {
     Toad toad;
     bool colide;
     
-   
+   void Start()
+    {
+        colide = false;
+    }
     // Use this for initialization
     void Update()
     {
@@ -28,12 +31,15 @@ public class Toad : MonoBehaviour {
     }
     public void  Jump()
     {
-        colide = true;
-        StartJump = false;
-        rb2d.velocity = Vector2.zero;
-        rb2d.AddForce(Vector2.up * JumpPower[Counter]);
+        if (Counter < JumpPower.Length)
+        {
+            colide = true;
+            StartJump = false;
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(Vector2.up * JumpPower[Counter]);
 
-        StartCoroutine(tungWhip());
+            StartCoroutine(tungWhip());
+        }
     }
     IEnumerator tungWhip()
     {

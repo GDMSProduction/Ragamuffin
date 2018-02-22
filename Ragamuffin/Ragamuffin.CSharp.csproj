@@ -282,6 +282,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GotoScen.cs" />
+    <Compile Include="Assets\HoptoSpot.cs" />
+    <Compile Include="Assets\SceneLoder.cs" />
     <Compile Include="Assets\Scripts\CatClaw.cs" />
     <Compile Include="Assets\Scripts\catSearch.cs" />
     <Compile Include="Assets\Scripts\catSuperCharge.cs" />
@@ -306,6 +309,7 @@
     <Compile Include="Assets\Scripts\star.cs" />
     <Compile Include="Assets\Scripts\Toad.cs" />
     <Compile Include="Assets\Scripts\vectory.cs" />
+    <Compile Include="Assets\startJump.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
