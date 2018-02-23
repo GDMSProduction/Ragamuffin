@@ -57,5 +57,9 @@ public class Toad : MonoBehaviour {
                 toad.Jump();
             }
         }
+        if (other.gameObject.tag == "ground")
+        {
+            rb2d.velocity = Vector2.zero;
+        }
     }
 }
