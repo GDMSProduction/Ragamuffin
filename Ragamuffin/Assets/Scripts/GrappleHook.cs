@@ -117,7 +117,7 @@ public class GrappleHook : MonoBehaviour {
 
             for (int i = 0; i < Nodes.Count; ++i)
                 {
-                    if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 2)
+                    if (Vector2.Distance(eye.transform.position, Nodes[i].transform.position) < 3)
                     {
                         --vertexCount;
                         Destroy(Nodes[i]);
