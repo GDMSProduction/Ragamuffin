@@ -108,7 +108,12 @@ public class catSearch : MonoBehaviour
     {
         if (direction == 0)
         {
+            if(transform.localScale.x==priortydirection)
             StartCoroutine(unpause(3));
+            else
+            {
+                StartCoroutine(unpause(2.1f));
+            }
             attac = false;
         }
         if (inacourtine == true)
