@@ -65,6 +65,7 @@ public class spider : MonoBehaviour {
         }
 
     }
+    // the toads begen 2 jump
     IEnumerator ToadStarttheAssult()
     {
         yield return new WaitForSeconds(howlong2awt);

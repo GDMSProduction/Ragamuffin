@@ -276,6 +276,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator poschec()
     {
+        // sure the cats goen the rght way
         yield return new WaitForSeconds(0.2f);
         if (chasing == false)
         {
@@ -295,7 +296,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator catAnmaton()
     {
-
+        // the cat attacs
 
         rb2d.velocity = Vector2.zero;
         rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
@@ -339,6 +340,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator Stuned()
     {
+        // the cat has been stuned
         yield return new WaitForSeconds(3);
         stuned = false;
         StopCoroutine(Stuned());
@@ -364,6 +366,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator turn12()
     {
+        // allows the cat to turn
         yield return new WaitForSeconds(0.5f);
         turn = true;
     }
@@ -375,6 +378,7 @@ public class catSearch : MonoBehaviour
     }
     IEnumerator help()
     {
+        // to fx bug when the cat wouldnt move
         yield return new WaitForSeconds(4);
         if (inacourtine == true)
         {
@@ -409,6 +413,7 @@ public class catSearch : MonoBehaviour
                 transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
             }
         }
+// forces the cat to turn around the cat has gone to far
         if (other.tag == "clamp" && turn)
         {
             dontlsten2wayponts = true;

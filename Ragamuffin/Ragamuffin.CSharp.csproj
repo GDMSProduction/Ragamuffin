@@ -299,10 +299,8 @@
     <Compile Include="Assets\Scripts\ObjectPush.cs" />
     <Compile Include="Assets\Scripts\PlayerHeath.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\puddle.cs" />
     <Compile Include="Assets\Scripts\restart.cs" />
     <Compile Include="Assets\Scripts\ropeScript.cs" />
-    <Compile Include="Assets\Scripts\shader.cs" />
     <Compile Include="Assets\Scripts\slideOzz.cs" />
     <Compile Include="Assets\Scripts\soundAffect.cs" />
     <Compile Include="Assets\Scripts\spider.cs" />
