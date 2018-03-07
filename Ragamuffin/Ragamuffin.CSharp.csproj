@@ -282,6 +282,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\checkpoint.cs" />
     <Compile Include="Assets\GotoScen.cs" />
     <Compile Include="Assets\HoptoSpot.cs" />
     <Compile Include="Assets\SceneLoder.cs" />
