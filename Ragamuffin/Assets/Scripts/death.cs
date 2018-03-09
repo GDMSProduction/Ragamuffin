@@ -10,12 +10,12 @@ public class death : MonoBehaviour {
   public  bool delaydeath;
     [SerializeField]
     float lives = 2;
-    [SerializeField]
-    GameObject[] checkpoints = new GameObject[10];
-    [SerializeField]
-    GameObject[] zeroLiveResetPoint = new GameObject[10];
-    [SerializeField]
-    GameObject[] ObjectstoReset = new GameObject[10];
+    [HideInInspector]
+    public GameObject[] checkpoints = new GameObject[10];
+    [HideInInspector]
+    public GameObject[] zeroLiveResetPoint = new GameObject[10];
+    [HideInInspector]
+    public GameObject[] ObjectstoReset = new GameObject[10];
     [SerializeField]
     soundAffect sound;
   

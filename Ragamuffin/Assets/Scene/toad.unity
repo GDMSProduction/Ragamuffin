@@ -932,8 +932,9 @@ GameObject:
   - component: {fileID: 950605338}
   - component: {fileID: 950605337}
   - component: {fileID: 950605336}
+  - component: {fileID: 950605341}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: MainCheckPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1029,6 +1030,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &950605341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 950605335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacdd59e23eac444abbc805c65861cc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CheckPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  ObjectsToMove:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  MainCheckPointLocation:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &955775186 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4666811859331620, guid: b613e1bc7ef65bb42b3dedcff4607087,
@@ -2228,6 +2273,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  sound: {fileID: 0}
   mainSpanpoint: {fileID: 950605335}
 --- !u!114 &2129716826
 MonoBehaviour:
@@ -2383,6 +2429,7 @@ MonoBehaviour:
   hookPrefab: {fileID: 1803966110539910, guid: 0dc3511880ad7f742a0f07dbb14ae6a3, type: 2}
   grappleTarget: {fileID: 348586533}
   eyes: {fileID: 660580647}
+  sound: {fileID: 0}
   realout: 0
   maxDistance: 7
   speed: 0.5
