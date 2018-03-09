@@ -12,7 +12,8 @@ public class GrappleScript : MonoBehaviour
 
     [SerializeField]
     GameObject eyes;
-
+    [SerializeField]
+    soundAffect sound;
 
 
     private bool reelingIn;
@@ -104,7 +105,8 @@ public class GrappleScript : MonoBehaviour
         hookComp.SetMaxDistance(maxDistance);
         hookComp.player = gameObject;
         hookComp.SetEye(eyes);
-       
+        if(sound!=null)
+        hookComp.sound = sound;
      
     }
     

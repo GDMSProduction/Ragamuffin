@@ -7,6 +7,10 @@ public class soundAffect : MonoBehaviour {
     AudioSource laso;
     [SerializeField]
     AudioSource footsteps;
+    [SerializeField]
+    AudioSource death;
+    [SerializeField]
+    AudioSource latch;
     public   void PlaySound(string sound)
     {
         if (sound == "laso")
@@ -16,6 +20,15 @@ public class soundAffect : MonoBehaviour {
         if (sound == "steps"&&footsteps.isPlaying==false)
         {
             footsteps.Play();
+        }
+        if (sound == "death")
+        {
+            death.Play();
+        }
+        if (sound == "latch")
+        {
+            laso.Stop();
+            latch.Play();
         }
     }
     public void StopFootSteps()

@@ -41,7 +41,8 @@ public class GrappleHook : MonoBehaviour {
     Rigidbody2D rb2d;
     [SerializeField]
     AudioClip hitSound;
-
+    [HideInInspector]
+    public soundAffect sound;
  
 
     // this changes based on the rope length 
@@ -211,6 +212,8 @@ public class GrappleHook : MonoBehaviour {
         {
             return;
         }
+        if(sound!=null)
+        sound.PlaySound("latch");
         if (coll.gameObject.tag == "frogTung")
         {
             done = true;

@@ -10,6 +10,14 @@ public class death : MonoBehaviour {
   public  bool delaydeath;
     [SerializeField]
     float lives = 2;
+    [SerializeField]
+    GameObject[] checkpoints = new GameObject[10];
+    [SerializeField]
+    GameObject[] zeroLiveResetPoint = new GameObject[10];
+    [SerializeField]
+    GameObject[] ObjectstoReset = new GameObject[10];
+    [SerializeField]
+    soundAffect sound;
   
   public  GameObject mainSpanpoint;
 	// Use this for initialization
@@ -21,6 +29,12 @@ public class death : MonoBehaviour {
 	void Update () {
         if(transform.position.y < -20||heath.GetHeath() <=0&&delaydeath==false&&lives!=0)
         {
+            if(sound!=null)
+            sound.PlaySound("death");
+            for(int i=0; i < ObjectstoReset.Length; ++i)
+            {
+                ObjectstoReset[i].transform.position = checkpoints[i].transform.position;
+            }
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             if(respawn!=null)
             transform.position = respawn.transform.position;
@@ -37,6 +51,13 @@ public class death : MonoBehaviour {
         }
         else if (lives == 0)
         {
+            if(sound!=null)
+            sound.PlaySound("death");
+
+            for (int i = 0; i < ObjectstoReset.Length; ++i)
+            {
+                ObjectstoReset[i].transform.position = zeroLiveResetPoint[i].transform.position;
+            }
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             lives = 3;
 
@@ -49,8 +70,15 @@ public class death : MonoBehaviour {
         yield return new WaitForSeconds(2);
         GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         transform.position = respawn.transform.position;
+        for (int i = 0; i < ObjectstoReset.Length; ++i)
+        {
+            ObjectstoReset[i].transform.position = checkpoints[i].transform.position;
+        }
         heath.ResetHeath();
         lives -= 1;
+        if(sound!=null)
+        sound.PlaySound("death");
+
         StopAllCoroutines();
     }
     public void setRespawn(GameObject _respawn)
