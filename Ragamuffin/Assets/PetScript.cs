@@ -12,6 +12,12 @@ public class PetScript : MonoBehaviour {
             other.GetComponent<PlayerMovement>().petusues = 2;
             this.GetComponent<BoxCollider2D>().enabled = false;
             transform.parent = other.transform;
+            other.GetComponent<PlayerMovement>().petatm = this.GetComponent<PetScript>();
         }
+    }
+    public void RelasePet()
+    {
+        transform.parent = null;
+        Destroy(gameObject);
     }
 }

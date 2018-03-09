@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     GrappleScript grappleScript;
     Rigidbody2D rb2d;
     Vector2 input;
+    public PetScript petatm;
     // this is the amount of control that a grapple hook has
     [SerializeField]
     float grappleControlMax = 10;
@@ -92,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M)&&areweholdingthepet&&petusues!=0)
+        if (Input.GetKeyDown(KeyCode.M)&&areweholdingthepet&&petusues!=0&&AreWeUsingthePet==false)
         {
             AreWeUsingthePet = true;
             petusues--;
@@ -105,7 +106,12 @@ public class PlayerMovement : MonoBehaviour
             cat.Sethide(false);
             this.gameObject.layer = 9;
             onereset = false;
+               if (petatm != null && petusues == 0)
+            {
+                petatm.RelasePet();
+            }
         }
+     
     }
 
     // Update is called once per frame
@@ -405,7 +411,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
         }
-        if (other.gameObject.tag == "hide")
+        if (other.gameObject.tag == "hide"&&AreWeUsingthePet==false)
         {
             cat.Sethide(false);
             this.gameObject.layer = 9;
