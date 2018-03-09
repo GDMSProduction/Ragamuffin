@@ -22,7 +22,8 @@ public class FollowPLayer : MonoBehaviour {
     float hardcodedz;
     [SerializeField]
     soundAffect sounds;
-   
+    [SerializeField]
+    PlayerMovement player;
 	// Use this for initialization
 	void Start () {
      
@@ -43,6 +44,7 @@ public class FollowPLayer : MonoBehaviour {
              Vector3 zeropo= cursorPos.transform.position;
             GrappleTarget.transform.position = zeropo;
             grappleScript.StartGrapple();
+            player.AreWeUsingthePet = false;
        
           
         }

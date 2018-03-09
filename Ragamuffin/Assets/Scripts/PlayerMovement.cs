@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     MeshRenderer crouchingPicture;
     bool crouching;
+   public bool areweholdingthepet;
+ public   bool AreWeUsingthePet;
+   public int petusues = 2;
     [SerializeField]
     GrappleScript grappleScript;
     Rigidbody2D rb2d;
@@ -79,12 +82,30 @@ public class PlayerMovement : MonoBehaviour
     soundAffect sounds;
     [SerializeField]
     bool spider;
+    bool onereset;
     // Use this dfor initialization
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
         gravity = rb2d.gravityScale;
         jump = true;
+    }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M)&&areweholdingthepet&&petusues!=0)
+        {
+            AreWeUsingthePet = true;
+            petusues--;
+            cat.Sethide(true);
+            this.gameObject.layer = 11;
+            onereset = true;
+        }
+        else if(onereset&&AreWeUsingthePet==false)
+        {
+            cat.Sethide(false);
+            this.gameObject.layer = 9;
+            onereset = false;
+        }
     }
 
     // Update is called once per frame
@@ -214,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (ground && Mathf.Abs(rb2d.velocity.x) > maxSpeed * sprintMult * 1.5f)
         {
-            if (slowed)
+            if (slowed||AreWeUsingthePet)
             {
                 rb2d.velocity = new Vector2(rb2d.velocity.x * speedDamp / 2, rb2d.velocity.y);
             }
@@ -246,7 +267,7 @@ public class PlayerMovement : MonoBehaviour
                     //   if (input.x < 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x < transform.position.x || input.x > 0 && Camera.main.ScreenToWorldPoint(Input.mousePosition).x > transform.position.x)
 
                     //   GetComponent<Animator>().SetBool("back", false);
-                    if (slowed)
+                    if (slowed||AreWeUsingthePet)
                     {
                         rb2d.velocity = new Vector2(input.x * (maxSpeed / 2) * (sprinting ? sprintMult : 1), rb2d.velocity.y);
                     }
