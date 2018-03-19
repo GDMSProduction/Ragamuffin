@@ -18,7 +18,11 @@ public class edges : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+           
+                other.GetComponent<PlayerMovement>().SetGravity(0);
+                other.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+                
+         
         }
     }
     void OnTriggerExit2D(Collider2D other)

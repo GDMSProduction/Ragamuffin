@@ -45,7 +45,7 @@ public class FollowPLayer : MonoBehaviour {
             GrappleTarget.transform.position = zeropo;
             grappleScript.StartGrapple();
             player.AreWeUsingthePet = false;
-            player.ResetGravity();
+       
        
           
         }

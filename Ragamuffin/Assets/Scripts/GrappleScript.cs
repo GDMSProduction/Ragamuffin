@@ -44,6 +44,10 @@ public class GrappleScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (curHook != null)
+        {
+          //  GetComponent<PlayerMovement>().ResetGravity();
+        }
         // rells in the player
         if (reelingIn && curHook != null && (curHook.transform.position - eyes.transform.position).sqrMagnitude >= shortDist)
         {

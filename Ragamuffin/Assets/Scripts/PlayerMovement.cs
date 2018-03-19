@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (spider == false&&jump && Input.GetAxis("Jump") != 0 && (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() || jumpCount == 0 || climbing))
         {
-
+       
             jump = false;
 
 
@@ -464,5 +464,13 @@ public class PlayerMovement : MonoBehaviour
     public void ResetGravity()
     {
         rb2d.gravityScale = gravity;
+    }
+    public float getGRavity()
+    {
+        return gravity;
+    }
+    public bool OnEdge()
+    {
+        return onedge;
     }
 }

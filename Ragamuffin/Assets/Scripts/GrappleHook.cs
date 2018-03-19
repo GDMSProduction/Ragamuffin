@@ -87,7 +87,7 @@ public class GrappleHook : MonoBehaviour {
         transform.LookAt(grappleTarget.transform.position);
         transform.Rotate(Vector2.up * -90);
         done = false;
-        gravity = player.GetComponent<Rigidbody2D>().gravityScale;
+        gravity = player.GetComponent<PlayerMovement>().getGRavity();
 
 
 
@@ -130,7 +130,7 @@ public class GrappleHook : MonoBehaviour {
             
 
         }
-        else
+        else if(player.GetComponent<PlayerMovement>().OnEdge()==false)
         {
             player.GetComponent<Rigidbody2D>().gravityScale = gravity;
         }
@@ -221,6 +221,7 @@ public class GrappleHook : MonoBehaviour {
             Debug.Break();
             return;
         }
+       //    player.GetComponent<PlayerMovement>().ResetGravity();
             /*if (tag == "Shocker")
               {
                   reelingIn = true;
