@@ -84,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     bool spider;
     bool onereset;
+    public bool onedge;
     // Use this dfor initialization
     void Start()
     {
@@ -223,7 +224,10 @@ public class PlayerMovement : MonoBehaviour
                 grappleScript.DestroyGrapple();
            
         }
-
+        else if (onedge == true)
+        {
+            rb2d.velocity = new Vector2(input.x * maxClimbSpeed * (sprinting ? climbMuply : 1), input.y * maxClimbSpeed * (sprinting ? climbMuply : 1));
+        }
         else if (canWeClimb && climbing)
         {
             rb2d.gravityScale = 0;
@@ -452,5 +456,13 @@ public class PlayerMovement : MonoBehaviour
     public void HealPlayer()
     {
         heath.HealPlayer(35);
+    }
+    public void SetGravity(float _gravity)
+    {
+        rb2d.gravityScale = _gravity;
+    }
+    public void ResetGravity()
+    {
+        rb2d.gravityScale = gravity;
     }
 }
