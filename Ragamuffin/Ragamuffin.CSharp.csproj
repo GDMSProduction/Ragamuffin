@@ -287,6 +287,7 @@
     <Compile Include="Assets\GotoScen.cs" />
     <Compile Include="Assets\HoptoSpot.cs" />
     <Compile Include="Assets\MainCHeckpoint.cs" />
+    <Compile Include="Assets\MenuControler.cs" />
     <Compile Include="Assets\PetScript.cs" />
     <Compile Include="Assets\SceneLoder.cs" />
     <Compile Include="Assets\Scripts\CatClaw.cs" />

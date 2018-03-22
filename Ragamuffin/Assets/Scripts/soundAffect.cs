@@ -11,25 +11,44 @@ public class soundAffect : MonoBehaviour {
     AudioSource death;
     [SerializeField]
     AudioSource latch;
+    [SerializeField]
+    AudioSource buttonsound;
+    [SerializeField]
+    AudioSource acceptedbuttonSound;
+    [SerializeField]
+    AudioSource backbutton;
     public   void PlaySound(string sound)
     {
         if (sound == "laso")
         {
             laso.Play();
         }
-        if (sound == "steps"&&footsteps.isPlaying==false)
+       else if (sound == "steps"&&footsteps.isPlaying==false)
         {
             footsteps.Play();
         }
-        if (sound == "death")
+       else  if (sound == "death")
         {
             death.Play();
         }
-        if (sound == "latch")
+       else  if (sound == "latch")
         {
             laso.Stop();
             latch.Play();
         }
+      else  if (sound == "buttonSound")
+        {
+            buttonsound.Play();
+        }
+        else if (sound == "acceptedClick")
+        {
+            acceptedbuttonSound.Play();
+        }
+        else if (sound == "backbutton")
+        {
+            backbutton.Play();
+        }
+
     }
     public void StopFootSteps()
     {
