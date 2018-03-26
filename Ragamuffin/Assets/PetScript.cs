@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PetScript : MonoBehaviour {
-
-    void OnTriggerEnter2D(Collider2D other)
+public class PetScript : InVentroyObject
+{
+    new void OnTriggerEnter2D(Collider2D other)
     {
+        base.OnTriggerEnter2D(other);
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<PlayerMovement>().areweholdingthepet = true;

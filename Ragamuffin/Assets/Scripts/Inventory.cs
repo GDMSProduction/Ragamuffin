@@ -6,16 +6,26 @@ using UnityEngine.UI;
 public class Inventory : MonoBehaviour {
     public Image[] itemImages = new Image[numItemSlots];
     public InVentroyObject[] items = new InVentroyObject[numItemSlots];
+    public List<Image> TUrtle = new List<Image>();
     public GameObject[] pos = new GameObject[3];
     public int x;
-    public const int numItemSlots = 4;
+    public const int numItemSlots = 5;
     public float switchCooldown = 0.25f;
     float countdownProgress;
     [SerializeField]
     Color black;
     Color ogcolor;
     float timer = 0;
-    
+    int numberofitemsinhand = 0;
+    float width;
+    float height;
+    private void Start()
+    {
+        width = itemImages[0].rectTransform.sizeDelta.x;
+        height = itemImages[0].rectTransform.sizeDelta.y;
+
+
+    }
     private void Update()
     {
         timer += Time.deltaTime;
@@ -23,20 +33,23 @@ public class Inventory : MonoBehaviour {
         black.g = 0;
         black.b = 0;
         countdownProgress -= Time.deltaTime;
-        if (countdownProgress <= 0 && (Mathf.Abs(Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)){
+        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)){
      
             timer = 0;
             countdownProgress = switchCooldown;
-            Image previousimage = itemImages[numItemSlots - 1];
-            InVentroyObject previousobject = items[numItemSlots - 1];
-            for(int i = 0; i < numItemSlots; ++i)
+            Image previousimage = itemImages[numberofitemsinhand - 1];
+            InVentroyObject previousobject = items[numberofitemsinhand - 1];
+            for(int i = 0; i < numberofitemsinhand; ++i)
             {
+                itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+
                     InVentroyObject temptitem = items[i];
                     Image temptImage = itemImages[i];
                     itemImages[i] = previousimage;
                     items[i] = previousobject;
                     previousimage = temptImage;
                     previousobject = temptitem;
+
             }
             Color aplhareduce;
             aplhareduce = itemImages[0].color;
@@ -54,6 +67,38 @@ public class Inventory : MonoBehaviour {
 
 
         }
+        else if(countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) <0))
+        {
+
+            timer = 0;
+            countdownProgress = switchCooldown;
+            Image previousimage = itemImages[0];
+            InVentroyObject previousobject = items[0];
+            for (int i = numberofitemsinhand-1; i >=0 ; i--)
+            {
+                itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+
+                InVentroyObject temptitem = items[i];
+                Image temptImage = itemImages[i];
+                itemImages[i] = previousimage;
+                items[i] = previousobject;
+                previousimage = temptImage;
+                previousobject = temptitem;
+            }
+            Color aplhareduce;
+            aplhareduce = itemImages[0].color;
+            aplhareduce.a = 1;
+            itemImages[0].color = aplhareduce;
+
+            aplhareduce = itemImages[1].color;
+            aplhareduce.a = 1;
+            itemImages[1].color = aplhareduce;
+
+            aplhareduce = itemImages[2].color;
+            aplhareduce.a = 1;
+            itemImages[2].color = aplhareduce;
+        }
+        itemImages[1].rectTransform.sizeDelta = new Vector2(150, 150);
         if (timer > 4)
         {
             Color aplhareduce;
@@ -81,10 +126,7 @@ public class Inventory : MonoBehaviour {
     }
     public void AddItem(InVentroyObject itemToAdd)
     {
-        if (itemToAdd.sprite == null)
-        {
-            return; 
-        }
+        numberofitemsinhand++;
         for(int i=0; i < items.Length; ++i)
         {
             if (items[i] == null)
@@ -95,5 +137,9 @@ public class Inventory : MonoBehaviour {
                 
             }
         }
+    }
+    public InVentroyObject GetItem()
+    {
+        return items[1];
     }
 }

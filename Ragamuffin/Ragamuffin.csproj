@@ -283,10 +283,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\checkpoint.cs" />
+    <Compile Include="Assets\door.cs" />
     <Compile Include="Assets\edges.cs" />
     <Compile Include="Assets\FallingPlatForm.cs" />
     <Compile Include="Assets\GotoScen.cs" />
     <Compile Include="Assets\HoptoSpot.cs" />
+    <Compile Include="Assets\Key.cs" />
     <Compile Include="Assets\MainCHeckpoint.cs" />
     <Compile Include="Assets\MainMenuSounds.cs" />
     <Compile Include="Assets\PetScript.cs" />
