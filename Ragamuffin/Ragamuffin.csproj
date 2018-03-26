@@ -284,6 +284,7 @@
   <ItemGroup>
     <Compile Include="Assets\checkpoint.cs" />
     <Compile Include="Assets\edges.cs" />
+    <Compile Include="Assets\FallingPlatForm.cs" />
     <Compile Include="Assets\GotoScen.cs" />
     <Compile Include="Assets\HoptoSpot.cs" />
     <Compile Include="Assets\MainCHeckpoint.cs" />
@@ -301,6 +302,9 @@
     <Compile Include="Assets\Scripts\GrappleHook.cs" />
     <Compile Include="Assets\Scripts\GrappleScript.cs" />
     <Compile Include="Assets\Scripts\Heal.cs" />
+    <Compile Include="Assets\Scripts\Inventory.cs" />
+    <Compile Include="Assets\Scripts\InventoryEditor.cs" />
+    <Compile Include="Assets\Scripts\InVentroyObject.cs" />
     <Compile Include="Assets\Scripts\MenuControler.cs" />
     <Compile Include="Assets\Scripts\ObjectPush.cs" />
     <Compile Include="Assets\Scripts\PlayerHeath.cs" />
@@ -314,6 +318,7 @@
     <Compile Include="Assets\Scripts\Toad.cs" />
     <Compile Include="Assets\Scripts\vectory.cs" />
     <Compile Include="Assets\startJump.cs" />
+    <Compile Include="Assets\TestingIventory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
