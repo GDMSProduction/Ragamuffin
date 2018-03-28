@@ -7,9 +7,9 @@ public class Inventory : MonoBehaviour {
     public Image[] itemImages = new Image[numItemSlots];
     public InVentroyObject[] items = new InVentroyObject[numItemSlots];
     public List<Image> TUrtle = new List<Image>();
-    public GameObject[] pos = new GameObject[3];
+    public GameObject[] pos = new GameObject[numItemSlots];
     public int x;
-    public const int numItemSlots = 5;
+    public const int numItemSlots = 6;
     public float switchCooldown = 0.25f;
     float countdownProgress;
     [SerializeField]
@@ -33,22 +33,23 @@ public class Inventory : MonoBehaviour {
         black.g = 0;
         black.b = 0;
         countdownProgress -= Time.deltaTime;
-        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)){
-     
+        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon))
+        {
+
             timer = 0;
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[numberofitemsinhand - 1];
             InVentroyObject previousobject = items[numberofitemsinhand - 1];
-            for(int i = 0; i < numberofitemsinhand; ++i)
+            for (int i = 0; i < numberofitemsinhand; ++i)
             {
                 itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
 
-                    InVentroyObject temptitem = items[i];
-                    Image temptImage = itemImages[i];
-                    itemImages[i] = previousimage;
-                    items[i] = previousobject;
-                    previousimage = temptImage;
-                    previousobject = temptitem;
+                InVentroyObject temptitem = items[i];
+                Image temptImage = itemImages[i];
+                itemImages[i] = previousimage;
+                items[i] = previousobject;
+                previousimage = temptImage;
+                previousobject = temptitem;
 
             }
             Color aplhareduce;
@@ -67,14 +68,14 @@ public class Inventory : MonoBehaviour {
 
 
         }
-        else if(countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) <0))
+        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0))
         {
 
             timer = 0;
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[0];
             InVentroyObject previousobject = items[0];
-            for (int i = numberofitemsinhand-1; i >=0 ; i--)
+            for (int i = numberofitemsinhand - 1; i >= 0; i--)
             {
                 itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
 
@@ -85,44 +86,56 @@ public class Inventory : MonoBehaviour {
                 previousimage = temptImage;
                 previousobject = temptitem;
             }
-            Color aplhareduce;
-            aplhareduce = itemImages[0].color;
-            aplhareduce.a = 1;
-            itemImages[0].color = aplhareduce;
+            for (int i = 0; i < 3; ++i)
+            {
+                if (itemImages[i] != null)
+                {
+                    Color aplhareduce;
+                    aplhareduce = itemImages[i].color;
+                    aplhareduce.a = 1;
+                    itemImages[i].color = aplhareduce;
+                }
 
-            aplhareduce = itemImages[1].color;
-            aplhareduce.a = 1;
-            itemImages[1].color = aplhareduce;
+                //aplhareduce = itemImages[1].color;
+                //aplhareduce.a = 1;
+                //itemImages[1].color = aplhareduce;
 
-            aplhareduce = itemImages[2].color;
-            aplhareduce.a = 1;
-            itemImages[2].color = aplhareduce;
+                //aplhareduce = itemImages[2].color;
+                //aplhareduce.a = 1;
+                //itemImages[2].color = aplhareduce;
+            }
+            itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
+            if (timer > 4)
+            {
+                Color aplhareduce;
+                aplhareduce = itemImages[0].color;
+                aplhareduce.a -= (float)0.01;
+                itemImages[0].color = aplhareduce;
+
+                aplhareduce = itemImages[1].color;
+                aplhareduce.a -= (float)0.01;
+                itemImages[1].color = aplhareduce;
+
+                aplhareduce = itemImages[2].color;
+                aplhareduce.a -= (float)0.01;
+                itemImages[2].color = aplhareduce;
+            }
+
+            //   ogcolor = itemImages[1].color;
+            //  itemImages[1].color = black;
+            itemImages[0].transform.position = pos[0].transform.position;
+            itemImages[1].transform.position = pos[1].transform.position;
+            itemImages[2].transform.position = pos[2].transform.position;
+            Color outofsite = itemImages[3].color;
+            outofsite.a = 0;
+            itemImages[3].color = outofsite;
+            outofsite = itemImages[4].color;
+            outofsite.a = 0;
+            itemImages[4].color = outofsite;
+            outofsite = itemImages[5].color;
+            outofsite.a = 0;
+            itemImages[5].color = outofsite;
         }
-        itemImages[1].rectTransform.sizeDelta = new Vector2(150, 150);
-        if (timer > 4)
-        {
-            Color aplhareduce;
-            aplhareduce = itemImages[0].color;
-            aplhareduce.a -= (float)0.01;
-            itemImages[0].color = aplhareduce;
-            
-            aplhareduce = itemImages[1].color;
-            aplhareduce.a -= (float)0.01;
-            itemImages[1].color = aplhareduce;
-      
-            aplhareduce = itemImages[2].color;
-            aplhareduce.a -= (float)0.01;
-            itemImages[2].color = aplhareduce;
-        }
-        
-     //   ogcolor = itemImages[1].color;
-      //  itemImages[1].color = black;
-        itemImages[0].transform.position = pos[0].transform.position;
-        itemImages[1].transform.position = pos[1].transform.position;
-        itemImages[2].transform.position = pos[2].transform.position;
-        Color outofsite = itemImages[3].color;
-        outofsite.a = 0;
-        itemImages[3].color = outofsite;
     }
     public void AddItem(InVentroyObject itemToAdd)
     {
@@ -135,6 +148,26 @@ public class Inventory : MonoBehaviour {
                 itemImages[i].sprite = itemToAdd.sprite;
                 return;
                 
+            }
+        }
+    }
+        
+    public void RemoveItem(InVentroyObject itemToRemove)
+    {
+        numberofitemsinhand++;
+        for (int i = 0; i < items.Length; ++i)
+        {
+            if (items[i] == itemToRemove)
+            {
+                items[i] = null;
+                itemImages[i].sprite = null;
+                if (i + 1 != items.Length)
+                {
+                    itemImages[i].sprite = itemImages[i + 1].sprite;
+                    items[i] = items[i + 1];
+                }
+                
+
             }
         }
     }
