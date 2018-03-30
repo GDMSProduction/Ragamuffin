@@ -64,18 +64,34 @@ public class Inventory : MonoBehaviour {
         black.g = 0;
         black.b = 0;
         countdownProgress -= Time.deltaTime;
+        int counter = 0;
         for (int i = 0; i < gontlet.Length; ++i)
         {
             if (gontlet[i] != -1)
+            {
+              
+                if (gontlet[i] == 0 || gontlet[i] == 1 || gontlet[i] == 2)
+                {
+                    counter++;
+                }
+            }
+          
+        }
+        for(int i=0; i < gontlet.Length; ++i)
+        {
+            if (gontlet[i]!=-1)
             {
                 Color aplhareduce;
                 aplhareduce = itemImages[gontlet[i]].color;
                 aplhareduce.a -= (float)0.01;
                 itemImages[gontlet[i]].color = aplhareduce;
             }
-            if (gontlet[i] == 0 || gontlet[i] == 1 || gontlet[i] == 2)
+            else if(counter>=2&&i<3)
             {
-
+                Color aplhareduce;
+                aplhareduce = itemImages[i].color;
+                aplhareduce.a -= (float)0.01;
+                itemImages[i].color = aplhareduce;
             }
         }
         if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)||addeditem)
@@ -208,12 +224,30 @@ public class Inventory : MonoBehaviour {
         }
         if (switching == true)
         {
-            for(int i=0; i < itemImages.Length; ++i)
+            if (itemImages[1].sprite != null)
+            {
+                itemImages[0].transform.position = pos[0].transform.position;
+                itemImages[1].transform.position = pos[1].transform.position;
+                itemImages[2].transform.position = pos[2].transform.position;
+            }
+            else 
+            {
+                itemImages[0].transform.position = pos[1].transform.position;
+            }
+            if (itemImages[1].sprite != null )
+            {
+                itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
+            }
+            else 
+            {
+                itemImages[0].rectTransform.sizeDelta = new Vector2(100, 100);
+            }
+            for (int i=0; i < 3; ++i)
             {
              //   Debug.Break();
                 Color aplhareduce;
                 aplhareduce = itemImages[i].color;
-                aplhareduce.a += (float)0.07;
+                aplhareduce.a += (float)0.01;
                 itemImages[i].color = aplhareduce;
             }
             if (itemImages[0].color.a == 1)
