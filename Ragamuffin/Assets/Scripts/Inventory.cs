@@ -23,7 +23,7 @@ public class Inventory : MonoBehaviour {
     bool switching;
     bool firstswitch;
     bool scaledown;
-    int[] gontlet = new int[6];
+    int[] gontlet = new int[numItemSlots];
     private void Start()
     {
         width = itemImages[0].rectTransform.sizeDelta.x;
