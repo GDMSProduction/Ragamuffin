@@ -21,6 +21,8 @@ public class Inventory : MonoBehaviour {
     float height;
     bool addeditem;
     bool switching;
+    bool firstswitch;
+    bool scaledown;
     int[] gontlet = new int[6];
     private void Start()
     {
@@ -34,6 +36,20 @@ public class Inventory : MonoBehaviour {
     }
     private void Update()
     {
+        if (scaledown)
+        {
+            for(int i=0; i < items.Length; ++i)
+            {
+                itemImages[i].rectTransform.sizeDelta = new Vector2(itemImages[i].rectTransform.sizeDelta.x-2f, itemImages[i].rectTransform.sizeDelta.y-2f);
+            }
+        }
+        else if(itemImages[0].rectTransform.sizeDelta.x<width)
+        {
+            for (int i = 0; i < items.Length; ++i)
+            {
+                itemImages[i].rectTransform.sizeDelta = new Vector2(itemImages[i].rectTransform.sizeDelta.x + 2f, itemImages[i].rectTransform.sizeDelta.y + 2f);
+            }
+        }
         //for(int i=0; i < itemImages.Length; ++i)
         //{
         //    if (itemImages[i].sprite == null&&i+1!=items.Length&&itemImages[i+1].sprite!=null)
@@ -96,9 +112,11 @@ public class Inventory : MonoBehaviour {
         }
         if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)||addeditem)
         {
+            if(addeditem==false)
+            StartCoroutine(ScaleDown());
+
             switching = false;
             addeditem = false;
-
             timer = 0;
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[numberofitemsinhand - 1];
@@ -130,8 +148,12 @@ public class Inventory : MonoBehaviour {
         }
         else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0)||addeditem)
         {
+            if(addeditem==false)
+            StartCoroutine(ScaleDown());
+
             switching = false;
             addeditem = false;
+
             timer = 0;
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[0];
@@ -335,5 +357,11 @@ public class Inventory : MonoBehaviour {
             }
         }
         return listofkeys;
+    }
+    IEnumerator ScaleDown()
+    {
+        scaledown = true;
+        yield return new WaitForSeconds(1);
+        scaledown = false;
     }
 }
