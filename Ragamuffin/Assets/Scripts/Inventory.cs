@@ -19,22 +19,69 @@ public class Inventory : MonoBehaviour {
     int numberofitemsinhand = 0;
     float width;
     float height;
+    bool addeditem;
+    bool switching;
+    int[] gontlet = new int[6];
     private void Start()
     {
         width = itemImages[0].rectTransform.sizeDelta.x;
         height = itemImages[0].rectTransform.sizeDelta.y;
-
+        for (int i = 0; i < gontlet.Length; ++i)
+        {
+            gontlet[i] = -1;
+        }
 
     }
     private void Update()
     {
+        //for(int i=0; i < itemImages.Length; ++i)
+        //{
+        //    if (itemImages[i].sprite == null&&i+1!=items.Length&&itemImages[i+1].sprite!=null)
+        //    {
+        //        itemImages[i] = itemImages[i + 1];
+        //      //  itemImages[i].sprite = itemImages[i + 1].sprite;
+        //        itemImages[i + 1].sprite = null;
+        //        items[i] = items[i + 1];
+        //        items[i + 1] = null;
+        //    }
+        //}
+        for (int i = 0; i < itemImages.Length; ++i)
+        {
+            if (itemImages[i].sprite == null && i + 1 < itemImages.Length && itemImages[i + 1].sprite != null)
+            {
+                Image tempt;
+                tempt = itemImages[i];
+                itemImages[i] = itemImages[i + 1];
+                items[i] = items[i + 1];
+                items[i + 1] = null;
+                itemImages[i + 1] = tempt;
+
+                switching = true;
+            }
+        }
         timer += Time.deltaTime;
         black.r = 0;
         black.g = 0;
         black.b = 0;
         countdownProgress -= Time.deltaTime;
-        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon))
+        for (int i = 0; i < gontlet.Length; ++i)
         {
+            if (gontlet[i] != -1)
+            {
+                Color aplhareduce;
+                aplhareduce = itemImages[gontlet[i]].color;
+                aplhareduce.a -= (float)0.01;
+                itemImages[gontlet[i]].color = aplhareduce;
+            }
+            if (gontlet[i] == 0 || gontlet[i] == 1 || gontlet[i] == 2)
+            {
+
+            }
+        }
+        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)||addeditem)
+        {
+            switching = false;
+            addeditem = false;
 
             timer = 0;
             countdownProgress = switchCooldown;
@@ -52,25 +99,23 @@ public class Inventory : MonoBehaviour {
                 previousobject = temptitem;
 
             }
-            Color aplhareduce;
-            aplhareduce = itemImages[0].color;
-            aplhareduce.a = 1;
-            itemImages[0].color = aplhareduce;
-
-            aplhareduce = itemImages[1].color;
-            aplhareduce.a = 1;
-            itemImages[1].color = aplhareduce;
-
-            aplhareduce = itemImages[2].color;
-            aplhareduce.a = 1;
-            itemImages[2].color = aplhareduce;
-            // itemImages[2].color = ogcolor;
+            for (int i = 0; i < 3; ++i)
+            {
+                if (itemImages[i].sprite != null)
+                {
+                    Color aplhareduce;
+                    aplhareduce = itemImages[i].color;
+                    aplhareduce.a = 1;
+                    itemImages[i].color = aplhareduce;
+                }
+            }
 
 
         }
-        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0))
+        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0)||addeditem)
         {
-
+            switching = false;
+            addeditem = false;
             timer = 0;
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[0];
@@ -88,25 +133,35 @@ public class Inventory : MonoBehaviour {
             }
             for (int i = 0; i < 3; ++i)
             {
-                if (itemImages[i] != null)
+                if (itemImages[i].sprite != null)
                 {
                     Color aplhareduce;
                     aplhareduce = itemImages[i].color;
                     aplhareduce.a = 1;
                     itemImages[i].color = aplhareduce;
                 }
-
-                //aplhareduce = itemImages[1].color;
-                //aplhareduce.a = 1;
-                //itemImages[1].color = aplhareduce;
-
-                //aplhareduce = itemImages[2].color;
-                //aplhareduce.a = 1;
-                //itemImages[2].color = aplhareduce;
             }
+
+            //aplhareduce = itemImages[1].color;
+            //aplhareduce.a = 1;
+            //itemImages[1].color = aplhareduce;
+
+            //aplhareduce = itemImages[2].color;
+            //aplhareduce.a = 1;
+            //itemImages[2].color = aplhareduce;
+        }
+     
+        if (itemImages[1].sprite != null&&switching==false)
+        {
             itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
-            if (timer > 4)
+        } 
+        else if(switching==false)
+        {
+            itemImages[0].rectTransform.sizeDelta = new Vector2(100, 100);
+        }
+        if (timer > 4&&switching==false)
             {
+           
                 Color aplhareduce;
                 aplhareduce = itemImages[0].color;
                 aplhareduce.a -= (float)0.01;
@@ -119,26 +174,69 @@ public class Inventory : MonoBehaviour {
                 aplhareduce = itemImages[2].color;
                 aplhareduce.a -= (float)0.01;
                 itemImages[2].color = aplhareduce;
-            }
 
-            //   ogcolor = itemImages[1].color;
-            //  itemImages[1].color = black;
+            aplhareduce = itemImages[3].color;
+            aplhareduce.a -= (float)0.01;
+            itemImages[3].color = aplhareduce;
+
+            aplhareduce = itemImages[4].color;
+            aplhareduce.a -= (float)0.01;
+            itemImages[4].color = aplhareduce;
+        }
+      
+        if (itemImages[2].sprite != null)
+        {
+            for(int i=3; i < itemImages.Length; ++i)
+            {
+                Color tempt =  itemImages[i].color;
+                tempt.a = 0;
+                itemImages[i].color = tempt;
+            }
+        }
+
+        //   ogcolor = itemImages[1].color;
+        //  itemImages[1].color = black;
+        if (itemImages[1].sprite != null&&switching==false)
+        {
             itemImages[0].transform.position = pos[0].transform.position;
             itemImages[1].transform.position = pos[1].transform.position;
             itemImages[2].transform.position = pos[2].transform.position;
-            Color outofsite = itemImages[3].color;
-            outofsite.a = 0;
-            itemImages[3].color = outofsite;
-            outofsite = itemImages[4].color;
-            outofsite.a = 0;
-            itemImages[4].color = outofsite;
-            outofsite = itemImages[5].color;
-            outofsite.a = 0;
-            itemImages[5].color = outofsite;
         }
+        else if(switching==false)
+        {
+            itemImages[0].transform.position = pos[1].transform.position;
+        }
+        if (switching == true)
+        {
+            for(int i=0; i < itemImages.Length; ++i)
+            {
+             //   Debug.Break();
+                Color aplhareduce;
+                aplhareduce = itemImages[i].color;
+                aplhareduce.a += (float)0.07;
+                itemImages[i].color = aplhareduce;
+            }
+            if (itemImages[0].color.a == 1)
+            {
+                switching = false;
+            }
+
+        }
+
+          for(int i=0;i<itemImages.Length;++i)
+        {
+            if (itemImages[i].sprite == null)
+            {
+                Color outofsite = itemImages[i].color;
+                outofsite.a = 0;
+                itemImages[i].color = outofsite;
+            }
+        }
+          
     }
     public void AddItem(InVentroyObject itemToAdd)
     {
+        addeditem = true;
         numberofitemsinhand++;
         for(int i=0; i < items.Length; ++i)
         {
@@ -154,19 +252,36 @@ public class Inventory : MonoBehaviour {
         
     public void RemoveItem(InVentroyObject itemToRemove)
     {
-        numberofitemsinhand++;
+        
         for (int i = 0; i < items.Length; ++i)
         {
+           
             if (items[i] == itemToRemove)
             {
-                items[i] = null;
-                itemImages[i].sprite = null;
-                if (i + 1 != items.Length)
+                gontlet[i] = i;
+            StartCoroutine(RemoveItemPause());
+
+
+            }
+
+        }
+    }
+    IEnumerator RemoveItemPause()
+    {
+        yield return new WaitForSeconds(2);
+        for (int i = 0; i < gontlet.Length; ++i)
+        {
+            if (gontlet[i] != -1)
+            {
+                items[gontlet[i]] = null;
+                itemImages[gontlet[i]].sprite = null;
+                if (gontlet[i] + 1 != items.Length)
                 {
-                    itemImages[i].sprite = itemImages[i + 1].sprite;
-                    items[i] = items[i + 1];
+                   // itemImages[gontlet[i]].sprite = itemImages[gontlet[i] + 1].sprite;
+                  //  items[gontlet[i]] = items[gontlet[i] + 1];
                 }
-                
+                --numberofitemsinhand;
+                gontlet[i] = -1;
 
             }
         }
@@ -174,5 +289,17 @@ public class Inventory : MonoBehaviour {
     public InVentroyObject GetItem()
     {
         return items[1];
+    }
+    public List<InVentroyObject> GetKeys()
+    {
+        List<InVentroyObject> listofkeys = new List<InVentroyObject>();
+        for(int i=0; i < numberofitemsinhand; ++i)
+        {
+            if (items[i].GetComponent<Key>() != null)
+            {
+                listofkeys.Add(items[i]);
+            }
+        }
+        return listofkeys;
     }
 }

@@ -9,10 +9,10 @@ public class TestingIventory : MonoBehaviour {
     InVentroyObject item;
 	// Use this for initialization
 	void Start () {
-      inventory.AddItem(item);
-      inventory.AddItem(item);
-      inventory.AddItem(item);
-   //   inventory.AddItem(item);
+   inventory.AddItem(item);
+ // inventory.AddItem(item);
+ // inventory.AddItem(item);
+ //  inventory.AddItem(item);
 
 
     }

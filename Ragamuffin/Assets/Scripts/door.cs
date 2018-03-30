@@ -8,6 +8,10 @@ public class door : MonoBehaviour {
     [SerializeField]
     MeshRenderer doorrender;
     bool openedthedoor;
+    [SerializeField]
+    int numberofkeys;
+    [SerializeField]
+    int counter = 0;
     private void Update()
     {
         if (openedthedoor)
@@ -26,11 +30,22 @@ public class door : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            if(inventory.GetItem().GetComponent<Key>()!=null&& inventory.GetItem().GetComponent<Key>().GetDoor() == this.gameObject)
+            List<InVentroyObject> keys = inventory.GetKeys();
+            for (int i = 0; i < keys.Capacity; ++i)
             {
-                // inset whateverr code we want to open the door.
-                openedthedoor = true; 
-            }
+               
+                if (keys[i].GetComponent<Key>().GetDoor() == this.gameObject)
+                {
+                    counter++;
+                    inventory.RemoveItem(keys[i]);
+                }
+                if (counter >= numberofkeys)
+                {
+                    //inventory.RemoveItem(inventory.GetItem());
+                    // inset whateverr code we want to open the door.
+                    openedthedoor = true;
+                }
+            }   
         }
     }
 }
