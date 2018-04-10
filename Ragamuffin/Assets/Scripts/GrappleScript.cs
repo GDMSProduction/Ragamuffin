@@ -67,28 +67,36 @@ public class GrappleScript : MonoBehaviour
         if (realout&&Vector2.Distance( curHook.transform.position,transform.position) <noadMax)
         {
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
-            if (realout == false)
+            if (hook != null)
             {
-                return;
-            }
-            hook.GetSecondNode().GetComponent<HingeJoint2D>().connectedAnchor *= speed;
-            if (realout == false)
-            {
-                return;
-            }
-            hook.MakeRope1();
+                if (realout == false)
+                {
+                    return;
+                }
+                hook.GetSecondNode().GetComponent<HingeJoint2D>().connectedAnchor *= speed;
+                if (realout == false)
+                {
+                    return;
+                }
+                hook.MakeRope1();
+            }   
         }
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S)&& curHook != null && (curHook.transform.position - eyes.transform.position).sqrMagnitude <= noadMax)
+        if (Input.GetKeyDown(KeyCode.S) && curHook != null && (curHook.transform.position - eyes.transform.position).sqrMagnitude <= noadMax)
         {
+            Debug.Log((curHook.transform.position - eyes.transform.position).sqrMagnitude);
+            // Debug.Break();
             realout = true;
         }
-        if (Input.GetKeyUp(KeyCode.S) && curHook != null)
+        if (Input.GetKeyUp(KeyCode.S))
         {
             realout = false;
-            
+        }
+        if (curHook != null &&(curHook.transform.position - eyes.transform.position).sqrMagnitude >= noadMax)
+        {
+            realout = false;
         }
     }
     // SHOTS THE GRAPPLE HOOK

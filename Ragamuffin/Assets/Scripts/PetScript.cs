@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class PetScript : InVentroyObject
 {
+   
+    private void Update()
+    {
+        if (inventory.GetItem() == this)
+        {
+            this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else if(this.GetComponent<BoxCollider2D>().enabled==false)
+        {
+            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
     new void OnTriggerEnter2D(Collider2D other)
     {
         base.OnTriggerEnter2D(other);

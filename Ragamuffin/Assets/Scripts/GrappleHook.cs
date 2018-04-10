@@ -110,8 +110,9 @@ public class GrappleHook : MonoBehaviour {
                 swing = true;
             
         }
-        if (slowrealin&&Poolme.tag=="pullAbleObject")
+        if (slowrealin&&Poolme!=null&&Poolme.tag=="pullAbleObject")
         {
+         
             Poolme.transform.position = Vector3.MoveTowards(Poolme.transform.position, eye.transform.position, 0.1f);
             transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
 

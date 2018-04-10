@@ -10,7 +10,7 @@ public class Inventory : MonoBehaviour {
     public GameObject[] pos = new GameObject[numItemSlots];
     public int x;
     public const int numItemSlots = 6;
-    public float switchCooldown = 0.25f;
+    float switchCooldown = 1;
     float countdownProgress;
     [SerializeField]
     Color black;
@@ -23,6 +23,10 @@ public class Inventory : MonoBehaviour {
     bool switching;
     bool firstswitch;
     bool scaledown;
+    bool finishedscalingup;
+    bool shake;
+    bool left = true;
+    bool shakingIeniamtor;
     int[] gontlet = new int[numItemSlots];
     private void Start()
     {
@@ -32,23 +36,74 @@ public class Inventory : MonoBehaviour {
         {
             gontlet[i] = -1;
         }
+        countdownProgress = switchCooldown;
 
     }
     private void Update()
     {
+        if (shake == true)
+        {
+            if (left == true)
+            {
+                itemImages[0].transform.position = Vector2.left + (Vector2)itemImages[0].transform.position;
+                if (shakingIeniamtor == false)
+                {
+                    shakingIeniamtor = true;
+                    StartCoroutine(SwitchDirectionOfShakeing());
+                    StopCoroutine(SwitchDirectionOfShakeing());
+                }
+                
+            }
+            else
+            {
+                itemImages[0].transform.position = Vector2.right + (Vector2)itemImages[0].transform.position;
+                if (shakingIeniamtor == false)
+                {
+                    shakingIeniamtor = true;
+                    StartCoroutine(SwitchDirectionOfShakeing());
+                    StopCoroutine(SwitchDirectionOfShakeing());
+                }
+            }
+        }
         if (scaledown)
         {
             for(int i=0; i < items.Length; ++i)
             {
                 itemImages[i].rectTransform.sizeDelta = new Vector2(itemImages[i].rectTransform.sizeDelta.x-2f, itemImages[i].rectTransform.sizeDelta.y-2f);
             }
+           
+            
         }
         else if(itemImages[0].rectTransform.sizeDelta.x<width)
         {
             for (int i = 0; i < items.Length; ++i)
             {
                 itemImages[i].rectTransform.sizeDelta = new Vector2(itemImages[i].rectTransform.sizeDelta.x + 2f, itemImages[i].rectTransform.sizeDelta.y + 2f);
+
+                if (i==1&&itemImages[1].sprite != null &&itemImages[1].rectTransform.sizeDelta.x<100)
+                {
+                    itemImages[1].rectTransform.sizeDelta = new Vector2(itemImages[1].rectTransform.sizeDelta.x + 2f, itemImages[1].rectTransform.sizeDelta.y + 2f);
+
+                }
+                else if (i==0&&itemImages[1].sprite==null&&itemImages[0].rectTransform.sizeDelta.x<100)
+                {
+                    itemImages[0].rectTransform.sizeDelta = new Vector2(itemImages[0].rectTransform.sizeDelta.x + 2f, itemImages[0].rectTransform.sizeDelta.y + 2f);
+
+                }
             }
+            finishedscalingup = false;
+        }
+        else
+        {
+            finishedscalingup = true;
+        }
+        if (itemImages[1].sprite != null && switching == false&&scaledown==false&&finishedscalingup==true)
+        {
+               itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
+        }
+        else if (switching == false&&scaledown==false&&finishedscalingup==true)
+        {
+              itemImages[0].rectTransform.sizeDelta = new Vector2(100, 100);
         }
         //for(int i=0; i < itemImages.Length; ++i)
         //{
@@ -110,10 +165,21 @@ public class Inventory : MonoBehaviour {
                 itemImages[i].color = aplhareduce;
             }
         }
-        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon)||addeditem)
+        Debug.Log(countdownProgress);
+
+        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon))
         {
-            if(addeditem==false)
-            StartCoroutine(ScaleDown());
+
+            if ( numberofitemsinhand != 1 )
+            {
+                StopCoroutine(ScaleDown());
+                StartCoroutine(ScaleDown());
+            }
+            else if (addeditem == false)
+            {
+                StopCoroutine(ShakeDown());
+                StartCoroutine(ShakeDown());
+            }
 
             switching = false;
             addeditem = false;
@@ -121,17 +187,20 @@ public class Inventory : MonoBehaviour {
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[numberofitemsinhand - 1];
             InVentroyObject previousobject = items[numberofitemsinhand - 1];
-            for (int i = 0; i < numberofitemsinhand; ++i)
+            if (numberofitemsinhand != 1)
             {
-                itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+                for (int i = 0; i < numberofitemsinhand; ++i)
+                {
+                    itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
 
-                InVentroyObject temptitem = items[i];
-                Image temptImage = itemImages[i];
-                itemImages[i] = previousimage;
-                items[i] = previousobject;
-                previousimage = temptImage;
-                previousobject = temptitem;
+                    InVentroyObject temptitem = items[i];
+                    Image temptImage = itemImages[i];
+                    itemImages[i] = previousimage;
+                    items[i] = previousobject;
+                    previousimage = temptImage;
+                    previousobject = temptitem;
 
+                }
             }
             for (int i = 0; i < 3; ++i)
             {
@@ -146,11 +215,18 @@ public class Inventory : MonoBehaviour {
 
 
         }
-        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0)||addeditem)
+        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0))
         {
-            if(addeditem==false)
-            StartCoroutine(ScaleDown());
-
+            if (numberofitemsinhand!=1)
+            {
+                StopCoroutine(ScaleDown());
+                StartCoroutine(ScaleDown());
+            }
+            else if (addeditem == false)
+            {
+                StopCoroutine(ShakeDown());
+                StartCoroutine(ShakeDown());
+            }
             switching = false;
             addeditem = false;
 
@@ -158,16 +234,19 @@ public class Inventory : MonoBehaviour {
             countdownProgress = switchCooldown;
             Image previousimage = itemImages[0];
             InVentroyObject previousobject = items[0];
-            for (int i = numberofitemsinhand - 1; i >= 0; i--)
+            if (numberofitemsinhand != 1)
             {
-                itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+                for (int i = numberofitemsinhand - 1; i >= 0; i--)
+                {
+                    itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
 
-                InVentroyObject temptitem = items[i];
-                Image temptImage = itemImages[i];
-                itemImages[i] = previousimage;
-                items[i] = previousobject;
-                previousimage = temptImage;
-                previousobject = temptitem;
+                    InVentroyObject temptitem = items[i];
+                    Image temptImage = itemImages[i];
+                    itemImages[i] = previousimage;
+                    items[i] = previousobject;
+                    previousimage = temptImage;
+                    previousobject = temptitem;
+                }
             }
             for (int i = 0; i < 3; ++i)
             {
@@ -189,14 +268,7 @@ public class Inventory : MonoBehaviour {
             //itemImages[2].color = aplhareduce;
         }
      
-        if (itemImages[1].sprite != null&&switching==false)
-        {
-            itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
-        } 
-        else if(switching==false)
-        {
-            itemImages[0].rectTransform.sizeDelta = new Vector2(100, 100);
-        }
+       
         if (timer > 4&&switching==false)
             {
            
@@ -234,13 +306,13 @@ public class Inventory : MonoBehaviour {
 
         //   ogcolor = itemImages[1].color;
         //  itemImages[1].color = black;
-        if (itemImages[1].sprite != null&&switching==false)
+        if (itemImages[1].sprite != null&&switching==false&&shake==false)
         {
             itemImages[0].transform.position = pos[0].transform.position;
             itemImages[1].transform.position = pos[1].transform.position;
             itemImages[2].transform.position = pos[2].transform.position;
         }
-        else if(switching==false)
+        else if(switching==false&&shake==false)
         {
             itemImages[0].transform.position = pos[1].transform.position;
         }
@@ -256,14 +328,7 @@ public class Inventory : MonoBehaviour {
             {
                 itemImages[0].transform.position = pos[1].transform.position;
             }
-            if (itemImages[1].sprite != null )
-            {
-                itemImages[1].rectTransform.sizeDelta = new Vector2(100, 100);
-            }
-            else 
-            {
-                itemImages[0].rectTransform.sizeDelta = new Vector2(100, 100);
-            }
+          
             for (int i=0; i < 3; ++i)
             {
              //   Debug.Break();
@@ -300,6 +365,7 @@ public class Inventory : MonoBehaviour {
             {
                 items[i] = itemToAdd;
                 itemImages[i].sprite = itemToAdd.sprite;
+                itemImages[i].color = new Color(itemImages[i].color.r, itemImages[i].color.g, itemImages[i].color.b, 1);
                 return;
                 
             }
@@ -361,7 +427,20 @@ public class Inventory : MonoBehaviour {
     IEnumerator ScaleDown()
     {
         scaledown = true;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.3f);
         scaledown = false;
+    }
+    IEnumerator ShakeDown()
+    {
+        shake = true;
+        yield return new WaitForSeconds(0.7f);
+        shake = false;
+    }
+    IEnumerator SwitchDirectionOfShakeing()
+    {
+        yield return new WaitForSeconds(0.001f);
+        left = !left;
+        shakingIeniamtor = false;
+    //    StopCoroutine(SwitchDirectionOfShakeing()); 
     }
 }

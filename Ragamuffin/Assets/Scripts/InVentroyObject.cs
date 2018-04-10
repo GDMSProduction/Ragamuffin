@@ -5,7 +5,7 @@ using UnityEngine;
 public class InVentroyObject : MonoBehaviour {
 
     [SerializeField]
-    Inventory inventory;
+   protected Inventory inventory;
   public  Sprite sprite;
     [SerializeField]
     GameObject itemObject;
