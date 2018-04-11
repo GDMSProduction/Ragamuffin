@@ -27,6 +27,7 @@ public class Inventory : MonoBehaviour {
     bool shake;
     bool left = true;
     bool shakingIeniamtor;
+    bool lockscroll;
     int[] gontlet = new int[numItemSlots];
     private void Start()
     {
@@ -166,109 +167,110 @@ public class Inventory : MonoBehaviour {
             }
         }
         Debug.Log(countdownProgress);
-
-        if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon))
+        if (lockscroll == false)
         {
+            if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) > float.Epsilon))
+            {
 
-            if ( numberofitemsinhand != 1 )
-            {
-                StopCoroutine(ScaleDown());
-                StartCoroutine(ScaleDown());
-            }
-            else if (addeditem == false)
-            {
-                StopCoroutine(ShakeDown());
-                StartCoroutine(ShakeDown());
-            }
-
-            switching = false;
-            addeditem = false;
-            timer = 0;
-            countdownProgress = switchCooldown;
-            Image previousimage = itemImages[numberofitemsinhand - 1];
-            InVentroyObject previousobject = items[numberofitemsinhand - 1];
-            if (numberofitemsinhand != 1)
-            {
-                for (int i = 0; i < numberofitemsinhand; ++i)
+                if (numberofitemsinhand != 1)
                 {
-                    itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
-
-                    InVentroyObject temptitem = items[i];
-                    Image temptImage = itemImages[i];
-                    itemImages[i] = previousimage;
-                    items[i] = previousobject;
-                    previousimage = temptImage;
-                    previousobject = temptitem;
-
+                    StopCoroutine(ScaleDown());
+                    StartCoroutine(ScaleDown());
                 }
-            }
-            for (int i = 0; i < 3; ++i)
-            {
-                if (itemImages[i].sprite != null)
+                else if (addeditem == false)
                 {
-                    Color aplhareduce;
-                    aplhareduce = itemImages[i].color;
-                    aplhareduce.a = 1;
-                    itemImages[i].color = aplhareduce;
+                    StopCoroutine(ShakeDown());
+                    StartCoroutine(ShakeDown());
                 }
-            }
 
+                switching = false;
+                addeditem = false;
+                timer = 0;
+                countdownProgress = switchCooldown;
+                Image previousimage = itemImages[numberofitemsinhand - 1];
+                InVentroyObject previousobject = items[numberofitemsinhand - 1];
+                if (numberofitemsinhand != 1)
+                {
+                    for (int i = 0; i < numberofitemsinhand; ++i)
+                    {
+                        itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+
+                        InVentroyObject temptitem = items[i];
+                        Image temptImage = itemImages[i];
+                        itemImages[i] = previousimage;
+                        items[i] = previousobject;
+                        previousimage = temptImage;
+                        previousobject = temptitem;
+
+                    }
+                }
+                for (int i = 0; i < 3; ++i)
+                {
+                    if (itemImages[i].sprite != null)
+                    {
+                        Color aplhareduce;
+                        aplhareduce = itemImages[i].color;
+                        aplhareduce.a = 1;
+                        itemImages[i].color = aplhareduce;
+                    }
+                }
+
+
+            }
+            else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0))
+            {
+                if (numberofitemsinhand != 1)
+                {
+                    StopCoroutine(ScaleDown());
+                    StartCoroutine(ScaleDown());
+                }
+                else if (addeditem == false)
+                {
+                    StopCoroutine(ShakeDown());
+                    StartCoroutine(ShakeDown());
+                }
+                switching = false;
+                addeditem = false;
+
+                timer = 0;
+                countdownProgress = switchCooldown;
+                Image previousimage = itemImages[0];
+                InVentroyObject previousobject = items[0];
+                if (numberofitemsinhand != 1)
+                {
+                    for (int i = numberofitemsinhand - 1; i >= 0; i--)
+                    {
+                        itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
+
+                        InVentroyObject temptitem = items[i];
+                        Image temptImage = itemImages[i];
+                        itemImages[i] = previousimage;
+                        items[i] = previousobject;
+                        previousimage = temptImage;
+                        previousobject = temptitem;
+                    }
+                }
+                for (int i = 0; i < 3; ++i)
+                {
+                    if (itemImages[i].sprite != null)
+                    {
+                        Color aplhareduce;
+                        aplhareduce = itemImages[i].color;
+                        aplhareduce.a = 1;
+                        itemImages[i].color = aplhareduce;
+                    }
+                }
+
+                //aplhareduce = itemImages[1].color;
+                //aplhareduce.a = 1;
+                //itemImages[1].color = aplhareduce;
+
+                //aplhareduce = itemImages[2].color;
+                //aplhareduce.a = 1;
+                //itemImages[2].color = aplhareduce;
+            }
 
         }
-        else if (countdownProgress <= 0 && ((Input.GetAxisRaw("Mouse ScrollWheel")) < 0))
-        {
-            if (numberofitemsinhand!=1)
-            {
-                StopCoroutine(ScaleDown());
-                StartCoroutine(ScaleDown());
-            }
-            else if (addeditem == false)
-            {
-                StopCoroutine(ShakeDown());
-                StartCoroutine(ShakeDown());
-            }
-            switching = false;
-            addeditem = false;
-
-            timer = 0;
-            countdownProgress = switchCooldown;
-            Image previousimage = itemImages[0];
-            InVentroyObject previousobject = items[0];
-            if (numberofitemsinhand != 1)
-            {
-                for (int i = numberofitemsinhand - 1; i >= 0; i--)
-                {
-                    itemImages[i].rectTransform.sizeDelta = new Vector2(width, height);
-
-                    InVentroyObject temptitem = items[i];
-                    Image temptImage = itemImages[i];
-                    itemImages[i] = previousimage;
-                    items[i] = previousobject;
-                    previousimage = temptImage;
-                    previousobject = temptitem;
-                }
-            }
-            for (int i = 0; i < 3; ++i)
-            {
-                if (itemImages[i].sprite != null)
-                {
-                    Color aplhareduce;
-                    aplhareduce = itemImages[i].color;
-                    aplhareduce.a = 1;
-                    itemImages[i].color = aplhareduce;
-                }
-            }
-
-            //aplhareduce = itemImages[1].color;
-            //aplhareduce.a = 1;
-            //itemImages[1].color = aplhareduce;
-
-            //aplhareduce = itemImages[2].color;
-            //aplhareduce.a = 1;
-            //itemImages[2].color = aplhareduce;
-        }
-     
-       
         if (timer > 4&&switching==false)
             {
            
@@ -380,9 +382,10 @@ public class Inventory : MonoBehaviour {
            
             if (items[i] == itemToRemove)
             {
+                lockscroll = true;
                 gontlet[i] = i;
             StartCoroutine(RemoveItemPause());
-
+                
 
             }
 
@@ -407,10 +410,17 @@ public class Inventory : MonoBehaviour {
 
             }
         }
+        yield return new WaitForSeconds(1);
+        lockscroll = false;
     }
     public InVentroyObject GetItem()
     {
+        if(items[1]!=null)
         return items[1];
+        else
+        {
+            return items[0];
+        }
     }
     public List<InVentroyObject> GetKeys()
     {

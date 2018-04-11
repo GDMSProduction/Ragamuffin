@@ -322,6 +322,7 @@
     <Compile Include="Assets\Scripts\TestingIventory.cs" />
     <Compile Include="Assets\Scripts\Toad.cs" />
     <Compile Include="Assets\Scripts\vectory.cs" />
+    <Compile Include="Assets\Toaster.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
