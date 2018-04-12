@@ -283,6 +283,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Destorygrapple.cs" />
     <Compile Include="Assets\Scripts\CatClaw.cs" />
     <Compile Include="Assets\Scripts\catSearch.cs" />
     <Compile Include="Assets\Scripts\catSuperCharge.cs" />

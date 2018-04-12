@@ -473,4 +473,9 @@ public class PlayerMovement : MonoBehaviour
     {
         return onedge;
     }
+    public void ToasterJump(Vector2 force)
+    {
+        Debug.Break();
+        rb2d.AddForce(force);
+    }
 }

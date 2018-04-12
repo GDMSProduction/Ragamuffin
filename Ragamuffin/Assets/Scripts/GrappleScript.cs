@@ -64,7 +64,7 @@ public class GrappleScript : MonoBehaviour
             }   
         }
         // if the player noads are not larger then the max for reeling out
-        if (realout&&Vector2.Distance( curHook.transform.position,transform.position) <noadMax)
+        if (curHook!=null&&realout&&Vector2.Distance( curHook.transform.position,transform.position) <noadMax)
         {
             GrappleHook hook = curHook.GetComponent<GrappleHook>();
             if (hook != null)
