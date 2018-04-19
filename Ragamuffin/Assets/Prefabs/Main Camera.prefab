@@ -180,6 +180,7 @@ MonoBehaviour:
   playerTrans: {fileID: 0}
   hardcodedz: 15
   sounds: {fileID: 0}
+  player: {fileID: 0}
 --- !u!120 &120304558549536204
 LineRenderer:
   m_ObjectHideFlags: 1

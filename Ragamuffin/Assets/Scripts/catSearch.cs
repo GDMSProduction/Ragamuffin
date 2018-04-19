@@ -114,7 +114,7 @@ public class catSearch : MonoBehaviour
             {
                 StartCoroutine(unpause(2.1f));
             }
-            attac = false;
+            //attac = false;
         }
         if (inacourtine == true)
         {
@@ -266,10 +266,11 @@ public class catSearch : MonoBehaviour
         }
         else
         {
-            if (inacourtine == false)
+            if (inacourtine == true)
             {
+               
                 StartCoroutine(catAnmaton());
-                inacourtine = true;
+               
             }
 
         }
@@ -297,15 +298,24 @@ public class catSearch : MonoBehaviour
     IEnumerator catAnmaton()
     {
         // the cat attacs
+        if (inacourtine == true)
+        {
+            inacourtine = false;
 
-        rb2d.velocity = Vector2.zero;
-        rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
-        yield return new WaitForSeconds(.2f);
-        rb2d.velocity = Vector2.zero;
-        yield return new WaitForSeconds(1f);
-        attac = false;
-        inacourtine = false;
-        StopCoroutine(catAnmaton());
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(Vector2.up * 1000);
+            rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
+            yield return new WaitForSeconds(.2f);
+            rb2d.velocity = Vector2.zero;
+            yield return new WaitForSeconds(2f);
+
+           
+            StopCoroutine(catAnmaton());
+            attac = false;
+                
+               
+            
+        }
 
 
     }
@@ -383,7 +393,7 @@ public class catSearch : MonoBehaviour
         if (inacourtine == true)
         {
             inacourtine = false;
-            attac = false;
+          //  attac = false;
             
         }
         StopCoroutine(help());
@@ -445,6 +455,7 @@ public class catSearch : MonoBehaviour
     public void SetAttac(bool _attac)
     {
         attac = _attac;
+        inacourtine = _attac;
     }
     public bool getattac()
     {

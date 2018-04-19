@@ -21,14 +21,14 @@ public class CatClaw : MonoBehaviour {
 	void Update () {
 		
 	}
-    void OnTriggerEnter2D(Collider2D other) {
+    void OnTriggerStay2D(Collider2D other) {
 
         if (other.tag == "Player"&&catmovement.getattac()==false)
         {
             catmovement.SetAttac(true);
-          
+            other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             charge += 10;
-            if (charge >= 100)
+            if (charge >= 100&& catmovement.getattac() == true)
             {
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
                 if (other.gameObject.transform.position.x > transform.position.x)
@@ -39,11 +39,22 @@ public class CatClaw : MonoBehaviour {
                 }
                 charge = 0;
             }
-            if (other.gameObject.GetComponent<PlayerMovement>().GetHeath() <= 0+damage)
+            else if( catmovement.getattac() == true)
+            {
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
+                if (other.gameObject.transform.position.x > transform.position.x)
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+                else
+                {
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100);
+                }
+
+            }
+            if (other.gameObject.GetComponent<PlayerMovement>().GetHeath() <= 0+damage && catmovement.getattac() == true)
             {
                 other.gameObject.GetComponent<PlayerMovement>().CatFalty();
             }
-            else
+            else if( catmovement.getattac() == true)
             {
                 other.gameObject.GetComponent<PlayerMovement>().takeDamage(damage);
             }

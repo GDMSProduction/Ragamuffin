@@ -106,7 +106,8 @@ public class GrappleScript : MonoBehaviour
         if (curHook != null)
             DestroyGrapple();
         Vector3 destiny = grappleTarget.transform.position;
-        curHook = (GameObject)Instantiate(hookPrefab,eyes.transform.position, Quaternion.identity);    
+        curHook = (GameObject)Instantiate(hookPrefab,eyes.transform.position, Quaternion.identity);
+        curHook.transform.position = eyes.transform.position;
         curHook.transform.LookAt(grappleTarget.transform);
         Debug.Log(curHook);
         GrappleHook hookComp = null;

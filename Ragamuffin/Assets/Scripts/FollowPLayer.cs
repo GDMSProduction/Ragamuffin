@@ -38,6 +38,7 @@ public class FollowPLayer : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
+            
             if(sounds!=null)
             sounds.PlaySound("laso");
            

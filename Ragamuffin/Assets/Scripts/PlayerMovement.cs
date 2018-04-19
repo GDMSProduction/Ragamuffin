@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     MeshRenderer standingPicture;
     [SerializeField]
     MeshRenderer crouchingPicture;
+    [SerializeField]
+    GameObject spidermove;
     bool crouching;
    public bool areweholdingthepet;
  public   bool AreWeUsingthePet;
@@ -82,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     soundAffect sounds;
     [SerializeField]
-    bool spider;
+    public bool spider;
     bool onereset;
     public bool onedge;
     // Use this dfor initialization
@@ -120,9 +122,11 @@ public class PlayerMovement : MonoBehaviour
     {
         if (spider == true)
         {
-            transform.position = transform.parent.transform.position;
+            rb2d.velocity = Vector2.zero;
+            transform.position = new Vector3(spidermove.transform.position.x, spidermove.transform.position.y+1, spidermove.transform.position.z);
             input.x = 0;
             input.y = 0;
+            return;
         }
 
         if (SlideMode)
@@ -378,7 +382,7 @@ public class PlayerMovement : MonoBehaviour
         if(other.gameObject.tag== "spider")
         {
             spider = true;
-            transform.parent = other.gameObject.transform;
+          //  transform.parent = other.gameObject.transform;
            
             rb2d.gravityScale = 0;
             other.gameObject.GetComponent<spider>().realup = true;
