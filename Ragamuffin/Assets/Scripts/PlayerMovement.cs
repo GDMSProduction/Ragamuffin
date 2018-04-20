@@ -120,6 +120,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (climbing == true)
+        {
+            rb2d.gravityScale = 0;
+        }
         if (spider == true)
         {
             rb2d.velocity = Vector2.zero;
@@ -222,7 +226,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxis("Climb") != 0 && canWeClimb)
         {
             
-                rb2d.gravityScale = gravity;
+                rb2d.gravityScale = 0;
             climbing = true;
             if (grappleScript.GetCurHook() != null)
                 grappleScript.DestroyGrapple();
@@ -410,6 +414,7 @@ public class PlayerMovement : MonoBehaviour
             canWeClimb = false;
             climbing = false;
             rb2d.gravityScale = gravity;
+            Debug.Break();
         }
         if (other.gameObject.tag == "puddle")
         {
