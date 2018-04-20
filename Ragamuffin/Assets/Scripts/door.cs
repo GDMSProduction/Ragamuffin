@@ -44,6 +44,7 @@ public class door : MonoBehaviour {
                     //inventory.RemoveItem(inventory.GetItem());
                     // inset whateverr code we want to open the door.
                     openedthedoor = true;
+                    this.GetComponent<BoxCollider2D>().enabled = false;
                 }
             }   
         }

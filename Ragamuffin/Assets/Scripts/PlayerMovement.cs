@@ -123,7 +123,7 @@ public class PlayerMovement : MonoBehaviour
         if (spider == true)
         {
             rb2d.velocity = Vector2.zero;
-            transform.position = new Vector3(spidermove.transform.position.x, spidermove.transform.position.y+1, spidermove.transform.position.z);
+            transform.position = new Vector3(spidermove.transform.position.x, spidermove.transform.position.y-2.8f, spidermove.transform.position.z);
             input.x = 0;
             input.y = 0;
             return;
@@ -479,7 +479,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public void ToasterJump(Vector2 force)
     {
-        Debug.Break();
         rb2d.AddForce(force);
+    }
+    public void SetToastLaunch(bool _toastLaunch)
+    {
+        grappleScript.SetToastSwing(_toastLaunch);
     }
 }

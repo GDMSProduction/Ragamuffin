@@ -12,9 +12,13 @@ public class HoptoSpot : MonoBehaviour {
     Rigidbody2D rb2d;
     [SerializeField]
     bool StartJump;
+    [SerializeField]
+    SpriteRenderer sprite;
+    float gravity;
     // Use this for initialization
     void Start () {
-		
+        gravity = rb2d.gravityScale;
+        rb2d.gravityScale = 0;
 	}
 	
 	// Update is called once per frame
@@ -41,5 +45,12 @@ public class HoptoSpot : MonoBehaviour {
         Counter++;
         Jump();
      
+    }
+    public void TurnOnFrog()
+    {
+        sprite.enabled = true;
+        GetComponent<BoxCollider2D>().enabled = true;
+        rb2d.gravityScale = gravity;
+       
     }
 }

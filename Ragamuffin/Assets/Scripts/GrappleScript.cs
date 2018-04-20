@@ -14,6 +14,7 @@ public class GrappleScript : MonoBehaviour
     GameObject eyes;
     [SerializeField]
     soundAffect sound;
+    bool toasterSWing;
 
 
     private bool reelingIn;
@@ -105,21 +106,24 @@ public class GrappleScript : MonoBehaviour
      
         if (curHook != null)
             DestroyGrapple();
-        Vector3 destiny = grappleTarget.transform.position;
-        curHook = (GameObject)Instantiate(hookPrefab,eyes.transform.position, Quaternion.identity);
-        curHook.transform.position = eyes.transform.position;
-        curHook.transform.LookAt(grappleTarget.transform);
-        Debug.Log(curHook);
-        GrappleHook hookComp = null;
-        hookComp = curHook.GetComponent<GrappleHook>();
-        Debug.Log(hookComp); 
-        hookComp.SetDestination(destiny);
-        hookComp.SetTarget(grappleTarget);
-        hookComp.SetMaxDistance(maxDistance);
-        hookComp.player = gameObject;
-        hookComp.SetEye(eyes);
-        if(sound!=null)
-        hookComp.sound = sound;
+        if (toasterSWing == false)
+        {
+            Vector3 destiny = grappleTarget.transform.position;
+            curHook = (GameObject)Instantiate(hookPrefab, eyes.transform.position, Quaternion.identity);
+            curHook.transform.position = eyes.transform.position;
+            curHook.transform.LookAt(grappleTarget.transform);
+            Debug.Log(curHook);
+            GrappleHook hookComp = null;
+            hookComp = curHook.GetComponent<GrappleHook>();
+            Debug.Log(hookComp);
+            hookComp.SetDestination(destiny);
+            hookComp.SetTarget(grappleTarget);
+            hookComp.SetMaxDistance(maxDistance);
+            hookComp.player = gameObject;
+            hookComp.SetEye(eyes);
+            if (sound != null)
+                hookComp.sound = sound;
+        }
      
     }
     
@@ -131,13 +135,16 @@ public class GrappleScript : MonoBehaviour
 
     public void DestroyGrapple()
     {
-        //delete rope
-        curHook.GetComponent<GrappleHook>().DeleteNodes();
-       
-        Destroy(curHook);
-        curHook = null;
+        if (toasterSWing == false)
+        {
+            //delete rope
+            curHook.GetComponent<GrappleHook>().DeleteNodes();
 
-        reelingIn = false;
+            Destroy(curHook);
+            curHook = null;
+
+            reelingIn = false;
+        }
     }
 
     public void ZoomIn(float speed)
@@ -164,4 +171,8 @@ public class GrappleScript : MonoBehaviour
         return curHook;
     }
     #endregion
+    public void SetToastSwing(bool _SwingToast)
+    {
+        toasterSWing = _SwingToast;
+    }
 }

@@ -21,6 +21,7 @@ public class startJump : MonoBehaviour {
     {
         if (other.tag == "Player"&&begen==false)
         {
+            hop.TurnOnFrog();
             begen = true;
             hop.Jump();
             spder.realdown = true;

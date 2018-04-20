@@ -44,7 +44,7 @@ public class FallingPlatForm : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Break();
+            
             StartCoroutine(falldown());
         }
     }
