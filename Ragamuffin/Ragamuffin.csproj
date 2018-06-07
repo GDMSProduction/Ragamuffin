@@ -289,7 +289,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Bomb.cs" />
+    <Compile Include="Assets\Broom.cs" />
     <Compile Include="Assets\Destorygrapple.cs" />
+    <Compile Include="Assets\InLevelSceneChange.cs" />
     <Compile Include="Assets\Scripts\CatClaw.cs" />
     <Compile Include="Assets\Scripts\catSearch.cs" />
     <Compile Include="Assets\Scripts\catSuperCharge.cs" />
@@ -329,6 +332,7 @@
     <Compile Include="Assets\Scripts\TestingIventory.cs" />
     <Compile Include="Assets\Scripts\Toad.cs" />
     <Compile Include="Assets\Scripts\vectory.cs" />
+    <Compile Include="Assets\SwitchingZ.cs" />
     <Compile Include="Assets\Toaster.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

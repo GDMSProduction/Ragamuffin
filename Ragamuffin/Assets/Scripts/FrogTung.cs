@@ -11,8 +11,22 @@ public class FrogTung : MonoBehaviour {
 
     [SerializeField]
     GameObject eyes;
+    [SerializeField]
+    GameObject Childmepls;
+    [SerializeField]
+    GameObject Childmepls2;
+    [SerializeField]
+    GameObject Childmepls3;
+    
+    GameObject OrginalParentone;
 
-
+    GameObject OrginalParent2;
+  
+    GameObject OrginalParent3;
+    GameObject Parent4;
+    Vector3 startingPos;
+    [SerializeField]
+    Quaternion startingRotation;
 
     private bool reelingIn;
     [SerializeField]
@@ -34,15 +48,51 @@ public class FrogTung : MonoBehaviour {
     // this is made not null in the start grapple funtion
 
     private GameObject curHook = null;
+    [SerializeField]
+    float TimeWeCanRotate;
+    bool youMayRotate;
 
+    [SerializeField]
+    GameObject HAPPYROTATE;
+    bool lowerypls;
 
     // Use this for initialization
     void Start () {
         curHook = null;
+        Parent4 = HAPPYROTATE.transform.parent.gameObject;
+        startingPos = HAPPYROTATE.transform.position;
+        startingRotation = HAPPYROTATE.transform.rotation;
+
     }
 
     void FixedUpdate()
     {
+
+
+        if (curHook != null)
+        {
+            
+            if (lowerypls == false)
+            {
+            
+
+            }
+            youMayRotate = true;
+            StartCoroutine(RotatePls(TimeWeCanRotate));
+            HAPPYROTATE.transform.parent = curHook.transform;
+            HAPPYROTATE.transform.localPosition = new Vector3(0, 0, 0);
+
+
+
+        }
+        else
+        {
+            lowerypls = false;
+        }
+        if (youMayRotate == true)
+        {
+          //  HAPPYROTATE.transform.Rotate(new Vector3(0, 0, -5));
+        }
         if (throwtung == true)
         {
             StartGrapple();
@@ -58,6 +108,10 @@ public class FrogTung : MonoBehaviour {
     {
         if (curHook != null)
             curHook.GetComponent<FrogTungExtend>().reelingIn = true;
+    }
+    public void StartGrappleTest()
+    {
+
     }
     public void StartGrapple()
     {
@@ -84,12 +138,23 @@ public class FrogTung : MonoBehaviour {
     }
     public void DestroyGrapple()
     {
+
         //delete rope
+        HAPPYROTATE.transform.parent = null;
+        HAPPYROTATE.transform.parent = Parent4.transform;
+        HAPPYROTATE.transform.position = startingPos;
+        HAPPYROTATE.transform.rotation = startingRotation;
+        youMayRotate = false;
         curHook.GetComponent<FrogTungExtend>().DeleteNodes();
 
         Destroy(curHook);
         curHook = null;
 
         reelingIn = false;
+    }
+    IEnumerator RotatePls(float _allowedRotation)
+    {
+        yield return new WaitForSeconds(_allowedRotation);
+        youMayRotate = false;
     }
 }

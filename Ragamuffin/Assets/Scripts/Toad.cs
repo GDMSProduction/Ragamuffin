@@ -7,6 +7,7 @@ public class Toad : MonoBehaviour {
     float[] JumpPower = new float[10];
     [SerializeField]
     float[] Tungtimers = new float[10];
+    [SerializeField]
     int Counter = 0;
     [SerializeField]
     Rigidbody2D rb2d;
@@ -19,6 +20,7 @@ public class Toad : MonoBehaviour {
    void Start()
     {
         colide = false;
+        Counter = 0;
     }
     // Use this for initialization
     void Update()
@@ -46,7 +48,7 @@ public class Toad : MonoBehaviour {
         yield return new  WaitForSeconds(Tungtimers[Counter]);
         if(GetComponent < FrogTung>()!=null)
         GetComponent<FrogTung>().throwtung = true;
-            Counter++;
+           
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -55,6 +57,7 @@ public class Toad : MonoBehaviour {
             if (other.gameObject.tag == "ground"&&Counter <JumpPower.Length)
             {
                 toad.Jump();
+                Counter++;
             }
         }
         if (other.gameObject.tag == "ground")

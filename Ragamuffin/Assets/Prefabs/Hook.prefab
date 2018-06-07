@@ -155,6 +155,7 @@ MonoBehaviour:
   lastNode: {fileID: 0}
   rb2d: {fileID: 50007621776984890}
   hitSound: {fileID: 0}
+  sound: {fileID: 0}
   vertexCount: 2
   Nodes: []
   reelingIn: 0

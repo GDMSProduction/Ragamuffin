@@ -31,7 +31,7 @@ public class GrappleHook : MonoBehaviour {
 
     private GameObject grappleTarget;
   
-    GameObject Poolme;
+   public GameObject Poolme;
 
     // particles
    
@@ -302,7 +302,7 @@ public class GrappleHook : MonoBehaviour {
         pos2Create *= ((eye.transform.position - lastNode.transform.position).magnitude < distance ? (eye.transform.position - lastNode.transform.position).magnitude : distance);
         pos2Create += lastNode.transform.position;
         Debug.Log(pos2Create);
-        pos2Create.z = 20;
+        pos2Create.z = hardcodesz;
         GameObject go = (GameObject)Instantiate(nodePrefab, pos2Create, Quaternion.identity);
         // sets the node 2 the transform of the parent
         go.transform.SetParent(transform);

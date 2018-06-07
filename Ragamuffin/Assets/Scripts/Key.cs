@@ -21,7 +21,15 @@ public class Key : InVentroyObject {
   new  private void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        this.GetComponent<MeshRenderer>().enabled = false;
+        if (this.GetComponent<MeshRenderer>() != null)
+        {
+            this.GetComponent<MeshRenderer>().enabled = false;
+        }
+        else
+        {
+            this.GetComponent<SpriteRenderer>().enabled = false;
+        }
         this.GetComponent<BoxCollider2D>().enabled = false;
+
     }
 }

@@ -17,10 +17,18 @@ public class door : MonoBehaviour {
         if (openedthedoor)
         {
             Color aplhareduce;
-            aplhareduce = doorrender.material.color;
-            aplhareduce.a -= (float)0.01;
-            doorrender.material.color = aplhareduce;
-            if (aplhareduce.a <= 0)
+            if (doorrender != null)
+            {
+                aplhareduce = doorrender.material.color;
+                aplhareduce.a -= (float)0.01;
+                doorrender.material.color = aplhareduce;
+
+                if (aplhareduce.a <= 0)
+                {
+                    Destroy(gameObject);
+                }
+            }
+            else
             {
                 Destroy(gameObject);
             }

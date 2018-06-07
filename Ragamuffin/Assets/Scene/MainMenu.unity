@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 355028ae9cf1f724b82aebe1f6539906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level1: kitchen
+  level1: TestScene
 --- !u!224 &21685567
 RectTransform:
   m_ObjectHideFlags: 0

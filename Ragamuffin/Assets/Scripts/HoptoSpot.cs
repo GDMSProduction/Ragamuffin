@@ -13,7 +13,7 @@ public class HoptoSpot : MonoBehaviour {
     [SerializeField]
     bool StartJump;
     [SerializeField]
-    SpriteRenderer sprite;
+    GameObject sprite;
     float gravity;
     // Use this for initialization
     void Start () {
@@ -48,7 +48,7 @@ public class HoptoSpot : MonoBehaviour {
     }
     public void TurnOnFrog()
     {
-        sprite.enabled = true;
+        sprite.active = true;
         GetComponent<BoxCollider2D>().enabled = true;
         rb2d.gravityScale = gravity;
        

@@ -7,10 +7,14 @@ public class FallingPlatForm : MonoBehaviour {
     [SerializeField]
     float falldownseconds;
     Vector3 startspot;
+    Quaternion rotation;
+    GrappleScript grappleScript;
 
 	// Use this for initialization
 	void Start () {
         startspot = transform.position;
+        rotation = transform.rotation;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
 	}
 
     // Update is called once per frame
@@ -23,6 +27,7 @@ public class FallingPlatForm : MonoBehaviour {
         else
         {
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            transform.rotation = rotation;
         }
     }
     IEnumerator falldown()
@@ -33,11 +38,20 @@ public class FallingPlatForm : MonoBehaviour {
     }
     IEnumerator Reset()
     {
+      
         yield return new WaitForSeconds(1);
         fall = false;
         transform.position = startspot;
             GetComponent<Rigidbody2D>().gravityScale = 0;
-
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        transform.rotation = rotation;
+        if (grappleScript != null)
+        {
+            if (grappleScript.GetCurHook() != null&&grappleScript.GetCurHook().GetComponent<GrappleHook>().Poolme==gameObject)
+            {
+                grappleScript.DestroyGrapple();
+            }
+        }
         StopAllCoroutines();
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -46,6 +60,14 @@ public class FallingPlatForm : MonoBehaviour {
         {
             
             StartCoroutine(falldown());
+        }
+        else if( collision.gameObject.tag == "grapple")
+        {
+            GrappleHook grapple = null;
+            StartCoroutine(falldown());
+            grapple = collision.gameObject.GetComponent<GrappleHook>();
+            grappleScript = grapple.player.GetComponent<GrappleScript>();
+
         }
     }
 }

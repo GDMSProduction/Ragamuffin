@@ -81,7 +81,7 @@ public class FrogTungExtend : MonoBehaviour {
 
         Nodes.Add(transform.gameObject);
 
-        transform.LookAt(grappleTarget.transform.position);
+      //  transform.LookAt(grappleTarget.transform.position);
         transform.Rotate(Vector2.up * -90);
         done = false;
     }
@@ -103,7 +103,7 @@ public class FrogTungExtend : MonoBehaviour {
 
             transform.position = Vector3.MoveTowards(transform.position, eye.transform.position, speed *1.3f);
             transform.position = new Vector3(transform.position.x, transform.position.y, hardcodesz);
-            if (Vector2.Distance(eye.transform.position, transform.position) < 1)
+            if (Vector2.Distance(eye.transform.position, transform.position) < 2)
             {
 
                 player.GetComponent<FrogTung>().DestroyGrapple();
@@ -177,6 +177,13 @@ public class FrogTungExtend : MonoBehaviour {
 
           
             collision = true;
+        }
+        if (other.gameObject.tag == "Slime")
+        {
+            Debug.Break();
+            Vector3 position = transform.position;
+            position.y += 1;
+            transform.position = position;
         }
     }
     // Update is called once per frame
@@ -265,6 +272,10 @@ public class FrogTungExtend : MonoBehaviour {
     public GameObject GetLastNode()
     {
         return lastNode;
+    }
+    public Vector2 GetDestination()
+    {
+        return destiny;
     }
  
     #endregion

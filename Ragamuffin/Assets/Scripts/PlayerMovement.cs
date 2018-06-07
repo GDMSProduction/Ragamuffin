@@ -5,6 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
+    Transform infrontofbear;
+    [SerializeField]
+    Transform ontopofbear;
+    [SerializeField]
+    GameObject BearANimaton;
+    
+    Quaternion rotation;
+    [SerializeField]
+    Animator animator;
+    [SerializeField]
     GameObject startray;
     [SerializeField]
     GameObject endray;
@@ -93,24 +103,28 @@ public class PlayerMovement : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         gravity = rb2d.gravityScale;
         jump = true;
+        rotation = BearANimaton.transform.rotation;
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.M)&&areweholdingthepet&&petusues!=0&&AreWeUsingthePet==false)
+        if (Input.GetKeyDown(KeyCode.M)&&areweholdingthepet&&petusues!=0)
         {
             AreWeUsingthePet = true;
             petusues--;
             cat.Sethide(true);
             this.gameObject.layer = 11;
             onereset = true;
+            petatm.GetPet().transform.position = ontopofbear.position;
         }
         else if(onereset&&AreWeUsingthePet==false)
         {
             cat.Sethide(false);
             this.gameObject.layer = 9;
             onereset = false;
+            petatm.GetPet().transform.position = infrontofbear.position;
                if (petatm != null && petusues == 0)
             {
+
                 petatm.RelasePet();
             }
         }
@@ -268,6 +282,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (sounds!=null)
                 sounds.StopFootSteps();
+                animator.SetBool("Walk", false);
+
             }
 
         }
@@ -295,11 +311,14 @@ public class PlayerMovement : MonoBehaviour
                     {
                         if(sounds!=null)
                         sounds.PlaySound("steps");
+                        animator.SetBool("Walk",true);
                     }
                     else
                     {
                         if(sounds!=null)
                         sounds.StopFootSteps();
+                        animator.SetBool("Walk", false);
+
                     }
 
 
@@ -317,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
             else if (grappleScript.GetCurHook() != null && grappleScript.GetCurHook().GetComponent<GrappleHook>().GetGrappleHookDone() && !grappleScript.GetCurHook().GetComponent<GrappleHook>().reelingIn && Mathf.Abs(input.x) > float.Epsilon)
             {
 
-
+                animator.SetBool("Walk", false);
                 if (Mathf.Sign(input.x) == Mathf.Sign(rb2d.velocity.x))
                 {
                     if (rb2d.velocity.sqrMagnitude < grappleControlMax)
@@ -350,11 +369,32 @@ public class PlayerMovement : MonoBehaviour
                     rb2d.velocity += Vector2.right * input.x * inAirSpeedMult;
                     Debug.Log("Swing");
                 }
+                animator.SetBool("Walk", false);
+
             }
 
         }
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Vertical");
+        if (input.x < 0)
+        {
+            if (rotation.y > 0)
+            {
+                rotation.y = rotation.y * -1;
+                BearANimaton.transform.rotation = rotation;
+
+            }
+
+        }
+        else if (input.x > 0)
+        {
+            if (rotation.y < 0)
+            {
+                rotation.y = rotation.y * -1;
+                BearANimaton.transform.rotation = rotation;
+            }
+
+        }
 
 
     }
@@ -414,7 +454,6 @@ public class PlayerMovement : MonoBehaviour
             canWeClimb = false;
             climbing = false;
             rb2d.gravityScale = gravity;
-            Debug.Break();
         }
         if (other.gameObject.tag == "puddle")
         {

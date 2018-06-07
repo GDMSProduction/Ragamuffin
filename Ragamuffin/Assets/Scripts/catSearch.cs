@@ -303,8 +303,8 @@ public class catSearch : MonoBehaviour
             inacourtine = false;
 
             rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(Vector2.up * 1000);
-            rb2d.AddForce(new Vector2(-direction * 1000000, rb2d.velocity.y));
+            rb2d.AddForce(Vector2.up * 100000);
+            rb2d.AddForce(new Vector2(-direction * 10000, rb2d.velocity.y));
             yield return new WaitForSeconds(.2f);
             rb2d.velocity = Vector2.zero;
             yield return new WaitForSeconds(2f);

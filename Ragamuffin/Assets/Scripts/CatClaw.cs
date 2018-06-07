@@ -12,6 +12,7 @@ public class CatClaw : MonoBehaviour {
     bool firstattc;
     [SerializeField]
     float charge;
+
     // Use this for initialization
     void Start () {
 		
@@ -25,6 +26,7 @@ public class CatClaw : MonoBehaviour {
 
         if (other.tag == "Player"&&catmovement.getattac()==false)
         {
+            
             catmovement.SetAttac(true);
             other.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             charge += 10;
@@ -41,12 +43,12 @@ public class CatClaw : MonoBehaviour {
             }
             else if( catmovement.getattac() == true)
             {
-                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 700);
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 0);
                 if (other.gameObject.transform.position.x > transform.position.x)
-                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 100);
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 0);
                 else
                 {
-                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 100);
+                    other.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.left * 0);
                 }
 
             }

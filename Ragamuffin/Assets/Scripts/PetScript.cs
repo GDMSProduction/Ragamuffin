@@ -4,16 +4,26 @@ using UnityEngine;
 
 public class PetScript : InVentroyObject
 {
+    [SerializeField]
+    PlayerMovement player;
    
     private void Update()
     {
-        if (inventory.GetItem() == this)
+        if (inventory.GetItem() == this||player.AreWeUsingthePet)
         {
+           
+            if (this.gameObject.GetComponent<MeshRenderer>()!=null)
             this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+            else
+            {
+                this.gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+          
         }
-        else if(this.GetComponent<BoxCollider2D>().enabled==false)
+        else 
         {
-            this.gameObject.GetComponent<MeshRenderer>().enabled = false;
+            player.AreWeUsingthePet = false;
+          
         }
     }
     new void OnTriggerEnter2D(Collider2D other)
@@ -32,5 +42,9 @@ public class PetScript : InVentroyObject
     {
         transform.parent = null;
         Destroy(gameObject);
+    }
+    public GameObject GetPet()
+    {
+        return gameObject;
     }
 }
