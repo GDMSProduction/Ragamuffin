@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/RealKitechen.unity
+- path: Assets/Scene/TestScene.unity
   isLoaded: 1
   isActive: 1

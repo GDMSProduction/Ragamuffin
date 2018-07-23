@@ -302,6 +302,7 @@
     <Compile Include="Assets\Scripts\edges.cs" />
     <Compile Include="Assets\Scripts\ExposiveLego.cs" />
     <Compile Include="Assets\Scripts\FallingPlatForm.cs" />
+    <Compile Include="Assets\Scripts\FazeOutScreen.cs" />
     <Compile Include="Assets\Scripts\FollowPLayer.cs" />
     <Compile Include="Assets\Scripts\FrogTung.cs" />
     <Compile Include="Assets\Scripts\FrogTungExtend.cs" />
