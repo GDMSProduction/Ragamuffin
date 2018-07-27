@@ -6,12 +6,15 @@ public class SwitchingZ : MonoBehaviour {
     static bool forwardZObjectsActive=true;
     static bool BackwardzObjectsActivate = false;
     static bool MapChangeBottomObjects = false;
+    static bool SideWaysLocation = false;
     [SerializeField]
     List<GameObject> FowardObjects = new List<GameObject>();
     [SerializeField]
     List<GameObject> BehindObjects = new List<GameObject>();
     [SerializeField]
     List<GameObject> MapChangeBottomFloorObjects = new List<GameObject>();
+    [SerializeField]
+    List<GameObject> SideWaysObjects = new List<GameObject>();
     // Use this for initialization
     void Start () {
 		
@@ -34,6 +37,10 @@ public class SwitchingZ : MonoBehaviour {
             {
                 MapChangeBottomFloorObjects[i].GetComponent<BoxCollider2D>().enabled = false;
             }
+            for (int i = 0; i < SideWaysObjects.Count; ++i)
+            {
+                SideWaysObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
         else if(BackwardzObjectsActivate==true)
         {
@@ -49,6 +56,10 @@ public class SwitchingZ : MonoBehaviour {
             for (int i = 0; i < MapChangeBottomFloorObjects.Count; ++i)
             {
                 MapChangeBottomFloorObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+            for (int i = 0; i < SideWaysObjects.Count; ++i)
+            {
+                SideWaysObjects[i].GetComponent<BoxCollider2D>().enabled = false;
             }
         }
         else if (MapChangeBottomObjects == true)
@@ -66,7 +77,31 @@ public class SwitchingZ : MonoBehaviour {
             {
                 BehindObjects[i].GetComponent<BoxCollider2D>().enabled = false;
             }
-          
+            for (int i = 0; i < SideWaysObjects.Count; ++i)
+            {
+                SideWaysObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+
+        }
+        else if (SideWaysLocation == true)
+        {
+            for(int i=0; i < SideWaysObjects.Count; ++i)
+            {
+                SideWaysObjects[i].GetComponent<BoxCollider2D>().enabled = true;
+            }
+            for (int i = 0; i < MapChangeBottomFloorObjects.Count; ++i)
+            {
+                MapChangeBottomFloorObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+
+            for (int i = 0; i < FowardObjects.Count; ++i)
+            {
+                FowardObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
+            for (int i = 0; i < BehindObjects.Count; ++i)
+            {
+                BehindObjects[i].GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
 	}
     public static void SetBackwarodsActiveTrue()
@@ -74,18 +109,31 @@ public class SwitchingZ : MonoBehaviour {
         forwardZObjectsActive = false;
         MapChangeBottomObjects = false;
         BackwardzObjectsActivate = true;
+        SideWaysLocation = false;
     }
     public static void SetMapChangeTrue()
     {
         forwardZObjectsActive = false;
         BackwardzObjectsActivate = false;
         MapChangeBottomObjects = true;
+        SideWaysLocation = false;
+
     }
     public static void SetFrontObjectivestoTrue()
     {
         forwardZObjectsActive = true;
         BackwardzObjectsActivate = false;
         MapChangeBottomObjects = false;
+        SideWaysLocation = false;
+
+    }
+    public static void SwitchToSideWaysObjects()
+    {
+
+        forwardZObjectsActive = false;
+        BackwardzObjectsActivate = false;
+        MapChangeBottomObjects = false;
+        SideWaysLocation = true;
     }
 }
 

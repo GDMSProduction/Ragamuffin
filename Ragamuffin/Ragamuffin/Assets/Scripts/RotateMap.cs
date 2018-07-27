@@ -25,9 +25,11 @@ public class RotateMap : MonoBehaviour {
     Quaternion cameranewration;
     [SerializeField]
     float fadeTimer=3;
-    
+    [SerializeField]
+    int WhichSwitchToDo = 0;
     private void Start()
     {
+        GrappleHook.hardcodesz = 20;
        // mapnewROation = map.transform.rotation;
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -52,7 +54,15 @@ public class RotateMap : MonoBehaviour {
       //  Camera.transform.position = cameranewpositon;
         map.transform.position = mapnewPosition;
         map.transform.rotation = mapnewROation;
+        if(WhichSwitchToDo==0)
             SwitchingZ.SetMapChangeTrue();
+        else if (WhichSwitchToDo == 1)
+        {
+            SwitchingZ.SwitchToSideWaysObjects();
+            GrappleHook.hardcodesz = 31.8f;
+
+
+        }
         yield return new WaitForSeconds(fadeTimer);
         fazeOut.Fade(false, fadeTimer);
         yield return new WaitForSeconds(fadeTimer);

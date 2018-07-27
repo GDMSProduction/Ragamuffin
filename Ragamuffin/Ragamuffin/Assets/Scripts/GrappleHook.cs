@@ -73,7 +73,7 @@ public class GrappleHook : MonoBehaviour {
     bool delete = true;
     float gravity;
     [SerializeField]
-    float hardcodesz;
+ public static   float hardcodesz;
     // Use this for initialization
     void Start()
     {
