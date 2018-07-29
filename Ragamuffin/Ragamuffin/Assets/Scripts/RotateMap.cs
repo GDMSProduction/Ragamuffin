@@ -63,6 +63,10 @@ public class RotateMap : MonoBehaviour {
 
 
         }
+        if (WhichSwitchToDo == 2)
+        {
+            SwitchingZ.SetBackwarodsActiveTrue();
+        }
         yield return new WaitForSeconds(fadeTimer);
         fazeOut.Fade(false, fadeTimer);
         yield return new WaitForSeconds(fadeTimer);
