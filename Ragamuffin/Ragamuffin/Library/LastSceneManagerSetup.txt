@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Prototype/Camera_Prototype.unity
+- path: Assets/Scene/PatrollerTest.unity
   isLoaded: 1
   isActive: 1

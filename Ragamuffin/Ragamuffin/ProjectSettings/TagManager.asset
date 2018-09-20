@@ -16,6 +16,8 @@ TagManager:
   - spider
   - grapple
   - frogTung
+  - JumpPoint
+  - PatrolPoint
   layers:
   - Default
   - TransparentFX

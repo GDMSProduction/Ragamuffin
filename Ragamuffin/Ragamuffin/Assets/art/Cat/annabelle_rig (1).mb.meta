@@ -1,0 +1,378 @@
+fileFormatVersion: 2
+guid: 974617d35d1fb3643ba9a4ea6dc6cfcc
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: all_grp
+    100002: Anna_Low
+    100004: //RootNode
+    100006: back
+    100008: ct_eye_icon
+    100010: ct_head_01_bind
+    100012: ct_head_01_icon
+    100014: ct_head_02_waste
+    100016: ct_jaw_01_bind
+    100018: ct_jaw_02_bind
+    100020: ct_jaw_03_waste
+    100022: ct_jaw_icon
+    100024: ct_master_icon
+    100026: ct_neck_01_bind
+    100028: ct_neck_01_icon
+    100030: ct_neck_02_bind
+    100032: ct_neck_02_icon
+    100034: ct_neck_03_waste
+    100036: ct_spine_01_bind
+    100038: ct_spine_01_clust
+    100040: ct_spine_01_grp
+    100042: ct_spine_01_icon
+    100044: ct_spine_02_bind
+    100046: ct_spine_02_clust
+    100048: ct_spine_02_grp
+    100050: ct_spine_02_icon
+    100052: ct_spine_03_bind
+    100054: ct_spine_03_clust
+    100056: ct_spine_03_grp
+    100058: ct_spine_03_icon
+    100060: ct_spine_04_bind
+    100062: ct_spine_05_bind
+    100064: ct_spine_06_waste
+    100066: ct_spine_crv
+    100068: ct_spine_ik
+    100070: ct_tail_010_bind
+    100072: ct_tail_011_bind
+    100074: ct_tail_012_bind
+    100076: ct_tail_013_bind
+    100078: ct_tail_014_bind
+    100080: ct_tail_01_bind
+    100082: ct_tail_01_bind 1
+    100084: ct_tail_02_bind
+    100086: ct_tail_02_bind1
+    100088: ct_tail_03_bind
+    100090: ct_tail_03_bind 1
+    100092: ct_tail_04_bind
+    100094: ct_tail_04_bind 1
+    100096: ct_tail_05_bind
+    100098: ct_tail_05_bind 1
+    100100: ct_tail_06_bind
+    100102: ct_tail_06_bind 1
+    100104: ct_tail_07_bind
+    100106: ct_tail_07_bind 1
+    100108: ct_tail_08_bind
+    100110: ct_tail_08_bind 1
+    100112: ct_tail_09_bind
+    100114: ct_tail_09_bind 1
+    100116: ct_tail_10_bind
+    100118: ct_tail_11_bind
+    100120: ct_tail_12_bind
+    100122: Geo
+    100124: left
+    100126: lt_backFoot_icon
+    100128: lt_backLeg_01_bind
+    100130: lt_backLeg_02_bind
+    100132: lt_backLeg_03_bind
+    100134: lt_backLeg_04_bind
+    100136: lt_backLeg_05_waste
+    100138: lt_backLeg_ik
+    100140: lt_backPole_icon
+    100142: lt_backPole_trashPad
+    100144: lt_backToe_grp
+    100146: lt_ear_01_bind
+    100148: lt_ear_01_icon
+    100150: lt_ear_01_icon 1
+    100152: lt_ear_01_icon 2
+    100154: lt_ear_01_icon 3
+    100156: lt_ear_01_icon 4
+    100158: lt_ear_02_bind
+    100160: lt_ear_02_icon
+    100162: lt_ear_03_bind
+    100164: lt_ear_03_icon
+    100166: lt_ear_04_waste
+    100168: lt_eye
+    100170: lt_eye_01_bind
+    100172: lt_eye_02_waste
+    100174: lt_eye_icon
+    100176: lt_frontAnkle_ik
+    100178: lt_frontFoot_icon
+    100180: lt_frontLeg_01_bind
+    100182: lt_frontLeg_02_bind
+    100184: lt_frontLeg_03_bind
+    100186: lt_frontLeg_04_bind
+    100188: lt_frontLeg_05_bind
+    100190: lt_frontLeg_06_waste
+    100192: lt_frontLeg_ik
+    100194: lt_frontPole_icon
+    100196: lt_frontPole_trashPad
+    100198: lt_shoulder_icon
+    100200: polySurface1
+    100202: RIG
+    100204: rt_backFoot_icon
+    100206: rt_backLeg_01_bind
+    100208: rt_backLeg_02_bind
+    100210: rt_backLeg_03_bind
+    100212: rt_backLeg_04_bind
+    100214: rt_backLeg_05_waste
+    100216: rt_backLeg_ik
+    100218: rt_backPole_icon
+    100220: rt_backPole_trashPad
+    100222: rt_backToe_grp
+    100224: rt_ear_01_bind
+    100226: rt_ear_01_icon
+    100228: rt_ear_01_icon 1
+    100230: rt_ear_01_icon 2
+    100232: rt_ear_02_bind
+    100234: rt_ear_02_icon
+    100236: rt_ear_03_bind
+    100238: rt_ear_03_icon
+    100240: rt_ear_04_waste
+    100242: rt_eye
+    100244: rt_eye_02_bind
+    100246: rt_eye_02_waste
+    100248: rt_eye_icon
+    100250: rt_frontAnkle_ik
+    100252: rt_frontFoot_icon
+    100254: rt_frontLeg_01_bind
+    100256: rt_frontLeg_02_bind
+    100258: rt_frontLeg_03_bind
+    100260: rt_frontLeg_04_bind
+    100262: rt_frontLeg_05_bind
+    100264: rt_frontLeg_06_waste
+    100266: rt_frontLeg_ik
+    100268: rt_frontPole_icon
+    100270: rt_frontPole_trashPad
+    100272: rt_shoulder_icon
+    100274: transform4
+    400000: all_grp
+    400002: Anna_Low
+    400004: //RootNode
+    400006: back
+    400008: ct_eye_icon
+    400010: ct_head_01_bind
+    400012: ct_head_01_icon
+    400014: ct_head_02_waste
+    400016: ct_jaw_01_bind
+    400018: ct_jaw_02_bind
+    400020: ct_jaw_03_waste
+    400022: ct_jaw_icon
+    400024: ct_master_icon
+    400026: ct_neck_01_bind
+    400028: ct_neck_01_icon
+    400030: ct_neck_02_bind
+    400032: ct_neck_02_icon
+    400034: ct_neck_03_waste
+    400036: ct_spine_01_bind
+    400038: ct_spine_01_clust
+    400040: ct_spine_01_grp
+    400042: ct_spine_01_icon
+    400044: ct_spine_02_bind
+    400046: ct_spine_02_clust
+    400048: ct_spine_02_grp
+    400050: ct_spine_02_icon
+    400052: ct_spine_03_bind
+    400054: ct_spine_03_clust
+    400056: ct_spine_03_grp
+    400058: ct_spine_03_icon
+    400060: ct_spine_04_bind
+    400062: ct_spine_05_bind
+    400064: ct_spine_06_waste
+    400066: ct_spine_crv
+    400068: ct_spine_ik
+    400070: ct_tail_010_bind
+    400072: ct_tail_011_bind
+    400074: ct_tail_012_bind
+    400076: ct_tail_013_bind
+    400078: ct_tail_014_bind
+    400080: ct_tail_01_bind
+    400082: ct_tail_01_bind 1
+    400084: ct_tail_02_bind
+    400086: ct_tail_02_bind1
+    400088: ct_tail_03_bind
+    400090: ct_tail_03_bind 1
+    400092: ct_tail_04_bind
+    400094: ct_tail_04_bind 1
+    400096: ct_tail_05_bind
+    400098: ct_tail_05_bind 1
+    400100: ct_tail_06_bind
+    400102: ct_tail_06_bind 1
+    400104: ct_tail_07_bind
+    400106: ct_tail_07_bind 1
+    400108: ct_tail_08_bind
+    400110: ct_tail_08_bind 1
+    400112: ct_tail_09_bind
+    400114: ct_tail_09_bind 1
+    400116: ct_tail_10_bind
+    400118: ct_tail_11_bind
+    400120: ct_tail_12_bind
+    400122: Geo
+    400124: left
+    400126: lt_backFoot_icon
+    400128: lt_backLeg_01_bind
+    400130: lt_backLeg_02_bind
+    400132: lt_backLeg_03_bind
+    400134: lt_backLeg_04_bind
+    400136: lt_backLeg_05_waste
+    400138: lt_backLeg_ik
+    400140: lt_backPole_icon
+    400142: lt_backPole_trashPad
+    400144: lt_backToe_grp
+    400146: lt_ear_01_bind
+    400148: lt_ear_01_icon
+    400150: lt_ear_01_icon 1
+    400152: lt_ear_01_icon 2
+    400154: lt_ear_01_icon 3
+    400156: lt_ear_01_icon 4
+    400158: lt_ear_02_bind
+    400160: lt_ear_02_icon
+    400162: lt_ear_03_bind
+    400164: lt_ear_03_icon
+    400166: lt_ear_04_waste
+    400168: lt_eye
+    400170: lt_eye_01_bind
+    400172: lt_eye_02_waste
+    400174: lt_eye_icon
+    400176: lt_frontAnkle_ik
+    400178: lt_frontFoot_icon
+    400180: lt_frontLeg_01_bind
+    400182: lt_frontLeg_02_bind
+    400184: lt_frontLeg_03_bind
+    400186: lt_frontLeg_04_bind
+    400188: lt_frontLeg_05_bind
+    400190: lt_frontLeg_06_waste
+    400192: lt_frontLeg_ik
+    400194: lt_frontPole_icon
+    400196: lt_frontPole_trashPad
+    400198: lt_shoulder_icon
+    400200: polySurface1
+    400202: RIG
+    400204: rt_backFoot_icon
+    400206: rt_backLeg_01_bind
+    400208: rt_backLeg_02_bind
+    400210: rt_backLeg_03_bind
+    400212: rt_backLeg_04_bind
+    400214: rt_backLeg_05_waste
+    400216: rt_backLeg_ik
+    400218: rt_backPole_icon
+    400220: rt_backPole_trashPad
+    400222: rt_backToe_grp
+    400224: rt_ear_01_bind
+    400226: rt_ear_01_icon
+    400228: rt_ear_01_icon 1
+    400230: rt_ear_01_icon 2
+    400232: rt_ear_02_bind
+    400234: rt_ear_02_icon
+    400236: rt_ear_03_bind
+    400238: rt_ear_03_icon
+    400240: rt_ear_04_waste
+    400242: rt_eye
+    400244: rt_eye_02_bind
+    400246: rt_eye_02_waste
+    400248: rt_eye_icon
+    400250: rt_frontAnkle_ik
+    400252: rt_frontFoot_icon
+    400254: rt_frontLeg_01_bind
+    400256: rt_frontLeg_02_bind
+    400258: rt_frontLeg_03_bind
+    400260: rt_frontLeg_04_bind
+    400262: rt_frontLeg_05_bind
+    400264: rt_frontLeg_06_waste
+    400266: rt_frontLeg_ik
+    400268: rt_frontPole_icon
+    400270: rt_frontPole_trashPad
+    400272: rt_shoulder_icon
+    400274: transform4
+    2000000: back
+    2000002: left
+    2100000: Body
+    2100002: Left_eye
+    2100004: Right_Eye
+    2300000: lt_eye
+    2300002: rt_eye
+    3300000: lt_eye
+    3300002: rt_eye
+    4300000: Anna_Low
+    4300002: rt_eye
+    4300004: lt_eye
+    9500000: //RootNode
+    13700000: Anna_Low
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

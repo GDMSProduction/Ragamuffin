@@ -30,7 +30,7 @@ public class PlayerManagerFSM : MonoBehaviour
     }
     #endregion
 
-    #region Blackbox
+    #region Private
     private void Update() { PlayerInput(); }
     private void PlayerInput()
     {

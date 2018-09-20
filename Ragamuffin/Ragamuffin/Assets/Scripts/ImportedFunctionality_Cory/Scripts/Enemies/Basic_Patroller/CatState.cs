@@ -4,7 +4,12 @@ using UnityEngine;
 
 public abstract class CatState
 {
+    #region Variables
+    protected System.Action<byte> AssignMoveSpeed;
+    #endregion
+
     #region Initialization
+    public CatState(CatManager _catManager) { AssignMoveSpeed = _catManager.AssignMoveSpeed; }
     public virtual void Enable() { return; }
     #endregion
 
@@ -13,106 +18,45 @@ public abstract class CatState
     #endregion
 
     #region Public Interface
-    public virtual void ChangeCatSubState(byte _index) { return; }
-    public virtual byte GetStateIndex() { return 0; }
+    public virtual void ToggleFlee() { return; }
     #endregion
 }
 public class Unalerted : CatState
 {
     #region Variables
-    private CatSubState[] availableStates;
-    private CatSubState currentState;
-    private System.Action<byte> AssignMoveSpeed;
-    private System.Action<byte> PrintState;
+    private System.Action PatrolMovement;
     #endregion
 
     #region Initialization
-    public Unalerted(CatManager _catManager)
-    {
-        AssignMoveSpeed = _catManager.AssignMoveSpeed;
-        PrintState = _catManager.PrintState;
-        availableStates = new CatSubState[2] { new Idle(ref _catManager), new Patrol(ref _catManager) };
-
-        // Puts cat into idle or patrol from the beginning
-        byte randomSubState = (byte)Random.Range(0, 2);
-        ChangeCatSubState(randomSubState);
-
-    }
-    public override void Enable()
-    {
-        AssignMoveSpeed(0);
-        ChangeCatSubState(1);
-    }
+    public Unalerted(CatManager _catManager) : base(_catManager) { PatrolMovement = _catManager.PatrolMovement; }
+    public override void Enable() { AssignMoveSpeed(0); }
     #endregion
 
-    #region Public Interface
-    public override void ChangeCatSubState(byte _index)
-    {
-        currentState = availableStates[_index];
-        currentState.Enable();
-        PrintState(GetStateIndex());
-    }
-    public override byte GetStateIndex()
-    {
-        if (currentState == availableStates[0])
-            return 0;
-        else
-            return 1;
-    }
-    public override void UpdateState() { currentState.UpdateState(); }
+    #region Main Update
+    public override void UpdateState() { PatrolMovement(); }
     #endregion
 }
 public class Alerted : CatState
 {
     #region Variables
-    private CatSubState[] availableStates;
-    private CatSubState currentState;
-    private System.Action<byte> AssignMoveSpeed;
-    private System.Action AssignRandomPatrolTime;
-    private System.Action<byte> PrintState;
+    private AlertedStates[] availableStates;
+    private AlertedStates currentState;
     #endregion
 
     #region Initialization
-    public Alerted(CatManager _catManager)
+    public Alerted(CatManager _catManager) : base(_catManager)
     {
-        PrintState = _catManager.PrintState;
-        availableStates = new CatSubState[2] { new Pursuit(ref _catManager), new Attack(ref _catManager) };
+        availableStates = new AlertedStates[2] { new Pursuit(ref _catManager), new Flee(ref _catManager) };
         currentState = availableStates[0];
-        AssignMoveSpeed = _catManager.AssignMoveSpeed;
-        AssignRandomPatrolTime = _catManager.AssignRandomPatrolTime;
     }
     public override void Enable() { AssignMoveSpeed(1); }
     #endregion
 
-    #region Public Interface
-    public override void ChangeCatSubState(byte _index)
-    {
-        AssignMoveSpeed(1);
-        currentState = availableStates[_index];
-        currentState.Enable();
-        PrintState(GetStateIndex());
-    }
-    public override byte GetStateIndex()
-    {
-        if (currentState == availableStates[0])
-            return 0;
-        else
-            return 1;
-    }
+    #region Main Update
     public override void UpdateState() { currentState.UpdateState(); }
     #endregion
-}
-public class Flee : CatState
-{
-    #region Variables
-    private System.Action MoveAway;
-    #endregion
-
-    #region Initialization
-    public Flee(CatManager _catManager) { MoveAway = _catManager.MoveAway; }
-    #endregion
 
     #region Public Interface
-    public override void UpdateState() { MoveAway(); }
+    public override void ToggleFlee() { currentState = (currentState == availableStates[0]) ? availableStates[1] : availableStates[0]; }
     #endregion
 }

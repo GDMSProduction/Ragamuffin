@@ -5,51 +5,55 @@ using System.Diagnostics;
 
 public class CatManager : MonoBehaviour
 {
-
     // Not correctly displaying if fleeing or not
 
     #region Variables
     // Inspector assignable attributes
-    [SerializeField] private byte[] idleTimeRange;                 // Index 0 - Low side of range. 1 - High side of range
+    [SerializeField] private bool startLeftDirection;              // Initial movement direction flag
+    [SerializeField] private byte jumpDropChance;                  // 1:? change that cat decides to jump or drop when it hits orb
     [SerializeField] private byte[] moveSpeeds;                    // Index 0 - Patrol speed. 1 - Pursuit speed
-    [SerializeField] private byte[] patrolTimeRange;               // Index 0 - Low side of range. 1 - High side of range
     [SerializeField] private float miniumAttackDistance;
     [SerializeField] private float miniumReceiveHitDistance;
     [SerializeField] private float timeBetweenDistanceChecks;      // Time between checking if close enough to Rag
-    [SerializeField] private float timeBetweenSearches;            // Time between ray cast checking
 
-    private byte mapBound;                                         // Bounds of map on the X-axis
-    private byte randomIdleTime;                                   // How long idles this time
-    private byte randomPatrolTime;                                 // How long patrols this time
+    private bool fleeing;
     private const byte rayCastDistance = 50;
+    private byte randomChance;
 
     // State Machine
     private CatState[] availableStates; 
     private CatState currentState;
 
     private float distanceFromRag;
-    private float usedMoveSpeed;                                   // Current move speed
+    private float currentMoveSpeed;                                // Current move speed
+    private float timeBetweenSearches = 0.1f;
     private RaycastHit hitObject;                                  // Object intersecting raycast
-    private Stopwatch internalTimer;                               // Timer the cat uses for its state
-    private Stopwatch rayCastTimer;                               
-    private Transform playerTransform;
+    private Stopwatch[] internExternTimers;                        // Timers for cat's behaviors. Index 1 for internal. Index 0 for raycast timing                
+    private Transform ragTransform;
     private Vector3 forward;
-    private Vector3 targetPosition;                                // Location the cat  moves towards
+    private Vector3 offset;
     #endregion
 
     #region Initialization
     private void Awake()
     {
-        internalTimer = new Stopwatch();
-        rayCastTimer = new Stopwatch();
-        mapBound = (byte)(GameObject.Find("Ground").transform.lossyScale.x * 5);
-        availableStates = new CatState[3] { new Unalerted(this), new Alerted(this), new Flee(this) };
+        fleeing = false;
+        currentMoveSpeed = moveSpeeds[0];
+        availableStates = new CatState[2] { new Unalerted(this), new Alerted(this)};
         currentState = availableStates[0];
-        usedMoveSpeed = moveSpeeds[0];
-        PrintState(currentState.GetStateIndex());
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        targetPosition.y = transform.position.y;
-        AssignRandomPatrolTarget();
+        internExternTimers = new Stopwatch[2];
+        ragTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        offset = new Vector3(0, -1, 0);
+
+        // If start left is true in the inspector, the cat's will move left
+        transform.rotation = (startLeftDirection) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
+
+        // Creating and starting both timers
+        for (int i = 0; i < 2; ++i)
+        {
+            internExternTimers[i] = new Stopwatch();
+            internExternTimers[i].Start();
+        }
     }
     #endregion
 
@@ -58,213 +62,104 @@ public class CatManager : MonoBehaviour
     #endregion
 
     #region Public Interface
-    public void AssignMoveSpeed(byte _index) { usedMoveSpeed = moveSpeeds[_index]; }
-    public void AssignRandomIdleTime() { randomIdleTime = (byte)Random.Range(idleTimeRange[0], idleTimeRange[1]); }
-    public void AssignRandomPatrolTarget()
-    {
-        // Choose a random target direction
-        byte randomMapBound = (byte)Random.Range(0, 2);
-
-        if (randomMapBound == 0)
-            AssignTarget(true);
-        else
-            AssignTarget(false);
-    }
-    public void AssignRandomPatrolTime() { randomPatrolTime = (byte)Random.Range(patrolTimeRange[0], patrolTimeRange[1]); }
-    public void AttackTime()
-    {
-        // Set target position, so cat knows when Rag is far enough
-        targetPosition = playerTransform.position;
-
-        if (internalTimer.ElapsedMilliseconds > timeBetweenDistanceChecks)
-        {
-            // Check distance between cat and rag
-            distanceFromRag = Vector3.Distance(transform.position, targetPosition);
-
-            // If not close enough, pursue rag
-            if (distanceFromRag > miniumAttackDistance)
-                currentState.ChangeCatSubState(0);
-
-            RestartInternalTimer();
-        }
-    }
+    public void AssignMoveSpeed(byte _index) { currentMoveSpeed = moveSpeeds[_index]; }
     public void ChangeCatState(byte _index)
     {
         currentState = availableStates[_index];
         currentState.Enable();
-        PrintState(currentState.GetStateIndex());
-    }
-    public void IdleTime()
-    {
-        // If enemy has been idling for longer than idle time, start patrolling
-        if (internalTimer.Elapsed.Seconds > randomIdleTime)
-            currentState.ChangeCatSubState(1);
-    }
-    public void MoveAway()
-    {
-        // Moves cat towards target at the assigned move speed
-        Movement();
-
-        // If target x is positive
-        if (targetPosition.x == mapBound)
-        {
-            // If cat x is greater than map bounds, target is now negative
-            if (transform.position.x > mapBound)
-            {
-                // Turn around
-                AssignTarget(false);
-
-                // If rag wasn't found, set to unalerted
-                if (!LookForRag())
-                    ChangeCatState(0);
-            }
-        }
-
-        // If target x is negative
-        else if (targetPosition.x == -mapBound)
-        {
-            // If cat x is less than negative map bounds, target is positive
-            if (transform.position.x < -mapBound)
-            {
-                // Turn around
-                AssignTarget(true);
-
-                // If rag wasn't found, set to idle
-                if (!LookForRag())
-                    ChangeCatState(0);
-            }
-        }
     }
     public void PatrolMovement()
     {
         // Moves cat towards target at the assigned move speed
         Movement();
-        
-        if (rayCastTimer.ElapsedMilliseconds > timeBetweenSearches)
+
+        //Used to restrict the amount of raycasts per second, because they can be expensive
+        if (internExternTimers[1].ElapsedMilliseconds > timeBetweenSearches)
         {
             LookForRag();
-            RestartRayCastTimer();
-        }
 
-        // If target x is positive
-        if (targetPosition.x == mapBound)
-        {
-            // If cat x is greater than map bounds, target is now negative
-            if (transform.position.x > mapBound)
-                AssignTarget(false);
+            // Restart external timer
+            RestartTimer(false);
         }
-
-        // If target x is negative
-        else if(targetPosition.x == -mapBound)
-        {
-            // If cat x is less than negative map bounds, target is positive
-            if (transform.position.x < -mapBound)
-                AssignTarget(true);
-        }
-
-        // If enemy has been patrolling for longer than their time to patrol, they will return to idle
-        if (internalTimer.Elapsed.Seconds > randomPatrolTime)
-            currentState.ChangeCatSubState(0);
     }
-    public void PrintState(byte _subState)
+    public void PursuitBehavior()
     {
-        if (currentState != null)
+        // Check distance between cat and rag
+        distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
+
+        // If not within attack range, get closer
+        if (distanceFromRag > miniumAttackDistance)
         {
-            if (currentState == availableStates[0])
-            {
-                if (_subState == 0)
-                    UnityEngine.Debug.Log("Unalerted Idle");
-                else
-                    UnityEngine.Debug.Log("Unalerted Patrol");
-            }
-            else if (currentState == availableStates[1])
-            {
-                if (_subState == 0)
-                    UnityEngine.Debug.Log("Alerted Pursuit");
-                else
-                    UnityEngine.Debug.Log("Alerted Attack");
-            }
-            else
-                UnityEngine.Debug.Log("Fleeing");
+            // Look at Rag
+            transform.LookAt(ragTransform.position + offset, Vector3.up);
+
+            // Moves cat towards Rag at the assigned move speed
+            Movement();
+        }
+
+        // If within attack range
+        else
+        {
+            
         }
     }
-    public void PursuitMovement()
-    {
-        // Set target position, so cat doesn't overshoot Rag
-        targetPosition = playerTransform.position;
 
-        transform.LookAt(targetPosition, Vector3.up);
-
-        // Moves cat towards target at the assigned move speed
-        Movement();
-
-        if (internalTimer.ElapsedMilliseconds > timeBetweenDistanceChecks)
-        {
-            // Check distance between cat and rag
-            distanceFromRag = Vector3.Distance(transform.position, targetPosition);
-
-            // If close enough, attack rag
-            if (distanceFromRag < miniumAttackDistance)
-                currentState.ChangeCatSubState(1);
-
-            RestartInternalTimer();
-        }
-    }
+    // This function is temporary, because this Rag's attack is not currently implemented
     public void ReceiveHit()
     {
         // Check distance between cat and rag
-        distanceFromRag = Vector3.Distance(transform.position, targetPosition);
+        distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
 
         if (distanceFromRag < miniumReceiveHitDistance)
         {
-            if (currentState != availableStates[2])
-            {
-                // If player is on the left of cat
-                if (playerTransform.position.x > transform.position.x)
-                    AssignTarget(false);
+            // If player is on the left of cat, move right
+            if (ragTransform.position.x < transform.position.x)
+                transform.rotation = Quaternion.Euler(0, 90, 0);
 
-                // If player is on the right of cat
-                else
-                    AssignTarget(true);
+            // If player is on the right of cat, move left
+            else
+                transform.rotation = Quaternion.Euler(0, 270, 0);
 
-                // Change state to fleeing
-                ChangeCatState(2);
-            }
+            // If cat is unalerted, toggle to alerted
+            if (currentState == availableStates[0])
+                ChangeCatState(1);
+
+            fleeing = true;
+
+            // Start fleeing
+            currentState.ToggleFlee();
         }
     }
-    public void RestartInternalTimer()
+    public void RestartTimer(bool _internal)
     {
-        internalTimer.Reset();
-        internalTimer.Start();
+        // If true, reset internal
+        if (_internal)
+        {
+            internExternTimers[0].Reset();
+            internExternTimers[0].Start();
+        }
+        
+        // Else, reset external
+        else
+        {
+            internExternTimers[1].Reset();
+            internExternTimers[1].Start();
+        }
     }
-    public void RestartRayCastTimer()
+    public void RunAway()
     {
-        rayCastTimer.Reset();
-        rayCastTimer.Start();
+        Movement();
     }
     #endregion
 
-    #region BlackBox
-    private void AssignTarget(bool _setPositive)
-    {
-        if (_setPositive)
-        {
-            targetPosition.x = mapBound;
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-        }
-        else
-        {
-            targetPosition.x = -mapBound;
-            transform.rotation = Quaternion.Euler(0, -90, 0);
-        }
-    }
+    #region Private
     private bool LookForRag()
     {
         // Transform cat's forward to world forward
         forward = transform.TransformDirection(Vector3.forward);
 
         // If raycast hits an object
-        if (Physics.Raycast(transform.position, forward, out hitObject, rayCastDistance))
+        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.position + new Vector3(0, 1, 0) + forward, out hitObject, rayCastDistance))
         {
             // If player, change state to alerted and substate to pursuit
             if (hitObject.collider.tag == "Player")
@@ -284,8 +179,51 @@ public class CatManager : MonoBehaviour
     }
     private void Movement()
     {
-        // Moves enemy towards the target position
-        transform.Translate(Vector3.forward * usedMoveSpeed * Time.deltaTime);
+        // Moves cat in move direction, at current speed
+        transform.Translate(Vector3.forward * currentMoveSpeed * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "JumpPoint")
+        {
+            // If patrolling
+            if (currentState == availableStates[0])
+            {
+                // Retrieving random cat decision
+                randomChance = (byte)Random.Range(0, jumpDropChance);
+
+                // If cat decides to jump/drop
+                if (randomChance == 0)
+                {
+                    // Jump up
+                    if (transform.position.y == 0)
+                        transform.position = new Vector3(transform.position.x, 2.75f, transform.position.z);
+
+                    // Drop down
+                    else
+                        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+                }
+            }
+        }
+        else if (other.tag == "PatrolPoint")
+        {
+            // If fleeing, change to unalerted
+            if (fleeing)
+            {
+                // Stop fleeing
+                currentState.ToggleFlee();
+                ChangeCatState(0);
+                fleeing = false;
+            }
+
+            // If cat is moving right, make it move left
+            if (other.name == "Right Point")
+                transform.rotation = Quaternion.Euler(0, 270, 0);
+
+            // If cat is moving left, make it move right
+            else
+                transform.rotation = Quaternion.Euler(0, 90, 0);
+        }
     }
     #endregion
 }

@@ -51,7 +51,7 @@ public class PlayerManagerPDA : MonoBehaviour
     }
     #endregion
 
-    #region Blackbox
+    #region Private
     private void Update() { PlayerInput(); }
     private void PlayerInput()
     {

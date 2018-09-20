@@ -166,3 +166,10 @@ C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\obj\Debug\Assembly-CS
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\obj\Debug\Assembly-CSharp.dll
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\obj\Debug\Assembly-CSharp.pdb
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\KdTreeLib.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\pb_Stl.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\Poly2Tri.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\ProBuilderCore-Unity5.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\ProBuilderMeshOps-Unity5.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\UnityEditor.UI.dll
+C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\UnityEditor.UI.xml

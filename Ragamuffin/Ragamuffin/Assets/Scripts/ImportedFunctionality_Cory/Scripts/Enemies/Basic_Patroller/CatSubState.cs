@@ -2,106 +2,47 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CatSubState
+public abstract class AlertedStates
 {
     #region Variables
-    private System.Action RestartInternalTimer;
+    private System.Action<bool> RestartTimer;
     #endregion
 
     #region Initialization
-    public CatSubState(ref CatManager _catManager) { RestartInternalTimer = _catManager.RestartInternalTimer; }
-    public virtual void Enable() { RestartInternalTimer(); }
+    public AlertedStates(ref CatManager _catManager) { RestartTimer = _catManager.RestartTimer; }
+    public virtual void Enable() { RestartTimer(true); }
     #endregion
 
     #region Main Update
-    public virtual void UpdateState() { return; }
+    public abstract void UpdateState();
     #endregion
 }
 
-#region Unalerted Substates
-public class Idle : CatSubState
+public class Pursuit : AlertedStates
 {
     #region Variable
-    private System.Action AssignRandomIdleTime;
-    private System.Action IdleTime;
+    private System.Action PursuitBehavior;
     #endregion
 
     #region Initialization
-    public Idle(ref CatManager _catManager) : base(ref _catManager)
-    {
-        AssignRandomIdleTime = _catManager.AssignRandomIdleTime;
-        IdleTime = _catManager.IdleTime;
-    }
-    public override void Enable()
-    {
-        base.Enable();
-        AssignRandomIdleTime();
-    }
+    public Pursuit(ref CatManager _catManager) : base(ref _catManager) { PursuitBehavior = _catManager.PursuitBehavior; }
     #endregion
 
     #region Main Update
-    public override void UpdateState() { IdleTime(); }
+    public override void UpdateState() { PursuitBehavior(); }
     #endregion
 }
-public class Patrol : CatSubState
+public class Flee : AlertedStates
 {
     #region Variable
-    private System.Action AssignRandomPatrolTarget;
-    private System.Action AssignRandomPatrolTime;
-    private System.Action PatrolMovement;
-    private System.Action RestartRayCastTimer;
+    private System.Action RunAway;
     #endregion
 
     #region Initialization
-    public Patrol(ref CatManager _catManager) : base(ref _catManager)
-    {
-        AssignRandomPatrolTarget = _catManager.AssignRandomPatrolTarget;
-        AssignRandomPatrolTime = _catManager.AssignRandomPatrolTime;
-        PatrolMovement = _catManager.PatrolMovement;
-        RestartRayCastTimer = _catManager.RestartRayCastTimer;
-    }
-    public override void Enable()
-    {
-        base.Enable();
-        AssignRandomPatrolTarget();
-        AssignRandomPatrolTime();
-        RestartRayCastTimer();
-    }
+    public Flee(ref CatManager _catManager) : base(ref _catManager) { RunAway = _catManager.RunAway; }
     #endregion
 
     #region Main Update
-    public override void UpdateState() { PatrolMovement(); }
+    public override void UpdateState() { RunAway(); }
     #endregion
 }
-#endregion
-
-#region Alerted Substates
-public class Pursuit : CatSubState
-{
-    #region Variable
-    private System.Action PursuitMovement;
-    #endregion
-
-    #region Initialization
-    public Pursuit(ref CatManager _catManager) : base(ref _catManager) { PursuitMovement = _catManager.PursuitMovement; }
-    #endregion
-
-    #region Main Update
-    public override void UpdateState() { PursuitMovement(); }
-    #endregion
-}
-public class Attack : CatSubState
-{
-    #region Variable
-    private System.Action AttackTime;
-    #endregion
-
-    #region Initialization
-    public Attack(ref CatManager _catManager) : base(ref _catManager) { AttackTime = _catManager.AttackTime; }
-    #endregion
-
-    #region Main Update
-    public override void UpdateState() { AttackTime(); }
-    #endregion
-}
-#endregion
