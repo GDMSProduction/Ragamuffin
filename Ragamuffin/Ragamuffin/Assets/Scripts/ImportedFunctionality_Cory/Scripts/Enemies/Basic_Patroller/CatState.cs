@@ -18,7 +18,7 @@ public abstract class CatState
     #endregion
 
     #region Public Interface
-    public virtual void ToggleFlee() { return; }
+    public virtual void ChangeSubstate(bool _fleeing) { return; }
     #endregion
 }
 public class Unalerted : CatState
@@ -39,6 +39,7 @@ public class Unalerted : CatState
 public class Alerted : CatState
 {
     #region Variables
+    private System.Action<byte> PlaySound;
     private AlertedStates[] availableStates;
     private AlertedStates currentState;
     #endregion
@@ -46,10 +47,15 @@ public class Alerted : CatState
     #region Initialization
     public Alerted(CatManager _catManager) : base(_catManager)
     {
+        PlaySound = _catManager.PlaySound;
         availableStates = new AlertedStates[2] { new Pursuit(ref _catManager), new Flee(ref _catManager) };
         currentState = availableStates[0];
     }
-    public override void Enable() { AssignMoveSpeed(1); }
+    public override void Enable()
+    {
+        AssignMoveSpeed(1);
+        PlaySound(0);
+    }
     #endregion
 
     #region Main Update
@@ -57,6 +63,10 @@ public class Alerted : CatState
     #endregion
 
     #region Public Interface
-    public override void ToggleFlee() { currentState = (currentState == availableStates[0]) ? availableStates[1] : availableStates[0]; }
-    #endregion
+    public override void ChangeSubstate(bool _fleeing)
+    {
+        currentState = (_fleeing) ? availableStates[1] : availableStates[0];
+        currentState.Enable();
+    }
+    #endregion 
 }

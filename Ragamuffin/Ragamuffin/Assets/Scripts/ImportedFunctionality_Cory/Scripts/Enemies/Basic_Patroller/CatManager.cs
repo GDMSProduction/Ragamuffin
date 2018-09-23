@@ -9,17 +9,23 @@ public class CatManager : MonoBehaviour
 
     #region Variables
     // Inspector assignable attributes
+    [SerializeField] private AudioClip[] sounds;                   // Sounds for cat behaviors. Index 0 - Alerted. Index 1 - Attacking. Index 2 - Fleeing. Index 3 - OnScreen
     [SerializeField] private bool startLeftDirection;              // Initial movement direction flag
     [SerializeField] private byte jumpDropChance;                  // 1:? chance that the cat decides to jump or drop when it hits orb
     [SerializeField] private byte hitDamage;                       // Damage dealt
+    [SerializeField] private byte maxSearchDistance;               // Max distance cat can be from Rag
     [SerializeField] private byte[] moveSpeeds;                    // Index 0 - Patrol speed. 1 - Pursuit speed
     [SerializeField] private byte sightDistance;                   // How far the cat can see
     [SerializeField] private float miniumAttackDistance;           // How close the cat needs to be to attach
     [SerializeField] private float miniumReceiveHitDistance;       // How close rag has to be to hit the cat. Delete this when hit functionality is implemented
-    [SerializeField] private float timeBetweenDistanceChecks;      // Time between checking if close enough to Rag
+    [SerializeField] private float timeBetweenAttacks;             // Self-explanatory
+    [SerializeField] private float timeBetweenSearches;            // Used to limit the number of raycasts per second
 
-    private bool fleeing;
+    private AudioSource soundSource;                               // Sound controller for cat
+    private bool fleeing;                                          // Flag for running away
+    private bool onScreen;                                         // On screen flag
     private byte randomChance;                                     // Used to store the cat's decision to jump
+    private byte teleportDistance;                                 // The distance the cat must teleport to get just outside of the camera's view
 
     // State Machine
     private CatState[] availableStates; 
@@ -27,9 +33,10 @@ public class CatManager : MonoBehaviour
 
     private float distanceFromRag;                                 // Self-explanatory
     private float currentMoveSpeed;                                // Current move speed
-    private float timeBetweenSearches = 0.1f;                      // Used to limit the number of raycasts per second
+    private long lastAttack;                                       // Stores the time of the last attack, to be used for the calculation of when it should attack again
+    private long lastRaycast;                                      // Stores the time of the last time it looked for Rag, to be used for the next time it looks
     private RaycastHit hitObject;                                  // Object intersecting raycast
-    private Stopwatch raycastTimer;                                // Timers for cat's behaviors. Index 1 for internal. Index 0 for raycast timing                
+    private Stopwatch internalTimer;                               // Timers for cat's behaviors              
     private Transform ragTransform;                                // Self-explanatory
     private Transform raycastEye;                                  // Raycast start position (cat's eye)
     private Vector3 forward;                                       // Cat's forward in worldspace
@@ -39,12 +46,19 @@ public class CatManager : MonoBehaviour
     #region Initialization
     private void Awake()
     {
+        soundSource = GetComponent<AudioSource>();
         fleeing = false;
+        onScreen = true;
+
+        // This calculation will always put the cat just off screen
+        const byte tDSetup = 25;
+        teleportDistance = (byte)(maxSearchDistance - tDSetup);
+
         currentMoveSpeed = moveSpeeds[0];
         availableStates = new CatState[2] { new Unalerted(this), new Alerted(this)};
         currentState = availableStates[0];
-        raycastTimer = new Stopwatch();
-        raycastTimer.Start();
+        internalTimer = new Stopwatch();
+        internalTimer.Start();
         ragTransform = GameObject.FindGameObjectWithTag("Player").transform;
         raycastEye = transform.GetChild(1);
         offset = new Vector3(0, -1, 0);
@@ -74,19 +88,66 @@ public class CatManager : MonoBehaviour
         currentState = availableStates[_index];
         currentState.Enable();
     }
+    public void GetCurrentTime(bool _attack)
+    {
+        if (_attack)
+            lastAttack = internalTimer.ElapsedMilliseconds;
+        else
+            lastRaycast = internalTimer.ElapsedMilliseconds;
+    }
     public void PatrolMovement()
     {
         // Moves cat towards target at the assigned move speed
         Movement();
 
+        // If cat goes too far away from rag, turn him around and move him closer
+        distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
+
+        // If cat is on-screen
+        if (distanceFromRag < 30)
+        {
+            if (!onScreen)
+            {
+                onScreen = true;
+
+                // Play on-screen sound
+                PlaySound(3);
+            }
+        }
+
+        // If cat is off-screen
+        else
+        {
+            if (onScreen)
+                onScreen = false;
+
+            if (distanceFromRag > maxSearchDistance)
+            {
+                // Turn cat around
+                transform.rotation = (transform.rotation == Quaternion.Euler(0, 90, 0)) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
+
+                // Teleport closer
+                // If cat is on Rag's left
+                if (transform.position.x < ragTransform.position.x)
+                    transform.position = new Vector3(transform.position.x + teleportDistance, transform.position.y, transform.position.z);
+                else
+                    transform.position = new Vector3(transform.position.x - teleportDistance, transform.position.y, transform.position.z);
+            }
+        }
+
         //Used to restrict the amount of raycasts per second, because they can be expensive
-        if (raycastTimer.ElapsedMilliseconds > timeBetweenSearches)
+        if (internalTimer.ElapsedMilliseconds - lastRaycast > timeBetweenSearches * 1000)
         {
             LookForRag();
 
-            // Restart external timer
-            RestartTimer(false);
+            // Reassign last raycast
+            GetCurrentTime(false);
         }
+    }
+    public void PlaySound(byte _index)
+    {
+        soundSource.clip = sounds[_index];
+        soundSource.Play();
     }
     public void PursuitBehavior()
     {
@@ -105,11 +166,8 @@ public class CatManager : MonoBehaviour
 
         // If within attack range, attack
         else
-        {
-            //hitDamage to Rag
-        }
+            Attack();
     }
-
     // This function is temporary, because this Rag's attack is not currently implemented
     public void ReceiveHit()
     {
@@ -133,13 +191,8 @@ public class CatManager : MonoBehaviour
             fleeing = true;
 
             // Start fleeing
-            currentState.ToggleFlee();
+            currentState.ChangeSubstate(true);
         }
-    }
-    public void RestartTimer(bool _internal)
-    {
-        raycastTimer.Reset();
-        raycastTimer.Start();
     }
     public void RunAway()
     {
@@ -149,27 +202,45 @@ public class CatManager : MonoBehaviour
     #endregion
 
     #region Private
+    private void Attack()
+    {
+        //Used to time attacks
+        if (internalTimer.ElapsedMilliseconds - lastAttack > timeBetweenAttacks * 1000)
+        {
+            // Put actual attack code here (damage player, play animation, etc.)
+
+            // Play attack audio
+            PlaySound(1);
+
+            // Reassign last attack
+            GetCurrentTime(true);
+        }
+    }
     private bool LookForRag()
     {
         // Transform cat's forward to world forward
         forward = transform.TransformDirection(Vector3.forward);
 
-        /// Comment this out for actual game
-        // Actual drawn line in scene view
-        UnityEngine.Debug.DrawLine(raycastEye.position, raycastEye.position + (forward * sightDistance));
-
-        // If raycast hits an object
-        if (Physics.Raycast(raycastEye.position, forward, out hitObject, sightDistance))
+        // If within range and grounded
+        if (distanceFromRag < 20 && (transform.position.y == 0))
         {
-            // If player, change state to alerted and substate to pursuit
-            if (hitObject.collider.tag == "Player")
+            /// Remove for actual game
+            // Actual drawn line in scene view
+            UnityEngine.Debug.DrawLine(raycastEye.position, raycastEye.position + (forward * sightDistance));
+
+            // If raycast hits an object
+            if (Physics.Raycast(raycastEye.position, forward, out hitObject, sightDistance))
             {
-                // If player is not hidden
-                if (!hitObject.collider.GetComponent<PlayerManagerPDA>().GetHidden())
+                // If player, change state to alerted and substate to pursuit
+                if (hitObject.collider.tag == "Player")
                 {
-                    // Change to alerted and return true because I found Rag
-                    ChangeCatState(1);
-                    return true;
+                    // If player is not hidden
+                    if (!hitObject.collider.GetComponent<PlayerManagerPDA>().GetHidden())
+                    {
+                        // Change to alerted and return true because I found Rag
+                        ChangeCatState(1);
+                        return true;
+                    }
                 }
             }
         }
@@ -197,17 +268,26 @@ public class CatManager : MonoBehaviour
                 {
                     // Jump up
                     if (transform.position.y == 0)
-                        transform.position = new Vector3(transform.position.x, 2.75f, transform.position.z);
+                    {
+                        if (transform.rotation == Quaternion.Euler(0, 90, 0))
+                            transform.position = new Vector3(transform.position.x + 5, 2.75f, transform.position.z);
+                        else
+                            transform.position = new Vector3(transform.position.x - 5, 2.75f, transform.position.z);
+                    }
 
                     // Drop down
                     else
-                        transform.position = new Vector3(transform.position.x, 0, transform.position.z);
+                    {
+                        if (transform.rotation == Quaternion.Euler(0, 90, 0))
+                            transform.position = new Vector3(transform.position.x + 5, 0, transform.position.z);
+                        else
+                            transform.position = new Vector3(transform.position.x - 5, 0, transform.position.z);
+                    }
                 }
             }
         }
-        else if (other.tag == "PatrolPoint")
+        else if (other.tag == "TurnPoint")
         {
-            // If cat is moving right
             if (other.name == "Right Point")
             {
                 // If cat is on the left side of this point, make it move left
@@ -216,10 +296,8 @@ public class CatManager : MonoBehaviour
 
                 // Act like nothing happened
                 else return;
-            }
-
-            // If cat is moving left
-            else
+            }            
+            else if (other.name == "Left Point")
             {
                 // If cat is on the right side of this point, make it move right
                 if (transform.position.x > other.transform.position.x)
@@ -228,13 +306,15 @@ public class CatManager : MonoBehaviour
                 // Act like nothing happened
                 else return;
             }
-
+            // This type of point doesn't care the direction, it will reflect regardless
+            else 
+                transform.rotation = (transform.rotation == Quaternion.Euler(0, 90, 0)) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
 
             // If fleeing, change to unalerted
             if (fleeing)
             {
                 // Stop fleeing
-                currentState.ToggleFlee();
+                currentState.ChangeSubstate(false);
                 ChangeCatState(0);
                 fleeing = false;
             }

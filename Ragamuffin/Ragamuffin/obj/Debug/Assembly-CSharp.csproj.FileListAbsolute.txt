@@ -171,5 +171,3 @@ C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\pb_Stl
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\Poly2Tri.dll
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\ProBuilderCore-Unity5.dll
 C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\ProBuilderMeshOps-Unity5.dll
-C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\UnityEditor.UI.dll
-C:\Users\corym\Desktop\RagamuffinNEW\Ragamuffin\Ragamuffin\Temp\bin\Debug\UnityEditor.UI.xml

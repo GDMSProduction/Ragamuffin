@@ -17,7 +17,7 @@ TagManager:
   - grapple
   - frogTung
   - JumpPoint
-  - PatrolPoint
+  - TurnPoint
   layers:
   - Default
   - TransparentFX
