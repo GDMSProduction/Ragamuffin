@@ -10,28 +10,30 @@ public class CatManager : MonoBehaviour
     #region Variables
     // Inspector assignable attributes
     [SerializeField] private bool startLeftDirection;              // Initial movement direction flag
-    [SerializeField] private byte jumpDropChance;                  // 1:? change that cat decides to jump or drop when it hits orb
+    [SerializeField] private byte jumpDropChance;                  // 1:? chance that the cat decides to jump or drop when it hits orb
+    [SerializeField] private byte hitDamage;                       // Damage dealt
     [SerializeField] private byte[] moveSpeeds;                    // Index 0 - Patrol speed. 1 - Pursuit speed
-    [SerializeField] private float miniumAttackDistance;
-    [SerializeField] private float miniumReceiveHitDistance;
+    [SerializeField] private byte sightDistance;                   // How far the cat can see
+    [SerializeField] private float miniumAttackDistance;           // How close the cat needs to be to attach
+    [SerializeField] private float miniumReceiveHitDistance;       // How close rag has to be to hit the cat. Delete this when hit functionality is implemented
     [SerializeField] private float timeBetweenDistanceChecks;      // Time between checking if close enough to Rag
 
     private bool fleeing;
-    private const byte rayCastDistance = 50;
-    private byte randomChance;
+    private byte randomChance;                                     // Used to store the cat's decision to jump
 
     // State Machine
     private CatState[] availableStates; 
     private CatState currentState;
 
-    private float distanceFromRag;
+    private float distanceFromRag;                                 // Self-explanatory
     private float currentMoveSpeed;                                // Current move speed
-    private float timeBetweenSearches = 0.1f;
+    private float timeBetweenSearches = 0.1f;                      // Used to limit the number of raycasts per second
     private RaycastHit hitObject;                                  // Object intersecting raycast
-    private Stopwatch[] internExternTimers;                        // Timers for cat's behaviors. Index 1 for internal. Index 0 for raycast timing                
-    private Transform ragTransform;
-    private Vector3 forward;
-    private Vector3 offset;
+    private Stopwatch raycastTimer;                                // Timers for cat's behaviors. Index 1 for internal. Index 0 for raycast timing                
+    private Transform ragTransform;                                // Self-explanatory
+    private Transform raycastEye;                                  // Raycast start position (cat's eye)
+    private Vector3 forward;                                       // Cat's forward in worldspace
+    private Vector3 offset;                                        // Keeps the cat grounded for chase
     #endregion
 
     #region Initialization
@@ -41,30 +43,34 @@ public class CatManager : MonoBehaviour
         currentMoveSpeed = moveSpeeds[0];
         availableStates = new CatState[2] { new Unalerted(this), new Alerted(this)};
         currentState = availableStates[0];
-        internExternTimers = new Stopwatch[2];
+        raycastTimer = new Stopwatch();
+        raycastTimer.Start();
         ragTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        raycastEye = transform.GetChild(1);
         offset = new Vector3(0, -1, 0);
 
         // If start left is true in the inspector, the cat's will move left
         transform.rotation = (startLeftDirection) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
-
-        // Creating and starting both timers
-        for (int i = 0; i < 2; ++i)
-        {
-            internExternTimers[i] = new Stopwatch();
-            internExternTimers[i].Start();
-        }
     }
     #endregion
 
     #region Main Update
-    private void Update() { currentState.UpdateState(); }
+    private void Update()
+    {
+        // Runs the the cat state
+        currentState.UpdateState();
+    }
     #endregion
 
     #region Public Interface
-    public void AssignMoveSpeed(byte _index) { currentMoveSpeed = moveSpeeds[_index]; }
+    public void AssignMoveSpeed(byte _index)
+    {
+        // Changes speed for walking, running, fleeing
+        currentMoveSpeed = moveSpeeds[_index];
+    }
     public void ChangeCatState(byte _index)
     {
+        // Self explanatory
         currentState = availableStates[_index];
         currentState.Enable();
     }
@@ -74,7 +80,7 @@ public class CatManager : MonoBehaviour
         Movement();
 
         //Used to restrict the amount of raycasts per second, because they can be expensive
-        if (internExternTimers[1].ElapsedMilliseconds > timeBetweenSearches)
+        if (raycastTimer.ElapsedMilliseconds > timeBetweenSearches)
         {
             LookForRag();
 
@@ -97,10 +103,10 @@ public class CatManager : MonoBehaviour
             Movement();
         }
 
-        // If within attack range
+        // If within attack range, attack
         else
         {
-            
+            //hitDamage to Rag
         }
     }
 
@@ -132,22 +138,12 @@ public class CatManager : MonoBehaviour
     }
     public void RestartTimer(bool _internal)
     {
-        // If true, reset internal
-        if (_internal)
-        {
-            internExternTimers[0].Reset();
-            internExternTimers[0].Start();
-        }
-        
-        // Else, reset external
-        else
-        {
-            internExternTimers[1].Reset();
-            internExternTimers[1].Start();
-        }
+        raycastTimer.Reset();
+        raycastTimer.Start();
     }
     public void RunAway()
     {
+        // Right now, the cat just moves away, we can make it do whatever else we want here
         Movement();
     }
     #endregion
@@ -158,8 +154,12 @@ public class CatManager : MonoBehaviour
         // Transform cat's forward to world forward
         forward = transform.TransformDirection(Vector3.forward);
 
+        /// Comment this out for actual game
+        // Actual drawn line in scene view
+        UnityEngine.Debug.DrawLine(raycastEye.position, raycastEye.position + (forward * sightDistance));
+
         // If raycast hits an object
-        if (Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.position + new Vector3(0, 1, 0) + forward, out hitObject, rayCastDistance))
+        if (Physics.Raycast(raycastEye.position, forward, out hitObject, sightDistance))
         {
             // If player, change state to alerted and substate to pursuit
             if (hitObject.collider.tag == "Player")
@@ -207,6 +207,29 @@ public class CatManager : MonoBehaviour
         }
         else if (other.tag == "PatrolPoint")
         {
+            // If cat is moving right
+            if (other.name == "Right Point")
+            {
+                // If cat is on the left side of this point, make it move left
+                if (transform.position.x < other.transform.position.x)
+                    transform.rotation = Quaternion.Euler(0, 270, 0);
+
+                // Act like nothing happened
+                else return;
+            }
+
+            // If cat is moving left
+            else
+            {
+                // If cat is on the right side of this point, make it move right
+                if (transform.position.x > other.transform.position.x)
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
+
+                // Act like nothing happened
+                else return;
+            }
+
+
             // If fleeing, change to unalerted
             if (fleeing)
             {
@@ -215,14 +238,6 @@ public class CatManager : MonoBehaviour
                 ChangeCatState(0);
                 fleeing = false;
             }
-
-            // If cat is moving right, make it move left
-            if (other.name == "Right Point")
-                transform.rotation = Quaternion.Euler(0, 270, 0);
-
-            // If cat is moving left, make it move right
-            else
-                transform.rotation = Quaternion.Euler(0, 90, 0);
         }
     }
     #endregion
