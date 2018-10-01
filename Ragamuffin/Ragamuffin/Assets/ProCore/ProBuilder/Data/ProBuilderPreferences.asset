@@ -13,9 +13,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Bool_keys:
   - pbMaterialEditorFloating
+  - pbEnableBackfaceSelection
   m_Int_keys:
   - pbHandleAlignment
   - pbDefaultEditLevel
+  - pbDefaultSelectionMode
+  - pb_GIWorkflowMode
   m_Float_keys:
   - pbEditorScroll.x
   - pbEditorScroll.y
@@ -23,12 +26,12 @@ MonoBehaviour:
   - pbCurrentMaterialPalette
   m_Color_keys: []
   m_Material_keys: []
-  m_Bool_values: 00
-  m_Int_values: 0000000000000000
+  m_Bool_values: 0001
+  m_Int_values: 00000000000000000200000001000000
   m_Float_values:
   - 0
   - 0
   m_String_values:
-  - Assets/ProCore/ProBuilder/Data/Default Material Palette.asset
+  - Assets/ProCore/ProBuilder/Data/Prototype_Palette.asset
   m_Color_values: []
   m_Material_values: []
