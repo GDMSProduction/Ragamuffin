@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManagerPDA : MonoBehaviour
+public sealed class PlayerManagerPDA : MonoBehaviour
 {
     #region Variables
     // Inspector assignable attributes
