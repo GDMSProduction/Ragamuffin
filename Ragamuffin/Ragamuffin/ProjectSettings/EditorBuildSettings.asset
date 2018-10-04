@@ -5,21 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scene/kitchen.unity
-    guid: 8ca1b4957b54b1a4388c1e8b5c289871
-  - enabled: 0
-    path: Assets/Scene/toad.unity
-    guid: 3b13b4d3216295f46a7c3acf76d6c98f
   - enabled: 1
-    path: Assets/Scene/TestScene.unity
-    guid: e008487dc9dfb1b4697f0a2f1e13665b
+    path: Assets/Scene/Prototype/MainMenu_Prototype.unity
+    guid: f866c44d3cb373f45a8bc12b2da16932
   - enabled: 1
-    path: Assets/level2.unity
-    guid: dfe6baf5c16396045b6ee21857cfe85c
-  - enabled: 1
-    path: Assets/youwon.unity
-    guid: 3554cce85c23506469262a972b15ccc4
-  - enabled: 1
-    path: Assets/Scene/RealKitechen.unity
-    guid: 3b632ee3e621e17469455d4f504e28f6
+    path: Assets/Scene/Prototype/Hallway_Blockout.unity
+    guid: d0a946beafdf1fd4182e4ee05da21af9
+  m_configObjects: {}
