@@ -4385,6 +4385,10 @@ MonoBehaviour:
   miniumReceiveHitDistance: 4
   timeBetweenAttacks: 1
   timeBetweenSearches: 0.5
+  canAttack: 1
+  canJump: 1
+  canMove: 1
+  canSearch: 1
 --- !u!137 &137403751874002286
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
