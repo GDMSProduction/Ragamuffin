@@ -7,17 +7,27 @@ public sealed class JackManager : MonoBehaviour
 {
     #region Variables
     // Inspector assignable attributes
-    [SerializeField] private AudioClip[] sounds;                   // Sounds for jack behaviors. Index 0 - 
+    [SerializeField] private AudioClip[] sounds;                   // Sounds for jack behaviors.
     [SerializeField] private byte gravitationalForce;
+    [Header("Amount of damage dealt")]
     [SerializeField] private byte hitDamage;                       // Damage dealt
     [SerializeField] private byte initialJumpForce;
     [SerializeField] private byte maxJumpHeight;
+    [Header("Max range of attack")]
     [SerializeField] private float maxAttackDistance;              // How close the jack needs to be to attack
+    [Header("Min range to Rag, before Jack starts jumping")]
     [SerializeField] private float minimumJumpDistance;            // How close Rag needs to be to jump
+    [Header("Min range to Rag, before Jack comes out of box")]
     [SerializeField] private float minimumOpenDistance;            // How close Rag needs to be to open up
+    [Header("Minimum distance Jack can receive Rag damage")]
     [SerializeField] private float miniumReceiveHitDistance;       // How close Rag needs to be to hit Jack
     [SerializeField] private float timeBetweenAttacks;             // Self-explanatory
     [SerializeField] private float timeBetweenJumps;               // Self-explanatory
+    
+    // Debugging Tools
+    [Header("Warning: If 'canJump' is deselected, Jack cannot attack either")]
+    [SerializeField] private bool canAttack;
+    [SerializeField] private bool canJump;
 
     private AudioSource soundSource;                               // Sound controller for jack
     private bool isGrounded;                                       // Self-explanatory
@@ -60,18 +70,22 @@ public sealed class JackManager : MonoBehaviour
     #region Public Interface
     public void Attack()
     {
-        // Attack animation
-
-        //Used to time attacks
-        if (internalTimer.ElapsedMilliseconds - lastAttack > timeBetweenAttacks * 1000)
+        // Debugging if check
+        if (canAttack)
         {
-            // Put actual attack code here (damage player, play animation, etc.)
+            // Attack animation
 
-            // Play attack audio
-            // PlaySound(1);
+            //Used to time attacks
+            if (internalTimer.ElapsedMilliseconds - lastAttack > timeBetweenAttacks * 1000)
+            {
+                // Put actual attack code here (damage player, play animation, etc.)
 
-            // Reassign last attack
-            GetCurrentTime(true);
+                // Play attack audio
+                // PlaySound(1);
+
+                // Reassign last attack
+                GetCurrentTime(true);
+            }
         }
     }
     public void ChangeJackState(byte _index)
@@ -110,11 +124,11 @@ public sealed class JackManager : MonoBehaviour
         // If on the ground and enough time has passed, jump
         if (isGrounded)
         {
-            if (internalTimer.ElapsedMilliseconds - lastJump > timeBetweenJumps * 1000)
-            {
+            //if (internalTimer.ElapsedMilliseconds - lastJump > timeBetweenJumps * 1000)
+            //{
                 isGrounded = false;
-                GetCurrentTime(false);
-            }
+                //GetCurrentTime(false);
+            //}
         }
         else
         {
@@ -150,16 +164,21 @@ public sealed class JackManager : MonoBehaviour
 
         if (distanceFromRag < miniumReceiveHitDistance)
         {
+            // Hit reaction
         }
     }
     public void ResetForce(bool _jumping) { currentForce = (_jumping) ? initialJumpForce : (byte)0; }
     public void StartJump()
     {
-        distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
+        // Debugging if check
+        if (canJump)
+        {
+            distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
 
-        // If Rag is close enough start jumping
-        if (distanceFromRag < minimumJumpDistance)
-            currentState.ChangeJackSubState(1);
+            // If Rag is close enough start jumping
+            if (distanceFromRag < minimumJumpDistance)
+                currentState.ChangeJackSubState(1);
+        }
     }
     public bool StopJump()
     {

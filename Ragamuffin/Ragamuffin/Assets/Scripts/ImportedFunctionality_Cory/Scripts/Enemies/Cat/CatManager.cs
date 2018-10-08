@@ -7,38 +7,51 @@ public sealed class CatManager : MonoBehaviour
 {
     #region Variables
     // Inspector assignable attributes
-    [SerializeField] private AudioClip[] sounds;                   // Sounds for cat behaviors. Index 0 - Alerted. Index 1 - Attacking. Index 2 - Fleeing. Index 3 - OnScreen
-    [SerializeField] private bool startLeftDirection;              // Initial movement direction flag
-    [SerializeField] private byte jumpDropChance;                  // 1:? chance that the cat decides to jump or drop when it hits orb
-    [SerializeField] private byte hitDamage;                       // Damage dealt
-    [SerializeField] private byte maxSearchDistance;               // Max distance cat can be from Rag
-    [SerializeField] private byte[] moveSpeeds;                    // Index 0 - Patrol speed. 1 - Pursuit speed
-    [SerializeField] private byte sightDistance;                   // How far the cat can see
-    [SerializeField] private float miniumAttackDistance;           // How close the cat needs to be to attach
-    [SerializeField] private float miniumReceiveHitDistance;       // How close rag has to be to hit the cat. Delete this when hit functionality is implemented
-    [SerializeField] private float timeBetweenAttacks;             // Self-explanatory
-    [SerializeField] private float timeBetweenSearches;            // Used to limit the number of raycasts per second
+    [SerializeField] private AudioClip[] sounds;                        // Sounds for cat behaviors. Index 0 - Alerted. Index 1 - Attacking. Index 2 - Fleeing. Index 3 - OnScreen
+    [SerializeField] private bool startLeftDirection;                   // Initial movement direction flag
+    [Header("Probability that cat will jump up/down when triggered")]
+    [SerializeField] private byte jumpDropChance;                       // 1:X chance that the cat decides to jump or drop when it hits orb
+    [Header("Amount of damage dealt")]
+    [SerializeField] private byte hitDamage;                            // Damage dealt
+    [Header("Max distance cat can be from Rag")]
+    [SerializeField] private byte maxSearchDistance;                    // Max distance cat can be from Rag
+    [Header("First speed is patrol. Second speed is chase")]
+    [SerializeField] private byte[] moveSpeeds;                         // Index 0 - Patrol speed. 1 - Pursuit speed
+    [Header("How far cat can see")]
+    [SerializeField] private byte sightDistance;                        // How far the cat can see
+    [Header("Minimum distance cat can begin attacking")]
+    [SerializeField] private float miniumAttackDistance;                // How close the cat needs to be to attach
+    [Header("Minimum distance cat can receive Rag damage")]
+    [SerializeField] private float miniumReceiveHitDistance;            // How close rag has to be to hit the cat. Delete this when hit functionality is implemented
+    [SerializeField] private float timeBetweenAttacks;                  // Self-explanatory
+    [SerializeField] private float timeBetweenSearches;                 // Used to limit the number of raycasts per second
 
-    private AudioSource soundSource;                               // Sound controller for cat
-    private bool fleeing;                                          // Flag for running away
-    private bool onScreen;                                         // On screen flag
-    private byte randomChance;                                     // Used to store the cat's decision to jump
-    private byte teleportDistance;                                 // The distance the cat must teleport to get just outside of the camera's view
+    // Debugging Tools
+    [SerializeField] private bool canAttack;
+    [SerializeField] private bool canJump;
+    [SerializeField] private bool canMove;
+    [SerializeField] private bool canSearch;
+
+    private AudioSource soundSource;                                    // Sound controller for cat
+    private bool fleeing;                                               // Flag for running away
+    private bool onScreen;                                              // On screen flag
+    private byte randomChance;                                          // Used to store the cat's decision to jump
+    private byte teleportDistance;                                      // The distance the cat must teleport to get just outside of the camera's view
 
     // State Machine
     private CatState[] availableStates; 
     private CatState currentState;
 
-    private float distanceFromRag;                                 // Self-explanatory
-    private float currentMoveSpeed;                                // Current move speed
-    private long lastAttack;                                       // Stores the time of the last attack, to be used for the calculation of when it should attack again
-    private long lastRaycast;                                      // Stores the time of the last time it looked for Rag, to be used for the next time it looks
-    private RaycastHit hitObject;                                  // Object intersecting raycast
-    private Stopwatch internalTimer;                               // Timers for cat's behaviors              
-    private Transform ragTransform;                                // Self-explanatory
-    private Transform raycastEye;                                  // Raycast start position (cat's eye)
-    private Vector3 forward;                                       // Cat's forward in worldspace
-    private Vector3 offset;                                        // Keeps the cat grounded for chase
+    private float distanceFromRag;                                      // Self-explanatory
+    private float currentMoveSpeed;                                     // Current move speed
+    private long lastAttack;                                            // Stores the time of the last attack, to be used for the calculation of when it should attack again
+    private long lastRaycast;                                           // Stores the time of the last time it looked for Rag, to be used for the next time it looks
+    private RaycastHit hitObject;                                       // Object intersecting raycast
+    private Stopwatch internalTimer;                                    // Timers for cat's behaviors              
+    private Transform ragTransform;                                     // Self-explanatory
+    private Transform raycastEye;                                       // Raycast start position (cat's eye)
+    private Vector3 forward;                                            // Cat's forward in worldspace
+    private Vector3 offset;                                             // Keeps the cat grounded for chase
     #endregion
 
     #region Initialization
@@ -95,8 +108,12 @@ public sealed class CatManager : MonoBehaviour
     }
     public void PatrolMovement()
     {
-        // Moves cat towards target at the assigned move speed
-        Movement();
+        // Debugging if check
+        if (canMove)
+        {
+            // Moves cat towards target at the assigned move speed
+            Movement();
+        }
 
         // If cat goes too far away from rag, turn him around and move him closer
         distanceFromRag = Vector3.Distance(transform.position, ragTransform.position);
@@ -133,13 +150,17 @@ public sealed class CatManager : MonoBehaviour
             }
         }
 
-        //Used to restrict the amount of raycasts per second, because they can be expensive
-        if (internalTimer.ElapsedMilliseconds - lastRaycast > timeBetweenSearches * 1000)
+        // Debugging if check
+        if (canSearch)
         {
-            LookForRag();
+            //Used to restrict the amount of raycasts per second, because they can be expensive
+            if (internalTimer.ElapsedMilliseconds - lastRaycast > timeBetweenSearches * 1000)
+            {
+                LookForRag();
 
-            // Reassign last raycast
-            GetCurrentTime(false);
+                // Reassign last raycast
+                GetCurrentTime(false);
+            }
         }
     }
     public void PlaySound(byte _index)
@@ -164,7 +185,11 @@ public sealed class CatManager : MonoBehaviour
 
         // If within attack range, attack
         else
-            Attack();
+        {
+            // Debugging if check
+            if (canAttack)
+                Attack();
+        }
     }
     // This function is temporary, because this Rag's attack is not currently implemented
     public void ReceiveHit()
@@ -253,31 +278,35 @@ public sealed class CatManager : MonoBehaviour
         {
             if (other.tag == "JumpPoint")
             {
-                // If patrolling
-                if (currentState == availableStates[0])
+                // Debugging if check
+                if (canJump)
                 {
-                    // Retrieving random cat decision
-                    randomChance = (byte)Random.Range(0, jumpDropChance);
-
-                    // If cat decides to jump/drop
-                    if (randomChance == 0)
+                    // If patrolling
+                    if (currentState == availableStates[0])
                     {
-                        // Jump up
-                        if (transform.position.y == 0)
-                        {
-                            if (transform.rotation == Quaternion.Euler(0, 90, 0))
-                                transform.position = new Vector3(transform.position.x + 5, 2.75f, transform.position.z);
-                            else
-                                transform.position = new Vector3(transform.position.x - 5, 2.75f, transform.position.z);
-                        }
+                        // Retrieving random cat decision
+                        randomChance = (byte)Random.Range(0, jumpDropChance);
 
-                        // Drop down
-                        else
+                        // If cat decides to jump/drop
+                        if (randomChance == 0)
                         {
-                            if (transform.rotation == Quaternion.Euler(0, 90, 0))
-                                transform.position = new Vector3(transform.position.x + 5, 0, transform.position.z);
+                            // Jump up
+                            if (transform.position.y == 0)
+                            {
+                                if (transform.rotation == Quaternion.Euler(0, 90, 0))
+                                    transform.position = new Vector3(transform.position.x + 5, 2.75f, transform.position.z);
+                                else
+                                    transform.position = new Vector3(transform.position.x - 5, 2.75f, transform.position.z);
+                            }
+
+                            // Drop down
                             else
-                                transform.position = new Vector3(transform.position.x - 5, 0, transform.position.z);
+                            {
+                                if (transform.rotation == Quaternion.Euler(0, 90, 0))
+                                    transform.position = new Vector3(transform.position.x + 5, 0, transform.position.z);
+                                else
+                                    transform.position = new Vector3(transform.position.x - 5, 0, transform.position.z);
+                            }
                         }
                     }
                 }

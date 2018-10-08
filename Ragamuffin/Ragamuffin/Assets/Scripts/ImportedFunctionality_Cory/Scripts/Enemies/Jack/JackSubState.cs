@@ -37,6 +37,7 @@ public class Jump : JackSubState
     #region Variables
     private System.Action Attack;
     private System.Action Jumping;
+    private System.Action<byte> PlaySound;
     private System.Action<bool> ResetForce;
     #endregion
 
@@ -45,9 +46,14 @@ public class Jump : JackSubState
     {
         Attack = _jackManager.Attack;
         Jumping = _jackManager.Jumping;
+        PlaySound = _jackManager.PlaySound;
         ResetForce = _jackManager.ResetForce;
     }
-    public override void Enable() { ResetForce(true); }
+    public override void Enable()
+    {
+        ResetForce(true);
+        PlaySound(0);
+    }
     #endregion
 
     #region Main Update

@@ -6,6 +6,7 @@ public sealed class PlayerManagerPDA : MonoBehaviour
 {
     #region Variables
     // Inspector assignable attributes
+    [Header("Speed at which Rag moves")]
     [SerializeField]private byte moveSpeed;
 
     private System.Action ReceiveHit;
