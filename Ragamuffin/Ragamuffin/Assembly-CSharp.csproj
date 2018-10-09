@@ -139,6 +139,7 @@
     <Compile Include="Assets\Scripts\FollowPLayer.cs" />
     <Compile Include="Assets\Scripts\FrogTung.cs" />
     <Compile Include="Assets\Scripts\FrogTungExtend.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GotoScen.cs" />
     <Compile Include="Assets\Scripts\GrappleHook.cs" />
     <Compile Include="Assets\Scripts\GrappleScript.cs" />
@@ -164,6 +165,7 @@
     <Compile Include="Assets\Scripts\PlayerHeath.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\restart.cs" />
+    <Compile Include="Assets\Scripts\ReturnToMenu_Prototype.cs" />
     <Compile Include="Assets\Scripts\ropeScript.cs" />
     <Compile Include="Assets\Scripts\RotateMap.cs" />
     <Compile Include="Assets\Scripts\SceneLoder.cs" />
