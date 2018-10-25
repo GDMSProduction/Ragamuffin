@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/AITestScene.unity
+- path: Assets/Scene/Prototype/Movement_Prototype.unity
   isLoaded: 1
   isActive: 1
