@@ -129,8 +129,8 @@
     <Compile Include="Assets\Scripts\CatClaw.cs" />
     <Compile Include="Assets\Scripts\catSearch.cs" />
     <Compile Include="Assets\Scripts\catSuperCharge.cs" />
+    <Compile Include="Assets\Scripts\CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\checkpoint.cs" />
-    <Compile Include="Assets\Scripts\DDR_CharacterMovement.cs" />
     <Compile Include="Assets\Scripts\death.cs" />
     <Compile Include="Assets\Scripts\door.cs" />
     <Compile Include="Assets\Scripts\edges.cs" />
@@ -163,6 +163,7 @@
     <Compile Include="Assets\Scripts\MenuControler.cs" />
     <Compile Include="Assets\Scripts\ObjectPush.cs" />
     <Compile Include="Assets\Scripts\PetScript.cs" />
+    <Compile Include="Assets\Scripts\PlayerGrapple.cs" />
     <Compile Include="Assets\Scripts\PlayerHeath.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\restart.cs" />
