@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scene/Prototype/Hallway_Blockout.unity
+- path: Assets/Scene/Prototype/Movement_Prototype.unity
   isLoaded: 1
   isActive: 1
