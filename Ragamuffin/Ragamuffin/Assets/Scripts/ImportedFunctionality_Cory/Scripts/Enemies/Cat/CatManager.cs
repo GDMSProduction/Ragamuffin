@@ -274,7 +274,7 @@ public sealed class CatManager : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (onScreen)
+       // if (onScreen)
         {
             if (other.tag == "JumpPoint")
             {
