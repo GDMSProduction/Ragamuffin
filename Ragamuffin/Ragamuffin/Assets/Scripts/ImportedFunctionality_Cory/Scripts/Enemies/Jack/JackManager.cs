@@ -8,11 +8,14 @@ public sealed class JackManager : MonoBehaviour
     #region Variables
     // Inspector assignable attributes
     [SerializeField] private AudioClip[] sounds;                   // Sounds for jack behaviors.
-    [SerializeField] private byte gravitationalForce;
+    [Header("Allows Jack to move side-to-side")]
+    [SerializeField] private bool horizontalMovement;
     [Header("Amount of damage dealt")]
     [SerializeField] private byte hitDamage;                       // Damage dealt
-    [SerializeField] private byte initialJumpForce;
-    [SerializeField] private byte maxJumpHeight;
+    [SerializeField] private float gravitationalForce;
+    [SerializeField] private float horizontalMoveSpeed;
+    [SerializeField] private float initialJumpForce;
+    [SerializeField] private float maxJumpHeight;
     [Header("Max range of attack")]
     [SerializeField] private float maxAttackDistance;              // How close the jack needs to be to attack
     [Header("Min range to Rag, before Jack starts jumping")]
@@ -32,7 +35,7 @@ public sealed class JackManager : MonoBehaviour
     private AudioSource soundSource;                               // Sound controller for jack
     private bool isGrounded;                                       // Self-explanatory
     private bool isJumping;                                        // Self-explanatory
-    private byte currentForce;
+    private float currentForce;
     private float distanceFromRag;                                 // Self-explanatory
 
     // State Machine
@@ -43,6 +46,7 @@ public sealed class JackManager : MonoBehaviour
     private long lastJump;                                         // Stores the time of the last jump, to be used for the calculation of when it should jump again
     private Stopwatch internalTimer;                               // Timers for jack's behaviors              
     private Transform ragTransform;                                // Self-explanatory
+    private Vector3 direction;
     #endregion
 
     #region Initialization
@@ -134,6 +138,15 @@ public sealed class JackManager : MonoBehaviour
         {
             // Move up
             transform.Translate(Vector3.up * currentForce * Time.deltaTime);
+
+            if (horizontalMovement)
+            {
+                // Choose which direction to jump
+                direction = (transform.position.x < ragTransform.position.x) ? Vector3.left : Vector3.right;
+
+                // Move in Rag's direction
+                transform.Translate(direction * horizontalMoveSpeed * Time.deltaTime);
+            }
             
             // If Jack is heigher than this height, fall
             if (transform.position.y > maxJumpHeight)

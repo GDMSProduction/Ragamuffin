@@ -4379,10 +4379,13 @@ MonoBehaviour:
   jumpDropChance: 2
   hitDamage: 0
   maxSearchDistance: 35
-  moveSpeeds: 0a14
   sightDistance: 20
   miniumAttackDistance: 3
   miniumReceiveHitDistance: 4
+  moveSpeeds:
+  - 10
+  - 20
+  timeBeforeFirstAttack: 2
   timeBetweenAttacks: 1
   timeBetweenSearches: 0.5
   canAttack: 1

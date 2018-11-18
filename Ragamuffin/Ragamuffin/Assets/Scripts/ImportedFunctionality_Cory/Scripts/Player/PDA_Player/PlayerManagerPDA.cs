@@ -19,7 +19,9 @@ public sealed class PlayerManagerPDA : MonoBehaviour
     #region Initialization
     private void Awake()
     {
-        ReceiveHit = GameObject.Find("Cat").GetComponent<CatManager>().ReceiveHit;
+        if (GameObject.Find("Cat") != null)
+            ReceiveHit = GameObject.Find("Cat").GetComponent<CatManager>().ReceiveHit;
+
         // Creates the stack, assigns states to an array, and pushes first state on the stack
         stateStack = new List<PlayerStatesPDA>();
         availableStates = new PlayerStatesPDA[] { new IdlePDA(this), new MovingPDA(this) };
@@ -80,15 +82,15 @@ public sealed class PlayerManagerPDA : MonoBehaviour
             if (stateStack[stateStack.Count - 1] == availableStates[1])
                 Pop();
         }
-
-
-        if (Input.GetKeyUp(KeyCode.Space))
-            ToggleHiding();
     }
     private void ToggleHiding()
     {
         hidden = !hidden;
         renderForColor.material.color = (hidden) ? Color.blue : Color.white;
     }
+    #endregion
+
+    #region Accessers
+    public bool GetIsHidden() { return hidden; }
     #endregion
 }

@@ -12,7 +12,6 @@ public abstract class AlertedStates
     public abstract void UpdateState();
     #endregion
 }
-
 public class Pursuit : AlertedStates
 {
     #region Variable
@@ -45,5 +44,19 @@ public class Flee : AlertedStates
 
     #region Main Update
     public override void UpdateState() { RunAway(); }
+    #endregion
+}
+public class Check : AlertedStates
+{
+    #region Variable
+    private System.Action CheckLocation;
+    #endregion
+
+    #region Initialization
+    public Check(ref CatManager _catManager) { CheckLocation = _catManager.CheckLocation; }
+    #endregion
+
+    #region Main Update
+    public override void UpdateState() { CheckLocation(); }
     #endregion
 }

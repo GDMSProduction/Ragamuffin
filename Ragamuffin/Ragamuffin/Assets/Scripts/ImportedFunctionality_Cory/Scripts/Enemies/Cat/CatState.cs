@@ -18,7 +18,7 @@ public abstract class CatState
     #endregion
 
     #region Public Interface
-    public virtual void ChangeSubstate(bool _fleeing) { return; }
+    public virtual void ChangeSubstate(byte _index) { return; }
     #endregion
 }
 public class Unalerted : CatState
@@ -48,7 +48,7 @@ public class Alerted : CatState
     public Alerted(CatManager _catManager) : base(_catManager)
     {
         PlaySound = _catManager.PlaySound;
-        availableStates = new AlertedStates[2] { new Pursuit(ref _catManager), new Flee(ref _catManager) };
+        availableStates = new AlertedStates[3] { new Pursuit(ref _catManager), new Flee(ref _catManager), new Check(ref _catManager) };
         currentState = availableStates[0];
     }
     public override void Enable()
@@ -63,9 +63,9 @@ public class Alerted : CatState
     #endregion
 
     #region Public Interface
-    public override void ChangeSubstate(bool _fleeing)
+    public override void ChangeSubstate(byte _index)
     {
-        currentState = (_fleeing) ? availableStates[1] : availableStates[0];
+        currentState = availableStates[_index];
         currentState.Enable();
     }
     #endregion 

@@ -71,7 +71,7 @@ GameObject:
   - component: {fileID: 114424465518072506}
   - component: {fileID: 82445443857797248}
   m_Layer: 0
-  m_Name: Jack-In-Box
+  m_Name: Jack-In-Box 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
