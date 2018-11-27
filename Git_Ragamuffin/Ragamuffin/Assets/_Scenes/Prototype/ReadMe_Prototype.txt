@@ -1,0 +1,1 @@
+The "Prototype" folder in "Scenes" is for any scene not intended to be use as a final complete scene. Scenes for prototyping mechanics, Testing things, or just quickly-made scenes for misc reasons should be stored here.
