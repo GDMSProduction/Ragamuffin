@@ -1,0 +1,1 @@
+Unity fails to convert this .mb file into a .fbx file after a timeout of 3 minutes

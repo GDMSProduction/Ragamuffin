@@ -1,0 +1,1 @@
+The "Proof of Concept" build was made in order to get the green light from Patrick, the executive producer. The project has been somewhat of a dumpster fire, and we've needed to whip it back into shape, and prove that it still has legs to stand on. That is the purpose of this build
