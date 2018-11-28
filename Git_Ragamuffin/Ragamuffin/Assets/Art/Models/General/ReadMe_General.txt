@@ -1,1 +1,0 @@
-The "General" folder is for files that don't quite fit into the other catagories. Put files here that you can't find a home for, or that were made to be used all over the game.

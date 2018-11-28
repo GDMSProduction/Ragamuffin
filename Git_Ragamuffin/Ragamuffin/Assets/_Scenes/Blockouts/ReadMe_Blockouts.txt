@@ -1,1 +1,0 @@
-The "Blockouts" folder in "Scenes" is for level blockouts. For organization and reference reasons, these are kept seperate. When a level design is finalized, and assets start getting implemented, the scene should be duplicated and then moved to the appropriate folder. That way the blockout can be referenced later.
