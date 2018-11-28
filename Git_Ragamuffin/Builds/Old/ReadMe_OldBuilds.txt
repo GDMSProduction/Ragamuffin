@@ -1,1 +1,0 @@
-These builds were located in the project folder under the name of "exports." Many of these executables do not work anymore, but they are stores here for posterity.

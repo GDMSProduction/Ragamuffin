@@ -1,1 +1,0 @@
-The "Asset Showcases" folder is for scenes that hold all of a level's assets. This is a very clean and effective way for designers to look through all of the assets. There's no need to make this pretty, just lay them out in a clean and organized manner, and if possible place them in a way that implies thier use. i.e. Putting cabinet assets above the counter assets.
