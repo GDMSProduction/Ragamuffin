@@ -1,0 +1,196 @@
+fileFormatVersion: 2
+guid: 58e152b44b1f5684d9254cfb9b247614
+timeCreated: 1527202204
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Connector2_low
+    100002: Connector3_low
+    100004: Connector4_low
+    100006: Connector_low
+    100008: Feet_low
+    100010: Handle_low
+    100012: Holder_low
+    100014: Knob2_low
+    100016: Knob_low
+    100018: Metal2_low
+    100020: Metal3_low
+    100022: Metal4_low
+    100024: Metal_low
+    100026: //RootNode
+    100028: PlasticCover2_low
+    100030: PlasticCover_low
+    100032: Plate_low
+    100034: Pulse_low
+    100036: Sliced_low
+    100038: Toaset_low
+    100040: Tracker2_low
+    100042: Tracker_low
+    400000: Connector2_low
+    400002: Connector3_low
+    400004: Connector4_low
+    400006: Connector_low
+    400008: Feet_low
+    400010: Handle_low
+    400012: Holder_low
+    400014: Knob2_low
+    400016: Knob_low
+    400018: Metal2_low
+    400020: Metal3_low
+    400022: Metal4_low
+    400024: Metal_low
+    400026: //RootNode
+    400028: PlasticCover2_low
+    400030: PlasticCover_low
+    400032: Plate_low
+    400034: Pulse_low
+    400036: Sliced_low
+    400038: Toaset_low
+    400040: Tracker2_low
+    400042: Tracker_low
+    2100000: blinn1
+    2300000: Connector2_low
+    2300002: Connector3_low
+    2300004: Connector4_low
+    2300006: Connector_low
+    2300008: Feet_low
+    2300010: Handle_low
+    2300012: Holder_low
+    2300014: Knob2_low
+    2300016: Knob_low
+    2300018: Metal2_low
+    2300020: Metal3_low
+    2300022: Metal4_low
+    2300024: Metal_low
+    2300026: PlasticCover2_low
+    2300028: PlasticCover_low
+    2300030: Plate_low
+    2300032: Pulse_low
+    2300034: Sliced_low
+    2300036: Toaset_low
+    2300038: Tracker2_low
+    2300040: Tracker_low
+    3300000: Connector2_low
+    3300002: Connector3_low
+    3300004: Connector4_low
+    3300006: Connector_low
+    3300008: Feet_low
+    3300010: Handle_low
+    3300012: Holder_low
+    3300014: Knob2_low
+    3300016: Knob_low
+    3300018: Metal2_low
+    3300020: Metal3_low
+    3300022: Metal4_low
+    3300024: Metal_low
+    3300026: PlasticCover2_low
+    3300028: PlasticCover_low
+    3300030: Plate_low
+    3300032: Pulse_low
+    3300034: Sliced_low
+    3300036: Toaset_low
+    3300038: Tracker2_low
+    3300040: Tracker_low
+    4300000: Knob_low
+    4300002: Tracker_low
+    4300004: Sliced_low
+    4300006: PlasticCover_low
+    4300008: Plate_low
+    4300010: PlasticCover2_low
+    4300012: Pulse_low
+    4300014: Handle_low
+    4300016: Toaset_low
+    4300018: Connector2_low
+    4300020: Metal_low
+    4300022: Metal3_low
+    4300024: Connector4_low
+    4300026: Connector3_low
+    4300028: Feet_low
+    4300030: Holder_low
+    4300032: Metal2_low
+    4300034: Metal4_low
+    4300036: Connector_low
+    4300038: Knob2_low
+    4300040: Tracker2_low
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

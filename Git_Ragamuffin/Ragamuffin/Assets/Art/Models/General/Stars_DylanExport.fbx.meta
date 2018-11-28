@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: 398bae9875bdab048a055b97c9f3a446
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: ChainLink1
+    100002: ChainLink10
+    100004: ChainLink11
+    100006: ChainLink2
+    100008: ChainLink3
+    100010: ChainLink4
+    100012: ChainLink5
+    100014: ChainLink6
+    100016: ChainLink7
+    100018: ChainLink8
+    100020: ChainLink9
+    100022: Chains
+    100024: Star
+    100026: StarCutOuts
+    100028: StarCutOutsdoublesided2
+    100030: Stardoublesided
+    100032: StarDoublesidedcutout
+    100034: StarOutLine
+    100036: //RootNode
+    400000: ChainLink1
+    400002: ChainLink10
+    400004: ChainLink11
+    400006: ChainLink2
+    400008: ChainLink3
+    400010: ChainLink4
+    400012: ChainLink5
+    400014: ChainLink6
+    400016: ChainLink7
+    400018: ChainLink8
+    400020: ChainLink9
+    400022: Chains
+    400024: Star
+    400026: StarCutOuts
+    400028: StarCutOutsdoublesided2
+    400030: Stardoublesided
+    400032: StarDoublesidedcutout
+    400034: StarOutLine
+    400036: //RootNode
+    2100000: lambert1
+    2300000: ChainLink1
+    2300002: ChainLink10
+    2300004: ChainLink11
+    2300006: ChainLink2
+    2300008: ChainLink3
+    2300010: ChainLink4
+    2300012: ChainLink5
+    2300014: ChainLink6
+    2300016: ChainLink7
+    2300018: ChainLink8
+    2300020: ChainLink9
+    2300022: Star
+    2300024: StarCutOuts
+    2300026: StarCutOutsdoublesided2
+    2300028: Stardoublesided
+    2300030: StarDoublesidedcutout
+    2300032: StarOutLine
+    3300000: ChainLink1
+    3300002: ChainLink10
+    3300004: ChainLink11
+    3300006: ChainLink2
+    3300008: ChainLink3
+    3300010: ChainLink4
+    3300012: ChainLink5
+    3300014: ChainLink6
+    3300016: ChainLink7
+    3300018: ChainLink8
+    3300020: ChainLink9
+    3300022: Star
+    3300024: StarCutOuts
+    3300026: StarCutOutsdoublesided2
+    3300028: Stardoublesided
+    3300030: StarDoublesidedcutout
+    3300032: StarOutLine
+    4300000: Star
+    4300002: StarOutLine
+    4300004: StarCutOuts
+    4300006: Stardoublesided
+    4300008: StarCutOutsdoublesided2
+    4300010: StarDoublesidedcutout
+    4300012: ChainLink5
+    4300014: ChainLink3
+    4300016: ChainLink2
+    4300018: ChainLink4
+    4300020: ChainLink1
+    4300022: ChainLink10
+    4300024: ChainLink11
+    4300026: ChainLink9
+    4300028: ChainLink6
+    4300030: ChainLink7
+    4300032: ChainLink8
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
