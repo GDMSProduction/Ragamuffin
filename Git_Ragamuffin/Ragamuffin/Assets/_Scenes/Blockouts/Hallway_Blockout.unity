@@ -12262,7 +12262,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16352
+  m_Name: pb_Mesh10660
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -15240,7 +15240,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh18364
+  m_Name: pb_Mesh13278
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -20015,7 +20015,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh18134
+  m_Name: pb_Mesh12996
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -26506,7 +26506,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16634
+  m_Name: pb_Mesh11006
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -26706,6 +26706,7 @@ GameObject:
   - component: {fileID: 1159934052}
   - component: {fileID: 1159934051}
   - component: {fileID: 1159934053}
+  - component: {fileID: 1159934045}
   m_Layer: 0
   m_Name: Rag
   m_TagString: Player
@@ -26762,7 +26763,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.52666986, y: 0.8030827}
+  m_Offset: {x: -0.28647155, y: 0.90765285}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -26773,7 +26774,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4288397, y: 1.4586935}
+  m_Size: {x: 1.1628624, y: 0.9817529}
   m_EdgeRadius: 0
 --- !u!114 &1159934043
 MonoBehaviour:
@@ -26822,6 +26823,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.2193604, y: 0.69686776}
   m_EdgeRadius: 0
+--- !u!58 &1159934045
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1159934040}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.2956053, y: 0.30630887}
+  serializedVersion: 2
+  m_Radius: 0.3496611
 --- !u!50 &1159934046
 Rigidbody2D:
   serializedVersion: 4
@@ -26838,7 +26854,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 185b953978860fe44b5d2477c3f9a91f, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -26961,7 +26977,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 6
   jumpForce: 3
-  jump: 0
 --- !u!1 &1160431191
 GameObject:
   m_ObjectHideFlags: 0
@@ -29735,7 +29750,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16614
+  m_Name: pb_Mesh10978
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -32775,7 +32790,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh17042
+  m_Name: pb_Mesh11588
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -34446,7 +34461,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh34192
+  m_Name: pb_Mesh11746
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -38840,7 +38855,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh35054
+  m_Name: pb_Mesh12608
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -39538,7 +39553,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh16846
+  m_Name: pb_Mesh11310
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -47253,7 +47268,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh17446
+  m_Name: pb_Mesh12096
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
