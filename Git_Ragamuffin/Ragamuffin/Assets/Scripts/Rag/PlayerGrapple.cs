@@ -15,7 +15,7 @@ public class PlayerGrapple : MonoBehaviour
 {
     Vector2 movemenet;
     bool grounded;
-    
+
     //Grappling variables
     [SerializeField]
     float maxGrappleDistance = 10f, climbingSpeed = 10f;
@@ -24,41 +24,47 @@ public class PlayerGrapple : MonoBehaviour
     DistanceJoint2D distanceJoint;
     Vector2 targetPos;
     bool isGrappled;
+    RaycastHit2D hit;
 
-    void Start ()
+    void Start()
     {
         distanceJoint = GetComponent<DistanceJoint2D>();
         distanceJoint.enabled = false;
         isGrappled = false;
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    }
+
+    // Update is called once per frame
+    void Update()
     {
+
+
+        Debug.DrawRay(transform.position, (hit.point - (Vector2)transform.position));
+
+
         //Quick and dirty input for player (TEMPORARY)
         //PlayerInput();
 
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             FireGrapple();
         }
 
-        if(Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1))
         {
             DestroyGrapple();
         }
 
-        if(isGrappled && GetComponent<DistanceJoint2D>().enabled)
+        if (isGrappled && GetComponent<DistanceJoint2D>().enabled)
         {
             //Climbing up
-            if(Input.GetKey(KeyCode.W))
+            if (Input.GetKey(KeyCode.W))
             {
                 distanceJoint.distance -= climbingSpeed * Time.deltaTime;
             }
             //Climbing down
-            if(Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S))
             {
-                if(distanceJoint.distance < maxGrappleDistance)
+                if (distanceJoint.distance < maxGrappleDistance)
                 {
                     distanceJoint.distance += climbingSpeed * Time.deltaTime;
                 }
@@ -70,14 +76,15 @@ public class PlayerGrapple : MonoBehaviour
     void FireGrapple()
     {
         //Setting the target position of the mouse in worldspace
-        targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        targetPos = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
         //Drawing a raycast from the player position to the grapple point
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetPos - (Vector2)transform.position, maxGrappleDistance, grappleLayer);
-
+        hit = Physics2D.Raycast(transform.position, targetPos - (Vector2)transform.position, maxGrappleDistance, grappleLayer);
         //If they hit a grapple point
-        if(hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null && hit.collider.tag == "Grapple")
+        if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null && hit.collider.tag == "grapple")
         {
+            Debug.Log(hit.collider.gameObject);
+
             distanceJoint.enabled = true;
             distanceJoint.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>(); //The Distance Joint will attach to the Grapple Point
             distanceJoint.connectedAnchor = hit.point - (Vector2)hit.collider.transform.position;
@@ -94,14 +101,14 @@ public class PlayerGrapple : MonoBehaviour
     //Cheackin for grounded
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if(collider.collider.tag == "Ground")
+        if (collider.collider.tag == "Ground")
         {
             grounded = true;
         }
     }
     void OnCollisionExit2D(Collision2D collider)
     {
-        if(collider.collider.tag == "Ground")
+        if (collider.collider.tag == "Ground")
         {
             grounded = false;
         }
