@@ -25,12 +25,14 @@ public class PlayerGrapple : MonoBehaviour
     Vector2 targetPos;
     bool isGrappled;
     RaycastHit2D hit;
-
+    [SerializeField]
+    GameObject[] grapplePoints;
     void Start()
     {
         distanceJoint = GetComponent<DistanceJoint2D>();
         distanceJoint.enabled = false;
         isGrappled = false;
+        grapplePoints = GameObject.FindGameObjectsWithTag("grapple");
     }
 
     // Update is called once per frame
@@ -75,8 +77,42 @@ public class PlayerGrapple : MonoBehaviour
     //Firing the grappling hook
     void FireGrapple()
     {
+        GameObject targetGrapplePoint = null;
+        float previousDistance = 0;
+        float tempDistance = 0;
+        float curDistance = 0;
+
+        for (int i = 0; i < grapplePoints.Length; i++)
+        {
+            //if first one in array, there are no set distance values yet, so set one
+            if (i == 0)
+            {
+                curDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+            }
+            else
+            {
+                //if there is no previous distance, this one is the shortest by default
+                if (previousDistance == 0)
+                {
+                    curDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+                }
+                //store temporary distance to compare
+                tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+                //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point
+                if (tempDistance < previousDistance)
+                {
+                    curDistance = tempDistance;
+                    targetGrapplePoint = grapplePoints[i];
+                }
+            }
+            previousDistance = curDistance;
+        }
         //Setting the target position of the mouse in worldspace
-        targetPos = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        if (targetGrapplePoint != null)
+        {
+            targetPos = targetGrapplePoint.transform.position;
+        }
+        //targetPos = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
         //Drawing a raycast from the player position to the grapple point
         hit = Physics2D.Raycast(transform.position, targetPos - (Vector2)transform.position, maxGrappleDistance, grappleLayer);
