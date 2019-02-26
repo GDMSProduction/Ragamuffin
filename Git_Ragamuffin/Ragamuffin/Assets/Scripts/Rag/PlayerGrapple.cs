@@ -18,7 +18,7 @@ public class PlayerGrapple : MonoBehaviour
 
     //Grappling variables
     [SerializeField]
-    float maxGrappleDistance = 10f, climbingSpeed = 10f;
+    float maxGrappleDistance = 5f, climbingSpeed = 10f;
     [SerializeField]
     LayerMask grappleLayer;
     DistanceJoint2D distanceJoint;
@@ -38,11 +38,7 @@ public class PlayerGrapple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-        Debug.DrawRay(transform.position, (hit.point - (Vector2)transform.position));
-
-
+        
         //Quick and dirty input for player (TEMPORARY)
         //PlayerInput();
 
@@ -85,26 +81,40 @@ public class PlayerGrapple : MonoBehaviour
         for (int i = 0; i < grapplePoints.Length; i++)
         {
             //if first one in array, there are no set distance values yet, so set one
-            if (i == 0)
-            {
-                curDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
-            }
-            else
-            {
+            //if (i == 0)
+            //{
+            //    tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+
+            //    if (tempDistance <= maxGrappleDistance)
+            //    {
+            //        curDistance = tempDistance;
+            //        Debug.Log(curDistance);
+            //    }
+            //}
+            //else
+            //{
                 //if there is no previous distance, this one is the shortest by default
                 if (previousDistance == 0)
                 {
-                    curDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+                    tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+
+                    if (tempDistance <= maxGrappleDistance)
+                    {
+                        curDistance = tempDistance;
+
+                    }
                 }
                 //store temporary distance to compare
                 tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+
                 //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point
-                if (tempDistance < previousDistance)
+                if (tempDistance < previousDistance && tempDistance <= maxGrappleDistance)
                 {
                     curDistance = tempDistance;
+                    //set target grapple point
                     targetGrapplePoint = grapplePoints[i];
                 }
-            }
+            //}
             previousDistance = curDistance;
         }
         //Setting the target position of the mouse in worldspace
@@ -119,7 +129,6 @@ public class PlayerGrapple : MonoBehaviour
         //If they hit a grapple point
         if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null && hit.collider.tag == "grapple")
         {
-            Debug.Log(hit.collider.gameObject);
 
             distanceJoint.enabled = true;
             distanceJoint.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>(); //The Distance Joint will attach to the Grapple Point
@@ -127,10 +136,12 @@ public class PlayerGrapple : MonoBehaviour
             distanceJoint.distance = Vector2.Distance(transform.position, hit.point);
             isGrappled = true;
         }
+        targetGrapplePoint = null;
     }
 
     void DestroyGrapple()
     {
+        isGrappled = false;
         distanceJoint.enabled = false;
     }
 

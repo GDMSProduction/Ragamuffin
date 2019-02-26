@@ -26016,7 +26016,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8a1624eed8f94d409101f50c195ff09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxGrappleDistance: 15
+  maxGrappleDistance: 6
   climbingSpeed: 0.5
   grappleLayer:
     serializedVersion: 2
