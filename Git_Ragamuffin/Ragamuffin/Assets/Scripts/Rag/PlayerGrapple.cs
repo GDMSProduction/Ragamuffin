@@ -38,7 +38,7 @@ public class PlayerGrapple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         //Quick and dirty input for player (TEMPORARY)
         //PlayerInput();
 
@@ -80,40 +80,28 @@ public class PlayerGrapple : MonoBehaviour
 
         for (int i = 0; i < grapplePoints.Length; i++)
         {
-            //if first one in array, there are no set distance values yet, so set one
-            //if (i == 0)
-            //{
-            //    tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
 
-            //    if (tempDistance <= maxGrappleDistance)
-            //    {
-            //        curDistance = tempDistance;
-            //        Debug.Log(curDistance);
-            //    }
-            //}
-            //else
-            //{
-                //if there is no previous distance, this one is the shortest by default
-                if (previousDistance == 0)
-                {
-                    tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
-
-                    if (tempDistance <= maxGrappleDistance)
-                    {
-                        curDistance = tempDistance;
-
-                    }
-                }
-                //store temporary distance to compare
+            //if there is no previous distance, this one is the shortest by default
+            if (previousDistance == 0)
+            {
                 tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
 
-                //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point
-                if (tempDistance < previousDistance && tempDistance <= maxGrappleDistance)
+                if (tempDistance <= maxGrappleDistance)
                 {
                     curDistance = tempDistance;
-                    //set target grapple point
-                    targetGrapplePoint = grapplePoints[i];
+
                 }
+            }
+            //store temporary distance to compare
+            tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
+
+            //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point
+            if (tempDistance < previousDistance && tempDistance <= maxGrappleDistance)
+            {
+                curDistance = tempDistance;
+                //set target grapple point
+                targetGrapplePoint = grapplePoints[i];
+            }
             //}
             previousDistance = curDistance;
         }
