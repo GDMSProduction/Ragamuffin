@@ -84,7 +84,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (grounded && jumpRequest && allowJump)
         {
-            rb2D.velocity += new Vector2(0, jumpForce);
+            rb2D.velocity = new Vector2(0, jumpForce);
             grounded = false;
             allowJump = false;
         }
