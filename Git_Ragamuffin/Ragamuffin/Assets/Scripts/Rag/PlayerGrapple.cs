@@ -89,7 +89,7 @@ public class PlayerGrapple : MonoBehaviour
                 if (tempDistance <= maxGrappleDistance)
                 {
                     curDistance = tempDistance;
-
+                    targetGrapplePoint = grapplePoints[i];
                 }
             }
             //store temporary distance to compare
@@ -114,6 +114,7 @@ public class PlayerGrapple : MonoBehaviour
 
         //Drawing a raycast from the player position to the grapple point
         hit = Physics2D.Raycast(transform.position, targetPos - (Vector2)transform.position, maxGrappleDistance, grappleLayer);
+        Debug.DrawLine(transform.position, targetPos, Color.red, 20);
         //If they hit a grapple point
         if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null && hit.collider.tag == "grapple")
         {
