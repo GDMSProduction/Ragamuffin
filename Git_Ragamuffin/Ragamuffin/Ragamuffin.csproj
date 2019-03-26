@@ -372,6 +372,7 @@
     <Compile Include="Assets\Scripts\Cat\CatSubState.cs" />
     <Compile Include="Assets\Scripts\Cat\JumpNodeBehavior.cs" />
     <Compile Include="Assets\Scripts\Cat\NodeBehaviorBase.cs" />
+    <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Jack-In-The-Box\JumpingJackManager.cs" />
     <Compile Include="Assets\Scripts\Jack-In-The-Box\JumpingJackState.cs" />
@@ -382,10 +383,12 @@
     <Compile Include="Assets\Scripts\Old\GrappleScript.cs" />
     <Compile Include="Assets\Scripts\Rag\CC_Controller2D.cs" />
     <Compile Include="Assets\Scripts\Rag\CC_RaycastController.cs" />
+    <Compile Include="Assets\Scripts\Rag\PlayerControl.cs" />
     <Compile Include="Assets\Scripts\Rag\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Rag\PlayerGrapple.cs" />
     <Compile Include="Assets\Scripts\Rag\PlayerManagerPDA.cs" />
     <Compile Include="Assets\Scripts\Rag\PlayerStatesPDA.cs" />
+    <Compile Include="Assets\Scripts\ReSpawnManager.cs" />
     <Compile Include="Assets\Scripts\ReturnToMenu_Prototype.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenu.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenuSounds.cs" />
