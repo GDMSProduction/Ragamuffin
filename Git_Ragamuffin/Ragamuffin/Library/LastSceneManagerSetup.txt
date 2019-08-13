@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/_Scenes/Blockouts/Kitchen_BlockOut.unity
-  isLoaded: 1
-  isActive: 1
