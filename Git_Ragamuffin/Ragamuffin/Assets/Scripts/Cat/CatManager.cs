@@ -69,6 +69,7 @@ public sealed class CatManager : MonoBehaviour
     private Vector3 forward;                                            // Cat's forward in worldspace
     private Vector3 offset;                                             // Keeps the cat grounded for chase
     private Vector3 targetPosition;
+	//
     #endregion
 
     #region Initialization
