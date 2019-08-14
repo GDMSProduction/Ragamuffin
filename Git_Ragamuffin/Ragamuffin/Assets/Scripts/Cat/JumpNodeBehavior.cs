@@ -19,7 +19,13 @@ public class JumpNodeBehavior : NodeBehaviorBase
     #endregion
 
     #region Accessors
-    public float GetHorizontalDistance() { return horizontalDistance; }
-    public float GetverticalRepositionHeight() { return verticalRepositionHeight; }
+    public float GetHorizontalDistance()
+	{
+		return horizontalDistance;
+	}
+    public float GetverticalRepositionHeight()
+	{
+		return verticalRepositionHeight;
+	}
     #endregion
 }
