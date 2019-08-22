@@ -4,6 +4,8 @@
 //            Purpose: 
 // Associated Scripts: 
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//Changelog
+//08/22/2019 Colby Peck: Added Init method, removed old constructors, added parameterless constructor 
 
 using System.Collections;
 using System.Collections.Generic;
@@ -13,13 +15,13 @@ public abstract class CatState
 {
 	#region Variables
 	protected System.Action<byte> AssignMoveSpeed;
-	#endregion
-
-	#region Initialization
-	public CatState(CatManager _catManager)
+	public virtual void Init(CatManager _catManager) //Because we made the constructor parameterless, any variables that need to be set on initialization must be set manually using methods or properties 
 	{
 		AssignMoveSpeed = _catManager.AssignMoveSpeed;
 	}
+	#endregion
+
+	#region Initialization
 	public virtual void Enable()
 	{
 		return;
@@ -35,6 +37,8 @@ public abstract class CatState
 	{
 		return;
 	}
+
+	public CatState() { }
 	#endregion
 }
 public class Unalerted : CatState
@@ -44,10 +48,7 @@ public class Unalerted : CatState
 	#endregion
 
 	#region Initialization
-	public Unalerted(CatManager _catManager) : base(_catManager)
-	{
-		PatrolMovement = _catManager.PatrolMovement;
-	}
+	public Unalerted() { }
 
 	public override void Enable()
 	{
@@ -71,8 +72,13 @@ public class Alerted : CatState
 	#endregion
 
 	#region Initialization
-	public Alerted(CatManager _catManager) : base(_catManager)
+	public Alerted()
 	{
+
+	}
+	public override void Init(CatManager _catManager)
+	{
+		base.Init(_catManager);
 		PlaySound = _catManager.PlaySound;
 
 		availableStates = new AlertedStates[3]

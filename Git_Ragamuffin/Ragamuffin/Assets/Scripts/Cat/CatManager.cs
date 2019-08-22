@@ -5,13 +5,16 @@
 // Associated Scripts: 
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 //	08/13/2019 Colby Peck: Made enum for cat states. Made overload for SetCatState to take the enum. Changed all current calls to the overloaded method. 
-//	08/14/2019 Colby Peck: Added AtDestination property and destinationDistance float. Added DistToRag helper property. Removed forward field (Vector3), added helper property WorldForward. Added SeesRag  helper property. 
+//	08/14/2019 Colby Peck: Added AtDestination property and destinationDistance float. Added DistToRag helper property. Removed forward field (Vector3), added helper property WorldForward. Added SeesRag helper property. 
 //	08/14/2019 Colby Peck: Added try/catch statement to ChangeCatState. 
+//	08/22/2019 Colby Peck:	 Made JumpLeft/Right and TurnLeft/Right methods. Cleaned up OnTriggerEnter.  Added State Dictionary with System.Type being the key. Added ChangeState overload for changing based on state type 
+// 08/22/2019 Colby Peck: Built AddState method that takes in a Type of CatState. Changed state machine to use AddState and the new ChangeState<>() methods. 
+// 08/22/2019 ColbyPeck: Changed ragTransform from a field to a property 
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Diagnostics; //this needs to be removed when possible 
+using System.Diagnostics;
 
 public sealed class CatManager : MonoBehaviour
 {
@@ -62,9 +65,10 @@ public sealed class CatManager : MonoBehaviour
 	private bool onScreen;                                              // On screen flag 
 	private byte randomChance;                                          // Used to store the cat's decision to jump 
 
-	// State Machine
-	private CatState[] availableStates;
+	// State Machine 
+	private Dictionary<System.Type, CatState> states = new Dictionary<System.Type, CatState>();
 	private CatState currentState;
+
 
 	private float currentAttackTime;                                    // Time between attacks 
 	private float currentMoveSpeed;                                     // Current move speed 
@@ -74,7 +78,6 @@ public sealed class CatManager : MonoBehaviour
 	private long lastRaycast;                                           // Stores the time of the last time it looked for Rag, to be used for the next time it looks 
 	private RaycastHit hitInfo;                                       // Object intersecting raycast 
 	private Stopwatch internalTimer;                                    /// Timing system needs to be reworked
-	private Transform ragTransform;                                     /// Remove this when static player reference is made
 	private Transform raycastEye;                                       // Raycast start position (cat's eye) 
 	private Vector3 offset;                                             // Keeps the cat grounded for chase 
 	private Vector3 targetPosition;
@@ -93,13 +96,18 @@ public sealed class CatManager : MonoBehaviour
 	}
 
 	/// <summary>
+	/// The transform attached to <c>GameManager.Player</c>
+	/// </summary>
+	private Transform RagTransform { get { return GameManager.Player.transform; } }
+
+	/// <summary>
 	/// Distance between our transform.position and Rag's transform.position
 	/// </summary>
 	private float DistToRag
 	{
 		get
 		{
-			return Vector3.Distance(transform.position, ragTransform.position); //Self-explanatory 
+			return Vector3.Distance(transform.position, RagTransform.position); //Self-explanatory 
 		}
 	}
 
@@ -121,7 +129,7 @@ public sealed class CatManager : MonoBehaviour
 	{
 		get
 		{
-			return ragTransform.position - transform.position; //Self-explanatory 
+			return RagTransform.position - transform.position; //Self-explanatory 
 		}
 	}
 
@@ -151,7 +159,51 @@ public sealed class CatManager : MonoBehaviour
 		}
 	}
 
+	JumpNodeBehavior turnNode;
+	private void JumpRight(JumpNodeBehavior node)
+	{
+		turnNode = node;
+		transform.position = new Vector3
+		(
+		transform.position.x - node.HorizontalDistance,
+		node.VerticalRepositionHeight,
+		transform.position.z
+		);
 
+	}
+	private void JumpLeft(JumpNodeBehavior node)
+	{
+		turnNode = node;
+		transform.position = new Vector3
+		(
+		transform.position.x - node.HorizontalDistance,
+		node.VerticalRepositionHeight,
+		transform.position.z
+		);
+
+	}
+
+	private void TurnLeft()
+	{
+		transform.rotation = Quaternion.Euler(0, 270, 0);
+	}
+	private void TurnRight()
+	{
+		transform.rotation = Quaternion.Euler(0, 90, 0);
+	}
+
+	private void AddState<T>() where T : CatState, new() //T is a type that is required to inherit from CatState, and also have an empty constructor 
+	{
+		try
+		{
+			states.Add(typeof(T), new T()); //Try to add a new instance of the given state to the dictionary, use its type as the key 
+			states[typeof(T)].Init(this); //Because we made the constructor parameterless, any variables that need to be set on initialization must be set manually 
+		}
+		catch (System.Exception e) //Upon exception, 
+		{
+			UnityEngine.Debug.LogError("CatManager.AddState(): Exception generated! \n" + e.Message); //Tell the console what's happened 
+		}
+	}
 	#endregion
 
 	#region Initialization
@@ -166,16 +218,33 @@ public sealed class CatManager : MonoBehaviour
 		teleportDistance = (maxSearchDistance - tDSetup);
 
 		currentMoveSpeed = moveSpeeds[0];
-		availableStates = new CatState[2] { new Unalerted(this), new Alerted(this) };
-		currentState = availableStates[0];
+		//availableStates = new CatState[2] { new Unalerted(this), new Alerted(this) };
+
+
+		//currentState = availableStates[0];
+		AddState<Unalerted>();
+		AddState<Alerted>();
+		ChangeCatState<Unalerted>();
+
 		internalTimer = new Stopwatch();
 		internalTimer.Start();
-		ragTransform = GameObject.FindGameObjectWithTag("Player").transform;        //FIX THIS LINE JESUS CHRIST 
+		//ragTransform = GameObject.FindGameObjectWithTag("Player").transform;        //FIX THIS LINE JESUS CHRIST 
 		raycastEye = transform.GetChild(0);
 		offset = new Vector3(0, -1, 0);
 
+		AddState<Unalerted>();
 		// If start left is true in the inspector, the cat's will move left
-		transform.rotation = (startLeftDirection) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
+		//transform.rotation = (startLeftDirection) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
+
+		//Make sure this works asap
+		if (startLeftDirection)
+		{
+			TurnLeft();
+		}
+		else
+		{
+			TurnRight();
+		}
 	}
 	#endregion
 
@@ -188,8 +257,6 @@ public sealed class CatManager : MonoBehaviour
 	#endregion
 
 	#region Public Interface
-
-
 	public void AssignMoveSpeed(byte _index)
 	{
 		// Changes speed for walking, running, fleeing
@@ -200,49 +267,67 @@ public sealed class CatManager : MonoBehaviour
 		// Still performs patrol like movement, but moves towards a specified point
 		PatrolMovement();
 
-		// If cat's as reached target, change back to unalerted
+		// If cat has reached target, change back to unalerted
 		// State will change in patrol movement if Rag is found
 		if (AtDestination)
 		{
 			listeningForSound = false;
-			ChangeCatState(CatStateType.Unalerted);
+			ChangeCatState<Unalerted>();
 		}
 	}
 
-	/// <summary>
-	/// Changes the cat's current state
-	/// </summary>
-	/// <param name="_index">What is the index of the state we're changing to?</param>
-	public void ChangeCatState(byte _index)
+	///// <summary>
+	///// Changes the cat's current state
+	///// </summary>
+	///// <param name="_index">What is the index of the state we're changing to?</param>
+	//public void ChangeCatState(byte _index)
+	//{
+	//	// Self explanatory
+	//	try
+	//	{
+	//		currentState = availableStates[_index];
+	//		currentState.Enable();
+	//	}
+	//	catch (System.Exception e)
+	//	{
+	//		if (e is System.IndexOutOfRangeException)
+	//		{
+	//			UnityEngine.Debug.LogError("Tried to change to invalid state index: " + _index.ToString());
+	//		}
+	//		else
+	//		{
+	//			UnityEngine.Debug.LogError("CatManager.ChangeCatState(): Unforeseen exception generated: \n" + e.Message);
+	//		}
+	//	}
+	//}
+
+	///// <summary>
+	///// Changes the cat's current state
+	///// </summary>
+	///// <param name="type">What type is the state we're changing to?</param>
+	//public void ChangeCatState(CatStateType type)
+	//{
+	//	ChangeCatState((byte)type);
+	//}
+
+	public void ChangeCatState<T>()
 	{
-		// Self explanatory
 		try
 		{
-			currentState = availableStates[_index];
+			currentState = states[typeof(T)];
 			currentState.Enable();
 		}
 		catch (System.Exception e)
 		{
-			if (e is System.IndexOutOfRangeException)
+			if (e is KeyNotFoundException)
 			{
-				///need to remove the System.Diagnostics using if we want to use Debug!!!
-				//Debug.LogError("Tried to change to invalid state index: " + _index.ToString());
+				UnityEngine.Debug.LogError("Tried to change to invalid state type: " + typeof(T));
 			}
 			else
 			{
-				//Debug.LogError("CatManager.ChangeCatState(): Unforeseen exception generated: \n" + e.message)
+				UnityEngine.Debug.LogError("CatManager.ChangeCatState(): Unforeseen exception generated: \n" + e.Message);
 			}
 		}
-
-	}
-
-	/// <summary>
-	/// Changes the cat's current state
-	/// </summary>
-	/// <param name="type">What type is the state we're changing to?</param>
-	public void ChangeCatState(CatStateType type)
-	{
-		ChangeCatState((byte)type);
 	}
 
 	public void GetCurrentTime(bool _attack)
@@ -293,7 +378,7 @@ public sealed class CatManager : MonoBehaviour
 
 					// Teleport closer
 					// If cat is on Rag's left
-					if (transform.position.x < ragTransform.position.x)
+					if (transform.position.x < RagTransform.position.x)
 						transform.position = new Vector3(transform.position.x + teleportDistance, transform.position.y, transform.position.z);
 					else
 						transform.position = new Vector3(transform.position.x - teleportDistance, transform.position.y, transform.position.z);
@@ -327,7 +412,7 @@ public sealed class CatManager : MonoBehaviour
 			if (DistToRag > sightDistance)
 			{
 				// Change back to unalerted patrol
-				ChangeCatState(CatStateType.Unalerted);
+				ChangeCatState<Unalerted>();
 			}
 		}
 
@@ -335,7 +420,7 @@ public sealed class CatManager : MonoBehaviour
 		if (DistToRag > miniumAttackDistance)
 		{
 			// Look at Rag
-			transform.LookAt(ragTransform.position + offset, Vector3.up);
+			transform.LookAt(RagTransform.position + offset, Vector3.up);
 
 			// Moves cat towards Rag at the assigned move speed
 			Movement();
@@ -356,7 +441,7 @@ public sealed class CatManager : MonoBehaviour
 		if (DistToRag < miniumReceiveHitDistance)
 		{
 			// If player is on the left of cat, move right
-			if (ragTransform.position.x < transform.position.x)
+			if (RagTransform.position.x < transform.position.x)
 				transform.rotation = Quaternion.Euler(0, 90, 0);
 
 			// If player is on the right of cat, move left
@@ -364,9 +449,9 @@ public sealed class CatManager : MonoBehaviour
 				transform.rotation = Quaternion.Euler(0, 270, 0);
 
 			// If cat is unalerted, toggle to alerted
-			if (currentState == availableStates[0])
+			if (currentState.GetType() == typeof(Unalerted))
 			{
-				ChangeCatState(1);
+				ChangeCatState<Alerted>();
 
 				// Change to flee behavior
 				currentState.ChangeSubstate(1);
@@ -388,7 +473,7 @@ public sealed class CatManager : MonoBehaviour
 	{
 		listeningForSound = true;
 		targetPosition = _targetPosition;
-		ChangeCatState(CatStateType.Alerted);
+		ChangeCatState<Alerted>();
 
 		// Change to check behavior
 		currentState.ChangeSubstate(2);
@@ -432,7 +517,7 @@ public sealed class CatManager : MonoBehaviour
 	{
 		if (SeesRag) //If we see Rag, 
 		{
-			ChangeCatState(CatStateType.Alerted); //Become alerted 
+			ChangeCatState<Alerted>();
 			currentState.ChangeSubstate(0); // Change to pursuit behavior 
 		}
 	}
@@ -440,95 +525,92 @@ public sealed class CatManager : MonoBehaviour
 	{
 		// Moves cat in move direction, at current speed
 		if (!listeningForSound)
+		{
 			transform.Translate(Vector3.forward * currentMoveSpeed * Time.deltaTime);
+		}
 		else
+		{
 			transform.position = Vector2.Lerp(transform.position, targetPosition, currentMoveSpeed);
+		}
 	}
 	private void OnTriggerEnter(Collider other)
 	{
 		if (!listeningForSound)
 		{
-			//if (onScreen)
-			//{
 			if (other.tag == "JumpPoint")
 			{
-				// Debugging if check
-				if (canJump)
+				if (canJump)    // Debugging if check
 				{
-					// If patrolling
-					if (currentState == availableStates[0])
+					if (currentState.GetType() == typeof(Unalerted)) // If patrolling
 					{
-						// Retrieving random cat decision
-						randomChance = (byte)Random.Range(0, jumpDropChance);
+						randomChance = (byte)Random.Range(0, jumpDropChance);   // Retrieving random cat decision
 
-						// If cat decides to jump/drop
-						if (randomChance == 0)
+						if (randomChance == 0)  // If cat decides to jump/drop
 						{
-							// If left side activation
-							if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)
-								transform.position = new Vector3(transform.position.x + other.GetComponent<JumpNodeBehavior>().GetHorizontalDistance(), other.GetComponent<JumpNodeBehavior>().GetverticalRepositionHeight(), transform.position.z);
-
-							// If right side activation
-							else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)
-								transform.position = new Vector3(transform.position.x - other.GetComponent<JumpNodeBehavior>().GetHorizontalDistance(), other.GetComponent<JumpNodeBehavior>().GetverticalRepositionHeight(), transform.position.z);
-
-							// This type of point doesn't care the direction, it will reflect regardless
+							if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)   // If left side activation
+							{
+								JumpLeft(other.GetComponent<JumpNodeBehavior>());
+							}
+							else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)  // If right side activation
+							{
+								JumpRight(other.GetComponent<JumpNodeBehavior>());
+							}
+							else if (transform.rotation == Quaternion.Euler(0, 90, 0))  // This type of point doesn't care the direction, it will reflect regardless 
+							{
+								JumpLeft(other.GetComponent<JumpNodeBehavior>());
+							}
 							else
 							{
-								if (transform.rotation == Quaternion.Euler(0, 90, 0))
-									transform.position = new Vector3(transform.position.x + other.GetComponent<JumpNodeBehavior>().GetHorizontalDistance(), other.GetComponent<JumpNodeBehavior>().GetverticalRepositionHeight(), transform.position.z);
-								else
-									transform.position = new Vector3(transform.position.x - other.GetComponent<JumpNodeBehavior>().GetHorizontalDistance(), other.GetComponent<JumpNodeBehavior>().GetverticalRepositionHeight(), transform.position.z);
+								JumpRight(other.GetComponent<JumpNodeBehavior>());
 							}
 						}
 					}
 				}
 			}
-			else if (other.tag == "TurnPoint")
+		}
+		else if (other.tag == "TurnPoint")
+		{
+			if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)    // If right side activation
 			{
-				// If right side activation
-				if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)
+				if (transform.position.x < other.transform.position.x)  // If cat is on the left side of this point, make it move left
 				{
-					// If cat is on the left side of this point, make it move left
-					if (transform.position.x < other.transform.position.x)
-						transform.rotation = Quaternion.Euler(0, 270, 0);
-
-					// Act like nothing happened
-					else return;
+					TurnLeft();
 				}
-
-				// If left side activation
-				else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)
-				{
-					// If cat is on the right side of this point, make it move right
-					if (transform.position.x > other.transform.position.x)
-						transform.rotation = Quaternion.Euler(0, 90, 0);
-
-					// Act like nothing happened
-					else return;
-				}
-
-				// This type of point doesn't care the direction, it will reflect regardless
 				else
-					transform.rotation = (transform.rotation == Quaternion.Euler(0, 90, 0)) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
-
-				// If fleeing, change to unalerted
-				if (fleeing)
 				{
-					// Stop fleeing
-					currentState.ChangeSubstate(0);
-					ChangeCatState(CatStateType.Unalerted);
-					fleeing = false;
+					return; // Act like nothing happened
 				}
 			}
-			//}
+			else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)   // If left side activation
+			{
+				if (transform.position.x > other.transform.position.x)  // If cat is on the right side of this point, make it move right
+				{
+					TurnRight();
+				}
+				else
+				{
+					return; // Act like nothing happened
+				}
+			}
+			else    // This type of point doesn't care the direction, it will reflect regardless
+			{
+				if (transform.rotation == Quaternion.Euler(0, 90, 0)) //if we're facing right, 
+				{
+					TurnLeft();
+				}
+				else
+				{
+					TurnRight();
+				}
+			}
+			if (fleeing)    // If fleeing, change to unalerted
+			{
+				// Stop fleeing
+				currentState.ChangeSubstate(0);
+				ChangeCatState<Unalerted>();
+				fleeing = false;
+			}
 		}
 	}
 	#endregion
-}
-
-public enum CatStateType : byte
-{
-	Unalerted = 0,
-	Alerted = 1,
 }
