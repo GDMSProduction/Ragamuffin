@@ -5,7 +5,7 @@
 // Associated Scripts: None.
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 //Changelog 
-// 08/22/2019 Colby Peck: Added static field and property of the Player GameObject. 
+// 08/22/2019 Colby Peck: Added static field and property of the Player GameObject to avoid using any GameObject.Find methods elsewhere 
 
 using System.Collections;
 using System.Collections.Generic;
