@@ -4,6 +4,8 @@
 //            Purpose: To act as the main Game Manager for Ragamuffin. I just laid out some basic functions like Quit, and set up scene management.
 // Associated Scripts: None.
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//Changelog 
+// 08/22/2019 Colby Peck: Added static field and property of the Player GameObject to avoid using any GameObject.Find methods elsewhere 
 
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +19,18 @@ public class GameManager : MonoBehaviour
 	public static GameManager gameManager = null;
 	public Scene sceneCurrent;
 
+	private static GameObject player = null;
+	public static GameObject Player
+	{
+		get
+		{
+			if (player == null)
+			{
+				player = GameObject.FindGameObjectWithTag("Player");
+			}
+			return player;
+		}
+	}
 	////######## PREBUILT METHODS ########////
 
 	void Awake()
