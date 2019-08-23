@@ -9,18 +9,19 @@ using UnityEngine;
 
 public class LedgePullUp_Prototype : MonoBehaviour
 {
-	Collider2D col;
+	Collider col;
 	[SerializeField] Transform spawnLoc;
 
 	void Awake()
 	{
-		col = GetComponent<Collider2D>();
+		col = GetComponent<Collider>();
 	}
 
-	private void OnTriggerEnter2D(Collider2D collision)
+	private void OnTriggerEnter(Collider collision)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (collision.gameObject.CompareTag("Player") && collision.transform.position.z != spawnLoc.transform.position.z)
 		{
+            
 			collision.gameObject.transform.position = spawnLoc.position;
 		}
 	}

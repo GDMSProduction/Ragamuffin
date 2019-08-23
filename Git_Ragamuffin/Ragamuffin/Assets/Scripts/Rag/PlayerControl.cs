@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    Rigidbody2D rb2D;
+    Rigidbody rb;
     [SerializeField]
     float moveSpeed = 6.0f;
     [SerializeField]
@@ -22,7 +22,7 @@ public class PlayerControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         grounded = true;
         disableInput = false;
         jumpRequest = false;
@@ -75,8 +75,8 @@ public class PlayerControl : MonoBehaviour
     //simple but effective, and speed can be motified through the inspector
     void Movement()
     {
-        Vector2 moveVelocity = new Vector2(input * (moveSpeed * 10.0f) * Time.deltaTime, rb2D.velocity.y);
-        rb2D.velocity = moveVelocity;
+        Vector2 moveVelocity = new Vector2(input * (moveSpeed * 10.0f) * Time.deltaTime, rb.velocity.y);
+        rb.velocity = moveVelocity;
     }
 
     //jump action and parameter cleanup
@@ -84,7 +84,7 @@ public class PlayerControl : MonoBehaviour
     {
         if (grounded && jumpRequest && allowJump)
         {
-            rb2D.velocity = new Vector2(0, jumpForce);
+            rb.velocity = new Vector2(0, jumpForce);
             grounded = false;
             allowJump = false;
         }
@@ -92,7 +92,7 @@ public class PlayerControl : MonoBehaviour
     }
 
     //checks for player collision with ground
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter(Collision collision)
     {
         //layer 9 is the Ground layer
         if (collision.gameObject.layer == 9)
