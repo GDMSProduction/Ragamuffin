@@ -50,6 +50,11 @@ public class Rag_Movement : MonoBehaviour
     private const int precision = 10;
     private float boundsY;
 
+
+
+    public delegate void MovementDel(ref Vector3 velocity);
+    public MovementDel preTranslateEvent;
+
     #endregion
 
     #region Mono Methods
@@ -93,8 +98,15 @@ public class Rag_Movement : MonoBehaviour
 
     #region Jumping
     private float dist;
+    public System.Action JumpCalledEvent;
+
     private void Jump()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (JumpCalledEvent != null)
+                JumpCalledEvent();
+        }
         if (Input.GetKey(KeyCode.Space) && dist < maxJumpHeight)
         {
             SetVelocityY(jumpStrength * Time.fixedDeltaTime * gravityMult);
@@ -232,6 +244,9 @@ public class Rag_Movement : MonoBehaviour
             pVel.y = 0;
         if (Mathf.Abs(pVel.z) < .015f)
             pVel.z = 0;
+
+        if (preTranslateEvent != null)
+            preTranslateEvent(ref pVel);
 
         //Move the player based on the final velocity from input and collision
         transform.Translate(pVel);
