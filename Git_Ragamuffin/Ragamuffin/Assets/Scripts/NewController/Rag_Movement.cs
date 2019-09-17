@@ -18,7 +18,7 @@ public class Rag_Movement : MonoBehaviour
     [Header("Movement")]
     [Tooltip("Speed at which Rag moves.")]
     [Range(0.1f, 100)]
-    [SerializeField] float moveSpeed;
+    public float moveSpeed;
     [Tooltip("How long it takes rag to reach his movement speed.")]
     [Range(0.05f, 10)]
     [SerializeField] float moveAcceleration = 0.1f;
@@ -44,7 +44,7 @@ public class Rag_Movement : MonoBehaviour
     #endregion
 
     #region Variables
-    private Vector2 input;
+    public Vector2 input;
 
     private const float offsetWidth = 0.1f;
     private const int precision = 10;
@@ -70,8 +70,11 @@ public class Rag_Movement : MonoBehaviour
     {
         DetectGround();
         InputDetection();
-        Jump();
         HorizontalMove();
+        Jump();
+        if (preTranslateEvent != null)
+            preTranslateEvent(ref pVel);
+        
         Move();
     }
 
@@ -84,6 +87,7 @@ public class Rag_Movement : MonoBehaviour
     {
         //Get and save the input for later use from the axis. We are getting a raw X because of the smooth damping done to emulate acceleration.
         input.x = Input.GetAxisRaw("Horizontal");
+        input.y = Input.GetAxisRaw("Vertical");
 
         //Hard-coded rotation setting for rag's mesh depending on the direction rag is currently moving in.
         if (input.x > 0)
@@ -171,6 +175,13 @@ public class Rag_Movement : MonoBehaviour
     public Vector3 Velocity { get { return pVel / Time.fixedDeltaTime; } }
 
     private const float gravity = -3;
+    public float Gravity
+    {
+        get
+        {
+            return gravity * gravityMult;
+        }
+    }
     
 
     
@@ -244,9 +255,6 @@ public class Rag_Movement : MonoBehaviour
             pVel.y = 0;
         if (Mathf.Abs(pVel.z) < .015f)
             pVel.z = 0;
-
-        if (preTranslateEvent != null)
-            preTranslateEvent(ref pVel);
 
         //Move the player based on the final velocity from input and collision
         transform.Translate(pVel);
