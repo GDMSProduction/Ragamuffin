@@ -15,11 +15,15 @@ public class RB_Grapple : MonoBehaviour
 
     #region Variables
 
-    
 
+    [Tooltip("The range of Rag's grapple")]
     [SerializeField] float maxGrappleDist;
-    [SerializeField] float elasticity;
+    [Tooltip("How fast the grapple will launch towards the grapple point when used")]
     [SerializeField] float grappleSpeed = 5;
+    [Tooltip("How fast rag climbs up the grapple.")]
+    [SerializeField] float climbSpeed = 3;
+    [Tooltip("How fast rag climbs down the grapple.")]
+    [SerializeField] float downSpeed = 6;
 
     /// <summary>
     /// The grapple distance at which rag connected to the grapple point. (essentially the max range at which the grapple will become 'taut')
@@ -42,6 +46,7 @@ public class RB_Grapple : MonoBehaviour
 
     #endregion
 
+    #region Mono Functions
     private void Start()
     {
         controller = GetComponent<Rag_Movement>();
@@ -64,18 +69,73 @@ public class RB_Grapple : MonoBehaviour
             EndGrapple();
         }
     }
+    #endregion
 
+    #region Grapple Functionality
+    #region Grapple Variables
+    Vector3 nextPos, dir, iVel, perpendicular;
+    float dif, dif1, dot, r;
+    bool left;
+
+    /// <summary>
+    /// Is Rag currently climb up or down the grapple
+    /// </summary>
+    public bool IsClimbing
+    {
+        get;
+        private set;
+    }
+    #endregion
     private void VelocitySet(ref Vector3 velocity)
     {
-        Vector3 pos = controller.transform.position, nextPos = pos + velocity;
-        Vector3 dir = curGrapplePoint.position - nextPos;
-        float dif = dir.magnitude - curGrappleDist;
+        nextPos = controller.transform.position + velocity;
+        dir = curGrapplePoint.position - nextPos;
+        dif = dir.magnitude - curGrappleDist;
         if (dif < 0)
             return;
-        float mult = dif * (1 / elasticity) * Time.fixedDeltaTime;
-        velocity += dir * mult;
+        iVel = velocity;
+        dif1 = curGrappleDist - (curGrapplePoint.position - controller.transform.position).magnitude;
+        r = dif1 / (Mathf.Abs(dif) + dif1);
+        velocity *= r;
+
+        perpendicular = Quaternion.AngleAxis(90, Vector3.forward) * dir.normalized;
+        dot = Vector3.Dot(iVel.normalized, perpendicular);
+        left = dot > 0;
         
+
+        if (iVel.y < 0 && -iVel.y > Mathf.Abs(iVel.x))
+        {
+            if (nextPos.x < curGrapplePoint.position.x && left && (controller.input.x >= 0))
+            {
+                left = false;
+            }
+            else if (nextPos.x > curGrapplePoint.position.x && !left && (controller.input.x <= 0))
+            {
+                left = true;
+            }
+        }
+        
+        velocity += (1 - r) * (left ? perpendicular : -perpendicular) * iVel.magnitude;
+
+
+        Debug.DrawLine(controller.transform.position, controller.transform.position + velocity.normalized * 5, Color.red);
+
+        if (controller.input.y > 0 && dir.magnitude > 2)
+        {
+            controller.transform.Translate(dir.normalized * Time.fixedDeltaTime * climbSpeed, Space.World);
+            curGrappleDist -= Time.fixedDeltaTime * climbSpeed;
+            IsClimbing = true;
+        }
+        else if (controller.input.y < 0 && dir.magnitude < (maxGrappleDist - (Time.fixedDeltaTime * downSpeed)))
+        {
+            controller.transform.Translate(dir.normalized * Time.fixedDeltaTime * -climbSpeed, Space.World);
+            curGrappleDist += Time.fixedDeltaTime * downSpeed;
+            IsClimbing = true;
+        }
+        else
+            IsClimbing = false;
     }
+    #endregion
 
     #region Helper Functions
     private void BeginGrapple()
@@ -93,7 +153,6 @@ public class RB_Grapple : MonoBehaviour
     private void LaunchGrapple()
     {
         isGrappled = true;
-        controller.JumpCalledEvent += EndGrapple;
         grappleLine.enabled = true;
         StartCoroutine(GrappleLine(curGrapplePoint.position, controller.transform));
     }
@@ -121,11 +180,11 @@ public class RB_Grapple : MonoBehaviour
 
     private void EndGrapple()
     {
-        controller.JumpCalledEvent -= EndGrapple;
         controller.preTranslateEvent -= VelocitySet;
         curGrapplePoint = null;
         curGrappleDist = 0;
         grappleLine.enabled = false;
+        isGrappled = false;
     }
 
     private void FindGrapplePoint()
