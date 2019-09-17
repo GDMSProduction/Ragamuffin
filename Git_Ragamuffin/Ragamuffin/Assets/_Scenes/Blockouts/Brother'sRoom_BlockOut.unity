@@ -9231,8 +9231,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDist: 10
-  elasticity: 1
-  grappleSpeed: 5
+  elasticity: 0.5
+  grappleSpeed: 8
 --- !u!1001 &730238237
 Prefab:
   m_ObjectHideFlags: 0
