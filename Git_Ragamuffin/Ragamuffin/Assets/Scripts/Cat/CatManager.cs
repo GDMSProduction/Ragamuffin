@@ -14,6 +14,10 @@
 // 09/14/2019 Colby Peck: Added TODO list 
 // 09/15/2019 Colby Peck: Added StateMachine class to clean up CatManager, moved all generic state machine functionality and data out of CatManager and into the new class 
 // 09/15/2019 Colby Peck: Blocked out the structure of the new movement System; the methods and fields are put down, they need to be made functional. 
+// 09/28/2019 Colby Peck: Removed just about everything for total system rework, moved all movement functionality to CatMover.cs 
+// 09/29/2019 Colby Peck: Added printLogs bool to enable/disable debug logs 
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,23 +30,22 @@ using UnityEngine;
 //		[X] Build methods for all the Monobehaviour methods we need (Update, FixedUpdate, etc.)
 //		[X] Make sure those methods are getting called in CatManager 
 // [X] Move Statemachine generic behaviour out of CatManager and into StateMachine 
-// [X] Block out movement system 
-//		[X] Write empty methods for the functionality we'll need 
-//		[X] Figure out what fields and properties will be necessary, add them. Serialize as needed 
-//		[X] Make sure states can access the required methods 
-// [ ] Build functionality of the Movement system 
-//		[ ] Build the cat's methods for perceiving the world 
-//		[ ] Build Patrol state and test movement system 
-// [ ] Make the other states 
+// [ ] Make states: 
+//		[ ] Patrol 
 //		[ ] Alerted 
 //		[ ] Pusuit 
 //		[ ] Dazed 
-//		[ ] Flee
+//		[ ] Flee 
 //		[ ] Teleport 
 
-public class StateMachine : MonoBehaviour
+public abstract class StateMachine : MonoBehaviour
 {
+
 	#region Fields and Properties
+	[SerializeField]
+	[Tooltip("Print debug logs?")]
+	protected bool printLogs = false;
+
 	private Dictionary<System.Type, State> states = new Dictionary<System.Type, State>();
 	protected State currentState;
 	protected virtual StateMachine thisMachine { get { return this; } }
@@ -98,17 +101,11 @@ public class StateMachine : MonoBehaviour
 
 public class CatManager : StateMachine
 {
-
 	protected override StateMachine thisMachine { get { return this; } }
 
 	#region Serialized Variables
 	// Inspector assignable attributes
-	[SerializeField] private AudioClip[] sounds;                        // Sounds for cat behaviors. Index 0 - Alerted. Index 1 - Attacking. Index 2 - Fleeing. Index 3 - OnScreen 
-	[Header("Allows cat to lose sight of Rag")]
-	[SerializeField] private bool ragIsLoseable;
-	[SerializeField] private bool startLeftDirection;                   // Initial movement direction flag 
-	[Header("Probability that cat will jump up/down when triggered")]
-	[SerializeField] private byte jumpDropChance;                       // 1:X chance that the cat decides to jump or drop when it hits orb 
+	[SerializeField] private AudioClip[] sounds;                        // Sounds for cat behaviors
 	[Header("Amount of damage dealt")]
 	[SerializeField] private byte hitDamage;                            // Damage dealt 
 	[Header("Max distance cat can be from Rag")]
@@ -125,55 +122,32 @@ public class CatManager : StateMachine
 	[SerializeField] private float timeBeforeFirstAttack;               // Self-explanatory 
 	[SerializeField] private float timeBetweenAttacks;                  // Self-explanatory 
 	[SerializeField] private float timeBetweenSearches;                 // Used to limit the number of raycasts per second 
-
-	// Debugging Tools
-	[SerializeField] private bool canAttack;
-	[SerializeField] private bool canJump;
-	[SerializeField] private bool canMove;
-	[SerializeField] private bool canSearch;
 	#endregion
 
 	#region Private Variables
 	private AudioSource soundSource;                                    // Sound controller for cat 
-	private bool attacking;                                             // If cat has started attacking 
-	private bool listeningForSound;                                              // If cat is checking for a sound 
-	private bool fleeing;                                               // Flag for running away 
-	private bool onScreen;                                              // On screen flag 
-	private byte randomChance;                                          // Used to store the cat's decision to jump 
-
-	// State Machine 
-	//private Dictionary<System.Type, CatState> states = new Dictionary<System.Type, CatState>();
+	public CatMover Mover { get; private set; }
+	public CatAnimatorManager animManager { get; private set; }
 	protected new CatState currentState { get { return (CatState)base.currentState; } set { base.currentState = value; } }
 
 
-	private float currentAttackTime;                                    // Time between attacks 
-	private float currentMoveSpeed;                                     // Current move speed 
-	private float teleportDistance;                                     // The distance the cat must teleport to get just outside of the camera's view 
-	private float verticalRepositionHeight;
-	private long lastAttack;                                            // Stores the time of the last attack, to be used for the calculation of when it should attack again 
-	private long lastRaycast;                                           // Stores the time of the last time it looked for Rag, to be used for the next time it looks 
-	private RaycastHit hitInfo;                                       // Object intersecting raycast 
-	private Transform raycastEye;                                       // Raycast start position (cat's eye) 
-	private Vector3 offset;                                             // Keeps the cat grounded for chase 
-	private Vector3 targetPosition;
 	#endregion
 
 	#region Helper Methods and Properties
-	/// <summary>
-	/// Is the distance between our position and our destination less than our destinationDistance?
-	/// </summary>
-	private bool AtDestination
-	{
-		get
-		{
-			return (Vector3.Distance(transform.position, targetPosition) < destinationDistance); //If our distance between us and the destination is less than our destination distance, return true. Otherwise, return false. 
-		}
-	}
+
 
 	/// <summary>
 	/// The transform attached to <c>GameManager.Player</c>
 	/// </summary>
-	private Transform RagTransform { get { return GameManager.Player.transform; } }
+	private Transform RagTransform
+	{
+		get
+		{
+			if (GameManager.Player)
+				return GameManager.Player.transform;
+			return null;
+		}
+	}
 
 	/// <summary>
 	/// Distance between our transform.position and Rag's transform.position
@@ -186,16 +160,6 @@ public class CatManager : StateMachine
 		}
 	}
 
-	/// <summary>
-	/// Our transform.forward in context of world space
-	/// </summary>
-	private Vector3 ForwardInWorldSpace
-	{
-		get
-		{
-			return transform.TransformDirection(transform.forward); //Take our forward and translate it to world space
-		}
-	}
 
 	/// <summary>
 	/// Vector to Rag
@@ -204,430 +168,128 @@ public class CatManager : StateMachine
 	{
 		get
 		{
-			return RagTransform.position - transform.position; //Self-explanatory 
+			if (RagTransform)
+				return RagTransform.position - transform.position;
+
+			return Vector3.zero;
 		}
 	}
 
-	/// <summary>
-	/// Do we currently see Rag?
-	/// </summary>
-	private bool SeesRag
-	{
-		get
-		{
-			if (DistToRag < sightDistance) //If Rag is within our sight distance, 
-			{
-				UnityEngine.Debug.DrawLine(raycastEye.position, raycastEye.position + (ForwardInWorldSpace * sightDistance)); //For debugging, remove later. 
-				if (Physics.Raycast(raycastEye.position, VecToRag.normalized, out hitInfo, sightDistance)) //If we fire a raycast and it hits something, 
-				{
+	///// <summary>
+	///// Do we currently see Rag?
+	///// </summary>
+	//private bool SeesRag
+	//{
+	//	get
+	//	{
+	//		if (DistToRag < sightDistance) //If Rag is within our sight distance, 
+	//		{
+	//			UnityEngine.Debug.DrawLine(raycastEye.position, raycastEye.position + (ForwardInWorldSpace * sightDistance)); //For debugging, remove later. 
+	//			if (Physics.Raycast(raycastEye.position, VecToRag.normalized, out hitInfo, sightDistance)) //If we fire a raycast and it hits something, 
+	//			{
 
-					if (hitInfo.collider.tag == "Player") //If the thing we hit has the player tag, 
-					{
-						if (!hitInfo.collider.transform.parent.GetComponent<PlayerManagerPDA>().GetHidden()) //If Rag isn't hidden, 
-						{
-							return true; //We see Rag. 
-						}
-					}
-				}
-			}
-			return false; //Otherwise, we don't see Rag. 
-		}
-	}
+	//				if (hitInfo.collider.tag == "Player") //If the thing we hit has the player tag, 
+	//				{
+	//					if (!hitInfo.collider.transform.parent.GetComponent<PlayerManagerPDA>().GetHidden()) //If Rag isn't hidden, 
+	//					{
+	//						return true; //We see Rag. 
+	//					}
+	//				}
+	//			}
+	//		}
+	//		return false; //Otherwise, we don't see Rag. 
+	//	}
+	//}
 
-	JumpNodeBehavior turnNode;
-	private void JumpRight(JumpNodeBehavior node)
-	{
-		turnNode = node;
-		transform.position = new Vector3
-		(
-		transform.position.x - node.HorizontalDistance,
-		node.VerticalRepositionHeight,
-		transform.position.z
-		);
-
-	}
-	private void JumpLeft(JumpNodeBehavior node)
-	{
-		turnNode = node;
-		transform.position = new Vector3
-		(
-		transform.position.x - node.HorizontalDistance,
-		node.VerticalRepositionHeight,
-		transform.position.z
-		);
-
-	}
-
-	private void TurnLeft()
-	{
-		transform.rotation = Quaternion.Euler(0, 270, 0);
-	}
-	private void TurnRight()
-	{
-		transform.rotation = Quaternion.Euler(0, 90, 0);
-	}
 	#endregion
 
 	#region Initialization
 	private void Awake()
 	{
-		soundSource = GetComponent<AudioSource>();
-		fleeing = false;
-		onScreen = true;
+		animManager = GetComponent<CatAnimatorManager>();
+		animManager.Init();
+		animManager.printLogs = printLogs;
 
-		// This calculation will always put the cat just off screen
-		const float tDSetup = 25;
-		teleportDistance = (maxSearchDistance - tDSetup);
+		Mover = GetComponent<CatMover>();
+		Mover.Init(animManager);
+		Mover.printLogs = printLogs;
+
+		soundSource = GetComponent<AudioSource>();
 
 		AddState<Cat_Patrol>();
 		AddState<Cat_Alerted>();
 		AddState<Cat_Pursuit>();
 		ChangeState<Cat_Patrol>();
-		raycastEye = transform.GetChild(0);
-		offset = new Vector3(0, -1, 0);
 
-		// If start left is true in the inspector, the cat's will move left
-		//transform.rotation = (startLeftDirection) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
-
-		//Make sure this works asap
-		if (startLeftDirection)
-		{
-			TurnLeft();
-		}
-		else
-		{
-			TurnRight();
-		}
 	}
 	#endregion
 
 	#region Public Interface
 	public void CheckLocation()
 	{
-		// Still performs patrol like movement, but moves towards a specified point 
-		PatrolMovement();
-
 		// If cat has reached target, change back to unalerted 
 		// State will change in patrol movement if Rag is found 
-		if (AtDestination)
-		{
-			listeningForSound = false;
-			ChangeState<Cat_Patrol>();
-		}
-	}
-
-	public void PatrolMovement()
-	{
-		// Debugging if check 
-		if (canMove)
-		{
-			// Moves cat towards target at the assigned move speed 
-			Movement();
-		}
-
-		// If cat is on-screen  
-		if (DistToRag < onScreenDistToRag)
-		{
-			if (!onScreen)
-			{
-				onScreen = true;
-
-				// Play on-screen sound 
-				PlaySound(3);
-			}
-		}
-
-		// If cat is off-screen 
-		else
-		{
-			if (onScreen)
-				onScreen = false;
-
-			// If checking a position, we don't want cat to turn around or teleport 
-			if (!listeningForSound)
-			{
-				if (DistToRag > maxSearchDistance)
-				{
-					// Turn cat around
-					transform.rotation = (transform.rotation == Quaternion.Euler(0, 90, 0)) ? Quaternion.Euler(0, 270, 0) : Quaternion.Euler(0, 90, 0);
-
-					// Teleport closer
-					// If cat is on Rag's left
-					if (transform.position.x < RagTransform.position.x)
-						transform.position = new Vector3(transform.position.x + teleportDistance, transform.position.y, transform.position.z);
-					else
-						transform.position = new Vector3(transform.position.x - teleportDistance, transform.position.y, transform.position.z);
-				}
-			}
-		}
-
-		// Debugging if check
-		if (canSearch)
-		{
-
-		}
 	}
 	public void PlaySound(byte _index)
 	{
 		soundSource.clip = sounds[_index];
 		soundSource.Play();
 	}
-	public void PursuitBehavior()
-	{
-		// If Rag is allowed to be lost
-		if (ragIsLoseable)
-		{
-			// If Rag is far enough
-			if (DistToRag > sightDistance)
-			{
-				// Change back to unalerted patrol
-				ChangeState<Cat_Patrol>();
-			}
-		}
+	//public void PursuitBehavior()
+	//{
+	//	// If Rag is allowed to be lost
+	//	if (ragIsLoseable)
+	//	{
+	//		// If Rag is far enough
+	//		if (DistToRag > sightDistance)
+	//		{
+	//			// Change back to unalerted patrol
+	//			ChangeState<Cat_Patrol>();
+	//		}
+	//	}
 
-		// If not within attack range, get closer
-		if (DistToRag > miniumAttackDistance)
-		{
-			// Look at Rag
-			transform.LookAt(RagTransform.position + offset, Vector3.up);
+	//	// If not within attack range, get closer
+	//	if (DistToRag > miniumAttackDistance)
+	//	{
+	//		// Look at Rag
+	//		transform.LookAt(RagTransform.position + offset, Vector3.up);
 
-			// Moves cat towards Rag at the assigned move speed
-			Movement();
-		}
+	//		// Moves cat towards Rag at the assigned move speed
+	//		Movement();
+	//	}
 
-		// If within attack range, attack
-		else
-		{
-			// Debugging if check
-			if (canAttack)
-				Attack();
-		}
-	}
+	//	// If within attack range, attack
+	//	else
+	//	{
+	//		// Debugging if check
+	//		if (canAttack)
+	//			Attack();
+	//	}
+	//}
 	// This function is temporary, because this Rag's attack is not currently implemented
 	public void ReceiveHit()
 	{
 
-		if (DistToRag < miniumReceiveHitDistance)
-		{
-			// If player is on the left of cat, move right
-			if (RagTransform.position.x < transform.position.x)
-				transform.rotation = Quaternion.Euler(0, 90, 0);
 
-			// If player is on the right of cat, move left
-			else
-				transform.rotation = Quaternion.Euler(0, 270, 0);
 
-			// If cat is unalerted, toggle to alerted
-			if (currentState is Cat_Patrol)
-			{
-				ChangeState<Cat_Alerted>();
-			}
-
-			fleeing = true;
-			attacking = false;
-		}
 	}
 	public void RunAway()
 	{
-		// Right now, the cat just moves away, we can make it do whatever else we want here
-		Movement();
+
 	}
 	public void StartCheck(Vector3 _targetPosition)
 	{
-		listeningForSound = true;
-		targetPosition = _targetPosition;
-		ChangeState<Cat_Alerted>();
+		//Check for rag at a given position 
 	}
 	#endregion
 
 	#region Private
 	private void Attack()
 	{
-		if (attacking)
-		{
-			//Used to time attacks
-			//if (internalTimer.ElapsedMilliseconds - lastAttack > currentAttackTime * 1000)
-			//{
-			//	// Put actual attack code here (damage player, play animation, etc.)
 
-			//	// Play attack audio
-			//	PlaySound(1);
-
-			//	// Reassign last attack
-			//	GetCurrentTime(true);
-
-			//	if (currentAttackTime != timeBetweenAttacks)
-			//		currentAttackTime = timeBetweenAttacks;
-			//}
-
-			//return;
-		}
-
-		// Only makes it here before cat attacks
-		// Reset timer
-		//GetCurrentTime(true);
-
-		// Allow cat to attack on the next pass
-		attacking = true;
-
-		// Allows for differnt first attack time
-		currentAttackTime = timeBeforeFirstAttack;
-	}
-	private void LookForRag()
-	{
-		//if (SeesRag) //If we see Rag, 
-		//{
-		//	ChangeCatState<Alerted>();
-		//	currentState.ChangeSubstate(0); // Change to pursuit behavior 
-		//}
-	}
-	private void Movement()
-	{
-		// Moves cat in move direction, at current speed
-		if (!listeningForSound)
-		{
-			transform.Translate(Vector3.forward * currentMoveSpeed * Time.deltaTime);
-		}
-		else
-		{
-			transform.position = Vector2.Lerp(transform.position, targetPosition, currentMoveSpeed);
-		}
-	}
-	private void OnTriggerEnter(Collider other)
-	{
-		if (!listeningForSound)
-		{
-			if (other.tag == "JumpPoint")
-			{
-				if (canJump)    // Debugging if check
-				{
-					if (currentState.GetType() == typeof(Cat_Patrol)) // If patrolling
-					{
-						randomChance = (byte)Random.Range(0, jumpDropChance);   // Retrieving random cat decision
-
-						if (randomChance == 0)  // If cat decides to jump/drop
-						{
-							if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)   // If left side activation
-							{
-								JumpLeft(other.GetComponent<JumpNodeBehavior>());
-							}
-							else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)  // If right side activation
-							{
-								JumpRight(other.GetComponent<JumpNodeBehavior>());
-							}
-							else if (transform.rotation == Quaternion.Euler(0, 90, 0))  // This type of point doesn't care the direction, it will reflect regardless 
-							{
-								JumpLeft(other.GetComponent<JumpNodeBehavior>());
-							}
-							else
-							{
-								JumpRight(other.GetComponent<JumpNodeBehavior>());
-							}
-						}
-					}
-				}
-			}
-		}
-		else if (other.tag == "TurnPoint")
-		{
-			if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 1)    // If right side activation
-			{
-				if (transform.position.x < other.transform.position.x)  // If cat is on the left side of this point, make it move left
-				{
-					TurnLeft();
-				}
-				else
-				{
-					return; // Act like nothing happened
-				}
-			}
-			else if (other.GetComponent<NodeBehaviorBase>().GetActivationSide() == 2)   // If left side activation
-			{
-				if (transform.position.x > other.transform.position.x)  // If cat is on the right side of this point, make it move right
-				{
-					TurnRight();
-				}
-				else
-				{
-					return; // Act like nothing happened
-				}
-			}
-			else    // This type of point doesn't care the direction, it will reflect regardless
-			{
-				if (transform.rotation == Quaternion.Euler(0, 90, 0)) //if we're facing right, 
-				{
-					TurnLeft();
-				}
-				else
-				{
-					TurnRight();
-				}
-			}
-			if (fleeing)    // If fleeing, change to unalerted
-			{
-				// Stop fleeing
-				ChangeState<Cat_Patrol>();
-				fleeing = false;
-			}
-		}
-	}
-	#endregion
-
-
-	#region New Movement System
-
-	//May be useful; if not, remove later 
-	public delegate void delegate_ReachedDesitnation();
-	public event delegate_ReachedDesitnation ReachedDestination;
-
-	//fields needed for determining behaviour
-	[SerializeField] private float destinationDistance = .5f;   //How close we need to be to our destination before we say that we've reached it
-
-	[SerializeField] private float baseMoveSpeed, pursuitMoveSpeed; //move speeds in units per second
-	private const float moveSpeedMultiplier = 1f / 50f; //This allows us to convert our units per second values into units per FixedUpdate tick without doing the division every tick. Division is kinda expensive. 
-
-	private Vector3 destination;
-	/// <summary>
-	/// Sets the cat's destination to a given Vector3
-	/// </summary>
-	/// <param name="destination">Where are we moving to?</param>
-	public void SetDestination(Vector3 destination)
-	{
-		// Tell our movement system to move towards the destination. 
-	}
-
-
-
-	private void Move()
-	{
-		//Move towards our destination
-		
-		//If we reach our destination, tell any listeners of our event that we reached it 
-		if (AtDestination)
-		{
-			if (ReachedDestination.GetInvocationList().Length > 0) //If we have any listeners, 
-			{
-				try
-				{
-					ReachedDestination.Invoke(); //Try to invoke our listeners 
-				}
-				catch (System.Exception e) //Upon exception, 
-				{
-					//Tell the console what happened 
-					if (e is System.NullReferenceException)
-					{
-						Debug.LogError("Catmanager.Movement(): Listener of reachedDestination found to be null!\n" + e.Message);
-					}
-					else
-					{
-						Debug.LogError("Catmanager.Movement(): unforeseen exception generated!\n" + e.Message);
-					}
-
-					return; //Arrest the code 
-				}
-			}
-		}
 	}
 
 	#endregion
+
+
 }
