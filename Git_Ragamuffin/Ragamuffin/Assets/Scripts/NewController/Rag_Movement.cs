@@ -118,7 +118,7 @@ public class Rag_Movement : MonoBehaviour
         }
         else
         {
-            if (!onGround)
+            if (!OnGround)
                 ChangeVelocity(y: gravity * gravityMult * Time.fixedDeltaTime);
             ResetTimer();
         }
@@ -126,7 +126,7 @@ public class Rag_Movement : MonoBehaviour
 
     private void ResetTimer()
     {
-        if (onGround)
+        if (OnGround)
             dist = 0;
         else
             dist = maxJumpHeight;
@@ -147,18 +147,18 @@ public class Rag_Movement : MonoBehaviour
     #endregion
 
     #region Ground Detection
-    bool onGround;
+    public bool OnGround { get; private set; }
     void DetectGround()
     {
         foreach (int i in offsets.down)
         {
             if (Physics.Raycast(transform.position + offsets[i], Vector3.down, offsetWidth * 3, collisionMask))
             {
-                onGround = true;
+                OnGround = true;
                 return;
             }
         }
-        onGround = false;
+        OnGround = false;
     }
 
     #endregion
@@ -274,6 +274,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[i], Vector3.down, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     pVel.y = (hit.distance - offsetWidth) * -1;
                     rayLength = hit.distance;
                 }
@@ -285,6 +291,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[i], Vector3.up, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     pVel.y = hit.distance - offsetWidth;
                     rayLength = hit.distance;
                 }
@@ -301,6 +313,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[offsets.left[i]], Vector3.left, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     float angle = Vector3.Angle(hit.normal, Vector3.up);
 
                     if (i < precision && angle < maxClimbAngle)
@@ -323,6 +341,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[offsets.right[i]], Vector3.right, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     float angle = Vector3.Angle(hit.normal, Vector3.up);
 
                     if (i < precision && angle < maxClimbAngle)
@@ -352,6 +376,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[offsets.back[i]], Vector3.back, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     float angle = Vector3.Angle(hit.normal, Vector3.up);
 
                     if (i < precision && angle < maxClimbAngle)
@@ -374,6 +404,12 @@ public class Rag_Movement : MonoBehaviour
             {
                 if (GetHit(offsets[offsets.forward[i]], Vector3.forward, rayLength, ref pVel, out hit))
                 {
+                    if (hit.transform.GetComponent<DeathVolume>())
+                    {
+                        GetComponent<ReSpawnManager>().ReSpawn();
+                        SetVelocity(Vector3.zero);
+                        return;
+                    }
                     float angle = Vector3.Angle(hit.normal, Vector3.up);
 
                     if (i < precision && angle < maxClimbAngle)
@@ -407,7 +443,7 @@ public class Rag_Movement : MonoBehaviour
         if (vel.y < Y)
         {
             vel.y = Y;
-            onGround = true;
+            OnGround = true;
         }
         vel.x = Mathf.Cos(angle * Mathf.Deg2Rad) * vel.x;
     }
