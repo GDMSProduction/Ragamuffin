@@ -77,7 +77,7 @@ public abstract class State
 
 public abstract class CatState : State
 {
-	protected new CatManager Parent { get { return (CatManager)base.parent; } set { parent = value; } } //Declare our parent as a CatManager so we can access all its specific stuff 
+	protected CatManager Parent { get { return (CatManager)base.parent; } set { parent = value; } } //Declare our parent as a CatManager so we can access all its specific stuff 
 
 	//Need to refactor Init to set our parent correctly 
 	public void Init(CatManager _parent)
@@ -96,7 +96,7 @@ public class Cat_Patrol : CatState
 	//Patrols between set points, changes to pursuit state if he sees rag.Needs functionality for returning to patrol from other states 
 	public override void Tick()
 	{
-		Parent.SetDestination(new Vector3(1,1,1));
+		//Parent.Mover.SetDestination(new Vector3(1,1,1));
 	}
 }
 

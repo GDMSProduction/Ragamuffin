@@ -12,9 +12,6 @@ EditorBuildSettings:
     path: Assets/_Scenes/OptionsMenu.unity
     guid: 46d4b89cee8ca424d9b5be15300e2fd1
   - enabled: 1
-    path: Assets/_Scenes/Blockouts/Hallway_Blockout.unity
+    path: Assets/_Scenes/Prototype/Hallway_Blockout.unity
     guid: d0a946beafdf1fd4182e4ee05da21af9
-  - enabled: 1
-    path: Assets/_Scenes/Blockouts/Brother'sRoom_BlockOut.unity
-    guid: f306698e2f39f374981558ccd3747d80
   m_configObjects: {}
