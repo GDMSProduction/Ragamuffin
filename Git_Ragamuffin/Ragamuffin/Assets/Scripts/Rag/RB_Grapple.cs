@@ -59,7 +59,7 @@ public class RB_Grapple : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && !isGrappled)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && !isGrappled && !controller.OnGround)
         {
             BeginGrapple();
         }
@@ -88,6 +88,11 @@ public class RB_Grapple : MonoBehaviour
     #endregion
     private void VelocitySet(ref Vector3 velocity)
     {
+        if (controller.OnGround)
+        {
+            EndGrapple();
+            return;
+        }
         nextPos = controller.transform.position + velocity;
         dir = curGrapplePoint.position - nextPos;
         dif = dir.magnitude - curGrappleDist;
@@ -178,8 +183,10 @@ public class RB_Grapple : MonoBehaviour
         } while (isGrappled);
     }
 
-    private void EndGrapple()
+    public void EndGrapple()
     {
+        if (!isGrappled)
+            return;
         controller.preTranslateEvent -= VelocitySet;
         curGrapplePoint = null;
         curGrappleDist = 0;
