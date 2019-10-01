@@ -23,6 +23,7 @@ public class LedgePullUp_Prototype : MonoBehaviour
 		{
             
 			collision.gameObject.transform.position = spawnLoc.position;
+            collision.GetComponent<RB_Grapple>().EndGrapple();
 		}
 	}
 }
