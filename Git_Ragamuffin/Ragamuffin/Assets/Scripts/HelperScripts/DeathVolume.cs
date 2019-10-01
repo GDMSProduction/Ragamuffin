@@ -8,13 +8,4 @@
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 
 [RequireComponent(typeof(Collider))]
-public class DeathVolume : MonoBehaviour
-{
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.tag == "Player")
-        {
-            collision.GetComponent<ReSpawnManager>().ReSpawn();
-        }
-    }
-}
+public class DeathVolume : MonoBehaviour { }
