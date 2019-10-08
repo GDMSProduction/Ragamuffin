@@ -5,7 +5,9 @@
 // Associated Scripts: CatManager, CatState (patrol state)
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 //Changelog: 
-// 10/07/2019 ColbyPeck: Made the script, tested the script  
+// 10/07/2019 ColbyPeck: Made the script 
+// 10/07/2019 ColbyPeck: Added functionality for pointing to next/previous point
+// 10/07/2019 ColbyPeck: Added a bunch of editor code to make debugging/implementation easier 
 
 
 using System.Collections;
