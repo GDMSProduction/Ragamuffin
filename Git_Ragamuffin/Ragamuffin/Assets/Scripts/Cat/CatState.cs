@@ -9,6 +9,33 @@
 // 09/14/2019 Colby Peck: Deleted CatSubstate.cs; moved all substates into this script 
 // 09/14/2019 Colby Peck: Refactored CatState heavily; removed all broken functionality from existing states 
 // 09/14/2019 Colby Peck: Added State base class, CatState child class, and empty classes for each state that will be needed 
+// 10/07/2019 Colby Peck: Filled out Patrol State. has no exit conditions yet, will add them when the states the cat would exit to aren't empty. 
+// 10/07/2019 Colby Peck: Tested basic functionality of patrol state. It works as intended!
+
+
+// [ ] Make states' basic functionality: 
+//		[X] Patrol 
+//		[ ] Alerted 
+//		[ ] Pusuit 
+//		[ ] Dazed 
+//		[ ] Flee 
+//		[ ] Teleport 
+
+// [ ] Test states' basic functionality: 
+//		[X] Patrol 
+//		[ ] Alerted 
+//		[ ] Pusuit 
+//		[ ] Dazed 
+//		[ ] Flee 
+//		[ ] Teleport 
+
+// [ ] Add exit conditions: 
+//		[ ] Patrol 
+//		[ ] Alerted 
+//		[ ] Pusuit 
+//		[ ] Dazed 
+//		[ ] Flee 
+//		[ ] Teleport 
 
 using System.Collections;
 using System.Collections.Generic;
@@ -93,12 +120,67 @@ public abstract class CatState : State
 }
 public class Cat_Patrol : CatState
 {
-	//Patrols between set points, changes to pursuit state if he sees rag.Needs functionality for returning to patrol from other states 
-	public override void Tick()
+	float timer = 0;
+	bool goingBackwards = false;
+	public override void Enable()
 	{
-		//Parent.Mover.SetDestination(new Vector3(1,1,1));
+		Parent.Mover.SetDestination(Parent.CurrentPoint.Position);
 	}
+
+	//Patrols between set points, changes to pursuit state if he sees rag.Needs functionality for returning to patrol from other states 
+	public override void Tick() //Every frame, 
+	{
+		if (Parent.Mover.AtDestination) //If we're at our destination, 
+		{
+			timer += Time.deltaTime; //Start our timer 
+
+			if (timer > Parent.PatrolWaitTime) //If our timer exceeds the amount of time we're supposed to wait at a given patrol point, 
+			{
+				Parent.CurrentPoint = NextPoint(); //Set our current point to the next one 
+				Parent.Mover.SetDestination(Parent.CurrentPoint.Position); //Set our parent's destination to the current point 
+				timer = 0; //reset the timer 
+			}
+		}
+	}
+
+	CatPatrolPoint NextPoint()
+	{
+		if(!goingBackwards) //If we aren't going backwards, 
+		{
+			if(Parent.CurrentPoint.nextPoint == null) //If the next point doesn't exist, 
+			{
+				if(Parent.ReversePatrolWhenDone) //If we're supposed to go backwards when we reach the last checkpoint, 
+				{
+					goingBackwards = true; //We're going backwards 
+				}
+				else //Otherwise, 
+				{
+					return Parent.FirstPoint; //We're supposed to go back to the first point and start the patrol over. 
+				}
+			}
+		}
+		else //If we ARE going backwards, 
+		{
+			if(Parent.CurrentPoint.previousPoint == null) //If the previous checkpoint doesn't exist, 
+			{
+				goingBackwards = false; //We've reached the end, we should stop going backwards 
+			}
+		}
+
+		//This chunk has to be here AFTER the null checking so every code path returns a value. 
+		if(!goingBackwards) //If we aren't going backwards, 
+		{
+			return Parent.CurrentPoint.nextPoint; //return the next point 
+		}
+		else //If we ARE going backwards, 
+		{
+			return Parent.CurrentPoint.previousPoint; //return the previous point 
+		}
+
+	}
+
 }
+
 
 public class Cat_Alerted : CatState
 {
@@ -120,7 +202,7 @@ public class Cat_Flee : CatState
 	//Cat is hurt from some source: runs away to a given location, stays there for a given amount of time, then reverts to patrol state. 
 }
 
-public class Cat_Teleport
+public class Cat_Teleport : CatState
 {
 	//Cat is meant to move to a point in front of the player, but he’s behind the player. Play an animation of the cat running across the foreground, teleport the cat machine then set the cat to the patrol state at its new location.
 }

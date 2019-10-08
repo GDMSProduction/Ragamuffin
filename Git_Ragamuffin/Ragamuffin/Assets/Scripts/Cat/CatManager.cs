@@ -16,6 +16,7 @@
 // 09/15/2019 Colby Peck: Blocked out the structure of the new movement System; the methods and fields are put down, they need to be made functional. 
 // 09/28/2019 Colby Peck: Removed just about everything for total system rework, moved all movement functionality to CatMover.cs 
 // 09/29/2019 Colby Peck: Added printLogs bool to enable/disable debug logs 
+// 10/07/2019 Colby Peck: Removed old fields; added new fields and properties for patrol functionality 
 
 
 using System.Collections;
@@ -30,13 +31,7 @@ using UnityEngine;
 //		[X] Build methods for all the Monobehaviour methods we need (Update, FixedUpdate, etc.)
 //		[X] Make sure those methods are getting called in CatManager 
 // [X] Move Statemachine generic behaviour out of CatManager and into StateMachine 
-// [ ] Make states: 
-//		[ ] Patrol 
-//		[ ] Alerted 
-//		[ ] Pusuit 
-//		[ ] Dazed 
-//		[ ] Flee 
-//		[ ] Teleport 
+
 
 public abstract class StateMachine : MonoBehaviour
 {
@@ -47,8 +42,23 @@ public abstract class StateMachine : MonoBehaviour
 	protected bool printLogs = false;
 
 	private Dictionary<System.Type, State> states = new Dictionary<System.Type, State>();
-	protected State currentState;
+	protected State currentState, previousState;
+
 	protected virtual StateMachine thisMachine { get { return this; } }
+	public System.Type PreviousStateType
+	{
+		get
+		{
+			if (previousState != null)
+			{
+				return previousState.GetType();
+			}
+			else
+			{
+				return null;
+			}
+		}
+	}
 	#endregion
 
 	#region State Management
@@ -68,6 +78,7 @@ public abstract class StateMachine : MonoBehaviour
 	{
 		try
 		{
+			previousState = currentState;
 			currentState = states[typeof(T)];
 			currentState.Enable();
 		}
@@ -104,24 +115,23 @@ public class CatManager : StateMachine
 	protected override StateMachine thisMachine { get { return this; } }
 
 	#region Serialized Variables
-	// Inspector assignable attributes
-	[SerializeField] private AudioClip[] sounds;                        // Sounds for cat behaviors
-	[Header("Amount of damage dealt")]
-	[SerializeField] private byte hitDamage;                            // Damage dealt 
-	[Header("Max distance cat can be from Rag")]
-	[SerializeField] private float maxSearchDistance;                   // Max distance cat can be from Rag 
-	[Header("How far cat can see")]
-	[SerializeField] private byte sightDistance;                        // How far the cat can see 
-	[Header("Max distance until cat is on screen")]
-	[SerializeField] private float onScreenDistToRag;             // How close the cat needs to be on screen 
-	[Header("Minimum distance cat can begin attacking")]
-	[SerializeField] private float miniumAttackDistance;                // How close the cat needs to be to attach 
-	[Header("Minimum distance cat can receive Rag damage")]
-	[SerializeField] private float miniumReceiveHitDistance;            // How close rag has to be to hit the cat. Delete this when hit functionality is implemented 
-	[Header("First speed is patrol. Second speed is chase")]
-	[SerializeField] private float timeBeforeFirstAttack;               // Self-explanatory 
-	[SerializeField] private float timeBetweenAttacks;                  // Self-explanatory 
-	[SerializeField] private float timeBetweenSearches;                 // Used to limit the number of raycasts per second 
+	//Serialized fields 
+	[Header("Patrol variables")]
+	[Tooltip("What point should I start the level at?")]
+	[SerializeField] private CatPatrolPoint firstPoint;
+
+	[Tooltip("How long should I wait at every patrol checkpoint before moving to the next one?")]
+	[SerializeField] float patrolWaitTime = 1f;
+
+	[Tooltip("Should I go through the patrol points in reverse order when I reach the last one?\nIf not, I'll return to the first one when I reach the end.")]
+	[SerializeField] bool reversePatrolWhenDone = true;
+
+
+	//Public properties for states to access 
+	public CatPatrolPoint FirstPoint { get { return firstPoint; } }
+	public CatPatrolPoint CurrentPoint { get; set; }
+	public float PatrolWaitTime { get { return patrolWaitTime; } }
+	public bool ReversePatrolWhenDone { get { return reversePatrolWhenDone; } }
 	#endregion
 
 	#region Private Variables
@@ -216,9 +226,24 @@ public class CatManager : StateMachine
 
 		soundSource = GetComponent<AudioSource>();
 
+		if (firstPoint)
+		{
+			CurrentPoint = FirstPoint;
+			transform.position = CurrentPoint.Position;
+		}
+		else
+		{
+			Debug.LogWarning("CatManager.Awake(): No first patrol point set!\nCat cannot function without one, destroying cat.");
+			Destroy(gameObject);
+			return;
+		}
 		AddState<Cat_Patrol>();
 		AddState<Cat_Alerted>();
 		AddState<Cat_Pursuit>();
+		AddState<Cat_Dazed>();
+		AddState<Cat_Flee>();
+		AddState<Cat_Teleport>();
+
 		ChangeState<Cat_Patrol>();
 
 	}
@@ -232,41 +257,9 @@ public class CatManager : StateMachine
 	}
 	public void PlaySound(byte _index)
 	{
-		soundSource.clip = sounds[_index];
 		soundSource.Play();
 	}
-	//public void PursuitBehavior()
-	//{
-	//	// If Rag is allowed to be lost
-	//	if (ragIsLoseable)
-	//	{
-	//		// If Rag is far enough
-	//		if (DistToRag > sightDistance)
-	//		{
-	//			// Change back to unalerted patrol
-	//			ChangeState<Cat_Patrol>();
-	//		}
-	//	}
 
-	//	// If not within attack range, get closer
-	//	if (DistToRag > miniumAttackDistance)
-	//	{
-	//		// Look at Rag
-	//		transform.LookAt(RagTransform.position + offset, Vector3.up);
-
-	//		// Moves cat towards Rag at the assigned move speed
-	//		Movement();
-	//	}
-
-	//	// If within attack range, attack
-	//	else
-	//	{
-	//		// Debugging if check
-	//		if (canAttack)
-	//			Attack();
-	//	}
-	//}
-	// This function is temporary, because this Rag's attack is not currently implemented
 	public void ReceiveHit()
 	{
 

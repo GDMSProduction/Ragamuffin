@@ -41,6 +41,8 @@ GameObject:
   - component: {fileID: 54680348025561844}
   - component: {fileID: 82969957067689578}
   - component: {fileID: 114915756586267918}
+  - component: {fileID: 114729022194712614}
+  - component: {fileID: 114442454843175900}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -69,8 +71,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1778499379723264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.669, y: 1.2, z: 0}
+  m_LocalRotation: {x: -0, y: 0.000000029802326, z: -0, w: 1}
+  m_LocalPosition: {x: -4.64, y: 3, z: 3}
   m_LocalScale: {x: 0.87, y: 0.4, z: 0.3}
   m_Children:
   - {fileID: 4845681164065530}
@@ -308,6 +310,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &114442454843175900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778499379723264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5499364919f819c40adf68476f0f5ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  printLogs: 1
+--- !u!114 &114729022194712614
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1778499379723264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e596513d2518b4f92361cd5d9e64e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  printLogs: 0
+  destinationDistance: 0.5
+  destination: {x: 0, y: 0}
+  moveSpeed: 1.5
+  Stopped: 0
+  atDestination: 0
+  xDirection: 1
+  turning: 0
+  jumping: 0
 --- !u!114 &114915756586267918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -319,25 +353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 349a9d4d53f258745ae9f918dd93097b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  ragIsLoseable: 0
-  startLeftDirection: 0
-  jumpDropChance: 0
-  hitDamage: 0
-  maxSearchDistance: 0
-  sightDistance: 0
-  onScreenDistanceFromRag: 0
-  miniumAttackDistance: 0
-  miniumReceiveHitDistance: 0
-  moveSpeeds: []
-  timeBeforeFirstAttack: 0
-  timeBetweenAttacks: 0
-  timeBetweenSearches: 0
-  canAttack: 0
-  canJump: 0
-  canMove: 0
-  canSearch: 0
+  printLogs: 0
+  firstPoint: {fileID: 0}
+  patrolWaitTime: 1
+  reversePatrolWhenDone: 1
