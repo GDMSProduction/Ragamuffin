@@ -1,8 +1,20 @@
-﻿//--------------------------------------------------------------------------------------------------------------------------------------------------\\
-//             Author: Colby Peck
+﻿/*How to implement checkpoints:
+	-Add an instance of the checkpoint prefab into your scene. 
+	-Add more checkpoints. 
+	-Set the checkpoints' nextPoint field in the inspector to specify the direction you want the cat to go through the checkpoints. 
+	-If you need to change a checkpoint's nextPoint, just set it to a different point in the inspector. 
+	-The checkpoints will automatically set their previous points as you set other checkpoints' nextPoint. 
+	-The checkpoints have arrows pointing to their next point, as well as an arrow pointing from their previous point. 
+	-As long as there's at least two checkpoints and the first one points at another point, the cat should move. 
+	-When the cat reaches a checkpoint with no nextPoint set, it will either go through the checkpoints backwards or return to the first point, depending on its reversePatrolWhenDone bool (see the CatManager inspector to change it). 
+	-For more info, contact Colby Peck. */
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//             Author: Colby Peck 
 //               Date: 10/07/2019 
 //            Purpose: Make a checkpoint for the cat's patrol system, make the checkpoints visually intuitive and simple for the level designers to use 
-// Associated Scripts: CatManager, CatState (patrol state)
+// Associated Scripts: CatManager, CatState (patrol state) 
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 //Changelog: 
 // 10/07/2019 ColbyPeck: Made the script 
