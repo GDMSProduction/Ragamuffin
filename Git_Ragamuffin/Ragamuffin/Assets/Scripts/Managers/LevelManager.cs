@@ -74,7 +74,7 @@ public class LevelManager : MonoBehaviour
 		if (levelManager.printLogs)
 			Debug.Log("LevelManager.LoadNextScene: Called!");
 
-		if (currentScene == null)
+		if (currentScene.Equals(null))
 		{
 			Debug.LogError("LevelManager.LoadNextScene(): Current scene found to be null!");
 			return;
