@@ -5,6 +5,7 @@
 	-If you need to change a checkpoint's nextPoint, just set it to a different point in the inspector. 
 	-The checkpoints will automatically set their previous points as you set other checkpoints' nextPoint. 
 	-The checkpoints have arrows pointing to their next point, as well as an arrow pointing from their previous point. 
+	- Set the cat's FirstCheckpoint to the checkpoint you want the cat to start at (see the cat's inspector; it will be in the CatManager component) 
 	-As long as there's at least two checkpoints and the first one points at another point, the cat should move. 
 	-When the cat reaches a checkpoint with no nextPoint set, it will either go through the checkpoints backwards or return to the first point, depending on its reversePatrolWhenDone bool (see the CatManager inspector to change it). 
 	-For more info, contact Colby Peck. */

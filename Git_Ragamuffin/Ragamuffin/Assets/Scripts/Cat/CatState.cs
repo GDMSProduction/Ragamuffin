@@ -44,7 +44,7 @@ using UnityEngine;
 public abstract class State
 {
 	#region Variables and Properties
-	protected StateMachine parent;
+	internal protected StateMachine parent;
 	/// <summary>
 	/// The CatManager this state is attached to 
 	/// </summary>

@@ -51,7 +51,11 @@ public class GameManager : MonoBehaviour
 
 	public void QuitGame()
 	{
+#if UNITY_ENGINE
+		UnityEditor.EditorApplication.isPlaying = false;
+#else
 		Application.Quit();
+#endif
 	}
 
 	// SCENE MANAGMENT //
