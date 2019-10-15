@@ -25,7 +25,7 @@ public class ReturnToMenu_Prototype : MonoBehaviour
 
 		if (collision.gameObject.CompareTag("Player"))
 		{
-			gameManager.LoadSceneByIndex(0);
+			LevelLoadingManager.LoadSceneByIndex(0);
 		}
 	}
 }

@@ -1,5 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//             Author: Colby Peck
+//               Date: 10/13/2019
+//            Purpose: Save/Load game information to/from the disk 
+// Associated Scripts: GameManager 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//Changelog 
+// 10/13/2019 Colby Peck: Created script 
+
 using UnityEngine;
 using System.Xml.Serialization;
 using System.IO;
@@ -18,7 +25,6 @@ public static class SaveSystem
 
 	public static SaveInfo LoadGame()
 	{
-
 		using (FileStream stream = new FileStream(path, FileMode.Open))
 		{
 			XmlSerializer ser = new XmlSerializer(typeof(SaveInfo));
@@ -45,5 +51,6 @@ public static class SaveSystem
 
 public class SaveInfo
 {
-	int levelIndex, checkpointIndex;
+	public int levelIndex = -1;
+	public int checkpointIndex = -1;
 }

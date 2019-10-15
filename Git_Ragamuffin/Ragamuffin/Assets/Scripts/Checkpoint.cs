@@ -1,45 +1,51 @@
-﻿using System.Collections;
+﻿//Changelog 
+// 10/15/2019 Colby Peck: Made SetCurrentCheckpoint method, added CheckpointActivated event, added event invokation to SetCurrentCheckpoint 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    public static Transform CurrentCheckpoint;
-    [SerializeField] bool Reusable;
-    [SerializeField] Transform SpawnPoint;
-    [SerializeField] GameObject Effect;
+	public static Transform CurrentCheckpoint;
+	[SerializeField] bool Reusable;
+	[SerializeField] Transform SpawnPoint;
+	[SerializeField] GameObject Effect;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            if (SpawnPoint != null)
-                CurrentCheckpoint = SpawnPoint;
-            else
-                CurrentCheckpoint = transform;
+	/// <summary>
+	/// This event is called any time a checkpoint is activated; it passes the checkpoint that calls the event as an argument 
+	/// </summary>
+	public static System.Action<Checkpoint> CheckpointActivated;
 
-            if (Effect != null && CurrentCheckpoint != SpawnPoint)
-                Destroy(Instantiate(Effect, transform.position, transform.rotation), .5f);
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "Player")
+		{
+			SetCurrentCheckpoint(this);
+		}
+	}
 
-            if (!Reusable)
-                gameObject.SetActive(false);
-        }
-    }
+	private void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.tag == "Player")
+		{
+			SetCurrentCheckpoint(this);
+		}
+	}
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
-            if (SpawnPoint != null)
-                CurrentCheckpoint = SpawnPoint;
-            else
-                CurrentCheckpoint = transform;
+	public static void SetCurrentCheckpoint(Checkpoint point)
+	{
+		if (point.SpawnPoint != null)
+			CurrentCheckpoint = point.SpawnPoint;
+		else
+			CurrentCheckpoint = point.transform;
 
-            if (Effect != null && CurrentCheckpoint != SpawnPoint)
-                Destroy(Instantiate(Effect, transform.position, transform.rotation), .5f);
+		if (point.Effect != null && CurrentCheckpoint != point.SpawnPoint)
+			Destroy(Instantiate(point.Effect, point.transform.position, point.transform.rotation), .5f);
 
-            if (!Reusable)
-                gameObject.SetActive(false);
-        }
-    }
+		CheckpointActivated.Invoke(point);
+
+		if (!point.Reusable)
+			point.gameObject.SetActive(false);
+	}
 }

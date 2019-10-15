@@ -2,14 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//             Author: Colby Peck
+//               Date: 10/13/2019
+//            Purpose: Encapsulate scene loading to a single static class 
+// Associated Scripts: GameManager 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//Changelog 
+// 10/13/2019 Colby Peck: Created script 
 
-
-public class LevelManager : MonoBehaviour
+public class LevelLoadingManager : MonoBehaviour
 {
 	public bool printLogs = false;
 	public static Scene currentScene;
 
-	public static LevelManager levelManager = null;
+	public static LevelLoadingManager levelManager = null;
 
 	private void Awake()
 	{
