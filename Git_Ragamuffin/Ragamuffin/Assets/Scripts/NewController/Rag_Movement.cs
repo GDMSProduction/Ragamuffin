@@ -50,7 +50,15 @@ public class Rag_Movement : MonoBehaviour
     private const int precision = 10;
     private float boundsY;
 
+    /// <summary>
+    /// Whether or not rag is currently affected by gravity
+    /// </summary>
+    public bool useGravity = true;
 
+    /// <summary>
+    /// Disable the control over rag's movement from the player's input
+    /// </summary>
+    public bool disableControls = false;
 
     public delegate void MovementDel(ref Vector3 velocity);
     public MovementDel preTranslateEvent;
@@ -89,14 +97,29 @@ public class Rag_Movement : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
 
-        //Hard-coded rotation setting for rag's mesh depending on the direction rag is currently moving in.
-        if (input.x > 0)
+
+        if (disableControls)
         {
-            meshTransform.rotation = Quaternion.Euler(0, 270, 0);
+            if (Velocity.x > 0)
+            {
+                meshTransform.rotation = Quaternion.Euler(0, 270, 0);
+            }
+            else if (Velocity.x < 0)
+            {
+                meshTransform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
-        else if (input.x < 0)
+        else
         {
-            meshTransform.rotation = Quaternion.Euler(0, 90, 0);
+            //Hard-coded rotation setting for rag's mesh depending on the direction rag is currently moving in.
+            if (input.x > 0)
+            {
+                meshTransform.rotation = Quaternion.Euler(0, 270, 0);
+            }
+            else if (input.x < 0)
+            {
+                meshTransform.rotation = Quaternion.Euler(0, 90, 0);
+            }
         }
     }
 
@@ -118,7 +141,7 @@ public class Rag_Movement : MonoBehaviour
         }
         else
         {
-            if (!OnGround)
+            if (!OnGround && useGravity)
                 ChangeVelocity(y: gravity * gravityMult * Time.fixedDeltaTime);
             ResetTimer();
         }
@@ -138,8 +161,46 @@ public class Rag_Movement : MonoBehaviour
     float hMoveVel;
     private void HorizontalMove()
     {
-        float target = input.x * moveSpeed * Time.fixedDeltaTime;
-        SetVelocityX(Mathf.SmoothDamp(pVel.x, target, ref hMoveVel, moveAcceleration));
+        if (disableControls)
+            return;
+        //float target = input.x * moveSpeed * Time.fixedDeltaTime;
+        //SetVelocityX(Mathf.SmoothDamp(pVel.x, target, ref hMoveVel, moveAcceleration));
+        if (input.x > 0)
+        {
+            if (pVel.x < moveSpeed * Time.fixedDeltaTime)
+            {
+                ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration);
+            }
+        }
+        else if (input.x < 0)
+        {
+            if (pVel.x > moveSpeed * -Time.fixedDeltaTime)
+            {
+                ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration);
+            }
+        }
+        else if (OnGround)
+        {
+            if (pVel.x > 0)
+            {
+                ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 2);
+            }
+            else if (pVel.x < 0)
+            {
+                ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 2);
+            }
+        }
+        else
+        {
+            if (pVel.x > 0)
+            {
+                ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 0.2f);
+            }
+            else if (pVel.x < 0)
+            {
+                ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 0.2f);
+            }
+        }
     }
 
     #endregion
@@ -172,7 +233,7 @@ public class Rag_Movement : MonoBehaviour
     /// Rag's current velocity.
     /// </summary>
     private Vector3 pVel;
-    public Vector3 Velocity { get { return pVel / Time.fixedDeltaTime; } }
+    public Vector3 Velocity { get { return pVel; } }
 
     private const float gravity = -3;
     public float Gravity
