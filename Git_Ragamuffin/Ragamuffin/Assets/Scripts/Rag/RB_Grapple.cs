@@ -73,8 +73,8 @@ public class RB_Grapple : MonoBehaviour
 
     #region Grapple Functionality
     #region Grapple Variables
-    Vector3 nextPos, dir, iVel, perpendicular;
-    float dif, dif1, dot, r;
+    Vector3 nextPos, dir, perpendicular;
+    float dif, dif1, dot, r, angle;
     bool left;
 
     /// <summary>
@@ -96,34 +96,44 @@ public class RB_Grapple : MonoBehaviour
         nextPos = controller.transform.position + velocity;
         dir = curGrapplePoint.position - nextPos;
         dif = dir.magnitude - curGrappleDist;
-        if (dif < 0)
+        if (dif >= 0 && dif <= 0.05f * curGrappleDist)
+        {
+            controller.useGravity = false;
+            controller.disableControls = true;
+        }
+        else if (dif < 0)
+        {
+            controller.useGravity = true;
+            controller.disableControls = false;
             return;
-        iVel = velocity;
-        dif1 = curGrappleDist - (curGrapplePoint.position - controller.transform.position).magnitude;
-        r = dif1 / (Mathf.Abs(dif) + dif1);
-        velocity *= r;
+        }
+        else if (dif > curGrappleDist)
+        {
+            Debug.LogError("Grapple has broken. Distance between grapple point and Rag is much higher than it should be.");
+        }
+            
+        angle = Vector3.Angle(Vector3.up, dir);
 
         perpendicular = Quaternion.AngleAxis(90, Vector3.forward) * dir.normalized;
-        dot = Vector3.Dot(iVel.normalized, perpendicular);
+        dot = Vector3.Dot(velocity.normalized, perpendicular);
         left = dot > 0;
-        
+        velocity = velocity.magnitude * (left ? perpendicular : -perpendicular);
+        velocity.z = 0;
 
-        if (iVel.y < 0 && -iVel.y > Mathf.Abs(iVel.x))
-        {
-            if (nextPos.x < curGrapplePoint.position.x && left && (controller.input.x >= 0))
-            {
-                left = false;
-            }
-            else if (nextPos.x > curGrapplePoint.position.x && !left && (controller.input.x <= 0))
-            {
-                left = true;
-            }
-        }
-        
-        velocity += (1 - r) * (left ? perpendicular : -perpendicular) * iVel.magnitude;
+        velocity += (((controller.transform.position.x < curGrapplePoint.position.x) ? perpendicular : -perpendicular)
+            * (angle / 180)
+            * (dot > 0 ? 0.15f : 0.25f)
+            * controller.Gravity
+            * (controller.transform.position.y > curGrapplePoint.position.y ? 5 : 1))
+            + (controller.input.x * (controller.input.y == 0 ? 1 : 0.5f) * -perpendicular * Time.fixedDeltaTime * ((180 - angle) / 180));
 
-
-        Debug.DrawLine(controller.transform.position, controller.transform.position + velocity.normalized * 5, Color.red);
+        nextPos = controller.transform.position + velocity;
+        if ((nextPos - curGrapplePoint.position).magnitude > curGrappleDist)
+            velocity = (((nextPos - curGrapplePoint.position).normalized * curGrappleDist) + curGrapplePoint.position) - controller.transform.position;
+        velocity.z = 0;
+        velocity = Vector3.ClampMagnitude(velocity, controller.moveSpeed * 3 * Time.fixedDeltaTime);
+        //Debug.DrawLine(controller.transform.position, controller.transform.position + velocity.normalized * 5, Color.red);
+        //Debug.DrawLine(controller.transform.position, controller.transform.position + perpendicular, Color.red);
 
         if (controller.input.y > 0 && dir.magnitude > 2)
         {
@@ -133,7 +143,7 @@ public class RB_Grapple : MonoBehaviour
         }
         else if (controller.input.y < 0 && dir.magnitude < (maxGrappleDist - (Time.fixedDeltaTime * downSpeed)))
         {
-            controller.transform.Translate(dir.normalized * Time.fixedDeltaTime * -climbSpeed, Space.World);
+            controller.transform.Translate(dir.normalized * Time.fixedDeltaTime * -downSpeed, Space.World);
             curGrappleDist += Time.fixedDeltaTime * downSpeed;
             IsClimbing = true;
         }
@@ -175,6 +185,7 @@ public class RB_Grapple : MonoBehaviour
             grappleLine.SetPosition(1, Vector3.Lerp(player.position, point, t));
         } while (isGrappled && t < 1);
         controller.preTranslateEvent += VelocitySet;
+        //controller.gravityOn = false;
         curGrappleDist = (player.position - point).magnitude;
         do
         {
@@ -192,6 +203,11 @@ public class RB_Grapple : MonoBehaviour
         curGrappleDist = 0;
         grappleLine.enabled = false;
         isGrappled = false;
+        controller.useGravity = true;
+        controller.disableControls = false;
+
+        //Small extra boost for the feels-good
+        controller.ChangeVelocity(controller.Velocity * 0.1f);
     }
 
     private void FindGrapplePoint()
