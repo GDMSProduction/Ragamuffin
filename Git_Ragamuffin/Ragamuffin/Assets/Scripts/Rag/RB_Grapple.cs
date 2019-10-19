@@ -180,17 +180,18 @@ public class RB_Grapple : MonoBehaviour
             t += Time.fixedDeltaTime * grappleSpeed;
             if (t > 1)
                 t = 1;
-            yield return new WaitForFixedUpdate();
             grappleLine.SetPosition(0, player.position);
             grappleLine.SetPosition(1, Vector3.Lerp(player.position, point, t));
+            yield return new WaitForFixedUpdate();
         } while (isGrappled && t < 1);
         controller.preTranslateEvent += VelocitySet;
         //controller.gravityOn = false;
         curGrappleDist = (player.position - point).magnitude;
         do
         {
-            yield return new WaitForFixedUpdate();
             grappleLine.SetPosition(0, player.position);
+            yield return new WaitForFixedUpdate();
+            
         } while (isGrappled);
     }
 
