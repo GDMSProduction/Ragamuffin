@@ -43,7 +43,8 @@ public class Checkpoint : MonoBehaviour
 		if (point.Effect != null && CurrentCheckpoint != point.SpawnPoint)
 			Destroy(Instantiate(point.Effect, point.transform.position, point.transform.rotation), .5f);
 
-		CheckpointActivated.Invoke(point);
+        if (CheckpointActivated != null)
+		    CheckpointActivated.Invoke(point);
 
 		if (!point.Reusable)
 			point.gameObject.SetActive(false);
