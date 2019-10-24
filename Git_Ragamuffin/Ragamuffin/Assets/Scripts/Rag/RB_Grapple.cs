@@ -124,7 +124,7 @@ public class RB_Grapple : MonoBehaviour
             * (angle / 180)
             * (dot > 0 ? 0.15f : 0.25f)
             * controller.Gravity
-            * (controller.transform.position.y > curGrapplePoint.position.y ? 5 : 1))
+            * (controller.transform.position.y > curGrapplePoint.position.y ? 5 : .7f))
             + (controller.input.x * (controller.input.y == 0 ? 1 : 0.5f) * -perpendicular * Time.fixedDeltaTime * ((180 - angle) / 180));
 
         nextPos = controller.transform.position + velocity;

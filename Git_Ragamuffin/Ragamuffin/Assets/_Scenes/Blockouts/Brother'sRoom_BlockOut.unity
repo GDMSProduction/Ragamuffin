@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89,7 +89,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000010, guid: b050893a328ab9240a970acd84804ddf,
+  m_LightingDataAsset: {fileID: 112000010, guid: 8931d4548c8a0fd458100f5eebc6c9c2,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -8309,6 +8309,7 @@ GameObject:
   - component: {fileID: 539712916}
   - component: {fileID: 539712919}
   - component: {fileID: 539712918}
+  - component: {fileID: 539712917}
   m_Layer: 9
   m_Name: BookShelf_Part (6)
   m_TagString: Untagged
@@ -8329,6 +8330,18 @@ Transform:
   m_Father: {fileID: 985380282}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &539712917
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 539712915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1.0000001}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &539712918
 MeshRenderer:
   m_ObjectHideFlags: 0
