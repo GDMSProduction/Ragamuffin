@@ -1266,6 +1266,7 @@ GameObject:
   - component: {fileID: 114833522513875978}
   - component: {fileID: 65492972454773726}
   - component: {fileID: 114937899863197744}
+  - component: {fileID: 114302439796926082}
   m_Layer: 0
   m_Name: Rag
   m_TagString: Player
@@ -5678,6 +5679,19 @@ MonoBehaviour:
   ObjectstoReset: []
   sound: {fileID: 0}
   mainSpanpoint: {fileID: 0}
+--- !u!114 &114302439796926082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1487141836004590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca88d9b038c56da4db0b4fb85d312a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  curHealth: 0
 --- !u!114 &114833522513875978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5710,6 +5724,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   meshTransform: {fileID: 4159766537215402}
+  input: {x: 0, y: 0}
+  useGravity: 1
+  disableControls: 0
   use2D: 1
 --- !u!135 &135652006219828374
 SphereCollider:
