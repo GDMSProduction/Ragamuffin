@@ -5,6 +5,7 @@
 // Associated Scripts: PlayerHealth.cs 
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 // 10/25/2019 Colby Peck: Created script: Added OnTriggerEnter/Exit methods, StartDamageTicks method, and DamageRoutine coroutine 
+// 11/05/2019 Colby Peck: Repaired some logic errors in trigger enter/exit and StartDamageTicks() 
 
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,8 @@ public class HeatDamageVolume : MonoBehaviour
 	[Header("How much damage should we apply each tick?")]
 	[SerializeField] private float damageAmount = .1f;
 
+	[Tooltip("Print debug logs?")]
+	[SerializeField] private bool printLogs = false;
 	#endregion
 
 	#region Private
@@ -34,7 +37,7 @@ public class HeatDamageVolume : MonoBehaviour
 	#region Initialization/De-Initialization
 	void Start()
 	{
-		if(GetComponents<MeshRenderer>().Length <0) //If we have any renderers attached, 
+		if (GetComponents<MeshRenderer>().Length < 0) //If we have any renderers attached, 
 		{
 			//turn them off 
 			for (int i = 0; i < GetComponents<MeshRenderer>().Length; i++)
@@ -75,8 +78,8 @@ public class HeatDamageVolume : MonoBehaviour
 	{
 		if (!damageTicksActive) //If we aren't already damaging the player, 
 		{
-			StartCoroutine(DamageRoutine()); //Start our damage coroutine 
 			damageTicksActive = true; //set our 'damaging the player' flag to true 
+			StartCoroutine(DamageRoutine()); //Start our damage coroutine 
 		}
 	}
 	#endregion
@@ -84,16 +87,28 @@ public class HeatDamageVolume : MonoBehaviour
 	#region Trigger Enter/Exit
 	private void OnTriggerEnter(Collider other) //When something enters our trigger, 
 	{
-		if (other == GameManager.Player) //If the other thing is the player, 
+		if (printLogs)
+			Debug.Log("Object \"" + other.gameObject.name + "\' entered damage volume: " + gameObject.name);
+
+			if (other.gameObject == GameManager.Player) //If the other thing is the player, 
 		{
+			if (printLogs)
+				Debug.Log("Player entered damage volume: " + gameObject.name);
+
 			StartDamageTicks(); //Damage the player 
 		}
 	}
 
 	private void OnTriggerExit(Collider other) //When something leaves our trigger, 
 	{
-		if (other == GameManager.Player) //If the other thing is the player, 
+		if (printLogs)
+			Debug.Log("Object \"" + other.gameObject.name + "\' exited damage volume: " + gameObject.name);
+
+		if (other.gameObject == GameManager.Player) //If the other thing is the player, 
 		{
+			if (printLogs)
+				Debug.Log("Player exited damage volume: " + gameObject.name);
+
 			damageTicksActive = false; //Tell our coroutine to stop damaging the player 
 		}
 	}
