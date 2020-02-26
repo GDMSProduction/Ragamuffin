@@ -12,18 +12,19 @@ namespace SpiderStuff
 			"\n-1 indicates an invalid index." +
 			"\nThe array holding the positions can be found in the spider controller."
 			)]
-		[SerializeField] private int positionIndexToMoveSpiderTo = -1;
+		//[SerializeField] private int positionIndexToMoveSpiderTo = -1;
+		[SerializeField] private Transform targetPosition = null;
 
-		public delegate void Dlg_TriggerEnetered(Rag_Movement rm, int pos);
+		public delegate void Dlg_TriggerEnetered(Rag_Movement rm, Vector3 pos);
 		public event Dlg_TriggerEnetered Evt_TriggerEntered;
 
-		public bool lookingForRag = true;
+		private bool lookingForRag = true;
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (positionIndexToMoveSpiderTo == -1)
+			if (targetPosition == null)
 			{
-				Debug.LogError(gameObject.name + ": SpidertriggerVolume: target position index not set! Cannot tell spider controller to move to a target position!");
+				Debug.LogError(gameObject.name + ": SpidertriggerVolume: Target position transform not set! Cannot tell spider controller to move to position!");
 				enabled = false;
 				return;
 			}
@@ -33,8 +34,10 @@ namespace SpiderStuff
 			{
 				for (int i = 0; i < Evt_TriggerEntered.GetInvocationList().Length; i++)
 				{
-					Evt_TriggerEntered.GetInvocationList()[i].DynamicInvoke(rm, positionIndexToMoveSpiderTo);
+					Evt_TriggerEntered.GetInvocationList()[i].DynamicInvoke(other.GetComponent<Rag_Movement>(), targetPosition.position);
+					Debug.Log("Triggered event, sent " + targetPosition.position);
 				}
+				//Evt_TriggerEntered.Invoke(other.GetComponent<Rag_Movement>(), targetPosition.position);
 			}
 		}
 
@@ -45,6 +48,11 @@ namespace SpiderStuff
 			{
 				lookingForRag = true;
 			}
+		}
+
+		public void StopLookingForRag()
+		{
+			lookingForRag = false;
 		}
 	}
 }
