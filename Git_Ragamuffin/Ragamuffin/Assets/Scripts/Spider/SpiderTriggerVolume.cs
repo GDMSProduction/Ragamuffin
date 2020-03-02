@@ -7,12 +7,7 @@ namespace SpiderStuff
 {
 	public class SpiderTriggerVolume : MonoBehaviour
 	{
-		[Tooltip(
-			"What is the index of the position you want the spider to move to when the player enters this trigger?" +
-			"\n-1 indicates an invalid index." +
-			"\nThe array holding the positions can be found in the spider controller."
-			)]
-		//[SerializeField] private int positionIndexToMoveSpiderTo = -1;
+		[Tooltip("Where should the spider take rag after rag steps in this trigger?")]
 		[SerializeField] private Transform targetPosition = null;
 
 		public delegate void Dlg_TriggerEnetered(Rag_Movement rm, Vector3 pos);
@@ -22,22 +17,24 @@ namespace SpiderStuff
 
 		private void OnTriggerEnter(Collider other)
 		{
-			if (targetPosition == null)
+			if (targetPosition == null) //If we don't know where to send the spider, 
 			{
-				Debug.LogError(gameObject.name + ": SpidertriggerVolume: Target position transform not set! Cannot tell spider controller to move to position!");
-				enabled = false;
+				//Yell at the console and arrest execution 
+				Debug.LogError(gameObject.name + ": SpiderTriggerVolume: Target position transform not set! Cannot tell spider controller to move to position!");
 				return;
 			}
 
 			Rag_Movement rm = other.GetComponent<Rag_Movement>();
 			if (rm != null && lookingForRag)
 			{
+				//Look through our listeners, invoke any that aren't null 
 				for (int i = 0; i < Evt_TriggerEntered.GetInvocationList().Length; i++)
 				{
-					Evt_TriggerEntered.GetInvocationList()[i].DynamicInvoke(other.GetComponent<Rag_Movement>(), targetPosition.position);
-					Debug.Log("Triggered event, sent " + targetPosition.position);
+					if (Evt_TriggerEntered.GetInvocationList()[i] != null)
+					{
+						Evt_TriggerEntered.GetInvocationList()[i].DynamicInvoke(other.GetComponent<Rag_Movement>(), targetPosition.position);
+					}
 				}
-				//Evt_TriggerEntered.Invoke(other.GetComponent<Rag_Movement>(), targetPosition.position);
 			}
 		}
 
@@ -50,9 +47,9 @@ namespace SpiderStuff
 			}
 		}
 
-		public void StopLookingForRag()
+		public void SetLookingForRag(bool look)
 		{
-			lookingForRag = false;
+			lookingForRag = look;
 		}
 	}
 }
