@@ -5159,12 +5159,12 @@ MonoBehaviour:
   horizontalRayCount: 0
   verticalRayCount: 0
   collisionMask:
-    serializedVersion: 2
     m_Bits: 1024
   collider: {fileID: 0}
   horizontalRaySpacing: 0
   verticalRaySpacing: 0
   maxSlopeAngle: 55
+  playerInput: {x: 0, y: 0}
 --- !u!114 &114330286910883240
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5180,6 +5180,24 @@ MonoBehaviour:
   maxJumpHeight: 0.8
   minJumpHeight: 0.25
   timeToJumpApex: 1
+  axTimeAir: 0.2
+  axTimeGround: 0.1
+  input: {x: 0, y: 0}
+  gravity: 0
+  maxJumpVelocity: 0
+  minJumpVelocity: 0
+  velocity: {x: 0, y: 0, z: 0}
+  velocityXSmoothing: 0
+  wallJumpClimb: {x: 0, y: 0}
+  wallJumpOff: {x: 0, y: 0}
+  wallLeap: {x: 0, y: 0}
+  wallSlideSpeedMax: 3
+  wallStickTime: 0
+  timeToWallUnstick: 0
+  controller: {fileID: 0}
+  directionalInput: {x: 0, y: 0}
+  wallSliding: 0
+  wallDirX: 0
 --- !u!114 &114885227492667548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5194,7 +5212,6 @@ MonoBehaviour:
   horizontalRayCount: 0
   verticalRayCount: 0
   collisionMask:
-    serializedVersion: 2
     m_Bits: 0
   collider: {fileID: 0}
   horizontalRaySpacing: 0

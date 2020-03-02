@@ -62,6 +62,7 @@ public class CharacterMovement : MonoBehaviour
 		lastUpdatePos = transform.position;
 	}
 
+
 	private void OnCollisionStay(Collision collision)
 	{
 		// This was just for testing. It stops them as they touch a collider.

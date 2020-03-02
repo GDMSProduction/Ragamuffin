@@ -1,1 +1,0 @@
-The "Old" folder is for assets from the dark ages of Ragamuffin's prduction. These files are still currently, useful, but should be moved to "ARCHIVE" as progress is made.
