@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//                     Author:	Colby Peck 
+//                        Date:	02/25/2020 
+//					 Purpose:	Add a trigger volume to tell the spider to pick Rag up and move him elsewhere 
+//	 Associated Scripts:	SpiderController 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
 
 namespace SpiderStuff
 {

@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+//                   Author: Colby Peck 
+//                      Date: 02/25/2020 
+//                 Purpose:  To make a spider that can pick rag up and take him places 
+// Associated Scripts:  SpiderTriggerVolume 
+//--------------------------------------------------------------------------------------------------------------------------------------------------\\
+
 namespace SpiderStuff
 {
 	public class SpiderController : MonoBehaviour
