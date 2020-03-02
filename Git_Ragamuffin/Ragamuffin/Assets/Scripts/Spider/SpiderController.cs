@@ -41,7 +41,7 @@ namespace SpiderStuff
 				triggerVolumes[i].transform.parent = null;
 			}
 
-			//see if casts are uneeded later
+			//see if casts are uneeded later 
 			moveDistPerFixedUpdate = 1.0f / 60.0f * moveDistPerSecond; //calculate how far we should move per tick of FixedUpdate 
 		}
 
@@ -132,18 +132,20 @@ namespace SpiderStuff
 			originalUseGravity = ragMvmt.useGravity;
 			originalRagParent = ragMvmt.gameObject.transform.parent;
 
+			SetTriggersLooking(false);
 			SetRagEnabled(ragMvmt, false); //Disable rag 
 
 			while (Vector3.Distance(ragMvmt.transform.position, transform.position) > stopDistance)
 			{
-				//move towards rag 
+				//move towards rag (smooth damp)
+				ragMvmt.SetVelocity(Vector3.zero); //Make sure rag doesn't float off 
 				vecToTarget = (ragMvmt.transform.position - transform.position);
 				transform.position += vecToTarget.normalized * moveDistPerFixedUpdate * vecToTarget.magnitude;
 				yield return new WaitForFixedUpdate();
 			}
 			//once we're really close to rag, 
-			ragMvmt.transform.position = transform.position; //Snap rag to us 
 			ragMvmt.gameObject.transform.parent = ragParent; //Parent rag to us 
+			ragMvmt.transform.position = transform.position; //Snap rag to us 
 
 			while (Vector3.Distance(transform.position, targetPos) > stopDistance) //While we aren't super close to our target position, 
 			{
@@ -157,8 +159,7 @@ namespace SpiderStuff
 			ragMvmt.gameObject.transform.parent = originalRagParent; //reset rag's parent back to whatever the hell it was before we touched it 
 
 			//Rag is likely to step off the spider into a trigger, tell them to stop looking for him for a bit 
-			SetTriggersLooking(false);
-			yield return new WaitForSeconds(.2f);
+			yield return new WaitForSeconds(1);
 			SetTriggersLooking(true);
 		}
 

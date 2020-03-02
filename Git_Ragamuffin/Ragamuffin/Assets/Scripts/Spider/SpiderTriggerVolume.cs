@@ -38,15 +38,6 @@ namespace SpiderStuff
 			}
 		}
 
-		private void OnTriggerExit(Collider other)
-		{
-			Rag_Movement rm = other.GetComponent<Rag_Movement>();
-			if (rm != null)
-			{
-				lookingForRag = true;
-			}
-		}
-
 		public void SetLookingForRag(bool look)
 		{
 			lookingForRag = look;
