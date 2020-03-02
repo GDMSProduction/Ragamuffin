@@ -21,6 +21,8 @@ public class PlayerGrapple : MonoBehaviour
     float maxGrappleDistance = 5f, climbingSpeed = 10f;
     [SerializeField]
     LayerMask grappleLayer;
+
+	[SerializeField]
     DistanceJoint2D distanceJoint;
     Vector2 targetPos;
     bool isGrappled;
@@ -38,28 +40,16 @@ public class PlayerGrapple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        //Quick and dirty input for player (TEMPORARY)
-        //PlayerInput();
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            FireGrapple();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            DestroyGrapple();
-        }
+		CheckForInput();
 
         if (isGrappled && GetComponent<DistanceJoint2D>().enabled)
         {
-            //Climbing up
+            //Climbing up 
             if (Input.GetKey(KeyCode.W))
             {
                 distanceJoint.distance -= climbingSpeed * Time.deltaTime;
             }
-            //Climbing down
+            //Climbing down 
             if (Input.GetKey(KeyCode.S))
             {
                 if (distanceJoint.distance < maxGrappleDistance)
@@ -70,7 +60,7 @@ public class PlayerGrapple : MonoBehaviour
         }
     }
 
-    //Firing the grappling hook
+    //Firing the grappling hook 
     void FireGrapple()
     {
         GameObject targetGrapplePoint = null;
@@ -81,7 +71,7 @@ public class PlayerGrapple : MonoBehaviour
         for (int i = 0; i < grapplePoints.Length; i++)
         {
 
-            //if there is no previous distance, this one is the shortest by default
+            //if there is no previous distance, this one is the shortest by default 
             if (previousDistance == 0)
             {
                 tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
@@ -92,35 +82,33 @@ public class PlayerGrapple : MonoBehaviour
                     targetGrapplePoint = grapplePoints[i];
                 }
             }
-            //store temporary distance to compare
+            //store temporary distance to compare 
             tempDistance = Vector2.Distance(transform.position, grapplePoints[i].transform.position);
 
-            //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point
+            //compare if temp is less than previous, if so, it is shortest distance and is the preferable grapple point 
             if (tempDistance < previousDistance && tempDistance <= maxGrappleDistance)
             {
                 curDistance = tempDistance;
-                //set target grapple point
+                //set target grapple point 
                 targetGrapplePoint = grapplePoints[i];
             }
-            //}
             previousDistance = curDistance;
         }
-        //Setting the target position of the mouse in worldspace
+        //Setting the target position of the mouse in worldspace 
         if (targetGrapplePoint != null)
         {
             targetPos = targetGrapplePoint.transform.position;
         }
-        //targetPos = Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
-        //Drawing a raycast from the player position to the grapple point
+        //Drawing a raycast from the player position to the grapple point 
         hit = Physics2D.Raycast(transform.position, targetPos - (Vector2)transform.position, maxGrappleDistance, grappleLayer);
         Debug.DrawLine(transform.position, targetPos, Color.red, 20);
-        //If they hit a grapple point
+
+        //If they hit a grapple point 
         if (hit.collider != null && hit.collider.gameObject.GetComponent<Rigidbody2D>() != null && hit.collider.tag == "grapple")
         {
-
             distanceJoint.enabled = true;
-            distanceJoint.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>(); //The Distance Joint will attach to the Grapple Point
+            distanceJoint.connectedBody = hit.collider.gameObject.GetComponent<Rigidbody2D>(); //The Distance Joint will attach to the Grapple Point 
             distanceJoint.connectedAnchor = hit.point - (Vector2)hit.collider.transform.position;
             distanceJoint.distance = Vector2.Distance(transform.position, hit.point);
             isGrappled = true;
@@ -134,7 +122,7 @@ public class PlayerGrapple : MonoBehaviour
         distanceJoint.enabled = false;
     }
 
-    //Cheackin for grounded
+    //Cheackin for grounded 
     void OnCollisionEnter2D(Collision2D collider)
     {
         if (collider.collider.tag == "Ground")
@@ -150,19 +138,32 @@ public class PlayerGrapple : MonoBehaviour
         }
     }
 
-    void PlayerInput()
-    {
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(transform.right * -1f * .5f, 0);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(transform.right * .5f, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GetComponent<Rigidbody2D>().AddForce(transform.up * 100f);
-        }
-    }
+	void CheckForInput()
+	{
+		if (Input.GetKeyDown(KeyCode.Mouse0))
+		{
+			FireGrapple();
+		}
+
+		if (Input.GetKeyDown(KeyCode.Mouse1))
+		{
+			DestroyGrapple();
+		}
+	}
+
+	//void PlayerInput()
+	//{
+	//    if (Input.GetKey(KeyCode.A))
+	//    {
+	//        transform.Translate(transform.right * -1f * .5f, 0);
+	//    }
+	//    if (Input.GetKey(KeyCode.D))
+	//    {
+	//        transform.Translate(transform.right * .5f, 0);
+	//    }
+	//    if (Input.GetKeyDown(KeyCode.Space))
+	//    {
+	//        GetComponent<Rigidbody2D>().AddForce(transform.up * 100f);
+	//    }
+	//}
 }
