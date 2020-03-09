@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using System;
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
-//					  Author:			Robert Bauerle  
+//					  Author:	Robert Bauerle  
 //                      Date:	7/16/2019  
 //					Purpose:	A movement script that functions as a player controller 
-// Associated Scripts:	None  
+// Associated Scripts:	RB_Grapple  
 //--------------------------------------------------------------------------------------------------------------------------------------------------\\
 
 [RequireComponent(typeof(BoxCollider))]
@@ -35,7 +36,7 @@ public class Rag_Movement : MonoBehaviour
 	[SerializeField] float jumpStrength;
 	[Range(0.1f, 5)]
 	[Tooltip("A multiplier for all movement-related numbers, gravity included.")]
-	[SerializeField] float gravityMult = 2;
+	[SerializeField] float ragMass = 2;
 	[Header("==============================================================================================================================================")]
 	[SerializeField] LayerMask collisionMask;
 	[Tooltip("Rag's Mesh")]
@@ -49,6 +50,8 @@ public class Rag_Movement : MonoBehaviour
 	private const float offsetWidth = 0.1f;
 	private const int precision = 10;
 	private float boundsY;
+
+
 
 	/// <summary>
 	/// Whether or not rag is currently affected by gravity
@@ -77,82 +80,92 @@ public class Rag_Movement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		DetectGround();
-		InputDetection();
+		DetectInput();
+		
+		//DESIRED METHODS AND CALL ORDER 
+		//ApplyInternalForces(); 
+		//ApplyExternalForces(); 
+		//ApplyGravity(); 
+
 		HorizontalMove();
-		Jump();
+		MoveVertical();
 		if (preTranslateEvent != null)
 			preTranslateEvent(ref pVel);
+		CollisionCheck();
+		ApplyVelocity();
 
-		Move();
+		SetRotation();
 	}
+
 
 
 	#endregion
 
 	#region Input Detection
 
-	private void InputDetection()
+	private void DetectInput()
 	{
 		//Get and save the input for later use from the axis. We are getting a raw X because of the smooth damping done to emulate acceleration.
 		input.x = Input.GetAxisRaw("Horizontal");
 		input.y = Input.GetAxisRaw("Vertical");
+	}
 
-
+	private void SetRotation()
+	{
 		if (disableControls)
 		{
-			if (Velocity.x > 0)
-			{
-				meshTransform.rotation = Quaternion.Euler(0, 270, 0);
-			}
-			else if (Velocity.x < 0)
-			{
-				meshTransform.rotation = Quaternion.Euler(0, 90, 0);
-			}
+			SetRotationFromX(Velocity.x);
 		}
 		else
 		{
-			//Hard-coded rotation setting for rag's mesh depending on the direction rag is currently moving in.
-			if (input.x > 0)
-			{
-				meshTransform.rotation = Quaternion.Euler(0, 270, 0);
-			}
-			else if (input.x < 0)
-			{
-				meshTransform.rotation = Quaternion.Euler(0, 90, 0);
-			}
+			SetRotationFromX(input.x);
+		}
+	}
+
+	private void SetRotationFromX(float x)
+	{
+		if(x > 0)
+		{
+			meshTransform.rotation = Quaternion.Euler(0, 270, 0);
+		}
+		else if (x < 0)
+		{
+			meshTransform.rotation = Quaternion.Euler(0, 90, 0);
 		}
 	}
 
 	#region Jumping
-	private float dist;
+	private float curJumpHeight;
 	public System.Action JumpCalledEvent;
 
-	private void Jump()
+	private void MoveVertical()
 	{
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			if (JumpCalledEvent != null)
 				JumpCalledEvent();
 		}
-		if (Input.GetKey(KeyCode.Space) && dist < maxJumpHeight)
+		if (Input.GetKey(KeyCode.Space) && curJumpHeight < maxJumpHeight)
 		{
-			SetVelocityY(jumpStrength * Time.fixedDeltaTime * gravityMult);
-			dist += pVel.y;
+			float jumpForce = jumpStrength * Time.fixedDeltaTime * ragMass;
+			jumpForce -= GravityForce; //if we want our jump force to beat gravity, we need to negate the gravity and add it here 
+			AddVelocity(pVel.x, jumpForce, pVel.z);
+			curJumpHeight += pVel.y;
 		}
 		else
 		{
 			if (!OnGround && useGravity)
-				ChangeVelocity(y: gravity * gravityMult * Time.fixedDeltaTime);
-			ResetTimer();
+				AddVelocity(y: gravityConst * ragMass * Time.fixedDeltaTime);
+			ResetJumpHeight();
 		}
 	}
 
-	private void ResetTimer()
+	private void ResetJumpHeight()
 	{
 		if (OnGround)
-			dist = 0;
+			curJumpHeight = 0;
 		else
-			dist = maxJumpHeight;
+			curJumpHeight = maxJumpHeight;
 	}
 
 	#endregion
@@ -163,42 +176,41 @@ public class Rag_Movement : MonoBehaviour
 	{
 		if (disableControls)
 			return;
-		//float target = input.x * moveSpeed * Time.fixedDeltaTime;
-		//SetVelocityX(Mathf.SmoothDamp(pVel.x, target, ref hMoveVel, moveAcceleration));
+
 		if (input.x > 0)
 		{
 			if (pVel.x < moveSpeed * Time.fixedDeltaTime)
 			{
-				ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration);
+				AddVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration);
 			}
 		}
 		else if (input.x < 0)
 		{
 			if (pVel.x > moveSpeed * -Time.fixedDeltaTime)
 			{
-				ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration);
+				AddVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration);
 			}
 		}
 		else if (OnGround)
 		{
 			if (pVel.x > 0)
 			{
-				ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 2);
+				AddVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 2);
 			}
 			else if (pVel.x < 0)
 			{
-				ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 2);
+				AddVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 2);
 			}
 		}
 		else
 		{
 			if (pVel.x > 0)
 			{
-				ChangeVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 0.2f);
+				AddVelocity(x: moveSpeed * -Time.fixedDeltaTime * moveAcceleration * 0.2f);
 			}
 			else if (pVel.x < 0)
 			{
-				ChangeVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 0.2f);
+				AddVelocity(x: moveSpeed * Time.fixedDeltaTime * moveAcceleration * 0.2f);
 			}
 		}
 	}
@@ -235,33 +247,28 @@ public class Rag_Movement : MonoBehaviour
 	private Vector3 pVel;
 	public Vector3 Velocity { get { return pVel; } }
 
-	private const float gravity = -3;
-	public float Gravity
+	private const float gravityConst = -3;
+	public float GravityForce
 	{
 		get
 		{
-			return gravity * gravityMult;
+			return gravityConst * ragMass;
 		}
 	}
-
-
-
 	private RaycastOffsets offsets;
-
-
 	#endregion
 
 	#region Velocity Helper Functions
 
-	public void ChangeVelocity(Vector3 change)
+	public void AddVelocity(Vector3 change)
 	{
 		pVel += change;
 	}
 
 	#region Additional Helper Functions for ChangeVelocity()
-	public void ChangeVelocity(float x = 0, float y = 0, float z = 0)
+	public void AddVelocity(float x = 0, float y = 0, float z = 0)
 	{
-		ChangeVelocity(new Vector3(x, y, z));
+		AddVelocity(new Vector3(x, y, z));
 	}
 	/// <summary>
 	/// Set the velocity equal to the inputted vector.
@@ -269,46 +276,34 @@ public class Rag_Movement : MonoBehaviour
 	/// <param name="value">the new value for velocity</param>
 	public void SetVelocity(Vector3 value)
 	{
-		ChangeVelocity(value - pVel);
+		pVel = value;
 	}
-	/// <summary>
-	/// Set the X value of the velocity equal to the inputted float.
-	/// </summary>
-	/// <param name="value">the new X value in velocity</param>
-	public void SetVelocityX(float value)
-	{
-		ChangeVelocity(x: value - pVel.x);
-	}
+
 	/// <summary>
 	/// Set the Y value of the velocity equal to the inputted float.
 	/// </summary>
 	/// <param name="value">the new Y value in velocity</param>
 	public void SetVelocityY(float value)
 	{
-		ChangeVelocity(y: value - pVel.y);
+		pVel.y += value;
 	}
-	/// <summary>
-	/// Set the Z value of the velocity equal to the inputted float.
-	/// </summary>
-	/// <param name="value">the new Z value in velocity</param>
-	public void SetVelocityZ(float value)
-	{
-		ChangeVelocity(z: value - pVel.z);
-	}
+
 	#endregion
 
 	#endregion
 
-	private void Move()
+	private void CollisionCheck()
 	{
-		//Raycasting for collision
-		VerticalCollisions();
-		HorizontalCollisionsX();
-		if (!use2D)
-			HorizontalCollisionsZ();
-		else
+		YCollisions();
+		XCollisions();
+		//if (!use2D)
+		//	HorizontalCollisionsZ();
+		//else
 			pVel.z = 0;
+	}
 
+	private void ApplyVelocity()
+	{
 		//Prevent ridiculously small values from being used when the character is not being moved
 		if (Mathf.Abs(pVel.x) < .015f)
 			pVel.x = 0;
@@ -326,7 +321,7 @@ public class Rag_Movement : MonoBehaviour
 	#region Raycasting Helper Functions
 
 	RaycastHit hit;
-	private void VerticalCollisions()
+	private void YCollisions()
 	{
 		float rayLength = Mathf.Abs(pVel.y) + offsetWidth;
 		if (pVel.y < 0)
@@ -365,7 +360,7 @@ public class Rag_Movement : MonoBehaviour
 		}
 	}
 
-	private void HorizontalCollisionsX()
+	private void XCollisions()
 	{
 		float rayLength = Mathf.Abs(pVel.x) + offsetWidth;
 		if (pVel.x < 0)
@@ -426,68 +421,68 @@ public class Rag_Movement : MonoBehaviour
 		}
 	}
 
-	[Tooltip("Whether or not the character will be moving along the Z-axis at all")]
-	[SerializeField] bool use2D;
-	private void HorizontalCollisionsZ()
-	{
-		float rayLength = Mathf.Abs(pVel.z) + offsetWidth;
-		if (pVel.z < 0)
-		{
-			for (int i = 0; i < offsets.back.Length; i++)
-			{
-				if (GetHit(offsets[offsets.back[i]], Vector3.back, rayLength, ref pVel, out hit))
-				{
-					if (hit.transform.GetComponent<DeathVolume>())
-					{
-						GetComponent<ReSpawnManager>().ReSpawn();
-						SetVelocity(Vector3.zero);
-						return;
-					}
-					float angle = Vector3.Angle(hit.normal, Vector3.up);
+	//[Tooltip("Whether or not the character will be moving along the Z-axis at all")]
+	//[SerializeField] bool use2D;
+	//private void HorizontalCollisionsZ()
+	//{
+	//	float rayLength = Mathf.Abs(pVel.z) + offsetWidth;
+	//	if (pVel.z < 0)
+	//	{
+	//		for (int i = 0; i < offsets.back.Length; i++)
+	//		{
+	//			if (GetHit(offsets[offsets.back[i]], Vector3.back, rayLength, ref pVel, out hit))
+	//			{
+	//				if (hit.transform.GetComponent<DeathVolume>())
+	//				{
+	//					GetComponent<ReSpawnManager>().ReSpawn();
+	//					SetVelocity(Vector3.zero);
+	//					return;
+	//				}
+	//				float angle = Vector3.Angle(hit.normal, Vector3.up);
 
-					if (i < precision && angle < maxClimbAngle)
-					{
-						Climb(ref pVel, angle);
-						rayLength = 0;
-					}
-					else
-					{
-						pVel.z = (hit.distance - offsetWidth) * -1;
-						rayLength = hit.distance;
-					}
+	//				if (i < precision && angle < maxClimbAngle)
+	//				{
+	//					Climb(ref pVel, angle);
+	//					rayLength = 0;
+	//				}
+	//				else
+	//				{
+	//					pVel.z = (hit.distance - offsetWidth) * -1;
+	//					rayLength = hit.distance;
+	//				}
 
-				}
-			}
-		}
-		else if (pVel.z > 0)
-		{
-			for (int i = 0; i < offsets.forward.Length; i++)
-			{
-				if (GetHit(offsets[offsets.forward[i]], Vector3.forward, rayLength, ref pVel, out hit))
-				{
-					if (hit.transform.GetComponent<DeathVolume>())
-					{
-						GetComponent<ReSpawnManager>().ReSpawn();
-						SetVelocity(Vector3.zero);
-						return;
-					}
-					float angle = Vector3.Angle(hit.normal, Vector3.up);
+	//			}
+	//		}
+	//	}
+	//	else if (pVel.z > 0)
+	//	{
+	//		for (int i = 0; i < offsets.forward.Length; i++)
+	//		{
+	//			if (GetHit(offsets[offsets.forward[i]], Vector3.forward, rayLength, ref pVel, out hit))
+	//			{
+	//				if (hit.transform.GetComponent<DeathVolume>())
+	//				{
+	//					GetComponent<ReSpawnManager>().ReSpawn();
+	//					SetVelocity(Vector3.zero);
+	//					return;
+	//				}
+	//				float angle = Vector3.Angle(hit.normal, Vector3.up);
 
-					if (i < precision && angle < maxClimbAngle)
-					{
-						Climb(ref pVel, angle);
-						rayLength = 0;
-					}
-					else
-					{
-						pVel.z = hit.distance - offsetWidth;
-						rayLength = hit.distance;
-					}
+	//				if (i < precision && angle < maxClimbAngle)
+	//				{
+	//					Climb(ref pVel, angle);
+	//					rayLength = 0;
+	//				}
+	//				else
+	//				{
+	//					pVel.z = hit.distance - offsetWidth;
+	//					rayLength = hit.distance;
+	//				}
 
-				}
-			}
-		}
-	}
+	//			}
+	//		}
+	//	}
+	//}
 
 	/// <summary>
 	/// Helper function for the collision functions

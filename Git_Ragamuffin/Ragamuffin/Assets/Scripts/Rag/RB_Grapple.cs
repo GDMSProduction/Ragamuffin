@@ -127,18 +127,23 @@ public class RB_Grapple : MonoBehaviour
 
 		float dot = Vector3.Dot(ragVelocity.normalized, perpendicular);
 
-		Vector3 eh = perpendicular;
+		Vector3 forwards = perpendicular;
 		if (ragMovement.transform.position.x > curGrapplePoint.position.x)
 		{
-			eh = -perpendicular;
+			forwards = -perpendicular;
 		}
 
+		float aboveGrapplePointModifier = .7f;
+		if(ragMovement.transform.position.y > curGrapplePoint.position.y)
+		{
+			aboveGrapplePointModifier = 5;
+		}
 
-		ragVelocity += (eh
+			ragVelocity += (forwards
 				* (angle / 180)
-				*.25f
-				* ragMovement.Gravity
-				* (ragMovement.transform.position.y > curGrapplePoint.position.y ? 5 : .7f))
+				* .25f
+				* ragMovement.GravityForce
+				* aboveGrapplePointModifier)
 
 			+ (ragMovement.input.x * (ragMovement.input.y == 0 ? 1 : 0.5f)
 				* -perpendicular * Time.fixedDeltaTime
@@ -233,7 +238,7 @@ public class RB_Grapple : MonoBehaviour
 		ragMovement.disableControls = false;
 
 		//Small extra boost for the feels-good
-		ragMovement.ChangeVelocity(ragMovement.Velocity * 0.1f);
+		ragMovement.AddVelocity(ragMovement.Velocity * 0.1f);
 	}
 
 	private void FindGrapplePoint()
