@@ -147,15 +147,15 @@ public class Rag_Movement : MonoBehaviour
 		}
 		if (Input.GetKey(KeyCode.Space) && curJumpHeight < maxJumpHeight)
 		{
-			float jumpForce = jumpStrength * Time.fixedDeltaTime * ragMass;
-			jumpForce -= GravityForce; //if we want our jump force to beat gravity, we need to negate the gravity and add it here 
-			AddVelocity(pVel.x, jumpForce, pVel.z);
+			//float jumpForce = jumpStrength * ragMass;
+			//jumpForce -= GravityForce; //if we want our jump force to beat gravity, we need to negate the gravity and add it here 
+            SetVelocityY(jumpStrength * Time.fixedDeltaTime * -gravityConst);
 			curJumpHeight += pVel.y;
 		}
 		else
 		{
 			if (!OnGround && useGravity)
-				AddVelocity(y: gravityConst * ragMass * Time.fixedDeltaTime);
+				AddVelocity(y: GravityForce * Time.fixedDeltaTime);
 			ResetJumpHeight();
 		}
 	}
@@ -247,7 +247,7 @@ public class Rag_Movement : MonoBehaviour
 	private Vector3 pVel;
 	public Vector3 Velocity { get { return pVel; } }
 
-	private const float gravityConst = -3;
+	private const float gravityConst = -.75f;
 	public float GravityForce
 	{
 		get
@@ -285,7 +285,7 @@ public class Rag_Movement : MonoBehaviour
 	/// <param name="value">the new Y value in velocity</param>
 	public void SetVelocityY(float value)
 	{
-		pVel.y += value;
+		pVel.y = value;
 	}
 
 	#endregion
