@@ -40154,17 +40154,27 @@ Prefab:
     - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
         type: 2}
       propertyPath: jumpStrength
-      value: 0.1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
         type: 2}
       propertyPath: maxJumpHeight
-      value: 0.1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
         type: 2}
       propertyPath: ragMass
-      value: 0.3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
+        type: 2}
+      propertyPath: moveAcceleration
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d17ede6c91d2ec6429cd1107398288c0, type: 2}
