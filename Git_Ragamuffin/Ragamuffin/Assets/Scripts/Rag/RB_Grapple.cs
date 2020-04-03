@@ -48,8 +48,8 @@ public class RB_Grapple : MonoBehaviour
 
 
 	#region Helper properties
-	private Vector3 RagPositionNextFrame { get { return ragMovement.transform.position + ragMovement.Velocity; } }
-	private Vector3 VecToGrapplePoint { get { return curGrapplePoint.position - RagPositionNextFrame; } } 
+	private Vector2 RagPositionNextFrame { get { return (Vector2)ragMovement.transform.position + ragMovement.Velocity; } }
+	private Vector3 VecToGrapplePoint { get { return (Vector2)curGrapplePoint.position - RagPositionNextFrame; } } 
 	#endregion
 
 	#endregion
@@ -80,7 +80,7 @@ public class RB_Grapple : MonoBehaviour
 	#endregion
 
 	#region Grapple Functionality
-	private void VelocitySet(ref Vector3 ragVelocity)
+	private void VelocitySet(ref Vector2 ragVelocity)
 	{
 		if (ragMovement.OnGround)
 		{
@@ -97,68 +97,68 @@ public class RB_Grapple : MonoBehaviour
 
 	private void ApplyClimbing()
 	{
-		IsClimbing = true;
-		Vector3 translationVec = VecToGrapplePoint.normalized * Time.fixedDeltaTime;
+		//IsClimbing = true;
+		//Vector3 translationVec = VecToGrapplePoint.normalized * Time.fixedDeltaTime;
 
-		if (ragMovement.input.y > 0 && VecToGrapplePoint.magnitude > minGrappleLength)
-		{
-			translationVec *= climbUpSpeed;
-		}
-		else if (ragMovement.input.y < 0 && VecToGrapplePoint.magnitude < maxGrappleDist)
-		{
-			translationVec *= -climbDownSpeed;
-		}
-		else
-		{
-			IsClimbing = false;
-			return;
-		}
+		//if (ragMovement.input.y > 0 && VecToGrapplePoint.magnitude > minGrappleLength)
+		//{
+		//	translationVec *= climbUpSpeed;
+		//}
+		//else if (ragMovement.input.y < 0 && VecToGrapplePoint.magnitude < maxGrappleDist)
+		//{
+		//	translationVec *= -climbDownSpeed;
+		//}
+		//else
+		//{
+		//	IsClimbing = false;
+		//	return;
+		//}
 
-		ragMovement.transform.Translate(translationVec, Space.World);
-		curDistToPoint = VecToGrapplePoint.magnitude;
+		//ragMovement.transform.Translate(translationVec, Space.World);
+		//curDistToPoint = VecToGrapplePoint.magnitude;
 	}
 
-	private void ChangeVelocity(ref Vector3 ragVelocity)
+	private void ChangeVelocity(ref Vector2 ragVelocity)
 	{
-		float angle = Vector3.Angle(Vector3.up, VecToGrapplePoint);
+		//float angle = Vector3.Angle(Vector3.up, VecToGrapplePoint);
 
-		Vector3 worldZAxis = Vector3.forward;
-		Vector3 perpendicular = Vector3.Cross(worldZAxis, VecToGrapplePoint.normalized);
+		//Vector3 worldZAxis = Vector3.forward;
+		//Vector3 perpendicular = Vector3.Cross(worldZAxis, VecToGrapplePoint.normalized);
 
-		float dot = Vector3.Dot(ragVelocity.normalized, perpendicular);
+		//float dot = Vector3.Dot(ragVelocity.normalized, perpendicular);
 
-		Vector3 forwards = perpendicular;
-		if (ragMovement.transform.position.x > curGrapplePoint.position.x)
-		{
-			forwards = -perpendicular;
-		}
+		//Vector3 forwards = perpendicular;
+		//if (ragMovement.transform.position.x > curGrapplePoint.position.x)
+		//{
+		//	forwards = -perpendicular;
+		//}
 
-		float aboveGrapplePointModifier = .7f;
-		if(ragMovement.transform.position.y > curGrapplePoint.position.y)
-		{
-			aboveGrapplePointModifier = 5;
-		}
+		//float aboveGrapplePointModifier = .7f;
+		//if(ragMovement.transform.position.y > curGrapplePoint.position.y)
+		//{
+		//	aboveGrapplePointModifier = 5;
+		//}
 
-			ragVelocity += (forwards
-				* (angle / 180)
-				* .25f
-				* ragMovement.GravityForce
-				* aboveGrapplePointModifier)
+		//	ragVelocity += (forwards
+		//		* (angle / 180)
+		//		* .25f
+		//		* ragMovement.GravityForce
+		//		* aboveGrapplePointModifier)
 
-			+ (ragMovement.input.x * (ragMovement.input.y == 0 ? 1 : 0.5f)
-				* -perpendicular * Time.fixedDeltaTime
-				* ((180 - angle) / 180));
+		//	+ (ragMovement.input.x * (ragMovement.input.y == 0 ? 1 : 0.5f)
+		//		* -perpendicular * Time.fixedDeltaTime
+		//		* ((180 - angle) / 180));
 
-		if (VecToGrapplePoint.magnitude > curDistToPoint)
-		{
-			ragVelocity = ((
-				-VecToGrapplePoint.normalized
-				* curDistToPoint) + curGrapplePoint.position)
-				- ragMovement.transform.position;
-		}
+		//if (VecToGrapplePoint.magnitude > curDistToPoint)
+		//{
+		//	ragVelocity = ((
+		//		-VecToGrapplePoint.normalized
+		//		* curDistToPoint) + curGrapplePoint.position)
+		//		- ragMovement.transform.position;
+		//}
 
-		ragVelocity.z = 0;
-		ragVelocity = Vector3.ClampMagnitude(ragVelocity, ragMovement.moveSpeed * 3 * Time.fixedDeltaTime);
+		//ragVelocity.z = 0;
+		//ragVelocity = Vector3.ClampMagnitude(ragVelocity, ragMovement.moveSpeed * 3 * Time.fixedDeltaTime);
 	}
 
 	private bool EnablePlayerControl(Vector3 vecToGrapplePoint)
