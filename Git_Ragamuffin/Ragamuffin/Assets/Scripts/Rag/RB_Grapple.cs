@@ -166,13 +166,13 @@ public class RB_Grapple : MonoBehaviour
 		float distExtended = vecToGrapplePoint.magnitude - curDistToPoint;
 		if (distExtended >= 0 && distExtended <= 0.05f * curDistToPoint)
 		{
-			ragMovement.useGravity = false;
-			ragMovement.disableControls = true;
+			ragMovement.UseGravity = false;
+			Rag_Movement.disableControls = true;
 		}
 		else if (distExtended < 0)
 		{
-			ragMovement.useGravity = true;
-			ragMovement.disableControls = false;
+			ragMovement.UseGravity = true;
+			Rag_Movement.disableControls = false;
 			return true;
 		}
 		else if (distExtended > curDistToPoint)
@@ -215,7 +215,7 @@ public class RB_Grapple : MonoBehaviour
 			grappleLine.SetPosition(1, Vector3.Lerp(player.position, point, t));
 			yield return new WaitForFixedUpdate();
 		} while (isGrappled && t < 1);
-		Rag_Movement.preTranslateEvent += VelocitySet;
+		//Rag_Movement.preTranslateEvent += VelocitySet;
 		curDistToPoint = (player.position - point).magnitude;
 		do
 		{
@@ -229,16 +229,16 @@ public class RB_Grapple : MonoBehaviour
 	{
 		if (!isGrappled)
 			return;
-		Rag_Movement.preTranslateEvent -= VelocitySet;
+		//Rag_Movement.preTranslateEvent -= VelocitySet;
 		curGrapplePoint = null;
 		curDistToPoint = 0;
 		grappleLine.enabled = false;
 		isGrappled = false;
-		ragMovement.useGravity = true;
-		ragMovement.disableControls = false;
+		ragMovement.UseGravity = true;
+		//ragMovement.disableControls = false;
 
 		//Small extra boost for the feels-good
-		ragMovement.AddVelocity(ragMovement.Velocity * 0.1f);
+		//ragMovement.AddVelocity(ragMovement.Velocity * 0.1f);
 	}
 
 	private void FindGrapplePoint()

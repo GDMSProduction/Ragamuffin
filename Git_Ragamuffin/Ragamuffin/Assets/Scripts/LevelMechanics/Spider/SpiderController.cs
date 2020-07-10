@@ -136,7 +136,7 @@ namespace SpiderStuff
 		{
 			Vector3 vecToTarget;
 			//grab references to rag's original state 
-			originalUseGravity = ragMvmt.useGravity;
+			originalUseGravity = ragMvmt.UseGravity;
 			originalRagParent = ragMvmt.gameObject.transform.parent;
 
 			SetTriggersLooking(false);
@@ -145,7 +145,7 @@ namespace SpiderStuff
 			while (Vector3.Distance(ragMvmt.transform.position, transform.position) > stopDistance)
 			{
 				//move towards rag (smooth damp)
-				ragMvmt.SetVelocity(Vector3.zero); //Make sure rag doesn't float off 
+				ragMvmt.Velocity = Vector3.zero; //Make sure rag doesn't float off 
 				vecToTarget = (ragMvmt.transform.position - transform.position);
 				transform.position += vecToTarget.normalized * moveDistPerFixedUpdate * vecToTarget.magnitude;
 				yield return new WaitForFixedUpdate();
@@ -174,16 +174,16 @@ namespace SpiderStuff
 		{
 			if (!enabled)
 			{
-				ragMvmt.useGravity = false;
-				ragMvmt.SetVelocity(Vector3.zero); //Make sure rag doesn't float off 
+				ragMvmt.UseGravity = false;
+				ragMvmt.Velocity = Vector3.zero; //Make sure rag doesn't float off 
 			}
 			else
 			{
 				ragMvmt.gameObject.transform.parent = originalRagParent;
-				ragMvmt.useGravity = originalUseGravity;
+				ragMvmt.UseGravity = originalUseGravity;
 			}
 
-			ragMvmt.disableControls = !enabled;
+			Rag_Movement.disableControls = !enabled;
 		}
 		#endregion
 		#endregion

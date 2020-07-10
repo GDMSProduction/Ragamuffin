@@ -960,6 +960,16 @@ Prefab:
       propertyPath: jumpStrength
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 54853513727434298, guid: d17ede6c91d2ec6429cd1107398288c0,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937899863197744, guid: d17ede6c91d2ec6429cd1107398288c0,
+        type: 2}
+      propertyPath: printLogs
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d17ede6c91d2ec6429cd1107398288c0, type: 2}
   m_IsPrefabAsset: 0
