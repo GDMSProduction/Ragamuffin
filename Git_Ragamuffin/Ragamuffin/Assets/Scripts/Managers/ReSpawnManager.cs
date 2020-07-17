@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class ReSpawnManager : MonoBehaviour
 {
+	[SerializeField] bool printLogs = false;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -15,6 +17,9 @@ public class ReSpawnManager : MonoBehaviour
 
     public void ReSpawn()
     {
+		if (printLogs)
+			Debug.Log("ReSpawnManager: Respawning object with name: " + gameObject.name);
+
         transform.position = Checkpoint.CurrentCheckpoint.position;
         transform.rotation = Checkpoint.CurrentCheckpoint.rotation;
 		PlayerHealth.Init();
