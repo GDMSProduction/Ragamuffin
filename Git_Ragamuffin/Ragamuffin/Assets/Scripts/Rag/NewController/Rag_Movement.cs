@@ -32,6 +32,13 @@ public class Rag_Movement : MonoBehaviour
 	[Range(0.05f, 10)]
 	[SerializeField] private float horizontalAcceleration = 0.1f;
 
+	[Tooltip("Should rag's horizontal movement stop the instant the player stops giving horizontal input?")]
+	[SerializeField] bool stopImmediately = false;
+
+	[Tooltip("This number determines how quickly rag comes to a stop. Doesn't do anything if stopImmediately is checked.")]
+	[SerializeField] private float horizontalFriction = .5f;
+
+
 	[Space(2)]
 	[Header("Jump")]
 
@@ -53,6 +60,10 @@ public class Rag_Movement : MonoBehaviour
 
 	[Tooltip("This float is compared against the dot product of collisions to determine if we've hit the ground or a wall.")]
 	[SerializeField] private readonly float downwardAngle = -.75f;
+
+	[SerializeField]
+	[Header("Serialized for visibility. Do not edit in inspector!")]
+	private float xInput;
 	#endregion
 
 	#region Variables
@@ -108,19 +119,89 @@ public class Rag_Movement : MonoBehaviour
 	private void FixedUpdate()
 	{
 		UpdateJumpHeight();
+
+		if (!stopImmediately)
+			ApplyFriction();
+
 		ApplyInput();
 		SetRotation();
+	}
+	private void ApplyInput()
+	{
+		if (disableControls) //Do nothing if controls are disabled 
+			return;
 
-		if (printLogs)
-			Debug.Log("Rag_Movement rb velocity: " + rb.velocity);
+		ApplyHorizontalInput();
+
+		if (Input.GetKey(KeyCode.Space))
+			Jump();
+	}
+
+	private void ApplyHorizontalInput()
+	{
+		xInput = Input.GetAxisRaw("Horizontal");
+		Vector3 forceToAdd = new Vector3(xInput * horizontalAcceleration, 0, 0);
+
+		if (Mathf.Abs(rb.velocity.x) < maxSpeedHorizontal) //If we're below max speed, 
+			rb.AddForce(forceToAdd, ForceMode.VelocityChange); //Accelerate as according to input 
+		else //if we're above or at max speed, 
+		{
+			//clamp our speed to our max. 
+			float x = Mathf.Clamp(rb.velocity.x, -maxSpeedHorizontal, maxSpeedHorizontal);
+			rb.velocity = new Vector3(x, rb.velocity.y, rb.velocity.z);
+		}
+
+		if (xInput == 0 && stopImmediately) //If we're recieving no input and we're supposed to stop immediately, 
+		{
+			//Zero out our velocity along the x axis 
+			Vector3 newVelocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+			rb.velocity = newVelocity;
+		}
+	}
+
+	private void Jump()
+	{
+		if (OnGround)
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				if (printLogs)
+					Debug.Log("Rag_Movement: Jumping off of ground!\nForce of jump: " + initialJumpForce);
+				rb.AddForce(0, initialJumpForce, 0, ForceMode.VelocityChange);
+			}
+
+		if (Mathf.Abs(rb.velocity.y) < maxSpeedVertical && curJumpHeight < maxJumpHeight)
+		{
+			Debug.Log("Rag_Movement: Continuing jump while in air!\nForce of jump: " + jumpStrength);
+			rb.AddForce(0, jumpStrength, 0, ForceMode.VelocityChange);
+		}
+	}
+
+
+	private void ApplyFriction()
+	{
+		if (Mathf.Abs(rb.velocity.x) < 1) //if we're moving really slowly, 
+			return; //Don't bother with friction. 
+
+		bool negative = rb.velocity.x < 0;
+
+		if (negative)
+		{
+			rb.AddForce(horizontalFriction, 0, 0, ForceMode.Acceleration);
+		}
+		else
+		{
+			rb.AddForce(-horizontalFriction, 0, 0, ForceMode.Acceleration);
+		}
+
 	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
+		Debug.Log("Collided!\n" + collision);
 		Vector3 vecToCollision = collision.contacts[0].point - transform.position; //Draw vector from us to the point of collision 
 		vecToCollision.Normalize(); //We only want to use this vector as a direction, we don't want the magnitude. 
-		float dot = Vector3.Dot(transform.up, vecToCollision); //If the collision is perfectly underneath us, this will give us a result of -1. 
-		OnGround = (dot < -.75f);
+		float dot = Vector3.Dot(-transform.up, vecToCollision); //If the collision is perfectly underneath us, this will give us a result of -1. 
+		OnGround = (dot < -.5f);
 
 		if (OnGround)
 			ResetJumpHeight();
@@ -171,34 +252,4 @@ public class Rag_Movement : MonoBehaviour
 	}
 
 	public bool OnGround { get; private set; }
-
-
-	[SerializeField]
-	[Tooltip("Serialized for visibility. Do not edit in inspector!")]
-	private float xInput;
-
-	private void ApplyInput()
-	{
-		if (disableControls) //Do nothing if controls are disabled 
-			return;
-
-		xInput = Input.GetAxisRaw("Horizontal");
-
-		if (Mathf.Abs(rb.velocity.x) < maxSpeedHorizontal) //If we aren't at max speed, 
-			rb.AddForce(xInput * horizontalAcceleration, 0, 0, ForceMode.Acceleration); //Accelerate as according to input 
-
-		if (Input.GetKey(KeyCode.Space))
-			Jump();
-	}
-
-	private void Jump()
-	{
-		if (OnGround)
-			if (Input.GetKeyDown(KeyCode.Space))
-				rb.AddForce(0, initialJumpForce, 0, ForceMode.VelocityChange);
-
-		if (Mathf.Abs(rb.velocity.y) < maxSpeedVertical && curJumpHeight < maxJumpHeight)
-			rb.AddForce(0, jumpStrength, 0, ForceMode.VelocityChange);
-	}
-
 }
