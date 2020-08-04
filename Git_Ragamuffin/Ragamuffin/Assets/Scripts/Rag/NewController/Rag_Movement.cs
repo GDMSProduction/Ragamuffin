@@ -15,6 +15,7 @@ public class Rag_Movement : MonoBehaviour
 {
 	#region Serialized Variables
 
+	[Tooltip("Print debug logs?")]
 	[SerializeField] bool printLogs = false;
 
 	[Header("Movement")]
@@ -54,12 +55,11 @@ public class Rag_Movement : MonoBehaviour
 	[SerializeField] private float jumpStrength;
 
 	[Space(2)]
-	[SerializeField] LayerMask collisionMask;
 	[Tooltip("Rag's Mesh")]
 	[SerializeField] Transform meshTransform;
 
-	[Tooltip("This float is compared against the dot product of collisions to determine if we've hit the ground or a wall.")]
-	[SerializeField] private readonly float downwardAngle = -.75f;
+	[Tooltip("This float is compared against the dot product of collisions to determine if we've hit the ground and should reset our jump")]
+	[SerializeField] private float downwardAngle = -.5f;
 
 	[SerializeField]
 	[Header("Serialized for visibility. Do not edit in inspector!")]
@@ -81,9 +81,10 @@ public class Rag_Movement : MonoBehaviour
 	{
 		get
 		{
-			if (rb == null)
-				return Vector3.zero;
-			return rb.velocity;
+			if (rb != null)
+				return rb.velocity;
+			else
+				return Vector3.zero; //default to 0 if our rigidbody reference isn't set yet 
 		}
 		set
 		{
@@ -92,13 +93,17 @@ public class Rag_Movement : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// useGravity bool of Rag's Rididbody
+	/// </summary>
 	public bool UseGravity
 	{
 		get
 		{
-			if (rb == null)
-				return true;
-			return rb.useGravity;
+			if (rb != null)
+				return rb.useGravity;
+			else
+				return true; //default to true if our rigidbody reference isn't set yet 
 		}
 		set
 		{
@@ -146,15 +151,13 @@ public class Rag_Movement : MonoBehaviour
 			rb.AddForce(forceToAdd, ForceMode.VelocityChange); //Accelerate as according to input 
 		else //if we're above or at max speed, 
 		{
-			//clamp our speed to our max. 
-			float x = Mathf.Clamp(rb.velocity.x, -maxSpeedHorizontal, maxSpeedHorizontal);
+			float x = Mathf.Clamp(rb.velocity.x, -maxSpeedHorizontal, maxSpeedHorizontal); //clamp our speed to our max. 
 			rb.velocity = new Vector3(x, rb.velocity.y, rb.velocity.z);
 		}
 
 		if (xInput == 0 && stopImmediately) //If we're recieving no input and we're supposed to stop immediately, 
 		{
-			//Zero out our velocity along the x axis 
-			Vector3 newVelocity = new Vector3(0, rb.velocity.y, rb.velocity.z);
+			Vector3 newVelocity = new Vector3(0, rb.velocity.y, rb.velocity.z); //Zero out our velocity along the x axis 
 			rb.velocity = newVelocity;
 		}
 	}
@@ -162,16 +165,21 @@ public class Rag_Movement : MonoBehaviour
 	private void Jump()
 	{
 		if (OnGround)
+		{
 			if (Input.GetKeyDown(KeyCode.Space))
 			{
 				if (printLogs)
 					Debug.Log("Rag_Movement: Jumping off of ground!\nForce of jump: " + initialJumpForce);
+
 				rb.AddForce(0, initialJumpForce, 0, ForceMode.VelocityChange);
 			}
+		}
 
 		if (Mathf.Abs(rb.velocity.y) < maxSpeedVertical && curJumpHeight < maxJumpHeight)
 		{
-			Debug.Log("Rag_Movement: Continuing jump while in air!\nForce of jump: " + jumpStrength);
+			if (printLogs)
+				Debug.Log("Rag_Movement: Continuing jump while in air!\nForce of jump: " + jumpStrength);
+
 			rb.AddForce(0, jumpStrength, 0, ForceMode.VelocityChange);
 		}
 	}
@@ -182,9 +190,9 @@ public class Rag_Movement : MonoBehaviour
 		if (Mathf.Abs(rb.velocity.x) < 1) //if we're moving really slowly, 
 			return; //Don't bother with friction. 
 
-		bool negative = rb.velocity.x < 0;
+		bool velocityIsNegative = rb.velocity.x < 0;
 
-		if (negative)
+		if (velocityIsNegative)
 		{
 			rb.AddForce(horizontalFriction, 0, 0, ForceMode.Acceleration);
 		}
@@ -197,11 +205,14 @@ public class Rag_Movement : MonoBehaviour
 
 	private void OnCollisionEnter(Collision collision)
 	{
-		Debug.Log("Collided!\n" + collision);
+
 		Vector3 vecToCollision = collision.contacts[0].point - transform.position; //Draw vector from us to the point of collision 
 		vecToCollision.Normalize(); //We only want to use this vector as a direction, we don't want the magnitude. 
 		float dot = Vector3.Dot(-transform.up, vecToCollision); //If the collision is perfectly underneath us, this will give us a result of -1. 
-		OnGround = (dot < -.5f);
+		OnGround = (dot > downwardAngle);
+
+		if (printLogs)
+			Debug.Log("Collided, dot = " + dot);
 
 		if (OnGround)
 			ResetJumpHeight();
