@@ -11,6 +11,8 @@ public class SMC_move : MonoBehaviour
     public float jumpForce = 150f;
 
     bool ableJump = true;
+
+    public bool isHiding = false    ;
     
 
 
@@ -54,11 +56,21 @@ public class SMC_move : MonoBehaviour
 
     private void Jumping()
     {
-
-        if (ableJump && Input.GetKeyDown(KeyCode.Space))
+        //if hiding is true do nothing
+        //if hiding is false jump
+        if (isHiding)
         {
-            rb.AddForce(0, jumpForce, 0);
-            ableJump = false;
+
+
+            
+        }
+        else
+        {
+            if (ableJump && Input.GetKeyDown(KeyCode.Space))
+            {
+                rb.AddForce(0, jumpForce, 0);
+                ableJump = false;
+            }
         }
 
     }
