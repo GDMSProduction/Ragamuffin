@@ -113,8 +113,8 @@ public class SMC_move : MonoBehaviour
         //make trigger tag it water
         if (other.gameObject.tag == ("Water"))
         {
-            forwardSpeed = 0.75f;
-            
+            forwardSpeed = 2.5f;
+
         }
 
 
@@ -122,7 +122,7 @@ public class SMC_move : MonoBehaviour
         if (other.gameObject.tag == ("Fire"))
         {
             Death();
-            
+
         }
 
 
@@ -132,28 +132,23 @@ public class SMC_move : MonoBehaviour
             Debug.Log("CheckPoint updated!");
         }
 
-        if (other.gameObject.tag ==("JumpPad"))
+        if (other.gameObject.tag == ("JumpPad"))
         {
             jumpForce = 250;
         }
 
 
-        if (other.gameObject.tag == ("Picture"))
-        {
-            Debug.Log("Hi Do Something");
-            other.gameObject.GetComponent<PictureCollection>().isCollected = true;
-            other.gameObject.GetComponent<PictureCollection>().images[0].color = Color.red;
+        //if (other.gameobject.tag == ("picture"))
+        //{
+        //    debug.log("hi do something");
+        //    other.gameobject.getcomponent<picturecollection>().iscollected = true;
+        //    other.gameobject.getcomponent<picturecollection>().images[0].color = color.red;
 
-            if (other.gameObject.GetComponent<PictureCollection>().isCollected == true)
-            {
-                Destroy(other.gameObject);
-            }
-
-            
-            
-        }
-
-
+        //    if (other.gameobject.getcomponent<picturecollection>().iscollected == true)
+        //    {
+        //        destroy(other.gameobject);
+        //    }
+        //}
     }
 
     
@@ -216,7 +211,7 @@ public class SMC_move : MonoBehaviour
     {
         if (other.gameObject.tag == ("Water"))
         {
-            forwardSpeed = 1.5f;
+            forwardSpeed = 4.5f;
            
         }
 
@@ -231,8 +226,5 @@ public class SMC_move : MonoBehaviour
     public void Death()
     {
         gameObject.transform.position = startPosition;
-       
-
-
     }
 }
