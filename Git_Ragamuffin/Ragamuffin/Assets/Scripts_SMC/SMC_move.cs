@@ -18,6 +18,13 @@ public class SMC_move : MonoBehaviour
 
     public Vector3 startPosition;
 
+    public GameObject pinHandle;
+
+    public bool isEquip = false;
+
+    public GameObject dummyPin;
+
+    public GameObject dropPoint;
 
 
 
@@ -27,6 +34,8 @@ public class SMC_move : MonoBehaviour
 
         startPosition = transform.position;
 
+        pinHandle.SetActive(false);
+
     }
 
 
@@ -35,7 +44,19 @@ public class SMC_move : MonoBehaviour
     {
         Jumping();
 
+        
+        
+            if (Input.GetKeyDown(KeyCode.R) && isEquip)
+            {
+                pinHandle.SetActive(false);
+                dummyPin.transform.position = dropPoint.transform.position;
+                dummyPin.SetActive(true);
+                isEquip = false;
 
+            }
+            
+           
+        
 
 
 
@@ -138,17 +159,8 @@ public class SMC_move : MonoBehaviour
         }
 
 
-        //if (other.gameobject.tag == ("picture"))
-        //{
-        //    debug.log("hi do something");
-        //    other.gameobject.getcomponent<picturecollection>().iscollected = true;
-        //    other.gameobject.getcomponent<picturecollection>().images[0].color = color.red;
 
-        //    if (other.gameobject.getcomponent<picturecollection>().iscollected == true)
-        //    {
-        //        destroy(other.gameobject);
-        //    }
-        //}
+        
     }
 
     
@@ -187,6 +199,17 @@ public class SMC_move : MonoBehaviour
             }
         }
 
+        if (other.gameObject.tag == ("Pin"))
+        {
+            Debug.Log("hi im here");
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isEquip = true;
+                pinHandle.SetActive(true);
+                dummyPin.SetActive(false);
+            }
+        }
+       
 
 
         if (Input.GetKeyDown(KeyCode.W) && amIHanging == true)

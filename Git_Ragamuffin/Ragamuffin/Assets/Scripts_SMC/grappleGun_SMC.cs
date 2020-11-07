@@ -21,6 +21,7 @@ public class grappleGun_SMC : MonoBehaviour
 
     public Transform playerTransform;
 
+    public GameObject rag;
     
 
 
@@ -32,6 +33,7 @@ public class grappleGun_SMC : MonoBehaviour
         lr.enabled = false;
     }
 
+   
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -66,54 +68,60 @@ public class grappleGun_SMC : MonoBehaviour
 
     void StartGrapple()
     {
-
-        //Using spherecollider we get nearest object to connect spring too.
-        Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
-
-        Collider closestObject = null;  
-        foreach (Collider _object in objectsInRange )
+        if (rag.GetComponent<SMC_move>().isEquip == true)
         {
-            if (closestObject == null)
+
+        }
+        else
+        {
+            //Using spherecollider we get nearest object to connect spring too.
+            Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
+
+            Collider closestObject = null;
+            foreach (Collider _object in objectsInRange)
             {
-                closestObject = _object;
-            }
-            else
-            {
-                if (Vector3.Distance(_object.transform.position, playerTransform.position) <= Vector3.Distance(closestObject.transform.position, playerTransform.position))
+                if (closestObject == null)
                 {
-                    Debug.Log("New Closest Object!");
                     closestObject = _object;
                 }
+                else
+                {
+                    if (Vector3.Distance(_object.transform.position, playerTransform.position) <= Vector3.Distance(closestObject.transform.position, playerTransform.position))
+                    {
+                        Debug.Log("New Closest Object!");
+                        closestObject = _object;
+                    }
+                }
             }
+
+
+            if (objectsInRange.Length > 0)
+            {
+
+
+                lr.enabled = true;
+                //grapplePoint = object 0 in the array;
+                grapplePoint = closestObject.transform.position;
+
+                joints = player.gameObject.AddComponent<SpringJoint>();
+                joints.autoConfigureConnectedAnchor = false;
+                joints.connectedAnchor = grapplePoint;
+
+
+
+
+
+
+                //Change these values to fit the game.
+                joints.spring = 7f;
+                joints.damper = 4f;
+                joints.massScale = 5f;
+
+                lr.positionCount = 2;
+
+            }
+
         }
-
-        if (objectsInRange.Length > 0)
-        {
-
-
-        lr.enabled = true;
-        //grapplePoint = object 0 in the array;
-        grapplePoint = closestObject.transform.position;
-
-        joints = player.gameObject.AddComponent<SpringJoint>();
-        joints.autoConfigureConnectedAnchor = false;
-        joints.connectedAnchor = grapplePoint;
-
-        
-
-
-           
-
-        //Change these values to fit the game.
-        joints.spring = 7f;
-        joints.damper = 4f;
-        joints.massScale = 5f;
-
-        lr.positionCount = 2;
-
-        }
-        
-
     }
 
     void DrawRope()
