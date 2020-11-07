@@ -12,6 +12,11 @@ TagManager:
   - ground
   - Water
   - Fire
+  - Climbable
+  - Hanger
+  - CheckPoint
+  - JumpPad
+  - Picture
   layers:
   - Default
   - TransparentFX

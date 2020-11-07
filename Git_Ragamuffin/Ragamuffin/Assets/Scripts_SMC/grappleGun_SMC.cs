@@ -37,12 +37,12 @@ public class grappleGun_SMC : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartGrapple();
-            Debug.Log("E was pressed");
+          
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
             StopGrapple();
-            Debug.Log("E was Released");
+            
         }
 
 

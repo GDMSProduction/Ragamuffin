@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SMC_move : MonoBehaviour
 {
@@ -12,15 +14,18 @@ public class SMC_move : MonoBehaviour
 
     bool ableJump = true;
 
-    public bool isHiding = false    ;
-    
+    public bool isHiding = false;
+
+    public Vector3 startPosition;
+
 
 
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
-        
+
+        startPosition = transform.position;
 
     }
 
@@ -30,12 +35,24 @@ public class SMC_move : MonoBehaviour
     {
         Jumping();
 
+
+
+
+
     }
 
-
+    public bool disableMovement = false;
 
     private void FixedUpdate()
     {
+
+        if (disableMovement)
+        {
+
+        }
+        else
+        {
+                
         if (Input.GetKey(KeyCode.D))
         {
             transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
@@ -49,6 +66,9 @@ public class SMC_move : MonoBehaviour
             transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
             transform.rotation = Quaternion.LookRotation(Vector3.back);
         }
+
+        }
+
     }
 
 
@@ -58,11 +78,11 @@ public class SMC_move : MonoBehaviour
     {
         //if hiding is true do nothing
         //if hiding is false jump
-        if (isHiding)
+        if (isHiding || disableMovement)
         {
 
 
-            
+
         }
         else
         {
@@ -86,6 +106,7 @@ public class SMC_move : MonoBehaviour
 
     }
 
+    public bool amIHanging = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -93,25 +114,125 @@ public class SMC_move : MonoBehaviour
         if (other.gameObject.tag == ("Water"))
         {
             forwardSpeed = 0.75f;
-            Debug.Log("Swimming");
+            
         }
 
 
         //Make trigger tag it fire
         if (other.gameObject.tag == ("Fire"))
         {
-            Destroy(gameObject);
-            Debug.Log("Burning");
+            Death();
+            
+        }
+
+
+        if (other.gameObject.tag == ("CheckPoint"))
+        {
+            startPosition = other.transform.position;
+            Debug.Log("CheckPoint updated!");
+        }
+
+        if (other.gameObject.tag ==("JumpPad"))
+        {
+            jumpForce = 250;
+        }
+
+
+        if (other.gameObject.tag == ("Picture"))
+        {
+            Debug.Log("Hi Do Something");
+            other.gameObject.GetComponent<PictureCollection>().isCollected = true;
+            other.gameObject.GetComponent<PictureCollection>().images[0].color = Color.red;
+
+            if (other.gameObject.GetComponent<PictureCollection>().isCollected == true)
+            {
+                Destroy(other.gameObject);
+            }
+
+            
+            
+        }
+
+
+    }
+
+    
+
+    private void OnTriggerStay(Collider other)
+    {
+
+
+        if (other.gameObject.tag == ("Hanger"))
+        {
+            
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                
+
+                gameObject.transform.position = other.transform.position;
+
+                gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
+                amIHanging = true;
+
+                disableMovement = true;
+            }
+
+            if (amIHanging == true)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+                    amIHanging = false;
+
+                    disableMovement = false;
+                }
+            }
+        }
+
+
+
+        if (Input.GetKeyDown(KeyCode.W) && amIHanging == true)
+        {
+
+            if (other.gameObject.tag == ("Climbable"))
+            {
+                gameObject.transform.position = other.transform.position;
+
+                gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+                amIHanging = false;
+
+                disableMovement = false;
+            }
+
+
         }
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.tag == ("Water"))
         {
             forwardSpeed = 1.5f;
-            Debug.Log("Dryland");
+           
+        }
+
+
+        if (other.gameObject.tag == ("JumpPad"))
+        {
+            jumpForce = 150;
         }
     }
 
     //death function reset transform to start point. 
+    public void Death()
+    {
+        gameObject.transform.position = startPosition;
+       
+
+
+    }
 }
