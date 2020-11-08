@@ -19,6 +19,7 @@ public class SMC_move : MonoBehaviour
 
     private void Start()
     {
+        
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
@@ -136,9 +137,11 @@ public class SMC_move : MonoBehaviour
 
         if (other.gameObject.tag == ("Pin"))
         {
+            
             Debug.Log("hi im here");
             if (Input.GetKeyDown(KeyCode.E))
             {
+                dummyPin = other.gameObject;
                 isEquip = true;
                 pinHandle.SetActive(true);
                 dummyPin.SetActive(false);
