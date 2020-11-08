@@ -11,7 +11,6 @@ public class Collectables : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //make trigger tag it water
         if (other.gameObject.tag == ("Player"))
         {
             menu.UpdateCollection(num);
