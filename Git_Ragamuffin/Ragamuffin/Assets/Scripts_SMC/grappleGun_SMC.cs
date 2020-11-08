@@ -4,57 +4,37 @@ using UnityEngine;
 
 public class grappleGun_SMC : MonoBehaviour
 {
-
     public LineRenderer lr;
-
     private Vector3 grapplePoint;
-
     public LayerMask whatIsGrappleable;
-
     public Transform gunTip, cam;
-
     public float maxDistance = 100f;
-
     private SpringJoint joints;
-
     public GameObject player;
-
     public Transform playerTransform;
-
     public GameObject rag;
     
-
-
-
-
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
     }
-
    
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartGrapple();
-          
         }
         else if (Input.GetKeyUp(KeyCode.E))
         {
-            StopGrapple();
-            
+            StopGrapple();   
         }
-
-
     }
 
     private void FixedUpdate()
     {
         float distanceFromPoint = Vector3.Distance(playerTransform.position, grapplePoint);
-
-        
         if (distanceFromPoint > maxDistance)
         {
             StopGrapple();
@@ -70,13 +50,11 @@ public class grappleGun_SMC : MonoBehaviour
     {
         if (rag.GetComponent<SMC_move>().isEquip == true)
         {
-
         }
         else
         {
             //Using spherecollider we get nearest object to connect spring too.
             Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
-
             Collider closestObject = null;
             foreach (Collider _object in objectsInRange)
             {
@@ -94,33 +72,20 @@ public class grappleGun_SMC : MonoBehaviour
                 }
             }
 
-
             if (objectsInRange.Length > 0)
             {
-
-
                 lr.enabled = true;
                 //grapplePoint = object 0 in the array;
                 grapplePoint = closestObject.transform.position;
-
                 joints = player.gameObject.AddComponent<SpringJoint>();
                 joints.autoConfigureConnectedAnchor = false;
                 joints.connectedAnchor = grapplePoint;
-
-
-
-
-
-
                 //Change these values to fit the game.
                 joints.spring = 7f;
                 joints.damper = 4f;
                 joints.massScale = 5f;
-
                 lr.positionCount = 2;
-
             }
-
         }
     }
 
@@ -132,8 +97,7 @@ public class grappleGun_SMC : MonoBehaviour
     }
 
     void StopGrapple()
-    {
-        
+    {   
         lr.positionCount = 0;
         Destroy(joints);
     }
@@ -142,11 +106,4 @@ public class grappleGun_SMC : MonoBehaviour
     {
         Gizmos.DrawWireSphere(playerTransform.position, maxDistance);
     }
-
-
 }
-
-
-
-
-

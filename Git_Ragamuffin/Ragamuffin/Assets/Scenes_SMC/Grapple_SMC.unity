@@ -1441,7 +1441,7 @@ Canvas:
   m_GameObject: {fileID: 499558318}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1222788932}
   m_PlaneDistance: 0.3
   m_PixelPerfect: 0
@@ -1763,6 +1763,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rag_LowRes
       objectReference: {fileID: 0}
+    - target: {fileID: 6629853225776681099, guid: dae53801a3dcded4fa2584c726bcf6df,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dae53801a3dcded4fa2584c726bcf6df, type: 3}
 --- !u!1 &522480620 stripped
@@ -1771,6 +1776,40 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 522480619}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &522480621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522480620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcdc3ce133b774dafbe48e5dae9cdbaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 499558318}
+  images:
+  - {fileID: 633805742}
+  - {fileID: 196830027}
+  - {fileID: 272165134}
+  - {fileID: 503262041}
+  - {fileID: 488980114}
+  - {fileID: 2038982526}
+  - {fileID: 793076199}
+  - {fileID: 126828729}
+  - {fileID: 1442724698}
+  - {fileID: 721885583}
+  - {fileID: 19493416}
+  - {fileID: 240637442}
+  - {fileID: 47966786}
+  - {fileID: 1947629506}
+  - {fileID: 1614894308}
+  - {fileID: 999200061}
+  - {fileID: 734915558}
+  - {fileID: 865004040}
+  - {fileID: 1257308701}
+  - {fileID: 231703119}
 --- !u!1 &585697453
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,7 +3320,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222788930}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.806, y: 0, z: 0}
+  m_LocalPosition: {x: -2.27, y: 0, z: -4.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4125,6 +4164,7 @@ GameObject:
   - component: {fileID: 1641178828}
   - component: {fileID: 1641178827}
   - component: {fileID: 1641178826}
+  - component: {fileID: 1641178830}
   m_Layer: 0
   m_Name: Picture
   m_TagString: Untagged
@@ -4205,6 +4245,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1641178830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641178825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb55a0dc5e39e4a5fbd93a3edd5e8ae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menu: {fileID: 522480621}
+  num: 2
 --- !u!1 &1698970388
 GameObject:
   m_ObjectHideFlags: 0
