@@ -16,10 +16,10 @@ public class SMC_move : MonoBehaviour
     public bool isEquip = false;
     public GameObject dummyPin;
     public GameObject dropPoint;
+    public bool amIHanging = false;
 
     private void Start()
     {
-        
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
@@ -46,16 +46,17 @@ public class SMC_move : MonoBehaviour
         }
         else
         {     
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.LookRotation(Vector3.forward);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
-            transform.rotation = Quaternion.LookRotation(Vector3.back);
-        }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.LookRotation(Vector3.forward);
+            }
+
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
+                transform.rotation = Quaternion.LookRotation(Vector3.back);
+            }
         }
     }
 
@@ -84,8 +85,6 @@ public class SMC_move : MonoBehaviour
             ableJump = true;
         }
     }
-
-    public bool amIHanging = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -137,8 +136,6 @@ public class SMC_move : MonoBehaviour
 
         if (other.gameObject.tag == ("Pin"))
         {
-            
-            Debug.Log("hi im here");
             if (Input.GetKeyDown(KeyCode.E))
             {
                 dummyPin = other.gameObject;
