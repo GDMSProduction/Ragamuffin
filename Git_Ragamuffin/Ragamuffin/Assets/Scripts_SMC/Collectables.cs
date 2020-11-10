@@ -8,6 +8,10 @@ public class Collectables : MonoBehaviour
     private Menu menu;
     [SerializeField]
     private int num;
+    [SerializeField]
+    private string savePictureData;
+     [SerializeField]
+    private int pictureItemsArryNum;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +19,7 @@ public class Collectables : MonoBehaviour
         {
             menu.UpdateCollection(num);
             gameObject.SetActive(false);
+            menu.GetSaveData(savePictureData,pictureItemsArryNum);
         }
     }
 }
