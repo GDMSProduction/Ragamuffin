@@ -2101,7 +2101,6 @@ MonoBehaviour:
   - {fileID: 865004040}
   - {fileID: 1257308701}
   - {fileID: 231703119}
-  test: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 --- !u!1 &585697453
 GameObject:
   m_ObjectHideFlags: 0
@@ -4956,7 +4955,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 522480621}
-  num: 2
+  savePictureData: 0
+  pictureItemsArryNum: 0
 --- !u!1 &1698970388
 GameObject:
   m_ObjectHideFlags: 0

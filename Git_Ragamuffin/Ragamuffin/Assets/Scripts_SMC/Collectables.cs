@@ -6,20 +6,20 @@ public class Collectables : MonoBehaviour
 {
     [SerializeField]
     private Menu menu;
-    [SerializeField]
-    private int num;
-    [SerializeField]
-    private string savePictureData;
+    private int savePictureData = 1;    // When OnTriggerEnter is called this will change playerprefs int to 1 which means
+                                        // player has collected item and will be turned on / displayed when that 
+                                        // specific menu opens.
+                                        
      [SerializeField]
-    private int pictureItemsArryNum;
+    private int pictureItemsArryNum;    //number neeeds to match in array in menu script. string[] picNames. 
+                                        //If picture is collectable #1 then this number should be 0 in the inspector. 
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == ("Player"))
         {
-            menu.UpdateCollection(num);
             gameObject.SetActive(false);
-            menu.GetSaveData(savePictureData,pictureItemsArryNum);
+            menu.SetSaveData(pictureItemsArryNum,savePictureData);
         }
     }
 }
