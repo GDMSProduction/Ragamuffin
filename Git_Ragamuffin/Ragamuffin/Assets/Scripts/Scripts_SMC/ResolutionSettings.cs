@@ -5,19 +5,10 @@ using UnityEngine.UI;
 using TMPro;
 public class ResolutionSettings : MonoBehaviour
 {
-// public TMP_Dropdown resolutionDropdown;
-// private const string resKey = "ResIndex";
-// private Resolution[] resolutions;//restext
-// private int curResIndex = 0;
-
-//       void Start() {
-
-//       }
-
-    public TMP_Dropdown resolutionDropdown;
-   Resolution[] resolutions;
-   string resKey = "ResIndex";
- void Start()
+public TMP_Dropdown resolutionDropdown;
+Resolution[] resolutions;
+string resKey = "ResIndex";
+void Start()
  {
     //  int currentResIndex = PlayerPrefs.GetInt(resKey,0);
      resolutions = Screen.resolutions;
