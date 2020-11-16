@@ -17,9 +17,13 @@ public class SMC_move : MonoBehaviour
     public GameObject dummyPin;
     public GameObject dropPoint;
     public bool amIHanging = false;
-
+    private string level;
+    private Scene scene;
     private void Start()
     {
+        scene = SceneManager.GetActiveScene();
+        level = scene.name;
+        PlayerPrefs.SetString("lastlevel",level);
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
