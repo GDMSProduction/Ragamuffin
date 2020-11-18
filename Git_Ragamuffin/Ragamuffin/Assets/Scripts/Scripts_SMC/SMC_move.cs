@@ -19,6 +19,8 @@ public class SMC_move : MonoBehaviour
     public bool amIHanging = false;
     private string level;
     private Scene scene;
+    public Transform childRag;
+    public bool lookingRight = true;
     private void Start()
     {
         scene = SceneManager.GetActiveScene();
@@ -39,6 +41,8 @@ public class SMC_move : MonoBehaviour
                 dummyPin.SetActive(true);
                 isEquip = false;
             }
+          
+                
     }
 
     public bool disableMovement = false;
@@ -49,21 +53,35 @@ public class SMC_move : MonoBehaviour
         {
         }
         else
-        {     
-            if (Input.GetKey(KeyCode.D))
+        {  //Other stuff here
+                 if (Input.GetKey(KeyCode.D))
             {
-                transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.forward);
+                transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
+                lookingRight = true;
+                TestPlay();
+                //transform.rotation = Quaternion.LookRotation(Vector3.left);
             }
 
             if (Input.GetKey(KeyCode.A))
             {
-                transform.Translate(Vector3.forward * -forwardSpeed * Time.deltaTime);
-                transform.rotation = Quaternion.LookRotation(Vector3.back);
+                transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+                lookingRight = false;
+                TestPlay();
+                // transform.rotation = Quaternion.LookRotation(Vector3.left);
             }
+        }   
+    }
+    
+    private void TestPlay(){
+        float temp = childRag.localScale.z;
+        // Debug.Log(temp);
+        if(lookingRight ){//&& temp != 1f
+           childRag.localScale = new Vector3(1f,1f,1f);
+        }
+        if (!lookingRight ){//&& temp != -1f
+            childRag.localScale = new Vector3(1f,1f,-1f);
         }
     }
-
     private void Jumping()
     {
         //if hiding is true do nothing
