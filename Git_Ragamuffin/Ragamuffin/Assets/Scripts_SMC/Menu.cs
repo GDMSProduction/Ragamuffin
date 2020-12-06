@@ -13,6 +13,11 @@ public class Menu : MonoBehaviour
     private bool collectablesOnOff = false;
     string[] picNames = {"0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19"};
 
+    private void Start()
+    {
+        Debug.Log(PlayerPrefs.GetInt(picNames[0]));
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)){

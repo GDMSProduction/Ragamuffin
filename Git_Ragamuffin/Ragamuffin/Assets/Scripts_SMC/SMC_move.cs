@@ -17,12 +17,14 @@ public class SMC_move : MonoBehaviour
     public GameObject dummyPin;
     public GameObject dropPoint;
     public bool amIHanging = false;
+    
 
     private void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
+        
     }
     // Update is called once per frame
     void Update()
@@ -83,6 +85,13 @@ public class SMC_move : MonoBehaviour
         if (collision.gameObject.tag == ("Ground"))
         {
             ableJump = true;
+        }
+
+        if (collision.gameObject.tag == ("Cat"))
+        {
+            Debug.Log("you hit the cat asshole");
+            collision.gameObject.GetComponent<SMCPatrol>().beenAttacked = true;
+            collision.gameObject.GetComponent<SMCPatrol>().HasBeenHit();
         }
     }
 
@@ -166,7 +175,7 @@ public class SMC_move : MonoBehaviour
         }
         if (other.gameObject.tag == ("JumpPad"))
         {
-            jumpForce = 150;
+            jumpForce = 300;
         }
     }
     //death function reset transform to start point. 

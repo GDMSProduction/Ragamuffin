@@ -18,6 +18,8 @@ TagManager:
   - JumpPad
   - Picture
   - Pin
+  - AttackPoint
+  - Cat
   layers:
   - Default
   - TransparentFX
