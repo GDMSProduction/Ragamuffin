@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class SMC_move : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject changeLevel;
+    public string levelToLoad;
     private Rigidbody rb;
     public float forwardSpeed = 1.5f;
     public float jumpForce = 150f;
@@ -41,8 +41,16 @@ public class SMC_move : MonoBehaviour
                 dummyPin.SetActive(true);
                 isEquip = false;
             }
-          
-                
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            childRag.localRotation = Quaternion.Euler(0, 50, 0);
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            childRag.localRotation = Quaternion.Euler(0, 180, 0);
+        }
+        //childRag.localRotation = Quaternion.Euler(0, 50, 0);
+        //childRag.localRotation = Quaternion.Euler(0, 180, 0);
     }
 
     public bool disableMovement = false;
@@ -53,35 +61,19 @@ public class SMC_move : MonoBehaviour
         {
         }
         else
-        {  //Other stuff here
-                 if (Input.GetKey(KeyCode.D))
+        { 
+            if (Input.GetKey(KeyCode.D))
             {
                 transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
-                lookingRight = true;
-                TestPlay();
-                //transform.rotation = Quaternion.LookRotation(Vector3.left);
             }
 
             if (Input.GetKey(KeyCode.A))
             {
                 transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
-                lookingRight = false;
-                TestPlay();
-                // transform.rotation = Quaternion.LookRotation(Vector3.left);
             }
         }   
     }
-    
-    private void TestPlay(){
-        float temp = childRag.localScale.z;
-        // Debug.Log(temp);
-        if(lookingRight ){//&& temp != 1f
-           childRag.localScale = new Vector3(1f,1f,1f);
-        }
-        if (!lookingRight ){//&& temp != -1f
-            childRag.localScale = new Vector3(1f,1f,-1f);
-        }
-    }
+
     private void Jumping()
     {
         //if hiding is true do nothing
@@ -114,6 +106,10 @@ public class SMC_move : MonoBehaviour
         if (other.gameObject.tag == ("Water"))
         {
             forwardSpeed = 2.5f;
+        }
+        if (other.gameObject.tag == ("EndLevel"))
+        {
+            changeLevel.GetComponent<LevelLoader>().LoadLevel(levelToLoad);
         }
         //Make trigger tag it fire
         if (other.gameObject.tag == ("Fire"))
@@ -156,6 +152,15 @@ public class SMC_move : MonoBehaviour
             }
         }
 
+         if (other.gameObject.tag == ("Scarf"))
+        {
+            if (Input.GetKey(KeyCode.E))
+            {
+                GetComponent<Rigidbody>().useGravity = false;
+                transform.Translate(Vector3.up * forwardSpeed * Time.deltaTime);
+            }
+        }
+
         if (other.gameObject.tag == ("Pin"))
         {
             if (Input.GetKeyDown(KeyCode.E))
@@ -189,6 +194,10 @@ public class SMC_move : MonoBehaviour
         if (other.gameObject.tag == ("JumpPad"))
         {
             jumpForce = 150;
+        }
+        if (other.gameObject.tag == ("Scarf"))
+        {
+                GetComponent<Rigidbody>().useGravity = true;
         }
     }
     //death function reset transform to start point. 

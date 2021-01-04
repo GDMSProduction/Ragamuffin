@@ -215,7 +215,17 @@ ModelImporter:
     13700022: polySurface18
     13700024: polySurface9
     13700026: rt_eye
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rag_GameRes_WithHigherPolycount_Rag_Lowpoly_initialShadingGroup1
+    second: {fileID: 2100000, guid: 39c031f5692760b48a9e50d20d5705c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100002, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
   materials:
     importMaterials: 1
     materialName: 0
@@ -295,7 +305,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 0.099999994
+    previousCalculatedGlobalScale: 0.01
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

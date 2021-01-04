@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class VolumeSlider : MonoBehaviour
 {
-    public Slider mainSlider;
+    public Slider musicSlider;
+    public Slider soundEffectsSlider;
     // Start is called before the first frame update
     void Start()
     {
-        mainSlider.value = PlayerPrefs.GetFloat("Volume");
+        musicSlider.value = PlayerPrefs.GetFloat("Volume");
+        soundEffectsSlider.value = PlayerPrefs.GetFloat("Sound");
     }
 }

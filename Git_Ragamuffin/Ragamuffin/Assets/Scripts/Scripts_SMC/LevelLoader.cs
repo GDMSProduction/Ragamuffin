@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
@@ -12,9 +10,13 @@ public class LevelLoader : MonoBehaviour
     public void Exit(){
         Application.Quit();
     }
-    public void SetVolume(float num){
+    public void SetVolume(float num){//music volume
         PlayerPrefs.SetFloat("Volume", num);
         Debug.Log(PlayerPrefs.GetFloat("Volume") + " test");
+    }
+     public void SetSoundEffectsVolume(float num){
+        PlayerPrefs.SetFloat("Sound", num);
+        Debug.Log(PlayerPrefs.GetFloat("Sound") + " test");
     }
     public void ContinueGame(){
        string temp = PlayerPrefs.GetString("lastlevel");
