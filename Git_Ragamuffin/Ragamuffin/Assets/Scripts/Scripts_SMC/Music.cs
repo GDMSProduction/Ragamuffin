@@ -5,19 +5,22 @@ using UnityEngine;
 
 public class Music : MonoBehaviour
 {
-    public static Music Instance;
+    public static Music Instance = null;
      AudioSource audioSource;
      void Awake(){
          audioSource = GetComponent<AudioSource>();
-         if (Instance!=null){
-             GameObject.Destroy(Instance);
-     } 
-        else {
-            Instance = this;         
-            DontDestroyOnLoad(this);
-     }
+         DontDestroyOnLoad(this);
     }
     void Update(){
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if(Instance != this)
+        {
+            Instance = this;
+            Destroy(gameObject);
+        }
         audioSource.volume = PlayerPrefs.GetFloat("Volume");
     }
 }

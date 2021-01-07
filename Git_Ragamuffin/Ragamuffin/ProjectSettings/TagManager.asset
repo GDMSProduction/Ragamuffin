@@ -19,6 +19,8 @@ TagManager:
   - Picture
   - Pin
   - Scarf
+  - EndLevel
+  - Hint
   layers:
   - Default
   - TransparentFX

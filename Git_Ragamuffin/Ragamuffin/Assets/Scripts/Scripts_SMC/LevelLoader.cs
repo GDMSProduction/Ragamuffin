@@ -3,6 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    /*
+    void OnGUI()
+        {
+            //Delete all of the PlayerPrefs settings by pressing this Button
+            if (GUI.Button(new Rect(100, 200, 200, 60), "Delete"))
+            {
+                PlayerPrefs.DeleteAll();
+            }
+        }*/
+    public void DeletePlayerPrefs(){
+        PlayerPrefs.DeleteAll();
+    }
     public void LoadLevel(string newScene){
         Time.timeScale = 1;
         SceneManager.LoadScene(newScene);

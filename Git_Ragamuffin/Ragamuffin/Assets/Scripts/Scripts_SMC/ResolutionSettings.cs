@@ -13,7 +13,8 @@ string qualityKey = "QualityIndex";
 public static float brightness = 1f;
 public Toggle tog;
 void Start()
- {     
+ {
+        
      tog.isOn = Screen.fullScreen;
      resolutions = Screen.resolutions;
      resolutionDropdown.ClearOptions();
@@ -41,7 +42,7 @@ void Start()
      resolutionDropdown.AddOptions(options);
      resolutionDropdown.value = PlayerPrefs.GetInt(resKey);
      resolutionDropdown.RefreshShownValue();
-     ResDropDownValue();
+     //ResDropDownValue();
      qualityDropdown.AddOptions(optionz);
      qualityDropdown.value = PlayerPrefs.GetInt(qualityKey);
      qualityDropdown.RefreshShownValue();

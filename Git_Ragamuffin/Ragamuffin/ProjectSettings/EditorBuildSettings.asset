@@ -11,15 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0Scenes/OptionsMenu.unity
     guid: 46d4b89cee8ca424d9b5be15300e2fd1
-  - enabled: 0
-    path: Assets/0Scenes/Blockouts/0Brother'sRoom_BlockOut/Hallway_Blockout.unity
-    guid: d0a946beafdf1fd4182e4ee05da21af9
   - enabled: 1
     path: Assets/0Scenes/Blockouts/Brother'sRoom_BlockOut.unity
     guid: f306698e2f39f374981558ccd3747d80
-  - enabled: 0
-    path: Assets/0Scenes/Scenes_SMC/Grapple_SMC.unity
-    guid: 7b34e1439ad946941b2d40b1068cee2a
   - enabled: 1
     path: Assets/0Scenes/Blockouts/Hallway_Blockout_Revised.unity
     guid: 7d5d808b1a4963f4a9f98ce5d46b3bd2

@@ -7,7 +7,7 @@ public class SMC_move : MonoBehaviour
     private GameObject changeLevel;
     public string levelToLoad;
     private Rigidbody rb;
-    public float forwardSpeed = 1.5f;
+    public float forwardSpeed = 5f;
     public float jumpForce = 150f;
     bool ableJump = true;
     public bool isHiding = false;
@@ -105,7 +105,7 @@ public class SMC_move : MonoBehaviour
         //make trigger tag it water
         if (other.gameObject.tag == ("Water"))
         {
-            forwardSpeed = 2.5f;
+            forwardSpeed = 1f;
         }
         if (other.gameObject.tag == ("EndLevel"))
         {
@@ -189,7 +189,7 @@ public class SMC_move : MonoBehaviour
     {
         if (other.gameObject.tag == ("Water"))
         {
-            forwardSpeed = 4.5f;
+            forwardSpeed = 5f;
         }
         if (other.gameObject.tag == ("JumpPad"))
         {

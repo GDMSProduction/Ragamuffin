@@ -20,7 +20,14 @@ namespace Wilberforce
 		public Shader colorblindShader;
         private bool isSupported;
         private Material ColorblindMaterial;
-
+        public void ChangeColorBlindMode()
+        {
+            Type++;
+            if(Type >= 4)
+            {
+                Type = 0;
+            }
+        }
 		// method for logging if something goes wrong
         private void ReportError(string error)
         {
