@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/0Scenes/MainMenu.unity
+    path: Assets/0Scenes/Menus/MainMenu.unity
     guid: 07e0ab60f1932414f894a029ef6609aa
   - enabled: 1
-    path: Assets/0Scenes/OptionsMenu.unity
+    path: Assets/0Scenes/Menus/OptionsMenu.unity
     guid: 46d4b89cee8ca424d9b5be15300e2fd1
   - enabled: 1
     path: Assets/0Scenes/Blockouts/Brother'sRoom_BlockOut.unity
