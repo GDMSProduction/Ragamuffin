@@ -111,7 +111,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: 94c423811ca218446af720a7f20e27f1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 85ee5b01e694e3049b593817c9c3213b, type: 2}
 --- !u!1 &10265031
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,7 +561,7 @@ GameObject:
   - component: {fileID: 19438976}
   - component: {fileID: 19438973}
   - component: {fileID: 19438975}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: RAG
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -593,6 +593,9 @@ MonoBehaviour:
   amIHanging: 0
   childRag: {fileID: 764943187}
   lookingRight: 1
+  catLocation: {fileID: 0}
+  Cat: {fileID: 0}
+  attackRange: 2
   disableMovement: 0
 --- !u!4 &19438974
 Transform:
@@ -4637,6 +4640,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 498622483}
   m_CullTransparentMesh: 0
+--- !u!1 &501707888
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 501707889}
+  m_Layer: 0
+  m_Name: NavPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &501707889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501707888}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 13.38, y: 0.695, z: 7.08}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &503046970
 GameObject:
   m_ObjectHideFlags: 0
@@ -6246,7 +6279,7 @@ GameObject:
   - component: {fileID: 730661715}
   - component: {fileID: 730661714}
   - component: {fileID: 730661718}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Misc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12243,6 +12276,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1552132540}
   m_CullTransparentMesh: 0
+--- !u!1 &1554002562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1554002563}
+  m_Layer: 0
+  m_Name: NavPoint (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1554002563
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554002562}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 18.08, y: 0.695, z: 7.08}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 29
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1574927885
 GameObject:
   m_ObjectHideFlags: 0
@@ -14821,6 +14884,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tarantula
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 9035727ad1e4b2c409c2229e21141fbd, type: 3}
+      propertyPath: m_TagString
+      value: Cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 9035727ad1e4b2c409c2229e21141fbd, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 9035727ad1e4b2c409c2229e21141fbd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.83
@@ -14919,7 +14990,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d82abe8d67b81f4b9145b2cf391fca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CatNavPoints:
+  - {fileID: 501707889}
+  - {fileID: 1554002563}
+  - {fileID: 1823252527}
+  navpointIndex: 0
+  navDistance: 1
+  walkPoint: {x: 0, y: 0, z: 0}
+  walkPointSet: 0
+  walkPointRange: 3
   agent: {fileID: 1758384637}
+  playerLocation: {fileID: 0}
   player: {fileID: 19438974}
   whatIsGround:
     serializedVersion: 2
@@ -14927,14 +15008,14 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 256
-  walkPoint: {x: 0, y: 0, z: 0}
-  walkPointSet: 0
-  walkPointRange: 3
   timeBetweenAttacks: 3
   sightRange: 5
   attackRange: 1
   playerInSightRange: 0
   playerInAttackRange: 0
+  spooked: 0
+  timeBetweenSpooks: 5
+  howlongSpooked: 0
 --- !u!1 &1788036942
 GameObject:
   m_ObjectHideFlags: 0
@@ -15086,6 +15167,36 @@ Transform:
   m_Father: {fileID: 344077444}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1823252526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823252527}
+  m_Layer: 0
+  m_Name: NavPoint (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1823252527
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823252526}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 4.94, y: 0.695, z: 7.08}
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 30
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1846640890
 GameObject:
   m_ObjectHideFlags: 0

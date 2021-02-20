@@ -3,44 +3,82 @@ using UnityEngine.AI;
 
 public class CatNav : MonoBehaviour
 {
+    //Remember to bake before use!!
 
-    public NavMeshAgent agent;
-    public Transform player;
-    public LayerMask whatIsGround, whatIsPlayer;
-
+    [Header("Navigation")]
+    [SerializeField] [Tooltip("Populate the array with nav points. (EX. empty game objects)")]
+    Transform[] CatNavPoints;
+    [Tooltip("What nav point the agent is on in the array.")]
+    public int navpointIndex;
+    [Tooltip("How close the nav point has to be before finding the next one.")]
+    public float navDistance = 1;
     public Vector3 walkPoint;
     public bool walkPointSet;
     public float walkPointRange;
+    public NavMeshAgent agent;
 
+    [Header("Player & Masks")]
+    public Transform playerLocation;
+    public GameObject player;
+    public LayerMask whatIsGround, whatIsPlayer;
+    
+    [Header("Attack Stats")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+
+    [Header("Spook Stats")]
+    [Tooltip("Bool that controls if the cat is scared.")]
+    public bool spooked = false;
+    [Tooltip("Time it takes for the cat to be no longer scared.")]
+    public float timeBetweenSpooks = 5.0f;
+    public float howlongSpooked; // how long the cat has been spooked
+
     // Start is called before the first frame update
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindWithTag("Player");
+        playerLocation = player.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        if(!spooked)
+        {
+            playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+            playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
+        }
+        if(howlongSpooked >= timeBetweenSpooks)
+        {
+            spooked = false;
+            howlongSpooked = 0;
+        }
+        if(spooked) { howlongSpooked += Time.deltaTime; }
         if (!playerInSightRange && !playerInAttackRange) { Patrolling(); };
         if (playerInSightRange && !playerInAttackRange) { ChasePlayer(); };
         if (playerInSightRange && playerInAttackRange) { AttackPlayer(); };
     }
     private void Patrolling()
     {
+        /*
         if (!walkPointSet) SearchWalkPoint();
         if (walkPointSet) agent.SetDestination(walkPoint);
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         if (distanceToWalkPoint.magnitude <2f) walkPointSet = false;
+        */
+
+        agent.SetDestination(CatNavPoints[navpointIndex].position); // setting destination to current nav point index
+        if (Vector3.Distance(CatNavPoints[navpointIndex].position, gameObject.transform.position) < navDistance && !playerInSightRange) // increasing the index when in navDistance
+        {
+            IncreaseIndex();
+        }
     }
     private void SearchWalkPoint()
     {
+        // Search walk point is no longer being referenced/used
         float randomZ = Random.Range(-walkPointRange,walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
         walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
@@ -48,12 +86,18 @@ public class CatNav : MonoBehaviour
     }
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
+        agent.SetDestination(playerLocation.position);
     }
     private void AttackPlayer()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(player);
+        //transform.LookAt(player);
+
+        Vector3 lookPos = playerLocation.transform.position - transform.position;
+        lookPos.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(lookPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 5f);
+
         if (!alreadyAttacked)
         {
             alreadyAttacked = true;
@@ -63,6 +107,22 @@ public class CatNav : MonoBehaviour
     private void ResetAttack()
     {
         alreadyAttacked = false;
+    }
+
+    void IncreaseIndex()
+    {
+        navpointIndex++; //increasing the index causes the agent to travel to the next point in the array
+        if (navpointIndex >= CatNavPoints.Length)
+        {
+            navpointIndex = 0; // reseting nav point index so the agent will start again from the first point
+        }
+    }
+
+    public void Spook() // function that spooks the cat. Will be forced to Patrol until timeBetweenSpooks has passed.
+    {
+        spooked = true;
+        playerInAttackRange = false;
+        playerInSightRange = false;
     }
 
     private void OnDrawGizmosSelected()

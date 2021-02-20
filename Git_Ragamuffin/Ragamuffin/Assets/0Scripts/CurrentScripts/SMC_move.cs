@@ -21,6 +21,9 @@ public class SMC_move : MonoBehaviour
     private Scene scene;
     public Transform childRag;
     public bool lookingRight = true;
+    public Transform catLocation;
+    public GameObject Cat;
+    public float attackRange;
     private void Start()
     {
         scene = SceneManager.GetActiveScene();
@@ -29,6 +32,8 @@ public class SMC_move : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
+        Cat = GameObject.FindWithTag("Cat");
+        catLocation = Cat.transform;
     }
     // Update is called once per frame
     void Update()
@@ -51,6 +56,14 @@ public class SMC_move : MonoBehaviour
         }
         //childRag.localRotation = Quaternion.Euler(0, 50, 0);
         //childRag.localRotation = Quaternion.Euler(0, 180, 0);
+
+        if (isEquip == true && Vector3.Distance(transform.position, catLocation.position) <= attackRange)
+        {
+            Cat.SendMessage("Spook");
+            pinHandle.SetActive(false);
+            isEquip = false;
+        }
+
     }
 
     public bool disableMovement = false;
@@ -169,6 +182,7 @@ public class SMC_move : MonoBehaviour
                 isEquip = true;
                 pinHandle.SetActive(true);
                 dummyPin.SetActive(false);
+                Debug.Log("Pin equipped");
             }
         }
     

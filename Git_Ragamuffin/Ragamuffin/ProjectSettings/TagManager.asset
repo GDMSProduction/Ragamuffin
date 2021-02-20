@@ -21,6 +21,7 @@ TagManager:
   - Scarf
   - EndLevel
   - Hint
+  - Cat
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - Player
   - Ground
   - Grapple
-  - 
+  - Cat
   - 
   - 
   - 
