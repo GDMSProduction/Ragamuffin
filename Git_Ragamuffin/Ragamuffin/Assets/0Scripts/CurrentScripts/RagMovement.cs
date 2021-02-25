@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SMC_move : MonoBehaviour
+public class RagMovement : MonoBehaviour
 {
     [SerializeField]
     private GameObject changeLevel;

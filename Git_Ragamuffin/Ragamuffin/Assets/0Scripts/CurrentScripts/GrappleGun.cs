@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class grappleGun_SMC : MonoBehaviour
+public class GrappleGun : MonoBehaviour
 {
     public LineRenderer lr;
     private Vector3 grapplePoint;
@@ -46,7 +46,7 @@ public class grappleGun_SMC : MonoBehaviour
 
     void StartGrapple()
     {
-        if (rag.GetComponent<SMC_move>().isEquip == true)
+        if (rag.GetComponent<RagMovement>().isEquip == true)
         {
         }
         else

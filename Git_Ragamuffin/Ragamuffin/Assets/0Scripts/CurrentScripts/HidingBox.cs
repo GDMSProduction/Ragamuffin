@@ -24,16 +24,16 @@ public class HidingBox : MonoBehaviour
 
             child.transform.SetParent(target.transform);
 
-            target.GetComponent<SMC_move>().isHiding = true;
+            target.GetComponent<RagMovement>().isHiding = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && target.GetComponent<SMC_move>().isHiding == true)
+        if (Input.GetKeyDown(KeyCode.R) && target.GetComponent<RagMovement>().isHiding == true)
         {
             transform.position = transform.position;
 
             child.transform.parent = null;
 
-            target.GetComponent<SMC_move>().isHiding = false;
+            target.GetComponent<RagMovement>().isHiding = false;
         }
 
         
