@@ -17043,7 +17043,7 @@ MonoBehaviour:
     m_Bits: 1024
   gunTip: {fileID: 2072357451}
   cam: {fileID: 231787499}
-  maxDistance: 3
+  maxDistance: 5
   player: {fileID: 19438972}
   playerTransform: {fileID: 19438974}
   rag: {fileID: 19438972}
