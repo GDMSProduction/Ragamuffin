@@ -234,7 +234,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh135792
+  m_Name: pb_Mesh83046
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 25518062}
   m_Layer: 10
   m_Name: Parent_GrapplePoints
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 37105845}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (3)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -714,7 +714,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17980
+  m_Name: pb_Mesh84002
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -874,7 +874,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18148
+  m_Name: pb_Mesh84168
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1043,7 +1043,7 @@ GameObject:
   - component: {fileID: 56892649}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (5)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1266,7 +1266,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136938
+  m_Name: pb_Mesh84296
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -1998,7 +1998,7 @@ GameObject:
   - component: {fileID: 120793216}
   m_Layer: 9
   m_Name: Bookshelf_Top
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -3419,7 +3419,7 @@ GameObject:
   - component: {fileID: 135996763}
   m_Layer: 9
   m_Name: Skateboard_Board
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -4851,7 +4851,7 @@ GameObject:
   - component: {fileID: 204102671}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (10)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6051,7 +6051,7 @@ GameObject:
   - component: {fileID: 274497385}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (12)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6158,7 +6158,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33060
+  m_Name: pb_Mesh82414
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -6790,7 +6790,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34620
+  m_Name: pb_Mesh82564
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -8746,7 +8746,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17220
+  m_Name: pb_Mesh83264
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -9353,7 +9353,7 @@ GameObject:
   - component: {fileID: 422457517}
   m_Layer: 9
   m_Name: Shoes_Prototype2
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -9742,7 +9742,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136592
+  m_Name: pb_Mesh83896
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -10506,7 +10506,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18104
+  m_Name: pb_Mesh84126
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -10891,7 +10891,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh10660
+  m_Name: pb_Mesh82448
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12026,7 +12026,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh135462
+  m_Name: pb_Mesh82740
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12284,7 +12284,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17588
+  m_Name: pb_Mesh83612
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -12486,7 +12486,7 @@ GameObject:
   - component: {fileID: 597710748}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13007,7 +13007,7 @@ GameObject:
   - component: {fileID: 629419265}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (7)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13146,7 +13146,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17194
+  m_Name: pb_Mesh83248
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -13306,7 +13306,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh13278
+  m_Name: pb_Mesh84456
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -14159,6 +14159,166 @@ Transform:
   m_Father: {fileID: 1111267078}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!43 &693933758
+Mesh:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: pb_Mesh83476
+  serializedVersion: 9
+  m_SubMeshes:
+  - serializedVersion: 2
+    firstByte: 0
+    indexCount: 36
+    topology: 0
+    baseVertex: 0
+    firstVertex: 0
+    vertexCount: 24
+    localAABB:
+      m_Center: {x: -0.00000011920929, y: 0.00000011920929, z: 0}
+      m_Extent: {x: 0.14593208, y: 0.16705, z: 0.10038759}
+  m_Shapes:
+    vertices: []
+    shapes: []
+    channels: []
+    fullWeights: []
+  m_BindPose: []
+  m_BoneNameHashes: 
+  m_RootBoneNameHash: 0
+  m_MeshCompression: 0
+  m_IsReadable: 1
+  m_KeepVertices: 1
+  m_KeepIndices: 1
+  m_IndexFormat: 0
+  m_IndexBuffer: 000001000200010003000200040005000600050007000600080009000a0009000b000a000c000d000e000d000f000e00100011001200110013001200140015001600150017001600
+  m_VertexData:
+    serializedVersion: 2
+    m_VertexCount: 24
+    m_Channels:
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 12
+      format: 0
+      dimension: 3
+    - stream: 0
+      offset: 24
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 40
+      format: 0
+      dimension: 4
+    - stream: 0
+      offset: 56
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 64
+      format: 0
+      dimension: 2
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    - stream: 0
+      offset: 0
+      format: 0
+      dimension: 0
+    m_DataSize: 1728
+    _typelessdata: 406f15be200f2bbe0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e200f2bbedd5bf03eae4e933e306f153e200f2bbe0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be200f2bbede5bf03ef0be313f406f15be300f2b3e0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e300f2b3e6f12833bae4e933e306f153e300f2b3e0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be300f2b3e9312833bf0be313f306f153e200f2bbe0298cd3d0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cd3d200f2bbeb813833b6542913e306f153e200f2bbe0298cdbd0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cdbd200f2bbe6f12833b6f12833b306f153e300f2b3e0298cd3d0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cd3d300f2b3edf5bf03e6542913e306f153e300f2b3e0298cdbd0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cdbd300f2b3eda5bf03e6f12833b306f153e200f2bbe0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e200f2bbe2868f23ef0be313f406f15be200f2bbe0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be200f2bbe2768f23eae4e933e306f153e300f2b3e0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e300f2b3ede5b703ff0be313f406f15be300f2b3e0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be300f2b3edd5b703fae4e933e406f15be200f2bbe0298cdbd000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cd3d200f2bbedc5b703f6f12833b406f15be200f2bbe0298cd3d000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cdbd200f2bbedf5b703f6542913e406f15be300f2b3e0298cdbd000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cd3d300f2b3e2868f23e6f12833b406f15be300f2b3e0298cd3d000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cdbd300f2b3e2e68f23e6542913e406f15be300f2b3e0298cd3d000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be0298cd3dac4b613f22607a3f306f153e300f2b3e0298cd3d000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e0298cd3d2768f23e22607a3f406f15be300f2b3e0298cdbd000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be0298cdbdad4b613f15c5323f306f153e300f2b3e0298cdbd000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e0298cdbd2968f23e15c5323f406f15be200f2bbe0298cdbd00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e0298cdbde812833b15c5323f306f153e200f2bbe0298cdbd00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be0298cdbd7c3bd23e15c5323f406f15be200f2bbe0298cd3d00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e0298cd3d6f12833b22607a3f306f153e200f2bbe0298cd3d00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be0298cd3d7a3bd23e22607a3f
+  m_CompressedMesh:
+    m_Vertices:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UV:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Normals:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Tangents:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Weights:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_NormalSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_TangentSigns:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_FloatColors:
+      m_NumItems: 0
+      m_Range: 0
+      m_Start: 0
+      m_Data: 
+      m_BitSize: 0
+    m_BoneIndices:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_Triangles:
+      m_NumItems: 0
+      m_Data: 
+      m_BitSize: 0
+    m_UVInfo: 0
+  m_LocalAABB:
+    m_Center: {x: -0.00000011920929, y: 0.00000011920929, z: 0}
+    m_Extent: {x: 0.14593208, y: 0.16705, z: 0.10038759}
+  m_MeshUsageFlags: 0
+  m_BakedConvexCollisionMesh: 
+  m_BakedTriangleCollisionMesh: 
+  m_MeshMetrics[0]: 1
+  m_MeshMetrics[1]: 1
+  m_MeshOptimized: 0
+  m_StreamData:
+    offset: 0
+    size: 0
+    path: 
 --- !u!1 &704818997
 GameObject:
   m_ObjectHideFlags: 0
@@ -14259,7 +14419,7 @@ GameObject:
   - component: {fileID: 709996006}
   m_Layer: 9
   m_Name: Shoes_Prototype
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -15131,166 +15291,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &758732722
-Mesh:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35870
-  serializedVersion: 9
-  m_SubMeshes:
-  - serializedVersion: 2
-    firstByte: 0
-    indexCount: 36
-    topology: 0
-    baseVertex: 0
-    firstVertex: 0
-    vertexCount: 24
-    localAABB:
-      m_Center: {x: -0.00000011920929, y: 0.00000011920929, z: 0}
-      m_Extent: {x: 0.14593208, y: 0.16705, z: 0.10038759}
-  m_Shapes:
-    vertices: []
-    shapes: []
-    channels: []
-    fullWeights: []
-  m_BindPose: []
-  m_BoneNameHashes: 
-  m_RootBoneNameHash: 0
-  m_MeshCompression: 0
-  m_IsReadable: 1
-  m_KeepVertices: 1
-  m_KeepIndices: 1
-  m_IndexFormat: 0
-  m_IndexBuffer: 000001000200010003000200040005000600050007000600080009000a0009000b000a000c000d000e000d000f000e00100011001200110013001200140015001600150017001600
-  m_VertexData:
-    serializedVersion: 2
-    m_VertexCount: 24
-    m_Channels:
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 12
-      format: 0
-      dimension: 3
-    - stream: 0
-      offset: 24
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 40
-      format: 0
-      dimension: 4
-    - stream: 0
-      offset: 56
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 64
-      format: 0
-      dimension: 2
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    - stream: 0
-      offset: 0
-      format: 0
-      dimension: 0
-    m_DataSize: 1728
-    _typelessdata: 406f15be200f2bbe0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e200f2bbedd5bf03eae4e933e306f153e200f2bbe0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be200f2bbede5bf03ef0be313f406f15be300f2b3e0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e300f2b3e6f12833bae4e933e306f153e300f2b3e0298cd3d00000000000000000000803f000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be300f2b3e9312833bf0be313f306f153e200f2bbe0298cd3d0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cd3d200f2bbeb813833b6542913e306f153e200f2bbe0298cdbd0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cdbd200f2bbe6f12833b6f12833b306f153e300f2b3e0298cd3d0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cd3d300f2b3edf5bf03e6542913e306f153e300f2b3e0298cdbd0000803f000000000000000000000000000000000000803f000080bf0000803f0000803f0000803f0000803f0298cdbd300f2b3eda5bf03e6f12833b306f153e200f2bbe0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e200f2bbe2868f23ef0be313f406f15be200f2bbe0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be200f2bbe2768f23eae4e933e306f153e300f2b3e0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e300f2b3ede5b703ff0be313f406f15be300f2b3e0298cdbd0000000000000000000080bf0000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be300f2b3edd5b703fae4e933e406f15be200f2bbe0298cdbd000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cd3d200f2bbedc5b703f6f12833b406f15be200f2bbe0298cd3d000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cdbd200f2bbedf5b703f6542913e406f15be300f2b3e0298cdbd000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cd3d300f2b3e2868f23e6f12833b406f15be300f2b3e0298cd3d000080bf00000000000000000000000000000000000080bf000080bf0000803f0000803f0000803f0000803f0298cdbd300f2b3e2e68f23e6542913e406f15be300f2b3e0298cd3d000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be0298cd3dac4b613f22607a3f306f153e300f2b3e0298cd3d000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e0298cd3d2768f23e22607a3f406f15be300f2b3e0298cdbd000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f406f15be0298cdbdad4b613f15c5323f306f153e300f2b3e0298cdbd000000000000803f000000000000803f0000000000000000000080bf0000803f0000803f0000803f0000803f306f153e0298cdbd2968f23e15c5323f406f15be200f2bbe0298cdbd00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e0298cdbde812833b15c5323f306f153e200f2bbe0298cdbd00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be0298cdbd7c3bd23e15c5323f406f15be200f2bbe0298cd3d00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f406f153e0298cd3d6f12833b22607a3f306f153e200f2bbe0298cd3d00000000000080bf00000000000080bf0000000000000000000080bf0000803f0000803f0000803f0000803f306f15be0298cd3d7a3bd23e22607a3f
-  m_CompressedMesh:
-    m_Vertices:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UV:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Normals:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Tangents:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Weights:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_NormalSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_TangentSigns:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_FloatColors:
-      m_NumItems: 0
-      m_Range: 0
-      m_Start: 0
-      m_Data: 
-      m_BitSize: 0
-    m_BoneIndices:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_Triangles:
-      m_NumItems: 0
-      m_Data: 
-      m_BitSize: 0
-    m_UVInfo: 0
-  m_LocalAABB:
-    m_Center: {x: -0.00000011920929, y: 0.00000011920929, z: 0}
-    m_Extent: {x: 0.14593208, y: 0.16705, z: 0.10038759}
-  m_MeshUsageFlags: 0
-  m_BakedConvexCollisionMesh: 
-  m_BakedTriangleCollisionMesh: 
-  m_MeshMetrics[0]: 1
-  m_MeshMetrics[1]: 1
-  m_MeshOptimized: 0
-  m_StreamData:
-    offset: 0
-    size: 0
-    path: 
 --- !u!1 &760568222
 GameObject:
   m_ObjectHideFlags: 0
@@ -15475,7 +15475,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34124
+  m_Name: pb_Mesh83176
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -15732,7 +15732,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17370
+  m_Name: pb_Mesh83408
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -16095,7 +16095,7 @@ GameObject:
   - component: {fileID: 859866920}
   m_Layer: 9
   m_Name: Shoes_Prototype4
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -16889,7 +16889,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35210
+  m_Name: pb_Mesh83024
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -17145,7 +17145,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36806
+  m_Name: pb_Mesh84154
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -17305,7 +17305,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35214
+  m_Name: pb_Mesh83968
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -19106,7 +19106,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36920
+  m_Name: pb_Mesh84268
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -19276,7 +19276,7 @@ GameObject:
   - component: {fileID: 959794408}
   m_Layer: 9
   m_Name: Bench_Seat
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -19665,7 +19665,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16720
+  m_Name: pb_Mesh82814
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -21294,7 +21294,7 @@ GameObject:
   - component: {fileID: 1006792313}
   m_Layer: 9
   m_Name: Lamp_Shade
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -22289,7 +22289,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136760
+  m_Name: pb_Mesh84066
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -22930,7 +22930,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34736
+  m_Name: pb_Mesh82634
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -23132,7 +23132,7 @@ GameObject:
   - component: {fileID: 1144172028}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (15)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23239,7 +23239,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh11006
+  m_Name: pb_Mesh82698
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -23440,7 +23440,7 @@ GameObject:
   - component: {fileID: 1175572716}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (8)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23594,7 +23594,7 @@ GameObject:
   - component: {fileID: 1181388493}
   m_Layer: 9
   m_Name: Coatrack_Prototype
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -24016,7 +24016,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17750
+  m_Name: pb_Mesh83772
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -24218,7 +24218,7 @@ GameObject:
   - component: {fileID: 1204888921}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (1)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24334,7 +24334,7 @@ GameObject:
   - component: {fileID: 1210420440}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (13)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25179,7 +25179,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248196116}
-  m_Mesh: {fileID: 758732722}
+  m_Mesh: {fileID: 693933758}
 --- !u!23 &1248196120
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25292,7 +25292,7 @@ GameObject:
   - component: {fileID: 1260014861}
   m_Layer: 9
   m_Name: Table_Long_Top
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -25694,7 +25694,7 @@ GameObject:
   - component: {fileID: 1262095093}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (4)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25892,7 +25892,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh10978
+  m_Name: pb_Mesh82678
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -26150,7 +26150,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35232
+  m_Name: pb_Mesh83986
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -26319,7 +26319,7 @@ GameObject:
   - component: {fileID: 1346701634}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (9)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26491,7 +26491,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33140
+  m_Name: pb_Mesh82462
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -26714,7 +26714,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136368
+  m_Name: pb_Mesh83624
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -27279,7 +27279,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34212
+  m_Name: pb_Mesh83232
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -27535,7 +27535,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34060
+  m_Name: pb_Mesh83136
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -28504,7 +28504,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35368
+  m_Name: pb_Mesh83118
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -29119,7 +29119,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh9652
+  m_Name: pb_Mesh84392
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -29455,7 +29455,7 @@ GameObject:
   - component: {fileID: 1557304378}
   m_Layer: 9
   m_Name: Shoes_Prototype1
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -29844,7 +29844,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36190
+  m_Name: pb_Mesh83700
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -30037,7 +30037,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh11746
+  m_Name: pb_Mesh83216
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -30239,7 +30239,7 @@ GameObject:
   - component: {fileID: 1580627342}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (2)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31607,7 +31607,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136792
+  m_Name: pb_Mesh84114
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -31877,7 +31877,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18334
+  m_Name: pb_Mesh84420
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -32358,7 +32358,7 @@ GameObject:
   - component: {fileID: 1706439352}
   m_Layer: 9
   m_Name: Floor
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -32768,7 +32768,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33294
+  m_Name: pb_Mesh82580
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -32970,7 +32970,7 @@ GameObject:
   - component: {fileID: 1731162920}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (11)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33171,7 +33171,7 @@ GameObject:
   - component: {fileID: 1739425143}
   m_Layer: 10
   m_Name: SeatBack
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -33720,7 +33720,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh34514
+  m_Name: pb_Mesh83464
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -33880,7 +33880,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25230
+  m_Name: pb_Mesh83854
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -34040,7 +34040,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136856
+  m_Name: pb_Mesh84196
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -34427,7 +34427,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh11310
+  m_Name: pb_Mesh82934
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -34986,7 +34986,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh18212
+  m_Name: pb_Mesh84254
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -35195,7 +35195,7 @@ GameObject:
   - component: {fileID: 1802992279}
   m_Layer: 10
   m_Name: Pot_Base
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 41
@@ -37103,7 +37103,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35370
+  m_Name: pb_Mesh84078
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -37652,7 +37652,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136956
+  m_Name: pb_Mesh84336
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -37812,7 +37812,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh135978
+  m_Name: pb_Mesh83196
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -39783,7 +39783,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh8218
+  m_Name: pb_Mesh82852
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -40076,7 +40076,7 @@ GameObject:
   - component: {fileID: 1969951109}
   m_Layer: 9
   m_Name: Shoes_Prototype3
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -40475,7 +40475,7 @@ GameObject:
   - component: {fileID: 1972630954}
   m_Layer: 9
   m_Name: WallShelf_Prototype
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -41988,7 +41988,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh12096
+  m_Name: pb_Mesh83492
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -42148,7 +42148,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh35194
+  m_Name: pb_Mesh83948
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -42341,7 +42341,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh16694
+  m_Name: pb_Mesh82782
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -42511,7 +42511,7 @@ GameObject:
   - component: {fileID: 2029760159}
   m_Layer: 9
   m_Name: Seat
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -42910,7 +42910,7 @@ GameObject:
   - component: {fileID: 2030663052}
   m_Layer: 9
   m_Name: Pot_Base
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 41
@@ -43299,7 +43299,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh136340
+  m_Name: pb_Mesh83580
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -43997,7 +43997,7 @@ GameObject:
   - component: {fileID: 2059496381}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (16)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44133,14 +44133,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardSpeed: 4.5
   jumpForce: 300
-  isHiding: 0
-  startPosition: {x: 0, y: 0, z: 0}
+  attackRange: 0
+  changeLevel: {fileID: 0}
   pinHandle: {fileID: 455010396}
-  isEquip: 0
+  Cat: {fileID: 0}
   dummyPin: {fileID: 0}
   dropPoint: {fileID: 1382039766}
+  levelToLoad: 
+  childRag: {fileID: 0}
+  catLocation: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}
   amIHanging: 0
+  lookingRight: 1
+  isEquip: 0
+  isHiding: 0
   disableMovement: 0
+  anim: {fileID: 0}
+  isGrounded: 0
+  test: []
 --- !u!54 &2060639505
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -44186,7 +44196,7 @@ GameObject:
   - component: {fileID: 2065549527}
   m_Layer: 10
   m_Name: Bench_Back
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -44584,7 +44594,7 @@ GameObject:
   - component: {fileID: 2073099855}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (6)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44700,7 +44710,7 @@ GameObject:
   - component: {fileID: 2088592314}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (17)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44937,7 +44947,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33206
+  m_Name: pb_Mesh82510
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -45107,7 +45117,7 @@ GameObject:
   - component: {fileID: 2111093884}
   m_Layer: 10
   m_Name: Book_Pile_Placeholder
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -45505,7 +45515,7 @@ GameObject:
   - component: {fileID: 2120463219}
   m_Layer: 10
   m_Name: GrapplePoint_Placeholder (14)
-  m_TagString: grapple
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45612,7 +45622,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh135286
+  m_Name: pb_Mesh82498
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -45782,7 +45792,7 @@ GameObject:
   - component: {fileID: 2131111254}
   m_Layer: 9
   m_Name: Table_Tall_Top
-  m_TagString: ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 127
@@ -46350,7 +46360,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh33152
+  m_Name: pb_Mesh82474
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2
@@ -46510,7 +46520,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh17298
+  m_Name: pb_Mesh83356
   serializedVersion: 9
   m_SubMeshes:
   - serializedVersion: 2

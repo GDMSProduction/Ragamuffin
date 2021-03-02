@@ -53,7 +53,7 @@ public class RagMovement : MonoBehaviour
     public GameObject[] test;
     private void Start()
     {
-        test = GameObject.FindGameObjectsWithTag("grapple");
+        test = GameObject.FindGameObjectsWithTag("ground");
         scene = SceneManager.GetActiveScene();
         level = scene.name;
         PlayerPrefs.SetString("lastlevel",level);
