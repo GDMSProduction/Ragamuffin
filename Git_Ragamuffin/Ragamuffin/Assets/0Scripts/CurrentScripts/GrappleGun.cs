@@ -20,11 +20,11 @@ public class GrappleGun : MonoBehaviour
    
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             StartGrapple();
         }
-        else if (Input.GetKeyUp(KeyCode.E))
+        else if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             StopGrapple();   
         }
@@ -51,8 +51,7 @@ public class GrappleGun : MonoBehaviour
         }
         else
         {
-            rag.GetComponent<RagMovement>().isGrappling = true;
-            rag.GetComponent<RagMovement>().GrappleAnim1();
+            
             //Using spherecollider we get nearest object to connect spring too.
             Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
             Collider closestObject = null;
@@ -85,6 +84,8 @@ public class GrappleGun : MonoBehaviour
                 joints.damper = 4f;
                 joints.massScale = 5f;
                 lr.positionCount = 2;
+                rag.GetComponent<RagMovement>().isGrappling = true;
+                rag.GetComponent<RagMovement>().GrappleAnim1();
             }
         }
     }
@@ -100,7 +101,8 @@ public class GrappleGun : MonoBehaviour
     {   
         lr.positionCount = 0;
         Destroy(joints);
-        rag.GetComponent<RagMovement>().GrappleLetGo();
+        if(rag.GetComponent<RagMovement>().isGrappling == true) rag.GetComponent<RagMovement>().GrappleLetGo();
+
     }
 
     private void OnDrawGizmos()
