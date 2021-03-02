@@ -33,7 +33,7 @@ public class GrappleGun : MonoBehaviour
     private void FixedUpdate()
     {
         float distanceFromPoint = Vector3.Distance(playerTransform.position, grapplePoint);
-        if (distanceFromPoint > maxDistance)
+        if (distanceFromPoint > maxDistance && rag.GetComponent<RagMovement>().isGrappling == true)
         {
             StopGrapple();
         }
@@ -51,6 +51,8 @@ public class GrappleGun : MonoBehaviour
         }
         else
         {
+            rag.GetComponent<RagMovement>().isGrappling = true;
+            rag.GetComponent<RagMovement>().GrappleAnim1();
             //Using spherecollider we get nearest object to connect spring too.
             Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
             Collider closestObject = null;
@@ -98,6 +100,7 @@ public class GrappleGun : MonoBehaviour
     {   
         lr.positionCount = 0;
         Destroy(joints);
+        rag.GetComponent<RagMovement>().GrappleLetGo();
     }
 
     private void OnDrawGizmos()

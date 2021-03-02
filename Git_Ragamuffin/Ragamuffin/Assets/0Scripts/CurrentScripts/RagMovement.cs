@@ -50,10 +50,11 @@ public class RagMovement : MonoBehaviour
     public bool isGrounded;
     private bool isJumpPressed;
     private bool isClimbing;
-    public GameObject[] test;
+    public bool isGrappling;
+   // public GameObject[] test;
     private void Start()
     {
-        test = GameObject.FindGameObjectsWithTag("ground");
+        //test = GameObject.FindGameObjectsWithTag("ground");
         scene = SceneManager.GetActiveScene();
         level = scene.name;
         PlayerPrefs.SetString("lastlevel",level);
@@ -129,7 +130,7 @@ public class RagMovement : MonoBehaviour
             {
                 //ChangeAnimationState(PlayerRun);
             }
-            else if (!isClimbing)
+            else if (!isClimbing && !isGrappling)
             {
                 ChangeAnimationState(PlayerIdle);
             }
@@ -158,6 +159,26 @@ public class RagMovement : MonoBehaviour
                 Invoke("AttackComplete", attackDelay);
             }
         }
+    }
+    public void GrappleAnim1()
+    {
+        ChangeAnimationState(PlayerGrappleThrow);
+        attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+        Invoke("GrappleAnim2", attackDelay);
+    }
+    public void GrappleAnim2()
+    {
+        ChangeAnimationState(PlayerGrapple);
+    }
+    public void GrappleLetGo()
+    {
+        ChangeAnimationState(PlayerGrappleCancel);
+        attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+        Invoke("GrappleFalse", attackDelay);
+    }
+    public void GrappleFalse()
+    {
+        isGrappling = false;
     }
     private void Jumping()
     {
