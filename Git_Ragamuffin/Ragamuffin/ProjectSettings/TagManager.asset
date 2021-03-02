@@ -8,8 +8,6 @@ TagManager:
   - Grapple
   - JumpPoint
   - TurnPoint
-  - grapple
-  - ground
   - Water
   - Fire
   - Climbable

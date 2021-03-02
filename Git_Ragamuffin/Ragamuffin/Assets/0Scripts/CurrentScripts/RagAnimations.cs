@@ -8,20 +8,20 @@ public class RagAnimations : MonoBehaviour
     private float attackDelay = 0.3f;
     Animator anim;
     private string currentState;
-    private string PlayerIdle;
-    private string PlayerRun;
-    private string PlayerJump;
-    private string PlayerAttack;
-    private string PlayerFallFlat;
-    private string PlayerFall;
-    private string PlayerPull;
-    private string PlayerPush;
-    private string PlayerClimb;
-    private string PlayerLedgeClimb;
-    private string PlayerGotHit;
-    private string PlayerGrapple;
-    private string PlayerGrappleThrow;
-    private string PlayerGrappleCancel;
+    private string PlayerIdle = "Idle";
+    private string PlayerRun = "Take 001";
+    //private string PlayerJump;
+    //private string PlayerAttack = "";
+    //private string PlayerFallFlat = "";
+    //private string PlayerFall;
+    private string PlayerPull = "Pull";
+    private string PlayerPush = "Push";
+    private string PlayerClimb = "Climb";
+    private string PlayerLedgeClimb = "LedgeClimb";
+    private string PlayerGotHit = "GotHit";
+    private string PlayerGrapple = "Grapple";
+    private string PlayerGrappleThrow = "GrappleThrow";
+    private string PlayerGrappleCancel = "GrappleCancel";
     private bool isAttackPressed;
     private bool isAttacking;
     private bool isGrounded;
@@ -32,7 +32,7 @@ public class RagAnimations : MonoBehaviour
     //=====================================================
     void Start()
     {
-        anim = GetComponent<Animator>();
+       // anim = GetComponent<Animator>();
         groundMask = 1 << LayerMask.NameToLayer("Ground");
     }
 
@@ -49,10 +49,10 @@ public class RagAnimations : MonoBehaviour
         }
 
         //space Atatck key pressed?
-        if (Input.GetKeyDown(KeyCode.RightControl))
-        {
-            isAttackPressed = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.RightControl))
+        //{
+        //    isAttackPressed = true;
+        //}
     }
 
     //=====================================================
@@ -75,7 +75,7 @@ public class RagAnimations : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
             {
-                ChangeAnimationState(PlayerJump);
+                //ChangeAnimationState(PlayerJump);
             }
             else
             {
@@ -89,7 +89,7 @@ public class RagAnimations : MonoBehaviour
         if (isJumpPressed && isGrounded)
         {
             isJumpPressed = false;
-            ChangeAnimationState(PlayerJump);
+            //ChangeAnimationState(PlayerJump);
         }
         //attack
         if (isAttackPressed)
@@ -102,7 +102,7 @@ public class RagAnimations : MonoBehaviour
 
                 if (isGrounded)
                 {
-                    ChangeAnimationState(PlayerAttack);
+                    //ChangeAnimationState(PlayerAttack);
                 }
                 Invoke("AttackComplete", attackDelay);
             }

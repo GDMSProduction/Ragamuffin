@@ -597,6 +597,7 @@ MonoBehaviour:
   isEquip: 0
   isHiding: 0
   disableMovement: 0
+  anim: {fileID: 1641237068}
 --- !u!4 &19438974
 Transform:
   m_ObjectHideFlags: 0
@@ -12257,13 +12258,27 @@ PrefabInstance:
     - target: {fileID: 9500000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
+      objectReference: {fileID: 9000000, guid: 8fd7c2e8a434cee4dba77bb99eb7b6a8, type: 3}
+    - target: {fileID: 9500000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
+      propertyPath: m_CullingMode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 13700026, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 39c031f5692760b48a9e50d20d5705c1, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
+--- !u!95 &1641237068 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 65fedad317048004aa84b1bb0de78627,
+    type: 3}
+  m_PrefabInstance: {fileID: 1641237067}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1654605515
 GameObject:
   m_ObjectHideFlags: 0

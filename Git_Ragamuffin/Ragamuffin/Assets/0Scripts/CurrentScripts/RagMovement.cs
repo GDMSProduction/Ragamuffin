@@ -24,10 +24,36 @@ public class RagMovement : MonoBehaviour
     public bool lookingRight = true;
     public bool isEquip = false;
     public bool isHiding = false;
-    bool ableJump = true;
-
+    public bool disableMovement = false;
+    //bool ableJump = true;
+    //
+    
+    private float attackDelay;
+    public Animator anim;
+    private string currentState;
+    private string PlayerIdle = "Idle";
+    private string PlayerRun = "Take 001";
+    //private string PlayerJump;
+    //private string PlayerAttack = "";
+    //private string PlayerFallFlat = "";
+    //private string PlayerFall;
+    private string PlayerPull = "Pull";
+    private string PlayerPush = "Push";
+    private string PlayerClimb = "Climb";
+    private string PlayerLedgeClimb = "LedgeClimb";
+    private string PlayerGotHit = "GotHit";
+    private string PlayerGrapple = "Grapple";
+    private string PlayerGrappleThrow = "GrappleThrow";
+    private string PlayerGrappleCancel = "GrappleCancel";
+    private bool isAttackPressed;
+    private bool isAttacking;
+    public bool isGrounded;
+    private bool isJumpPressed;
+    private bool isClimbing;
+    public GameObject[] test;
     private void Start()
     {
+        test = GameObject.FindGameObjectsWithTag("grapple");
         scene = SceneManager.GetActiveScene();
         level = scene.name;
         PlayerPrefs.SetString("lastlevel",level);
@@ -36,11 +62,24 @@ public class RagMovement : MonoBehaviour
         pinHandle.SetActive(false);
         Cat = GameObject.FindWithTag("Cat");
         catLocation = Cat.transform;
+        //anim = GetComponent<Animator>();
     }
     // Update is called once per frame
     void Update()
     {
-        Jumping();
+        //Checking for inputs
+        //space jump key pressed?
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            isJumpPressed = true;
+        }
+
+        //space Atatck key pressed?
+        //if (Input.GetKeyDown(KeyCode.RightControl))
+        //{
+        //    isAttackPressed = true;
+        //}
+        
             if (Input.GetKeyDown(KeyCode.R) && isEquip)
             {
                 pinHandle.SetActive(false);
@@ -65,11 +104,7 @@ public class RagMovement : MonoBehaviour
             pinHandle.SetActive(false);
             isEquip = false;
         }
-
     }
-
-    public bool disableMovement = false;
-
     private void FixedUpdate()
     {
         if (disableMovement)
@@ -86,9 +121,44 @@ public class RagMovement : MonoBehaviour
             {
                 transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
             }
-        }   
-    }
+        }
+        Jumping();
+        if (isGrounded && !isAttacking)
+        {
+            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+            {
+                //ChangeAnimationState(PlayerRun);
+            }
+            else if (!isClimbing)
+            {
+                ChangeAnimationState(PlayerIdle);
+            }
+        }
+        //------------------------------------------ collision.collider.gameObject.layer
+        //Check if trying to jump 
+        if (isJumpPressed && isGrounded)
+        {
+            isJumpPressed = false;
+            //ChangeAnimationState(PlayerJump);
+        }
+        //attack
+        if (isAttackPressed)
+        {
+            isAttackPressed = false;
 
+            if (!isAttacking)
+            {
+                isAttacking = true;
+
+                if (isGrounded)
+                {
+                    //ChangeAnimationState(PlayerAttack);
+                }
+                attackDelay = anim.GetCurrentAnimatorStateInfo(0).length;
+                Invoke("AttackComplete", attackDelay);
+            }
+        }
+    }
     private void Jumping()
     {
         //if hiding is true do nothing
@@ -98,20 +168,35 @@ public class RagMovement : MonoBehaviour
         }
         else
         {
-            if (ableJump && Input.GetKeyDown(KeyCode.Space))
+            if (isGrounded && Input.GetKeyDown(KeyCode.Space))
             {
                 rb.AddForce(0, jumpForce, 0);
-                ableJump = false;
+                isGrounded = false;
             }
         }
     }
 
+    void AttackComplete()
+    {
+        isAttacking = false;
+    }
+
+    //=====================================================
+    // mini animation manager
+    //=====================================================
+    void ChangeAnimationState(string newAnimation)
+    {
+        if (currentState == newAnimation) return;
+
+        anim.Play(newAnimation);
+        currentState = newAnimation;
+    }
     private void OnCollisionEnter(Collision collision)
     {
         //Tag anything Rag walks on ground.
         if (collision.gameObject.tag == ("Ground"))
         {
-            ableJump = true;
+            isGrounded = true;
         }
     }
 
@@ -169,10 +254,13 @@ public class RagMovement : MonoBehaviour
 
          if (other.gameObject.tag == ("Scarf"))
         {
+            isClimbing = true;
+            ChangeAnimationState(PlayerClimb);
             if (Input.GetKey(KeyCode.E))
             {
                 GetComponent<Rigidbody>().useGravity = false;
                 transform.Translate(Vector3.up * forwardSpeed * Time.deltaTime);
+                
             }
         }
 
@@ -213,8 +301,9 @@ public class RagMovement : MonoBehaviour
         }
         if (other.gameObject.tag == ("Scarf"))
         {
-                GetComponent<Rigidbody>().useGravity = true;
-        }
+            GetComponent<Rigidbody>().useGravity = true;
+            isClimbing = false;
+        } 
     }
     //death function reset transform to start point. 
     public void Death()
