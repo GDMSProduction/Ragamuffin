@@ -580,22 +580,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b041e23aa013a5409821f7dd0dd64fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changeLevel: {fileID: 2109896274}
-  levelToLoad: Bedroom_Blockout
   forwardSpeed: 5
   jumpForce: 305
-  isHiding: 0
-  startPosition: {x: 0, y: 0, z: 0}
+  attackRange: 2
+  changeLevel: {fileID: 2109896274}
   pinHandle: {fileID: 297328713}
-  isEquip: 0
+  Cat: {fileID: 0}
   dummyPin: {fileID: 1694520500}
   dropPoint: {fileID: 1792731618}
-  amIHanging: 0
+  levelToLoad: Bedroom_Blockout
   childRag: {fileID: 764943187}
-  lookingRight: 1
   catLocation: {fileID: 0}
-  Cat: {fileID: 0}
-  attackRange: 2
+  startPosition: {x: 0, y: 0, z: 0}
+  amIHanging: 0
+  lookingRight: 1
+  isEquip: 0
+  isHiding: 0
   disableMovement: 0
 --- !u!4 &19438974
 Transform:
@@ -12210,6 +12210,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 1df8e28f4c5854c1282328d84124acbd, type: 2}
+    - target: {fileID: 9500000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
     - target: {fileID: 13700026, guid: 65fedad317048004aa84b1bb0de78627, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

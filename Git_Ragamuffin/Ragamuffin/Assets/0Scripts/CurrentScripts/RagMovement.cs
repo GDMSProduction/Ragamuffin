@@ -3,27 +3,29 @@ using UnityEngine.SceneManagement;
 
 public class RagMovement : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject changeLevel;
-    public string levelToLoad;
-    private Rigidbody rb;
     public float forwardSpeed = 5f;
     public float jumpForce = 150f;
-    bool ableJump = true;
-    public bool isHiding = false;
-    public Vector3 startPosition;
+    public float attackRange;
+
+    [SerializeField]
+    private GameObject changeLevel;
     public GameObject pinHandle;
-    public bool isEquip = false;
+    public GameObject Cat;
     public GameObject dummyPin;
     public GameObject dropPoint;
-    public bool amIHanging = false;
+    public string levelToLoad;
     private string level;
-    private Scene scene;
+    private Rigidbody rb;
     public Transform childRag;
-    public bool lookingRight = true;
     public Transform catLocation;
-    public GameObject Cat;
-    public float attackRange;
+    public Vector3 startPosition;
+    private Scene scene;
+    public bool amIHanging = false;
+    public bool lookingRight = true;
+    public bool isEquip = false;
+    public bool isHiding = false;
+    bool ableJump = true;
+
     private void Start()
     {
         scene = SceneManager.GetActiveScene();

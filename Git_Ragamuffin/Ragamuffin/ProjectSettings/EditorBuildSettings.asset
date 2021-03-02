@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0Scenes/Blockouts/Bedroom_Blockout.unity
     guid: 4173377059dc6e0458b97082629372e5
+  - enabled: 1
+    path: Assets/0Scenes/Menus/Credits.unity
+    guid: f381d664f4c5eb246bb290e4e4d09898
   m_configObjects: {}
