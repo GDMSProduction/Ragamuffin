@@ -145,12 +145,21 @@ public class CatNav : MonoBehaviour
 
     public void addAgitation(float amount) //increase agitation by float
     {
-        catAgitationCurrent = catAgitationCurrent += amount;
-
+        if (catAgitationCurrent < catAgitationMax)
+        {
+            catAgitationCurrent = catAgitationCurrent += amount;
+            if(catAgitationCurrent > catAgitationMax) { catAgitationCurrent = catAgitationMax; }
+            Debug.Log("Agitation = " + catAgitationCurrent);
+        }
     }
     public void reduceAgitation(float amount) // reduce agitation by float
     {
-
+        if (catAgitationCurrent > catAgitationMin)
+        {
+            catAgitationCurrent = catAgitationCurrent -= amount;
+            if(catAgitationCurrent < catAgitationMin) { catAgitationCurrent = catAgitationMin; }
+            Debug.Log("Agitation = " + catAgitationCurrent);
+        }
     }
     public void increaseAgitationLevel() 
     {

@@ -102,6 +102,7 @@ public class RagMovement : MonoBehaviour
         if (isEquip == true && Vector3.Distance(transform.position, catLocation.position) <= attackRange)
         {
             Cat.SendMessage("Spook");
+            Cat.SendMessage("reduceAgitation", 35);
             pinHandle.SetActive(false);
             isEquip = false;
         }

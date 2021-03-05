@@ -11,11 +11,15 @@ public class GrappleGun : MonoBehaviour
     public GameObject player;
     public Transform playerTransform;
     public GameObject rag;
+    public CatNav catNav;
+    public GameObject cat;
     
     private void Awake()
     {
         lr = GetComponent<LineRenderer>();
         lr.enabled = false;
+        cat = GameObject.FindWithTag("Cat");
+        catNav = cat.GetComponent<CatNav>();
     }
    
     private void Update()
@@ -51,7 +55,6 @@ public class GrappleGun : MonoBehaviour
         }
         else
         {
-            
             //Using spherecollider we get nearest object to connect spring too.
             Collider[] objectsInRange = Physics.OverlapSphere(playerTransform.position, maxDistance, whatIsGrappleable, QueryTriggerInteraction.Ignore);
             Collider closestObject = null;
@@ -86,6 +89,7 @@ public class GrappleGun : MonoBehaviour
                 lr.positionCount = 2;
                 rag.GetComponent<RagMovement>().isGrappling = true;
                 rag.GetComponent<RagMovement>().GrappleAnim1();
+                catNav.addAgitation(10.0f); // adding agitation on grapple use
             }
         }
     }
