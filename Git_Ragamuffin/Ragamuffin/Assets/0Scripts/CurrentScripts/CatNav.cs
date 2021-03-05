@@ -27,6 +27,22 @@ public class CatNav : MonoBehaviour
     bool alreadyAttacked;
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange;
+    [Tooltip("Max agitation")]
+    public float catAgitationMin = 0;
+    [Tooltip("Min agitation")]
+    public float catAgitationMax = 100;
+    [Tooltip("Current agitation")]
+    public float catAgitationCurrent = 0;
+    [Tooltip("The max amount agitation can increase within a given time frame")]
+    public float increaseAgitationThreshold = 25;  
+    //working notes, add a current threshold
+    [Tooltip("The max amount agitation can decrease within a given time frame")]
+    public float decreaseAgitationThreshold = 45;
+    [Tooltip("Timer before agitation can be changed again ")]
+    public float raiseAgitationTimer = 5;
+    [Tooltip("Current Agitation Level")]
+    public float agitationLevel = 1;
+
 
     [Header("Spook Stats")]
     [Tooltip("Bool that controls if the cat is scared.")]
@@ -60,6 +76,8 @@ public class CatNav : MonoBehaviour
         if (!playerInSightRange && !playerInAttackRange) { Patrolling(); };
         if (playerInSightRange && !playerInAttackRange) { ChasePlayer(); };
         if (playerInSightRange && playerInAttackRange) { AttackPlayer(); };
+
+        if(catAgitationCurrent < 0) { catAgitationCurrent = 0; } // prevent cat agitation from being negative in all given contexts 
     }
     private void Patrolling()
     {
@@ -123,6 +141,24 @@ public class CatNav : MonoBehaviour
         spooked = true;
         playerInAttackRange = false;
         playerInSightRange = false;
+    }
+
+    public void addAgitation(float amount) //increase agitation by float
+    {
+        catAgitationCurrent = catAgitationCurrent += amount;
+
+    }
+    public void reduceAgitation(float amount) // reduce agitation by float
+    {
+
+    }
+    public void increaseAgitationLevel() 
+    {
+
+    }
+    public void decreaseAgitationLevel() 
+    {
+
     }
 
     private void OnDrawGizmosSelected()
