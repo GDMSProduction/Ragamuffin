@@ -5002,6 +5002,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Handbag
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 662a280e7a741ba40996a553b9f60eec, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 662a280e7a741ba40996a553b9f60eec, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 662a280e7a741ba40996a553b9f60eec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 99.62
@@ -14338,6 +14346,13 @@ MonoBehaviour:
   attackRange: 1
   playerInSightRange: 0
   playerInAttackRange: 0
+  catAgitationMin: 0
+  catAgitationMax: 100
+  catAgitationCurrent: 0
+  increaseAgitationThreshold: 25
+  decreaseAgitationThreshold: 45
+  raiseAgitationTimer: 5
+  agitationLevel: 1
   spooked: 0
   timeBetweenSpooks: 5
   howlongSpooked: 0
@@ -17047,6 +17062,8 @@ MonoBehaviour:
   player: {fileID: 19438972}
   playerTransform: {fileID: 19438974}
   rag: {fileID: 19438972}
+  catNav: {fileID: 0}
+  cat: {fileID: 0}
 --- !u!120 &2072357453
 LineRenderer:
   m_ObjectHideFlags: 0
