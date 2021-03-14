@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class CatNav : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class CatNav : MonoBehaviour
     public Transform playerLocation;
     public GameObject player;
     public LayerMask whatIsGround, whatIsPlayer;
+    public Image maskCatAgitation;
     
     [Header("Attack Stats")]
     public float timeBetweenAttacks;
@@ -62,6 +64,8 @@ public class CatNav : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GetFill();
+
         if(!spooked)
         {
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
@@ -168,6 +172,12 @@ public class CatNav : MonoBehaviour
     public void decreaseAgitationLevel() 
     {
 
+    }
+
+    void GetFill()
+    {
+        float fillAmount = (float)catAgitationCurrent / (float)catAgitationMax;
+        maskCatAgitation.fillAmount = fillAmount;
     }
 
     private void OnDrawGizmosSelected()
