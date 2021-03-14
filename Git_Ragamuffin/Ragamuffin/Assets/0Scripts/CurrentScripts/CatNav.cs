@@ -18,12 +18,16 @@ public class CatNav : MonoBehaviour
     public float walkPointRange;
     public NavMeshAgent agent;
 
-    [Header("Player & Masks")]
+    [Header("Player/Masks/UI")]
     public Transform playerLocation;
     public GameObject player;
     public LayerMask whatIsGround, whatIsPlayer;
+    [Tooltip("Contains the fill meter.")]
     public Image maskCatAgitation;
-    
+    [Tooltip("Cat level in UI.")]
+    public Image catlv1, catlv2, catlv3, catlv4;
+
+
     [Header("Attack Stats")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
@@ -36,10 +40,13 @@ public class CatNav : MonoBehaviour
     [Tooltip("Current agitation")]
     public float catAgitationCurrent = 0;
     [Tooltip("The max amount agitation can increase within a given time frame")]
-    public float increaseAgitationThreshold = 25;  
-    //working notes, add a current threshold
+    public float increaseAgitationThresholdMax = 25;
+    [Tooltip("What the threshold is currently holding.")]
+    public float incThreshold;
     [Tooltip("The max amount agitation can decrease within a given time frame")]
-    public float decreaseAgitationThreshold = 45;
+    public float decreaseAgitationThresholdMax = 45;
+    [Tooltip("What the threshold is currently holding.")]
+    public float decThreshold;
     [Tooltip("Timer before agitation can be changed again ")]
     public float raiseAgitationTimer = 5;
     [Tooltip("Current Agitation Level")]
@@ -59,6 +66,7 @@ public class CatNav : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindWithTag("Player");
         playerLocation = player.transform;
+        changeAgitationLevel();
     }
 
     // Update is called once per frame
@@ -155,6 +163,28 @@ public class CatNav : MonoBehaviour
             if(catAgitationCurrent > catAgitationMax) { catAgitationCurrent = catAgitationMax; }
             Debug.Log("Agitation = " + catAgitationCurrent);
         }
+
+        if(catAgitationCurrent <= 25)
+        {
+            agitationLevel = 1;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
+        {
+            agitationLevel = 2;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
+        {
+            agitationLevel = 3;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
+        {
+            agitationLevel = 4;
+            changeAgitationLevel();
+        }
+
     }
     public void reduceAgitation(float amount) // reduce agitation by float
     {
@@ -164,14 +194,62 @@ public class CatNav : MonoBehaviour
             if(catAgitationCurrent < catAgitationMin) { catAgitationCurrent = catAgitationMin; }
             Debug.Log("Agitation = " + catAgitationCurrent);
         }
-    }
-    public void increaseAgitationLevel() 
-    {
 
+        if (catAgitationCurrent <= 25)
+        {
+            agitationLevel = 1;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
+        {
+            agitationLevel = 2;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
+        {
+            agitationLevel = 3;
+            changeAgitationLevel();
+        }
+        if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
+        {
+            agitationLevel = 4;
+            changeAgitationLevel();
+        }
     }
-    public void decreaseAgitationLevel() 
+    public void changeAgitationLevel() 
     {
-
+        if(agitationLevel == 1)
+        {
+            catlv1.enabled = true;
+            catlv2.enabled = false;
+            catlv3.enabled = false;
+            catlv4.enabled = false;
+           // Debug.Log("agitation lv 1");
+        }
+        if(agitationLevel == 2)
+        {
+            catlv1.enabled = false;
+            catlv2.enabled = true;
+            catlv3.enabled = false;
+            catlv4.enabled = false;
+           // Debug.Log("agitation lv 2");
+        }
+        if (agitationLevel == 3)
+        {
+            catlv1.enabled = false;
+            catlv2.enabled = false;
+            catlv3.enabled = true;
+            catlv4.enabled = false;
+           // Debug.Log("agitation lv 3");
+        }
+        if (agitationLevel == 4)
+        {
+            catlv1.enabled = false;
+            catlv2.enabled = false;
+            catlv3.enabled = false;
+            catlv4.enabled = true;
+            //Debug.Log("agitation lv 4");
+        }
     }
 
     void GetFill()
