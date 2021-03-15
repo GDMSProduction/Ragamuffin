@@ -31,7 +31,7 @@ public class CatNav : MonoBehaviour
     [Header("Attack Stats")]
     public float timeBetweenAttacks;
     bool alreadyAttacked;
-    public float sightRange, attackRange;
+    public float sightRange, attackRange, sightRangeBase;
     public bool playerInSightRange, playerInAttackRange;
     [Tooltip("Max agitation")]
     public float catAgitationMin = 0;
@@ -40,17 +40,24 @@ public class CatNav : MonoBehaviour
     [Tooltip("Current agitation")]
     public float catAgitationCurrent = 0;
     [Tooltip("The max amount agitation can increase within a given time frame")]
-    public float increaseAgitationThresholdMax = 25;
+    public float increaseAgitationThresholdMax = 20;
     [Tooltip("What the threshold is currently holding.")]
     public float incThreshold;
     [Tooltip("The max amount agitation can decrease within a given time frame")]
-    public float decreaseAgitationThresholdMax = 45;
+    public float decreaseAgitationThresholdMax = 50;
     [Tooltip("What the threshold is currently holding.")]
     public float decThreshold;
-    [Tooltip("Timer before agitation can be changed again ")]
-    public float raiseAgitationTimer = 5;
     [Tooltip("Current Agitation Level")]
     public float agitationLevel = 1;
+    [Tooltip("Timer before agitation will be increased again.")]
+    public float incTimer;
+    private float incHolder; // holds time
+    private bool incTiming = false; //Truns timing on and off
+    [Tooltip("Timer before agitation will be decrease again.")]
+    public float decTimer;
+    private float decHolder; // holds time 
+    private bool decTiming = false; //Turns timing on and off
+
 
 
     [Header("Spook Stats")]
@@ -74,7 +81,30 @@ public class CatNav : MonoBehaviour
     {
         GetFill();
 
-        if(!spooked)
+        if(incTiming == true)
+        {
+            incHolder += Time.deltaTime;
+        }
+        if(decTiming == true)
+        {
+            decHolder += Time.deltaTime;
+        }
+
+        if(incHolder >= incTimer)
+        {
+            incTiming = false;
+            incHolder = 0;
+            incThreshold = 0;
+        }
+        if (decHolder >= decTimer)
+        {
+            decTiming = false;
+            decHolder = 0;
+            decThreshold = 0;
+        }
+
+
+        if (!spooked)
         {
             playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
             playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -157,63 +187,73 @@ public class CatNav : MonoBehaviour
 
     public void addAgitation(float amount) //increase agitation by float
     {
-        if (catAgitationCurrent < catAgitationMax)
+        if (incThreshold <= increaseAgitationThresholdMax)
         {
-            catAgitationCurrent = catAgitationCurrent += amount;
-            if(catAgitationCurrent > catAgitationMax) { catAgitationCurrent = catAgitationMax; }
-            Debug.Log("Agitation = " + catAgitationCurrent);
-        }
+            if (catAgitationCurrent < catAgitationMax)
+            {
+                catAgitationCurrent = catAgitationCurrent += amount;
+                if (catAgitationCurrent > catAgitationMax) { catAgitationCurrent = catAgitationMax; }
+                incThreshold = incThreshold += amount;
+                Debug.Log("Agitation = " + catAgitationCurrent);
+                incTiming = true;
+            }
 
-        if(catAgitationCurrent <= 25)
-        {
-            agitationLevel = 1;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
-        {
-            agitationLevel = 2;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
-        {
-            agitationLevel = 3;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
-        {
-            agitationLevel = 4;
-            changeAgitationLevel();
+            if (catAgitationCurrent <= 25)
+            {
+                agitationLevel = 1;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
+            {
+                agitationLevel = 2;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
+            {
+                agitationLevel = 3;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
+            {
+                agitationLevel = 4;
+                changeAgitationLevel();
+            }
         }
 
     }
     public void reduceAgitation(float amount) // reduce agitation by float
     {
-        if (catAgitationCurrent > catAgitationMin)
+        if (decThreshold <= decreaseAgitationThresholdMax)
         {
-            catAgitationCurrent = catAgitationCurrent -= amount;
-            if(catAgitationCurrent < catAgitationMin) { catAgitationCurrent = catAgitationMin; }
-            Debug.Log("Agitation = " + catAgitationCurrent);
-        }
+            if (catAgitationCurrent > catAgitationMin)
+            {
+                catAgitationCurrent = catAgitationCurrent -= amount;
+                if (catAgitationCurrent < catAgitationMin) { catAgitationCurrent = catAgitationMin; }
+                decThreshold = decThreshold += amount;
+                Debug.Log("Agitation = " + catAgitationCurrent);
+                decTiming = true;
+            }
 
-        if (catAgitationCurrent <= 25)
-        {
-            agitationLevel = 1;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
-        {
-            agitationLevel = 2;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
-        {
-            agitationLevel = 3;
-            changeAgitationLevel();
-        }
-        if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
-        {
-            agitationLevel = 4;
-            changeAgitationLevel();
+            if (catAgitationCurrent <= 25)
+            {
+                agitationLevel = 1;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 50 & catAgitationCurrent > 25)
+            {
+                agitationLevel = 2;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 75 & catAgitationCurrent > 50)
+            {
+                agitationLevel = 3;
+                changeAgitationLevel();
+            }
+            if (catAgitationCurrent <= 100 & catAgitationCurrent > 75)
+            {
+                agitationLevel = 4;
+                changeAgitationLevel();
+            }
         }
     }
     public void changeAgitationLevel() 
@@ -224,6 +264,8 @@ public class CatNav : MonoBehaviour
             catlv2.enabled = false;
             catlv3.enabled = false;
             catlv4.enabled = false;
+
+            sightRange = sightRangeBase;
            // Debug.Log("agitation lv 1");
         }
         if(agitationLevel == 2)
@@ -232,6 +274,8 @@ public class CatNav : MonoBehaviour
             catlv2.enabled = true;
             catlv3.enabled = false;
             catlv4.enabled = false;
+
+            sightRange = sightRangeBase + 1;
            // Debug.Log("agitation lv 2");
         }
         if (agitationLevel == 3)
@@ -240,6 +284,8 @@ public class CatNav : MonoBehaviour
             catlv2.enabled = false;
             catlv3.enabled = true;
             catlv4.enabled = false;
+
+            sightRange = sightRangeBase * 2;
            // Debug.Log("agitation lv 3");
         }
         if (agitationLevel == 4)
@@ -248,6 +294,8 @@ public class CatNav : MonoBehaviour
             catlv2.enabled = false;
             catlv3.enabled = false;
             catlv4.enabled = true;
+
+            sightRange = sightRangeBase * 3;
             //Debug.Log("agitation lv 4");
         }
     }
