@@ -1,0 +1,325 @@
+fileFormatVersion: 2
+guid: 074114367dac8446b876d6921383e209
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: book30:pCube7
+    100002: //RootNode
+    100004: polySurface10
+    100006: polySurface11
+    100008: polySurface13
+    100010: polySurface14
+    100012: polySurface14 1
+    100014: polySurface33
+    100016: polySurface39
+    100018: polySurface40
+    100020: polySurface43
+    100022: polySurface44
+    100024: polySurface47
+    100026: polySurface48
+    100028: polySurface5
+    100030: polySurface51
+    100032: polySurface52
+    100034: polySurface55
+    100036: polySurface56
+    100038: polySurface59
+    100040: polySurface6
+    100042: polySurface60
+    100044: polySurface63
+    100046: polySurface64
+    100048: polySurface67
+    100050: polySurface68
+    100052: polySurface71
+    100054: threebookstack:pCube7
+    100056: threebookstack:polySurface5
+    100058: threebookstack:polySurface6
+    100060: threebookstack:polySurface8
+    100062: threebookstack:transform1
+    100064: threebookstack:transform3
+    100066: threebookstack:transform4
+    100068: transform12
+    100070: transform2
+    100072: transform3
+    100074: transform4
+    100076: transform5
+    100078: transform6
+    400000: book30:pCube7
+    400002: //RootNode
+    400004: polySurface10
+    400006: polySurface11
+    400008: polySurface13
+    400010: polySurface14
+    400012: polySurface14 1
+    400014: polySurface33
+    400016: polySurface39
+    400018: polySurface40
+    400020: polySurface43
+    400022: polySurface44
+    400024: polySurface47
+    400026: polySurface48
+    400028: polySurface5
+    400030: polySurface51
+    400032: polySurface52
+    400034: polySurface55
+    400036: polySurface56
+    400038: polySurface59
+    400040: polySurface6
+    400042: polySurface60
+    400044: polySurface63
+    400046: polySurface64
+    400048: polySurface67
+    400050: polySurface68
+    400052: polySurface71
+    400054: threebookstack:pCube7
+    400056: threebookstack:polySurface5
+    400058: threebookstack:polySurface6
+    400060: threebookstack:polySurface8
+    400062: threebookstack:transform1
+    400064: threebookstack:transform3
+    400066: threebookstack:transform4
+    400068: transform12
+    400070: transform2
+    400072: transform3
+    400074: transform4
+    400076: transform5
+    400078: transform6
+    2100000: lambert1
+    2100002: aiStandardSurface1
+    2100004: aiStandardSurface2
+    2100006: aiStandardSurface3
+    2300000: polySurface10
+    2300002: polySurface11
+    2300004: polySurface33
+    2300006: polySurface39
+    2300008: polySurface40
+    2300010: polySurface43
+    2300012: polySurface44
+    2300014: polySurface47
+    2300016: polySurface48
+    2300018: polySurface51
+    2300020: polySurface52
+    2300022: polySurface55
+    2300024: polySurface56
+    2300026: polySurface59
+    2300028: polySurface60
+    2300030: polySurface63
+    2300032: polySurface64
+    2300034: polySurface67
+    2300036: polySurface68
+    2300038: polySurface71
+    3300000: polySurface10
+    3300002: polySurface11
+    3300004: polySurface33
+    3300006: polySurface39
+    3300008: polySurface40
+    3300010: polySurface43
+    3300012: polySurface44
+    3300014: polySurface47
+    3300016: polySurface48
+    3300018: polySurface51
+    3300020: polySurface52
+    3300022: polySurface55
+    3300024: polySurface56
+    3300026: polySurface59
+    3300028: polySurface60
+    3300030: polySurface63
+    3300032: polySurface64
+    3300034: polySurface67
+    3300036: polySurface68
+    3300038: polySurface71
+    4300000: polySurface10
+    4300002: polySurface11
+    4300004: polySurface33
+    4300006: polySurface39
+    4300008: polySurface40
+    4300010: polySurface43
+    4300012: polySurface44
+    4300014: polySurface47
+    4300016: polySurface48
+    4300018: polySurface51
+    4300020: polySurface52
+    4300022: polySurface55
+    4300024: polySurface56
+    4300026: polySurface59
+    4300028: polySurface60
+    4300030: polySurface63
+    4300032: polySurface64
+    4300034: polySurface67
+    4300036: polySurface68
+    4300038: polySurface71
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: 8c2aa23af0b394bea9aa9f16559175dc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface2
+    second: {fileID: 2100000, guid: f1b727d8a1afc483cada2f19dcdd9c00, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface3
+    second: {fileID: 2100000, guid: a94764d4902dc4ac8b5f66afee8125e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 7e97b344ceb93435f82e691f508c6941, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstacktwoenlaretexeldensity_lambert1_BaseColor
+    second: {fileID: 2800000, guid: dc41dac2e26ac45d88383ccfeec8f2e9, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstacktwoenlaretexeldensity_lambert1_Height
+    second: {fileID: 2800000, guid: 4f860d655d8f74f81810cca2974ac240, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstacktwoenlaretexeldensity_lambert1_Metallic
+    second: {fileID: 2800000, guid: 1becbd126a38b4c7daed645d5113f4fe, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstacktwoenlaretexeldensity_lambert1_Roughness
+    second: {fileID: 2800000, guid: 067d60d05c55e4a3e82d1757e8e3a4d4, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lastsectionofbookstack_lambert1_BaseColor
+    second: {fileID: 2800000, guid: 9f6ffdfac286f49b2a1fb959110f02f0, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lastsectionofbookstack_lambert1_Height
+    second: {fileID: 2800000, guid: e6ec59d1a8334484d8e5eb7fdd88b50e, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lastsectionofbookstack_lambert1_Metallic
+    second: {fileID: 2800000, guid: f2e634564a9124e1684c33e8afabed10, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lastsectionofbookstack_lambert1_Normal
+    second: {fileID: 2800000, guid: 3d9fc7bc0228e4c9aae441a8cc2c07cf, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: lastsectionofbookstack_lambert1_Roughness
+    second: {fileID: 2800000, guid: 81ea9a5cf62dd4ef2b433dfe012074d8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texteldensitychecksubstance_lambert1_BaseColor
+    second: {fileID: 2800000, guid: 3683f6df3b49947479402e35b4f99833, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texteldensitychecksubstance_lambert1_Height
+    second: {fileID: 2800000, guid: c66d24acb3745414f9cd85d8013a0aba, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texteldensitychecksubstance_lambert1_Metallic
+    second: {fileID: 2800000, guid: 64b9ba3c6142b4b8089dea514c7d73ad, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texteldensitychecksubstance_lambert1_Normal
+    second: {fileID: 2800000, guid: deb70e89cb23644a79c8fb1ffe9589dc, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: texteldensitychecksubstance_lambert1_Roughness
+    second: {fileID: 2800000, guid: 8126c53401c4f44248f5a7d724a79d12, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
