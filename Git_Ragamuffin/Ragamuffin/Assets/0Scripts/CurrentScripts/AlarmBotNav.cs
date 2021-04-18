@@ -18,29 +18,68 @@ public class AlarmBotNav : MonoBehaviour
     public bool walkPointSet;
     public float walkPointRange;
     public NavMeshAgent agent;
+    public float sightDistance;
 
+
+    public GameObject cat;
+    public CatNav catNav;
     public bool playerInSightRange = false;
-
+    Renderer botRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        botRenderer = GetComponent<Renderer>();
+        cat = GameObject.FindWithTag("Cat");
+        catNav = cat.GetComponent<CatNav>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (!playerInSightRange) { Patrolling(); };
+        if (playerInSightRange) { SoundAlarm(); };
     }
+    public void FixedUpdate()
+    {
+        var ray = new Ray(origin: this.transform.position, direction: this.transform.forward);
 
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, sightDistance))
+        {
+
+            if (hit.transform.gameObject.CompareTag("Player"))
+            {
+                playerInSightRange = true;
+            }
+            else
+            {
+                playerInSightRange = false;
+            }
+        }
+        else
+        {
+            playerInSightRange = false;
+        }
+    }
     private void Patrolling()
     {
+        botRenderer.material.color = Color.white;
+        agent.isStopped = false;
         agent.SetDestination(BotNavPoints[navpointIndex].position); // setting destination to current nav point index
         if (Vector3.Distance(BotNavPoints[navpointIndex].position, gameObject.transform.position) < navDistance) // increasing the index when in navDistance
         {
             IncreaseIndex();
         }
+    }
+    private void SoundAlarm()
+    {
+        botRenderer.material.color = Color.red;
+        agent.isStopped = true;
+        catNav.addAgitation(1.0f);
+        Debug.Log("Player tripped alarm");
     }
 
     void IncreaseIndex()

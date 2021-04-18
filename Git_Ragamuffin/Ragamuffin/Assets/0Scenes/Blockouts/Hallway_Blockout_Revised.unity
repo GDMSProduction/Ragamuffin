@@ -6053,6 +6053,9 @@ MonoBehaviour:
   walkPointSet: 0
   walkPointRange: 0
   agent: {fileID: 0}
+  sightDistance: 2
+  cat: {fileID: 0}
+  catNav: {fileID: 0}
   playerInSightRange: 0
 --- !u!65 &728437461
 BoxCollider:
@@ -14998,7 +15001,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823707305}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -17925,7 +17928,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085046787}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
