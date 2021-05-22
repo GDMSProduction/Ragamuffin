@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/0Scenes/Menus/OptionsMenu.unity
     guid: 46d4b89cee8ca424d9b5be15300e2fd1
   - enabled: 1
-    path: Assets/0Scenes/Asset Showcases/Brother'sRoom_BlockOut.unity
+    path: Assets/0Scenes/OldScenes/Asset Showcases/Brother'sRoom_BlockOut.unity
     guid: f306698e2f39f374981558ccd3747d80
   - enabled: 1
     path: Assets/0Scenes/Blockouts/Hallway_Blockout_Revised.unity

@@ -608,7 +608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 19438972}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -15.56, y: 1.72, z: -1.21}
+  m_LocalPosition: {x: -12.7, y: 1.72, z: -1.21}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children:
   - {fileID: 764943187}
@@ -663,8 +663,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.039565023, y: 0.07, z: 0.038762446}
-  m_Center: {x: 0.003484966, y: 0, z: -0.000011567772}
+  m_Size: {x: 0.039565023, y: 0.07, z: 0.032604873}
+  m_Center: {x: 0.0034849662, y: 0, z: -0.0021318668}
 --- !u!54 &19438977
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17657,7 +17657,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2072357451}
   - component: {fileID: 2072357453}
-  - component: {fileID: 2072357452}
   m_Layer: 10
   m_Name: Gunpoint
   m_TagString: Untagged
@@ -17679,30 +17678,6 @@ Transform:
   m_Father: {fileID: 19438974}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2072357452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2072357450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36e73786b7f0d364097143e5c4e192c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lr: {fileID: 2072357453}
-  whatIsGrappleable:
-    serializedVersion: 2
-    m_Bits: 1024
-  gunTip: {fileID: 2072357451}
-  cam: {fileID: 231787499}
-  maxDistance: 5
-  player: {fileID: 19438972}
-  playerTransform: {fileID: 19438974}
-  rag: {fileID: 19438972}
-  catNav: {fileID: 0}
-  cat: {fileID: 0}
 --- !u!120 &2072357453
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -8,6 +8,6 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = target.position + offset;
+        transform.position = target.position + offset; // Allows camera to follow the player.
     }
 }
