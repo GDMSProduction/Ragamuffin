@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
-{  // /**/
+{   /*
      void OnGUI()  //This is used to reset playerprefs. When testing saving function turn this function back on.
          {
              //Delete all of the PlayerPrefs settings by pressing this Button
@@ -10,7 +10,7 @@ public class LevelLoader : MonoBehaviour
              {
                  PlayerPrefs.DeleteAll();
              }
-         }
+    }*/
     public void DeletePlayerPrefs(){
         PlayerPrefs.DeleteAll();
     }

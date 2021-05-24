@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RagMovement : MonoBehaviour
+public class Rag : MonoBehaviour
 {
     public float forwardSpeed = 5f;
-    public float jumpForce = 150f;
+    public float jumpForce;       // current is 300f
+    public float bounceJumpForce; // current is 250f
     public float attackRange;
 
     [SerializeField]
@@ -61,8 +62,8 @@ public class RagMovement : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody>();
         startPosition = transform.position;
         pinHandle.SetActive(false);
-        Cat = GameObject.FindWithTag("Cat");
-        catLocation = Cat.transform;
+       // Cat = GameObject.FindWithTag("Cat");
+        //catLocation = Cat.transform;
         //anim = GetComponent<Animator>();
     }
     // Update is called once per frame
@@ -88,11 +89,11 @@ public class RagMovement : MonoBehaviour
                 dummyPin.SetActive(true);
                 isEquip = false;
             }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D) && !isHiding)
         {
             childRag.localRotation = Quaternion.Euler(0, 50, 0);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && !isHiding)
         {
             childRag.localRotation = Quaternion.Euler(0, 180, 0);
         }
@@ -114,12 +115,12 @@ public class RagMovement : MonoBehaviour
         }
         else
         { 
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(KeyCode.D) && !isHiding)
             {
                 transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
             }
 
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.A) && !isHiding)
             {
                 transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
             }
@@ -247,7 +248,7 @@ public class RagMovement : MonoBehaviour
 
         if (other.gameObject.tag == ("JumpPad"))
         {
-            jumpForce = 250;
+            jumpForce = bounceJumpForce;
         }
     }
 
@@ -319,7 +320,7 @@ public class RagMovement : MonoBehaviour
         }
         if (other.gameObject.tag == ("JumpPad"))
         {
-            jumpForce = 150;
+            jumpForce = 300;
         }
         if (other.gameObject.tag == ("Scarf"))
         {
