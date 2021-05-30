@@ -1,1 +1,0 @@
-Do not version the library folder. Ever. For any reason. Not even on Tuesdays.
