@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class Rag : MonoBehaviour
 {
-    public float forwardSpeed = 5f;
+    public float forwardSpeed; // current is 5f
     public float jumpForce;       // current is 300f
     public float bounceJumpForce; // current is 250f
     public float attackRange;

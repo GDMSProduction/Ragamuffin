@@ -95,12 +95,14 @@ public class HidingBox : MonoBehaviour
     }
     public void SafeFunction(string code)
     {
-        if (code == "password")
+        if (code == password)
         {
             LockingPlayerMovement();
             safeCode.text = "";
+            
             onOff.ObjectOnOff();
             trueFalse = !trueFalse;
+
         }
     }
 }
