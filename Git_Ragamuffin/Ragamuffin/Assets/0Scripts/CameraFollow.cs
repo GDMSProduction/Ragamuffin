@@ -8,6 +8,8 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = target.position + offset; // Allows camera to follow the player.
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPositon = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPositon; // Allows camera to follow the player.
     }
 }

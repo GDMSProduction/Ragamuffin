@@ -7,7 +7,7 @@ public class Rag : MonoBehaviour
     public float jumpForce;       // current is 300f
     public float bounceJumpForce; // current is 250f
     public float attackRange;
-
+    public GameObject moveableObject; //child.transform.SetParent(target.transform); child.transform.parent = null;
     [SerializeField]
     private GameObject changeLevel;
     public GameObject pinHandle;
@@ -26,7 +26,7 @@ public class Rag : MonoBehaviour
     public bool isEquip = false;
     public bool isHiding = false;
     public bool disableMovement = false;
-    //bool ableJump = true;
+    public bool moveObject = false;
     //
     
     private float attackDelay;
@@ -52,7 +52,8 @@ public class Rag : MonoBehaviour
     private bool isJumpPressed;
     private bool isClimbing;
     public bool isGrappling;
-   // public GameObject[] test;
+    bool canPushPull = false;
+    // public GameObject[] test;
     private void Start()
     {
         //test = GameObject.FindGameObjectsWithTag("ground");
