@@ -251,6 +251,11 @@ public class Rag : MonoBehaviour
         {
             jumpForce = bounceJumpForce;
         }
+        if (other.gameObject.tag == ("Scarf"))
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+            rb.useGravity = false;
+        }
     }
 
     private void OnTriggerStay(Collider other)
@@ -280,11 +285,10 @@ public class Rag : MonoBehaviour
         {
             isClimbing = true;
             ChangeAnimationState(PlayerClimb);
+            rb.velocity = new Vector3(0, 0, 0);
             if (Input.GetKey(KeyCode.E))
             {
-                GetComponent<Rigidbody>().useGravity = false;
                 transform.Translate(Vector3.up * forwardSpeed * Time.deltaTime);
-                
             }
         }
 
