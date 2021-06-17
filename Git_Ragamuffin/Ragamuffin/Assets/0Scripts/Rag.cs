@@ -3,11 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Rag : MonoBehaviour
 {
+    public GameObject child;
     public float forwardSpeed; // current is 5f
     public float jumpForce;       // current is 300f
     public float bounceJumpForce; // current is 250f
     public float attackRange;
-    public GameObject moveableObject; //child.transform.SetParent(target.transform); child.transform.parent = null;
+    public GameObject moveableObject; 
     [SerializeField]
     private GameObject changeLevel;
     public GameObject pinHandle;
@@ -27,8 +28,8 @@ public class Rag : MonoBehaviour
     public bool isHiding = false;
     public bool disableMovement = false;
     public bool moveObject = false;
-    //
     
+
     private float attackDelay;
     public Animator anim;
     private string currentState;
@@ -52,7 +53,7 @@ public class Rag : MonoBehaviour
     private bool isJumpPressed;
     private bool isClimbing;
     public bool isGrappling;
-    bool canPushPull = false;
+    public bool canPush = false;
     // public GameObject[] test;
     private void Start()
     {
@@ -83,13 +84,13 @@ public class Rag : MonoBehaviour
         //    isAttackPressed = true;
         //}
         
-            if (Input.GetKeyDown(KeyCode.R) && isEquip)
-            {
-                pinHandle.SetActive(false);
-                dummyPin.transform.position = dropPoint.transform.position;
-                dummyPin.SetActive(true);
-                isEquip = false;
-            }
+        if (Input.GetKeyDown(KeyCode.R) && isEquip)
+        {
+            pinHandle.SetActive(false);
+            dummyPin.transform.position = dropPoint.transform.position;
+            dummyPin.SetActive(true);
+            isEquip = false;
+        }
         if (Input.GetKeyDown(KeyCode.D) && !isHiding)
         {
             childRag.localRotation = Quaternion.Euler(0, 50, 0);
@@ -107,6 +108,14 @@ public class Rag : MonoBehaviour
             Cat.SendMessage("reduceAgitation", 35);
             pinHandle.SetActive(false);
             isEquip = false;
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (canPush)
+            {
+                child.transform.parent = null;
+                canPush = !canPush;
+            }
         }
     }
     private void FixedUpdate()
@@ -194,6 +203,11 @@ public class Rag : MonoBehaviour
         {
             if (isGrounded && Input.GetKeyDown(KeyCode.Space))
             {
+                if (canPush)
+                {
+                    child.transform.parent = null;
+                    canPush = !canPush;
+                }
                 rb.AddForce(0, jumpForce, 0);
                 isGrounded = false;
             }
@@ -222,6 +236,22 @@ public class Rag : MonoBehaviour
         {
             isGrounded = true;
         }
+    }
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.tag == ("Pushable"))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!canPush)
+                {
+                    child.transform.SetParent(gameObject.transform);
+                    canPush = !canPush;
+                }
+            }
+         
+        }
+        //child.transform.SetParent(target1.transform);child.transform.parent = null;
     }
 
     private void OnTriggerEnter(Collider other)
