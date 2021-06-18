@@ -22,6 +22,7 @@ TagManager:
   - Cat
   - Cat UI
   - Pushable
+  - KinematicTag
   layers:
   - Default
   - TransparentFX

@@ -234,6 +234,7 @@ public class Rag : MonoBehaviour
         //Tag anything Rag walks on ground.
         if (collision.gameObject.tag == ("Ground"))
         {
+            rb.velocity = new Vector3(0, 0, 0);
             isGrounded = true;
         }
     }
@@ -249,7 +250,6 @@ public class Rag : MonoBehaviour
                     canPush = !canPush;
                 }
             }
-         
         }
         //child.transform.SetParent(target1.transform);child.transform.parent = null;
     }
@@ -274,7 +274,7 @@ public class Rag : MonoBehaviour
         if (other.gameObject.tag == ("CheckPoint"))
         {
             startPosition = other.transform.position;
-            Debug.Log("CheckPoint updated!");
+            //Debug.Log("CheckPoint updated!");
         }
 
         if (other.gameObject.tag == ("JumpPad"))
