@@ -12,7 +12,7 @@ public class Pushable : MonoBehaviour
     private void Update()
     {
     }
-   
+
     //private void OnTriggerEnter(Collider other)
     //{
     //    if (other.gameObject.tag == "KinematicTag")
@@ -31,14 +31,14 @@ public class Pushable : MonoBehaviour
     //        pushPullObject.isKinematic = false;
     //    }
     //}
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == ("Ground"))
-    //    {
-    //        pushPullObject.isKinematic = true;
-    //    }
-    //}
-   
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == ("Ground"))
+        {
+            pushPullObject.isKinematic = true;
+        }
+    }
+
     private void FixedUpdate()
     {
         //transform.position += new Vector3(0, -test * Time.deltaTime, 0);

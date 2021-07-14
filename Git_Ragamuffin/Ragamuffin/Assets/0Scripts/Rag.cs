@@ -232,9 +232,9 @@ public class Rag : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Tag anything Rag walks on ground.
-        if (collision.gameObject.tag == ("Ground"))
+        if (collision.gameObject.tag == ("Ground") || collision.collider.gameObject.layer == LayerMask.NameToLayer("Pushable"))
         {
-            rb.velocity = new Vector3(0, 0, 0);
+            //rb.velocity = new Vector3(0, 0, 0);
             isGrounded = true;
         }
     }
