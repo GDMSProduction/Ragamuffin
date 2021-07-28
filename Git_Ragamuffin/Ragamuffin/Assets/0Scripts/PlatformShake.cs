@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlatformShake : MonoBehaviour
 {
+    //change to local position if put on a child object 
+
     public float speed = 0.36f;
     Vector3 pointA;
     Vector3 pointB;
