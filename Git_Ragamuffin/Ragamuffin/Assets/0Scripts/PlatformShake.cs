@@ -15,42 +15,50 @@ public class PlatformShake : MonoBehaviour
     private float startSpeed;
     [SerializeField]
     private Transform transformB = null;
-    private float fallSpeed = 2f;
+    private float fallSpeed = 6f;
+    public bool canFall = false;
     void Start()
     {
         //Get current position then add 0 to its Z axis
-        pointA = transform.eulerAngles + new Vector3(0f, 0f, 0f); //current rotation
+        pointA = transform.eulerAngles + new Vector3(0f, 0f, 5f); //current rotation
 
         //Get current position then substract 90 to its Z axis
-        pointB = transform.eulerAngles + new Vector3(0f, 0f, 90f); //where you want it to rotate
-        StartCoroutine("LoseTime");
-        posA = gameObject.transform.localPosition;
-        posB = transformB.localPosition;
+        pointB = transform.eulerAngles + new Vector3(0f, 0f, -5f); //where you want it to rotate
+        posA = gameObject.transform.position; // local position 
+        posB = transformB.position; //local position
         nexPos = posB;
         startSpeed = fallSpeed;
     }
 
     void Update()
     {
-        PingToThePong();
         if (timeLeft > 7)
         {
             speed = 0.36f;
         }
         if (timeLeft == 7)
         {
-            speed = 1f;
+            speed = 0.75f;
         }
         if (timeLeft == 4)
         {
-            speed = 2f;
+            speed = 1.2f;
         }
         if (timeLeft == 2)
         {
-            speed = 4f;
+            speed = 2f;
         }
-        if (Input.GetKeyDown(KeyCode.Space))
+        if(canFall)
         {
+            PingToThePong();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!canFall)
+        {
+            canFall = true;
+            StartCoroutine("LoseTime");
             RestartCountDown();
         }
     }
@@ -68,7 +76,7 @@ public class PlatformShake : MonoBehaviour
     }
     void RestartCountDown()
     {
-        gameObject.transform.localPosition = posA;
+        gameObject.transform.position = posA;
         StopCoroutine("LoseTime");
         timeLeft = 10;
         StartCoroutine("LoseTime");
@@ -83,10 +91,13 @@ public class PlatformShake : MonoBehaviour
     }
     void FixedUpdate()
     {
-        Move();
+        if(timeLeft == 0)
+        {
+            Move();
+        }
     }
     private void Move()
     {
-        gameObject.transform.localPosition = Vector3.MoveTowards(gameObject.transform.localPosition, nexPos, fallSpeed * Time.deltaTime);
+        gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, nexPos, fallSpeed * Time.deltaTime);
     }
 }
