@@ -19,6 +19,10 @@ public class PlatformShake : MonoBehaviour
     private Transform transformB = null;
     private float fallSpeed = 6f;
     public bool canFall = false;
+    public float speed0;
+    public float speed1;
+    public float speed2;
+    public float speed3;
     void Start()
     {
         //Get current position then add 0 to its Z axis
@@ -36,19 +40,19 @@ public class PlatformShake : MonoBehaviour
     {
         if (timeLeft > 7)
         {
-            speed = 0.36f;
+            speed = speed0;             //0.36f;
         }
         if (timeLeft == 7)
         {
-            speed = 0.75f;
+            speed = speed1;                      //0.75f;
         }
         if (timeLeft == 4)
         {
-            speed = 1.2f;
+            speed = speed2;                        //1.2f;
         }
         if (timeLeft == 2)
         {
-            speed = 2f;
+            speed = speed3;                             //2f;
         }
         if(canFall)
         {
