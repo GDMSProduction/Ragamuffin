@@ -20,8 +20,10 @@ public class CheckCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Touchy Touch");
-        bearCam.SendMessage("ToggleView");
-        
+        if (other.tag == "Player")
+        {
+            Debug.Log("Touchy Touch");
+            bearCam.SendMessage("ToggleView");
+        }
     }
 }
