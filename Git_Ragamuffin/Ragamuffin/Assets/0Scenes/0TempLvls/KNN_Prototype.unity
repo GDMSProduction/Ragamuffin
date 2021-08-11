@@ -5819,6 +5819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b041e23aa013a5409821f7dd0dd64fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  child: {fileID: 0}
   forwardSpeed: 5
   jumpForce: 300
   bounceJumpForce: 250
@@ -5842,6 +5843,7 @@ MonoBehaviour:
   anim: {fileID: 884885935}
   isGrounded: 0
   isGrappling: 0
+  canPush: 0
 --- !u!65 &996301911
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6481,6 +6483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b041e23aa013a5409821f7dd0dd64fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  child: {fileID: 0}
   forwardSpeed: 5
   jumpForce: 300
   bounceJumpForce: 250
@@ -6504,6 +6507,7 @@ MonoBehaviour:
   anim: {fileID: 211474946}
   isGrounded: 0
   isGrappling: 0
+  canPush: 0
 --- !u!65 &1123626173
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7601,7 +7605,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 996301913}
   smoothSpeed: 0.125
-  offset: {x: 1, y: 2, z: -9}
+  offsetBase: {x: 1, y: 2, z: -9}
+  offsetFOV: {x: 1, y: 2, z: -18}
+  baseView: 0
+  FOV: 1
 --- !u!20 &1251306802
 Camera:
   m_ObjectHideFlags: 0
@@ -11375,7 +11382,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1123626170}
   smoothSpeed: 0.125
-  offset: {x: 1, y: 2, z: -9}
+  offsetBase: {x: 0, y: 0, z: 0}
+  offsetFOV: {x: 0, y: 0, z: 0}
+  baseView: 1
+  FOV: 0
 --- !u!20 &1841006762
 Camera:
   m_ObjectHideFlags: 0
