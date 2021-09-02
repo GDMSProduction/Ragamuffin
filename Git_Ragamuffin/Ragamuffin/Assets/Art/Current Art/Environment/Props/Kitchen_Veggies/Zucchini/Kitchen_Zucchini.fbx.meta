@@ -9,7 +9,12 @@ ModelImporter:
     2300000: //RootNode
     3300000: //RootNode
     4300000: Kitchen_Zucchini
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blinn1
+    second: {fileID: 2100000, guid: 325a2d59e3f8e4c59bf978da1f834589, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
