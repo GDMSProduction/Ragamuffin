@@ -1,0 +1,185 @@
+fileFormatVersion: 2
+guid: b1bbc19e04d904886a4c80a699564414
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: nurbsToPoly1
+    100002: nurbsToPoly10
+    100004: nurbsToPoly11
+    100006: nurbsToPoly12
+    100008: nurbsToPoly13
+    100010: nurbsToPoly14
+    100012: nurbsToPoly15
+    100014: nurbsToPoly16
+    100016: nurbsToPoly17
+    100018: nurbsToPoly18
+    100020: nurbsToPoly2
+    100022: nurbsToPoly3
+    100024: nurbsToPoly4
+    100026: nurbsToPoly5
+    100028: nurbsToPoly6
+    100030: nurbsToPoly7
+    100032: nurbsToPoly8
+    100034: nurbsToPoly9
+    100036: //RootNode
+    400000: nurbsToPoly1
+    400002: nurbsToPoly10
+    400004: nurbsToPoly11
+    400006: nurbsToPoly12
+    400008: nurbsToPoly13
+    400010: nurbsToPoly14
+    400012: nurbsToPoly15
+    400014: nurbsToPoly16
+    400016: nurbsToPoly17
+    400018: nurbsToPoly18
+    400020: nurbsToPoly2
+    400022: nurbsToPoly3
+    400024: nurbsToPoly4
+    400026: nurbsToPoly5
+    400028: nurbsToPoly6
+    400030: nurbsToPoly7
+    400032: nurbsToPoly8
+    400034: nurbsToPoly9
+    400036: //RootNode
+    2100000: lambert1
+    2300000: nurbsToPoly1
+    2300002: nurbsToPoly10
+    2300004: nurbsToPoly11
+    2300006: nurbsToPoly12
+    2300008: nurbsToPoly13
+    2300010: nurbsToPoly14
+    2300012: nurbsToPoly15
+    2300014: nurbsToPoly16
+    2300016: nurbsToPoly17
+    2300018: nurbsToPoly18
+    2300020: nurbsToPoly2
+    2300022: nurbsToPoly3
+    2300024: nurbsToPoly4
+    2300026: nurbsToPoly5
+    2300028: nurbsToPoly6
+    2300030: nurbsToPoly7
+    2300032: nurbsToPoly8
+    2300034: nurbsToPoly9
+    3300000: nurbsToPoly1
+    3300002: nurbsToPoly10
+    3300004: nurbsToPoly11
+    3300006: nurbsToPoly12
+    3300008: nurbsToPoly13
+    3300010: nurbsToPoly14
+    3300012: nurbsToPoly15
+    3300014: nurbsToPoly16
+    3300016: nurbsToPoly17
+    3300018: nurbsToPoly18
+    3300020: nurbsToPoly2
+    3300022: nurbsToPoly3
+    3300024: nurbsToPoly4
+    3300026: nurbsToPoly5
+    3300028: nurbsToPoly6
+    3300030: nurbsToPoly7
+    3300032: nurbsToPoly8
+    3300034: nurbsToPoly9
+    4300000: nurbsToPoly1
+    4300002: nurbsToPoly2
+    4300004: nurbsToPoly3
+    4300006: nurbsToPoly4
+    4300008: nurbsToPoly5
+    4300010: nurbsToPoly6
+    4300012: nurbsToPoly7
+    4300014: nurbsToPoly8
+    4300016: nurbsToPoly9
+    4300018: nurbsToPoly10
+    4300020: nurbsToPoly11
+    4300022: nurbsToPoly12
+    4300024: nurbsToPoly13
+    4300026: nurbsToPoly14
+    4300028: nurbsToPoly15
+    4300030: nurbsToPoly16
+    4300032: nurbsToPoly17
+    4300034: nurbsToPoly18
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
