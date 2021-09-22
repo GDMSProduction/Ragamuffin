@@ -54,6 +54,8 @@ public class Rag : MonoBehaviour
     private bool isClimbing;
     public bool isGrappling;
     public bool canPush = false;
+    private Vector3 currentPos;
+    public bool invert = false;
     // public GameObject[] test;
     private void Start()
     {
@@ -71,6 +73,13 @@ public class Rag : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentPos = this.transform.position;
+
+        if(this.transform.position.z != 0)
+        {
+            this.transform.position = new Vector3(currentPos.x, currentPos.y, 0);
+        }
+
         //Checking for inputs
         //space jump key pressed?
         if (Input.GetKeyDown(KeyCode.Space))
@@ -125,15 +134,25 @@ public class Rag : MonoBehaviour
         }
         else
         { 
-            if (Input.GetKey(KeyCode.D) && !isHiding)
+            if (Input.GetKey(KeyCode.D) && !isHiding && !invert)
             {
                 transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
             }
 
-            if (Input.GetKey(KeyCode.A) && !isHiding)
+            if (Input.GetKey(KeyCode.A) && !isHiding && !invert)
             {
                 transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
             }
+
+            //if (Input.GetKey(KeyCode.D) && !isHiding && invert)
+            //{
+            //    transform.Translate(Vector3.forward * forwardSpeed * Time.deltaTime);
+            //}
+
+            //if (Input.GetKey(KeyCode.A) && !isHiding && invert)
+            //{
+            //    transform.Translate(Vector3.back * forwardSpeed * Time.deltaTime);
+            //}
         }
         Jumping();
         if (isGrounded && !isAttacking)
@@ -363,6 +382,20 @@ public class Rag : MonoBehaviour
             isClimbing = false;
         } 
     }
+    public void InvertControls()
+    {
+        //if(!invert)
+        //{
+        //    invert = true;
+        //}
+        //else if(invert)
+        //{
+        //    invert = false;
+        //}
+        //Debug.Log("Controls inverted");
+        transform.rotation *= Quaternion.AngleAxis(180, transform.up);
+    }
+
     //death function reset transform to start point. 
     public void Death()
     {

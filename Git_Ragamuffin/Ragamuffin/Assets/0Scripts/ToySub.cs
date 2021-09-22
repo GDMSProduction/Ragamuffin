@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Roomba : MonoBehaviour
+public class ToySub : MonoBehaviour
 {
     public Transform[] navPoints; // array of nav points
     public int speed;
-    private GameObject playerHolder = null;
 
     private int navPointIndex; // which nav point in the array it is currently seeking
     public float distanceToPoint; // distance to nav point
@@ -43,27 +42,14 @@ public class Roomba : MonoBehaviour
             navPointIndex = 0;
         }
         transform.LookAt(navPoints[navPointIndex].position);
-        if(playerHolder != null)
-        {
-            playerHolder.SendMessage("InverseControls");
-        }
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            playerHolder = other.gameObject;
-        }
-        other.transform.parent = transform;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+       if(other.tag == "Ground")
         {
-            playerHolder = null;
+            IncreaseIndex();
         }
-        other.transform.parent = null;
     }
 }
     
