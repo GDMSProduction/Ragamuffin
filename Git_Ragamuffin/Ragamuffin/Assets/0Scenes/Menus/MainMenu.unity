@@ -271,7 +271,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Hallway_Blockout_Revised
+          m_StringArgument: MXC_PrototypeHallway
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &69397099
@@ -2007,11 +2007,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea96e10eec423c3429ab043c9d1a663c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningWindow: {fileID: 888105223}
-  text: {fileID: 398311671}
-  yesButton: {fileID: 2028298218}
-  noButton: {fileID: 1918918492}
-  savedSceneIndex: 0
 --- !u!1 &1202180325
 GameObject:
   m_ObjectHideFlags: 0
