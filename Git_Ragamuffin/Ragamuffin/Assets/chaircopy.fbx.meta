@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: fc16f659352c1461c96bcaeba7c14b15
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: arm_supports
+    100002: arm_supports_lh
+    100004: arm_supports_rh
+    100006: armedchair02:polySurface1
+    100008: armedchair02:polySurface11
+    100010: armedchair02:polySurface12
+    100012: armedchair02:polySurface13
+    100014: armedchair02:polySurface15
+    100016: armedchair02:polySurface16
+    100018: armedchair02:polySurface17
+    100020: armedchair02:polySurface8
+    100022: armedchair02:polySurface9
+    100024: armedchair02:slatt_decor_back
+    100026: armedchair02:transform1
+    100028: armedchair02:transform10
+    100030: armedchair02:transform11
+    100032: armedchair02:transform12
+    100034: armedchair02:transform13
+    100036: armedchair02:transform14
+    100038: armedchair02:transform15
+    100040: armedchair02:transform16
+    100042: armedchair02:transform17
+    100044: armedchair02:transform18
+    100046: armedchair02:transform19
+    100048: armedchair02:transform2
+    100050: armedchair02:transform20
+    100052: armedchair02:transform21
+    100054: armedchair02:transform22
+    100056: armedchair02:transform3
+    100058: armedchair02:transform4
+    100060: armedchair02:transform5
+    100062: armedchair02:transform6
+    100064: armedchair02:transform7
+    100066: armedchair02:transform8
+    100068: armedchair02:transform9
+    100070: armrest_whole_lh
+    100072: armrest_whole_rh
+    100074: armrest_whole_rh 1
+    100076: armrestchair_whole
+    100078: back_rest
+    100080: chair_legs_front
+    100082: //RootNode
+    100084: front_leg_lh
+    100086: front_leg_rh
+    100088: polySurface18
+    100090: polySurface19
+    100092: seat_whole
+    100094: slatt_decor_back
+    100096: slatt_decor_front
+    100098: slatt_decor_lh
+    100100: slatt_decor_rh
+    100102: slatts_decor
+    100104: tower_whole_lh
+    100106: tower_whole_lh1
+    100108: tower_whole_rh
+    400000: arm_supports
+    400002: arm_supports_lh
+    400004: arm_supports_rh
+    400006: armedchair02:polySurface1
+    400008: armedchair02:polySurface11
+    400010: armedchair02:polySurface12
+    400012: armedchair02:polySurface13
+    400014: armedchair02:polySurface15
+    400016: armedchair02:polySurface16
+    400018: armedchair02:polySurface17
+    400020: armedchair02:polySurface8
+    400022: armedchair02:polySurface9
+    400024: armedchair02:slatt_decor_back
+    400026: armedchair02:transform1
+    400028: armedchair02:transform10
+    400030: armedchair02:transform11
+    400032: armedchair02:transform12
+    400034: armedchair02:transform13
+    400036: armedchair02:transform14
+    400038: armedchair02:transform15
+    400040: armedchair02:transform16
+    400042: armedchair02:transform17
+    400044: armedchair02:transform18
+    400046: armedchair02:transform19
+    400048: armedchair02:transform2
+    400050: armedchair02:transform20
+    400052: armedchair02:transform21
+    400054: armedchair02:transform22
+    400056: armedchair02:transform3
+    400058: armedchair02:transform4
+    400060: armedchair02:transform5
+    400062: armedchair02:transform6
+    400064: armedchair02:transform7
+    400066: armedchair02:transform8
+    400068: armedchair02:transform9
+    400070: armrest_whole_lh
+    400072: armrest_whole_rh
+    400074: armrest_whole_rh 1
+    400076: armrestchair_whole
+    400078: back_rest
+    400080: chair_legs_front
+    400082: //RootNode
+    400084: front_leg_lh
+    400086: front_leg_rh
+    400088: polySurface18
+    400090: polySurface19
+    400092: seat_whole
+    400094: slatt_decor_back
+    400096: slatt_decor_front
+    400098: slatt_decor_lh
+    400100: slatt_decor_rh
+    400102: slatts_decor
+    400104: tower_whole_lh
+    400106: tower_whole_lh1
+    400108: tower_whole_rh
+    2100000: lambert1
+    2300000: armedchair02:slatt_decor_back
+    3300000: armedchair02:slatt_decor_back
+    4300000: armedchair02:slatt_decor_back
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
