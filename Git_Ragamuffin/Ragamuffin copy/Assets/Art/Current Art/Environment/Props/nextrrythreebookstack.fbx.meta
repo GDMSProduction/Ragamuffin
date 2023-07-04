@@ -1,0 +1,190 @@
+fileFormatVersion: 2
+guid: 2ea319df64b46449f8e4a69ffa3e4eda
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: book30:pCube7
+    100002: book30:polySurface5
+    100004: book30:polySurface6
+    100006: book30:transform1
+    100008: //RootNode
+    100010: polySurface1
+    100012: polySurface12
+    100014: polySurface2
+    100016: polySurface7
+    100018: threebookstack:pCube7
+    100020: threebookstack:polySurface5
+    100022: threebookstack:polySurface6
+    100024: threebookstack:polySurface8
+    100026: threebookstack:transform1
+    100028: threebookstack:transform3
+    100030: threebookstack:transform4
+    100032: transform1
+    100034: transform2
+    100036: twobookstack:pCube7
+    100038: twobookstack:polySurface5
+    100040: twobookstack:polySurface6
+    100042: twobookstack:polySurface6 1
+    100044: twobookstack:transform1
+    100046: twobookstack:transform3
+    100048: twobookstack:transform4
+    400000: book30:pCube7
+    400002: book30:polySurface5
+    400004: book30:polySurface6
+    400006: book30:transform1
+    400008: //RootNode
+    400010: polySurface1
+    400012: polySurface12
+    400014: polySurface2
+    400016: polySurface7
+    400018: threebookstack:pCube7
+    400020: threebookstack:polySurface5
+    400022: threebookstack:polySurface6
+    400024: threebookstack:polySurface8
+    400026: threebookstack:transform1
+    400028: threebookstack:transform3
+    400030: threebookstack:transform4
+    400032: transform1
+    400034: transform2
+    400036: twobookstack:pCube7
+    400038: twobookstack:polySurface5
+    400040: twobookstack:polySurface6
+    400042: twobookstack:polySurface6 1
+    400044: twobookstack:transform1
+    400046: twobookstack:transform3
+    400048: twobookstack:transform4
+    2100000: aiStandardSurface1
+    2300000: book30:polySurface5
+    2300002: book30:polySurface6
+    2300004: polySurface1
+    2300006: polySurface12
+    2300008: polySurface2
+    2300010: polySurface7
+    3300000: book30:polySurface5
+    3300002: book30:polySurface6
+    3300004: polySurface1
+    3300006: polySurface12
+    3300008: polySurface2
+    3300010: polySurface7
+    4300000: book30:polySurface6
+    4300002: book30:polySurface5
+    4300004: polySurface7
+    4300006: polySurface12
+    4300008: polySurface1
+    4300010: polySurface2
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aiStandardSurface1
+    second: {fileID: 2100000, guid: f07d9197a940c436c894192d6c24a90f, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstack001_lambert1_BaseColor
+    second: {fileID: 2800000, guid: d21a30c84a4f14c7b9e4378f199f1fc2, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstack001_lambert1_Height
+    second: {fileID: 2800000, guid: 7f8d830758f904bab85aac3ea78b3b5b, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstack001_lambert1_Metallic
+    second: {fileID: 2800000, guid: 68fbb582b14a94286aac15703f311f98, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstack001_lambert1_Normal
+    second: {fileID: 2800000, guid: 2056cf18e13f34c55bea4e3d295eb05c, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: bookstack001_lambert1_Roughness
+    second: {fileID: 2800000, guid: 0cc54fb5ffe1a41528f30418b4e7bea8, type: 3}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
